@@ -1,0 +1,33 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint-config-airbnb"
+    ],
+    "rules": {
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/react-in-jsx-scope": 2,
+        "react/no-did-mount-set-state": 0,
+        "react/prefer-stateless-function": 0,
+        "react/jsx-filename-extension": 0,
+        "react/no-array-index-key": 0,
+        "react/require-default-props": 0,
+        "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "import/no-unresolved": ["error", { "ignore": [ "TourBar/" ]}],
+        "import/no-extraneous-dependencies": 0,
+        "indent": [2, 2, {"SwitchCase": 1}],
+        "no-use-before-define": ["error", { "functions": true, "classes": true }],
+        "no-shadow": 0
+    },
+    "globals": {
+        "__DEV__": false,
+        "Dimensions": false,
+        "require": false,
+        "fetch": false,
+        "WebSocket": false,
+        "FormData": false,
+        "XMLHttpRequest": false,
+        "requestAnimationFrame": false
+    }
+}

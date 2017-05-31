@@ -1,0 +1,42 @@
+{
+  "name": "csnative",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "base-64": "^0.1.0",
+    "react": "16.0.0-alpha.6",
+    "react-native": "^0.44.2",
+    "react-native-device-info": "^0.10.2",
+    "react-native-dropdownalert": "^2.8.0",
+    "react-native-extended-stylesheet": "^0.4.0",
+    "react-native-swiper": "^1.5.4",
+    "react-native-vector-icons": "^4.0.1",
+    "react-navigation": "git+https://github.com/react-community/react-navigation.git",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-persist": "^4.6.0",
+    "redux-thunk": "^2.2.0",
+    "tcomb-form-native": "^0.6.7"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.2",
+    "babel-jest": "19.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "jest": "19.0.2",
+    "react-test-renderer": "16.0.0-alpha.6"
+  }
+}
