@@ -7,19 +7,19 @@ import {
   Text,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
 
 // Components
 
-
 // Styles
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F8F8',
-  }
+  },
 });
 
 class Cart extends Component {
@@ -32,13 +32,6 @@ class Cart extends Component {
     );
   }
 }
-
-Cart.navigationOptions = (props) => {
-  return {
-    title: 'Cart',
-    //headerRight: <Text onPress={() => props.navigation.navigate('productsFilter')}>Filter</Text>
-  };
-};
 
 Cart.propTypes = {
   navigation: PropTypes.shape({}),

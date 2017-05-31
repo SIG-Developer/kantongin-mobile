@@ -3,6 +3,7 @@ import {
 
 const initialState = {
   items: [],
+  logged: false,
 };
 
 export default function (state = initialState, action) {

@@ -8,20 +8,19 @@ const initialState = {
   params: {
     page: 1,
   },
-  items: [],
+  items: {},
   fetching: false,
   hasMore: false,
 };
 
 let params = {};
-let items = [];
+let items = {};
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_PRODUCTS_REQUEST:
       return {
         ...state,
-        items: [],
         fetching: true,
       };
 

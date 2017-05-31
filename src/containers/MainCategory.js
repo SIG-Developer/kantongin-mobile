@@ -4,11 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
-  Text,
   FlatList,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -24,7 +22,7 @@ const styles = EStyleSheet.create({
   },
 });
 
-class Catalog extends Component {
+class MainCategory extends Component {
   constructor(props) {
     super(props);
 
@@ -45,7 +43,7 @@ class Catalog extends Component {
   }
 
   render() {
-    const { navigation, categoriesActions, categories } = this.props;
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
@@ -55,24 +53,22 @@ class Catalog extends Component {
           renderItem={item => (
             <CatalogListView
               category={item}
-              onPress={() => navigation.navigate('subCatalog', { category: item.item })}
+              onPress={() => navigation.navigate('Category', { category: item.item })}
             />
           )}
-          onRefresh={() => categoriesActions.fetch()}
-          refreshing={categories.fetching}
         />
       </View>
     );
   }
 }
 
-Catalog.navigationOptions = () => {
+MainCategory.navigationOptions = () => {
   return {
     title: 'Catalog',
   };
 };
 
-Catalog.propTypes = {
+MainCategory.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }),
@@ -90,8 +86,6 @@ export default connect(state => ({
   categories: state.categories,
 }),
   dispatch => ({
-    // productsActions: bindActionCreators(productsActions, dispatch),
     categoriesActions: bindActionCreators(categoriesActions, dispatch),
-    // cartActions: bindActionCreators(cartActions, dispatch),
   })
-)(Catalog);
+)(MainCategory);

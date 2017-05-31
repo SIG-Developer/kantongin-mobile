@@ -11,7 +11,7 @@ import {
 export function fetch(page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_CATEGORIES_REQUEST });
-    return axios.get(`/categories?items_per_page=500&page=${page}&subcats=Y&get_images=1`)
+    return axios.get(`/categories?items_per_page=0&page=${page}&get_images=1`)
       .then((response) => {
         dispatch({
           type: FETCH_CATEGORIES_SUCCESS,

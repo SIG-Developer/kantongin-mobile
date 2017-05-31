@@ -1,72 +1,85 @@
+import React from 'react';
 import {
   TabNavigator,
   StackNavigator,
 } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-import Catalog from './containers/Catalog';
+import MainCategory from './containers/MainCategory';
+import Categories from './containers/Categories';
 import Cart from './containers/Cart';
 import Products from './containers/Products';
-import WishList from './containers/WishList';
 import Profile from './containers/Profile';
 
-const ProductDetailNav = StackNavigator({
-  index: {
-    screen: Profile,
-    path: '/index'
-  },
-  ii: {
-    screen: Profile,
-    path: '/ii'
-  },
-}, {
-  initialRouteName: 'index',
-  mode: 'modal',
+const styles = EStyleSheet.create({
+  tabIcon: {
+    fontSize: '1.2rem',
+    color: 'black',
+  }
 });
 
-const CatalogNav = StackNavigator({
+const CatalogStack = StackNavigator({
   index: {
-    screen: Catalog,
+    screen: MainCategory,
     path: '/'
   },
-  products: {
+  Category: {
+    screen: Categories,
+    path: '/category/:id'
+  },
+  Products: {
     screen: Products,
     path: '/products'
   },
-  productDetail: {
-    screen: ProductDetailNav,
-    path: '/product/detail'
-  }
-});
-
-const CartNav = StackNavigator({
-  index: {
-    screen: Cart,
-    path: '/'
-  }
 });
 
 const AppNavigator = TabNavigator({
-  catalog: {
-    screen: CatalogNav,
-    path: '/catalog'
+  Catalog: {
+    screen: CatalogStack,
+    path: '/catalog',
+    navigationOptions: {
+      tabBarLabel: 'Catalog',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name={'bars'}
+          style={[styles.tabIcon, { color: tintColor }]}
+        />
+      ),
+    }
   },
-  cart: {
-    title: 'cart',
-    screen: CartNav,
-    path: '/cart'
+  Cart: {
+    screen: Cart,
+    path: '/cart',
+    navigationOptions: {
+      tabBarLabel: 'Cart',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name={'shopping-cart'}
+          style={[styles.tabIcon, { color: tintColor }]}
+        />
+      ),
+    }
   },
-  wishlist: {
-    title: 'wishlist',
-    screen: WishList,
-    path: '/wishlist'
-  },
-  profile: {
-    title: 'profile',
+  Profile: {
     screen: Profile,
-    path: '/profile'
+    path: '/profile',
+    navigationOptions: {
+      tabBarLabel: 'Profile',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name={'user'}
+          style={[styles.tabIcon, { color: tintColor }]}
+        />
+      ),
+    }
   },
 }, {
   swipeEnabled: true,
+  tabBarOptions: {
+    showLabel: false,
+  }
+
 });
 
 export default AppNavigator;

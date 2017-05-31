@@ -31,13 +31,6 @@ const styles = EStyleSheet.create({
 });
 
 class Catalog extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const headerTitle = navigation.state.params.category.category;
-    return {
-      headerTitle,
-    };
-  };
-
   constructor(props) {
     super(props);
 
