@@ -26,14 +26,11 @@ export default function (state = initialState, action) {
 
     case FETCH_PRODUCTS_SUCCESS:
       params = { ...action.payload.params };
-      items = [...action.payload.products];
+      items[params.cid] = [...action.payload.products];
       if (params.page > 1) {
-        items = [...state.items, ...action.payload.products];
+        items[params.cid] = [...state.items[params.cid], ...action.payload.products];
       }
-      // FIXME: cacart api return total_items as string
       return {
-        ...state,
-        params,
         items,
         hasMore: (params.items_per_page * params.page) < +params.total_items,
         fetching: false,

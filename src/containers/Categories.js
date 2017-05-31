@@ -6,7 +6,9 @@ import {
   View,
   Text,
   FlatList,
+  ScrollView,
   TouchableOpacity,
+  InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,6 +33,10 @@ const styles = EStyleSheet.create({
   },
   categoryText: {
     fontSize: '1rem',
+  },
+  productsListContainer: {
+    backgroundColor: 'red',
+    padding: 20,
   }
 });
 
@@ -47,20 +53,26 @@ class Categories extends Component {
   componentDidMount() {
     const { navigation, productsActions } = this.props;
     const category = navigation.state.params.category;
-    // console.log(category);
-    if (category.children.length) {
-      setTimeout(() => this.setState({ subCategories: category.children }), 200);
-    }
-    if (+category.product_count) {
+    InteractionManager.runAfterInteractions(() => {
+      if (category.children.length) {
+        this.setState({
+          subCategories: category.children,
+        });
+      }
       productsActions.fetchByCategory(category.category_id);
-    }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    // const { categories } = nextProps;
-    // this.setState({
-    //   items: categories.tree,
-    // });
+    const { navigation } = this.props;
+    const { products } = nextProps;
+    const category = navigation.state.params.category;
+    const categoryProducts = products.items[category.category_id];
+    if (categoryProducts) {
+      this.setState({
+        products: categoryProducts,
+      });
+    }
   }
 
   renderItem({ item }) {
@@ -75,25 +87,47 @@ class Categories extends Component {
   }
 
   renderHeader() {
+    const productsList = this.state.products.map(p => <View key={p.product_id}>
+      <Text>{p.product}</Text>
+    </View>);
     return (
-      <View style={{}}>
-        <Text>Header</Text>
-      </View>
+      <ScrollView
+        horizontal
+        style={styles.productsListContainer}
+      >
+        {productsList}
+      </ScrollView>
+    );
+  }
+
+  renderCategoriesWithProducts() {
+    const { categoriesActions, categories } = this.props;
+    return (
+      <FlatList
+        data={this.state.subCategories}
+        keyExtractor={item => item.category_id}
+        ListHeaderComponent={() => this.renderHeader()}
+        renderItem={i => this.renderItem(i)}
+        onRefresh={() => categoriesActions.fetch()}
+        refreshing={categories.fetching}
+      />
+    );
+  }
+
+  renderProductsList() {
+    const { products } = this.props;
+    return (
+      <Text>Pure products list</Text>
     );
   }
 
   render() {
-    const { categoriesActions, categories } = this.props;
     return (
       <View style={styles.container}>
-        <FlatList
-          data={this.state.subCategories}
-          keyExtractor={item => item.category_id}
-          ListHeaderComponent={() => this.renderHeader()}
-          renderItem={i => this.renderItem(i)}
-          onRefresh={() => categoriesActions.fetch()}
-          refreshing={categories.fetching}
-        />
+        {this.state.subCategories.length ?
+          this.renderCategoriesWithProducts() :
+          this.renderProductsList()
+        }
       </View>
     );
   }
@@ -113,6 +147,9 @@ Categories.propTypes = {
     items: PropTypes.array,
     tree: PropTypes.array,
   }),
+  products: PropTypes.shape({
+    items: PropTypes.object,
+  }),
   categoriesActions: PropTypes.shape({
     fetch: PropTypes.func,
   }),
@@ -124,6 +161,7 @@ Categories.propTypes = {
 export default connect(state => ({
   nav: state.nav,
   categories: state.categories,
+  products: state.products,
 }),
   dispatch => ({
     productsActions: bindActionCreators(productsActions, dispatch),
