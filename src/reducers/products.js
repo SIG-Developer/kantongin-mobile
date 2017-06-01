@@ -8,7 +8,9 @@ const initialState = {
   params: {
     page: 1,
   },
-  items: {},
+  items: {
+    122: []
+  },
   fetching: false,
   hasMore: false,
 };
@@ -26,11 +28,13 @@ export default function (state = initialState, action) {
 
     case FETCH_PRODUCTS_SUCCESS:
       params = { ...action.payload.params };
-      items[params.cid] = [...action.payload.products];
-      if (params.page > 1) {
+      if (params.page !== 1) {
         items[params.cid] = [...state.items[params.cid], ...action.payload.products];
+      } else {
+        items[params.cid] = [...action.payload.products];
       }
       return {
+        params,
         items,
         hasMore: (params.items_per_page * params.page) < +params.total_items,
         fetching: false,

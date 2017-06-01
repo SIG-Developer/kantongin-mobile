@@ -9,7 +9,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import MainCategory from './containers/MainCategory';
 import Categories from './containers/Categories';
 import Cart from './containers/Cart';
-import Products from './containers/Products';
 import Profile from './containers/Profile';
 
 const styles = EStyleSheet.create({
@@ -27,10 +26,6 @@ const CatalogStack = StackNavigator({
   Category: {
     screen: Categories,
     path: '/category/:id'
-  },
-  Products: {
-    screen: Products,
-    path: '/products'
   },
 });
 

@@ -12,7 +12,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import * as categoriesActions from '../actions/categoriesActions';
 
 // Components
-import CatalogListView from '../components/CatalogListView';
+import CategoryListView from '../components/CategoryListView';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -51,8 +51,9 @@ class MainCategory extends Component {
           keyExtractor={item => item.category_id}
           numColumns={2}
           renderItem={item => (
-            <CatalogListView
-              category={item}
+            <CategoryListView
+              category={item.item}
+              index={item.index}
               onPress={() => navigation.navigate('Category', { category: item.item })}
             />
           )}

@@ -6,19 +6,17 @@ import {
   View,
   Text,
   FlatList,
-  ScrollView,
-  TouchableOpacity,
   InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
 import * as productsActions from '../actions/productsActions';
 
 // Components
-import CatalogListView from '../components/CatalogListView';
+import CategoryListView from '../components/CategoryListView';
+import ProductListView from '../components/ProductListView';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -26,108 +24,114 @@ const styles = EStyleSheet.create({
     flex: 1,
     backgroundColor: '#F8F8F8',
   },
-  category: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dbdbdd',
+  subCategoriesContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
-  categoryText: {
-    fontSize: '1rem',
-  },
-  productsListContainer: {
-    backgroundColor: 'red',
-    padding: 20,
+  header: {
+    fontWeight: '500',
+    fontSize: '1.2rem',
+    paddingTop: 20,
+    paddingLeft: 10,
+    paddingBottom: 10,
   }
 });
 
 class Categories extends Component {
   constructor(props) {
     super(props);
+    this.activeCategoryId = 0;
 
     this.state = {
       products: [],
       subCategories: [],
+      refreshing: false,
     };
   }
 
   componentDidMount() {
-    const { navigation, productsActions } = this.props;
+    const { navigation, productsActions, products } = this.props;
     const category = navigation.state.params.category;
+    this.activeCategoryId = category.category_id;
+    const categoryProducts = products.items[this.activeCategoryId];
+    const newState = {};
     InteractionManager.runAfterInteractions(() => {
       if (category.children.length) {
-        this.setState({
-          subCategories: category.children,
-        });
+        newState.subCategories = category.children;
       }
-      productsActions.fetchByCategory(category.category_id);
+      if (categoryProducts) {
+        newState.refreshing = false;
+        newState.products = categoryProducts;
+      }
+      this.setState({
+        ...this.state,
+        ...newState,
+      }, () => productsActions.fetchByCategory(this.activeCategoryId));
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { navigation } = this.props;
     const { products } = nextProps;
-    const category = navigation.state.params.category;
-    const categoryProducts = products.items[category.category_id];
+    const categoryProducts = products.items[this.activeCategoryId];
     if (categoryProducts) {
       this.setState({
         products: categoryProducts,
+        refreshing: false,
       });
     }
   }
 
-  renderItem({ item }) {
-    const { navigation } = this.props;
-    return (
-      <TouchableOpacity onPress={() => navigation.navigate('Category', { category: item })}>
-        <View style={styles.category}>
-          <Text style={styles.categoryText}>{item.category}</Text>
-        </View>
-      </TouchableOpacity>
-    );
+  handleLoadMore() {
+    const { products, productsActions } = this.props;
+    if (products.hasMore && !products.fetching) {
+      productsActions.fetchByCategory(this.activeCategoryId, products.params.page + 1);
+    }
+  }
+
+  handleRefresh() {
+    const { productsActions } = this.props;
+    this.setState({
+      refreshing: true,
+    }, () => productsActions.fetchByCategory(this.activeCategoryId, 1));
   }
 
   renderHeader() {
-    const productsList = this.state.products.map(p => <View key={p.product_id}>
-      <Text>{p.product}</Text>
-    </View>);
+    const { navigation } = this.props;
+    const subCategoriesList = this.state.subCategories.map((item, index) => <CategoryListView
+      key={index}
+      category={item}
+      index={index}
+      onPress={() => navigation.navigate('Category', { category: item })}
+    />);
+    const productHeader = (<Text style={styles.header}>Products</Text>);
     return (
-      <ScrollView
-        horizontal
-        style={styles.productsListContainer}
-      >
-        {productsList}
-      </ScrollView>
-    );
-  }
-
-  renderCategoriesWithProducts() {
-    const { categoriesActions, categories } = this.props;
-    return (
-      <FlatList
-        data={this.state.subCategories}
-        keyExtractor={item => item.category_id}
-        ListHeaderComponent={() => this.renderHeader()}
-        renderItem={i => this.renderItem(i)}
-        onRefresh={() => categoriesActions.fetch()}
-        refreshing={categories.fetching}
-      />
-    );
-  }
-
-  renderProductsList() {
-    const { products } = this.props;
-    return (
-      <Text>Pure products list</Text>
+      <View>
+        <View style={styles.subCategoriesContainer}>
+          {subCategoriesList}
+        </View>
+        {this.state.subCategories.length !== 0 && productHeader}
+      </View>
     );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.subCategories.length ?
-          this.renderCategoriesWithProducts() :
-          this.renderProductsList()
-        }
+        <FlatList
+          data={this.state.products}
+          keyExtractor={item => +item.product_id}
+          ListHeaderComponent={() => this.renderHeader()}
+          numColumns={2}
+          renderItem={item => <ProductListView
+            product={item}
+            onPress={activeProduct => this.setState({ productModalVisible: true, activeProduct, })}
+          />}
+          onRefresh={() => this.handleRefresh()}
+          refreshing={this.state.refreshing}
+          onEndReached={() => this.handleLoadMore()}
+        />
       </View>
     );
   }
@@ -143,15 +147,8 @@ Categories.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }),
-  categories: PropTypes.shape({
-    items: PropTypes.array,
-    tree: PropTypes.array,
-  }),
   products: PropTypes.shape({
     items: PropTypes.object,
-  }),
-  categoriesActions: PropTypes.shape({
-    fetch: PropTypes.func,
   }),
   productsActions: PropTypes.shape({
     fetchByCategory: PropTypes.func,
@@ -166,6 +163,5 @@ export default connect(state => ({
   dispatch => ({
     productsActions: bindActionCreators(productsActions, dispatch),
     categoriesActions: bindActionCreators(categoriesActions, dispatch),
-    // cartActions: bindActionCreators(cartActions, dispatch),
   })
 )(Categories);

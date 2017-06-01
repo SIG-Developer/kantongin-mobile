@@ -39,10 +39,10 @@ const styles = EStyleSheet.create({
   }
 });
 
-class CatalogListView extends Component {
+class CategoryListView extends Component {
   render() {
-    const item = this.props.category.item;
-    const index = this.props.category.index;
+    const item = this.props.category;
+    const index = this.props.index;
     let imageUri = null;
     if ('main_pair' in item) {
       imageUri = item.main_pair.detailed.http_image_path;
@@ -61,12 +61,12 @@ class CatalogListView extends Component {
   }
 }
 
-CatalogListView.propTypes = {
+CategoryListView.propTypes = {
   category: PropTypes.shape({
     item: PropTypes.objetc,
-    index: PropTypes.number,
   }),
+  index: PropTypes.number,
   onPress: PropTypes.func,
 };
 
-export default CatalogListView;
+export default CategoryListView;

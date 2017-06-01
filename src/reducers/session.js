@@ -2,7 +2,6 @@ import {
 } from '../constants';
 
 const initialState = {
-  items: [],
   logged: false,
 };
 

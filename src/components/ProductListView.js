@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import { get } from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
@@ -44,13 +45,15 @@ const styles = EStyleSheet.create({
 class ProductListView extends Component {
   render() {
     const item = this.props.product.item;
+    const imageUri = get(item, 'main_pair.detailed.http_image_path');
+    //console.log(item.product_id);
     return (
       <TouchableOpacity onPress={() => this.props.onPress(item)}>
         <View style={styles.container}>
-          <Image
+          {imageUri && <Image
             style={styles.productImage}
-            source={{ uri: item.main_pair.detailed.http_image_path }}
-          />
+            source={{ uri: imageUri }}
+          />}
           <View style={styles.description}>
             <Text
               numberOfLines={1}
@@ -74,7 +77,8 @@ class ProductListView extends Component {
 ProductListView.propTypes = {
   product: PropTypes.shape({
     item: PropTypes.objetc,
-  })
+  }),
+  onPress: PropTypes.func,
 };
 
 export default ProductListView;
