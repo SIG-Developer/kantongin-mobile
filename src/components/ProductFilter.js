@@ -68,7 +68,7 @@ class ProductFilter extends Component {
           />
         </View>
         <DropdownAlert
-          ref={ref => this.dropdown = ref}
+          ref={(r) => { this.dropdown = r; }}
           onClose={data => this.onClose(data)}
         />
       </View>

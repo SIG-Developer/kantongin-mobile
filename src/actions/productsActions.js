@@ -27,7 +27,7 @@ export function fetch(page = 1) {
 export function fetchByCategory(categoryId, page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return axios.get(`/categories/${categoryId}/products?items_per_page=100&page=${page}&subcats=Y`)
+    return axios.get(`/categories/${categoryId}/products?items_per_page=100&page=${page}&subcats=Y&sl=ru`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,

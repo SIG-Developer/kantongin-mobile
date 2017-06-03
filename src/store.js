@@ -27,6 +27,6 @@ const store = createStore(
 // begin periodically persisting the store
 persistStore(store, { storage: AsyncStorage });
 
-AsyncStorage.clear();
+// AsyncStorage.clear();
 
 export default store;

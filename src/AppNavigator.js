@@ -18,6 +18,13 @@ const styles = EStyleSheet.create({
   }
 });
 
+const ProfileStack = StackNavigator({
+  index: {
+    screen: Profile,
+    path: '/'
+  }
+});
+
 const CatalogStack = StackNavigator({
   index: {
     screen: MainCategory,
@@ -57,7 +64,7 @@ const AppNavigator = TabNavigator({
     }
   },
   Profile: {
-    screen: Profile,
+    screen: ProfileStack,
     path: '/profile',
     navigationOptions: {
       tabBarLabel: 'Profile',
