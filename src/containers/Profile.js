@@ -14,6 +14,7 @@ import * as flashActions from '../actions/flashActions';
 
 // Components
 import LoginForm from '../components/LoginForm';
+import Spinner from '../components/Spinner';
 
 const styles = EStyleSheet.create({
   container: {
@@ -65,6 +66,7 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         { auth.logged ? this.renderProfileInfo() : this.renderLoginForm() }
+        <Spinner visible={auth.fetching} />
       </View>
     );
   }
