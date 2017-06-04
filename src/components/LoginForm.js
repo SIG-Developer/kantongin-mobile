@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -6,7 +7,6 @@ import {
 } from 'react-native';
 
 import * as t from 'tcomb-form-native';
-import DropdownAlert from 'react-native-dropdownalert';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
@@ -47,6 +47,11 @@ const options = {
 };
 
 export default class LoginForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    fetching: PropTypes.bool,
+  }
+
   handleLogin() {
     const value = this.refs.form.getValue();
     if (value) {
@@ -65,6 +70,7 @@ export default class LoginForm extends Component {
         <TouchableOpacity
           style={styles.btn}
           onPress={() => this.handleLogin()}
+          disabled={this.props.fetching}
         >
           <Text style={styles.btnText}>Login</Text>
         </TouchableOpacity>

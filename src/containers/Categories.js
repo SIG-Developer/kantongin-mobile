@@ -6,7 +6,6 @@ import {
   View,
   Text,
   FlatList,
-  InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -57,19 +56,17 @@ class Categories extends Component {
     this.activeCategoryId = category.category_id;
     const categoryProducts = products.items[this.activeCategoryId];
     const newState = {};
-    InteractionManager.runAfterInteractions(() => {
-      if (category.children.length) {
-        newState.subCategories = category.children;
-      }
-      if (categoryProducts) {
-        newState.refreshing = false;
-        newState.products = categoryProducts;
-      }
-      this.setState({
-        ...this.state,
-        ...newState,
-      }, () => productsActions.fetchByCategory(this.activeCategoryId));
-    });
+    if (category.children.length) {
+      newState.subCategories = category.children;
+    }
+    if (categoryProducts) {
+      newState.refreshing = false;
+      newState.products = categoryProducts;
+    }
+    this.setState({
+      ...this.state,
+      ...newState,
+    }, () => productsActions.fetchByCategory(this.activeCategoryId));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -140,6 +137,7 @@ class Categories extends Component {
 Categories.navigationOptions = ({ navigation }) => {
   return {
     title: `${navigation.state.params.category.category}`,
+    mode: 'modal',
   };
 };
 

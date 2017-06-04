@@ -10,12 +10,26 @@ import MainCategory from './containers/MainCategory';
 import Categories from './containers/Categories';
 import Cart from './containers/Cart';
 import Profile from './containers/Profile';
+import Offline from './containers/Offline';
 
 const styles = EStyleSheet.create({
   tabIcon: {
     fontSize: '1.2rem',
     color: 'black',
   }
+});
+
+const ModalsStack = StackNavigator({
+  index: {
+    screen: Profile,
+    path: '/'
+  },
+  Offline: {
+    screen: Offline,
+    path: '/offline',
+  }
+}, {
+  mode: 'modal',
 });
 
 const ProfileStack = StackNavigator({
@@ -81,7 +95,6 @@ const AppNavigator = TabNavigator({
   tabBarOptions: {
     showLabel: false,
   }
-
 });
 
 export default AppNavigator;

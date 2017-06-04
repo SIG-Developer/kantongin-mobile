@@ -8,15 +8,13 @@ const initialState = {
   params: {
     page: 1,
   },
-  items: {
-    122: []
-  },
+  items: {},
   fetching: false,
   hasMore: false,
 };
 
 let params = {};
-let items = {};
+const items = {};
 
 export default function (state = initialState, action) {
   switch (action.type) {

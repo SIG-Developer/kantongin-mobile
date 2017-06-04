@@ -2,20 +2,13 @@ import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_FAIL,
   FETCH_CATEGORIES_SUCCESS,
-
-  NEXT_CATEGORY,
-  PREV_CATEGORY
 } from '../constants';
 
 const initialState = {
   params: {},
   items: [],
-  activeId: '0',
-  path: [],
   fetching: false,
 };
-
-let newPath;
 
 function getCategoriesTree(categories, pid = 0) {
   const result = [];
@@ -48,21 +41,6 @@ export default function (state = initialState, action) {
         params: action.payload.params,
         tree: getCategoriesTree(action.payload.categories),
         fetching: false,
-      };
-
-    case NEXT_CATEGORY:
-      return {
-        ...state,
-        activeId: action.payload,
-        path: [...state.path, state.activeId],
-      };
-
-    case PREV_CATEGORY:
-      newPath = [...state.path];
-      return {
-        ...state,
-        activeId: newPath.pop(),
-        path: newPath,
       };
 
     case FETCH_CATEGORIES_FAIL:

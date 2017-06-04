@@ -3,11 +3,13 @@ import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAIL,
+  AUTH_RESET_STATE,
 } from '../constants';
 
 export function login(data) {
   return (dispatch) => {
     dispatch({ type: AUTH_LOGIN_REQUEST });
+
     return axios.post('/auth_tokens', data)
       .then((response) => {
         dispatch({
@@ -18,9 +20,13 @@ export function login(data) {
       .catch((error) => {
         dispatch({
           type: AUTH_LOGIN_FAIL,
-          error
+          payload: error.response.data,
         });
       });
   };
+}
+
+export function resetState() {
+  return dispatch => dispatch({ type: AUTH_RESET_STATE });
 }
 

@@ -10,6 +10,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
+import * as flashActions from '../actions/flashActions';
 
 // Components
 import LoginForm from '../components/LoginForm';
@@ -22,11 +23,33 @@ const styles = EStyleSheet.create({
 });
 
 class Profile extends Component {
+  static propTypes = {
+    authActions: PropTypes.shape({
+      login: PropTypes.func,
+    }),
+    flashActions: PropTypes.shape({
+      show: PropTypes.func,
+    }),
+    auth: PropTypes.shape({
+      logged: PropTypes.bool,
+      fetching: PropTypes.bool,
+    }),
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { auth, flashActions, authActions } = nextProps;
+
+    if (!auth.fetching && auth.error) {
+      flashActions.show({ title: 'Error', text: 'Wrong password' });
+      authActions.resetState();
+    }
+  }
 
   renderLoginForm() {
     return (
       <LoginForm
         onSubmit={data => this.props.authActions.login(data)}
+        fetching={this.props.auth.fetching}
       />
     );
   }
@@ -38,10 +61,10 @@ class Profile extends Component {
   }
 
   render() {
-    const { session } = this.props;
+    const { auth } = this.props;
     return (
       <View style={styles.container}>
-        {session.logged ? this.renderProfileInfo() : this.renderLoginForm() }
+        { auth.logged ? this.renderProfileInfo() : this.renderLoginForm() }
       </View>
     );
   }
@@ -55,9 +78,11 @@ Profile.navigationOptions = () => {
 
 export default connect(state => ({
   nav: state.nav,
-  session: state.session,
+  flash: state.flash,
+  auth: state.auth,
 }),
   dispatch => ({
     authActions: bindActionCreators(authActions, dispatch),
+    flashActions: bindActionCreators(flashActions, dispatch),
   })
 )(Profile);

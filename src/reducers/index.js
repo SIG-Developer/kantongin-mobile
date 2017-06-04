@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
 
 import nav from './nav';
-import categories from './categories';
-import products from './products';
 import cart from './cart';
-import session from './session';
+import auth from './auth';
+import flash from './flash';
+import products from './products';
+import categories from './categories';
 
 export default combineReducers({
   nav,
   cart,
-  session,
+  auth,
+  flash,
   products,
   categories,
 });
