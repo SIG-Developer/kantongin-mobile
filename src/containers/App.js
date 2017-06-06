@@ -86,8 +86,8 @@ class App extends Component {
     );
   }
 
-  handleFirstConnectivityChange(offline) {
-    this.setState({ offline });
+  handleFirstConnectivityChange(active) {
+    this.setState({ offline: !active });
   }
 
   handleCloseNotification() {

@@ -8,14 +8,16 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
   container: {
-    padding: 14,
+    padding: 10,
     width: '100%',
     position: 'absolute',
-    bottom: 30,
+    bottom: 48,
     backgroundColor: '#f55e5e',
   },
   msgText: {
     color: '#fff',
+    textAlign: 'center',
+    fontSize: '1rem',
   }
 });
 
