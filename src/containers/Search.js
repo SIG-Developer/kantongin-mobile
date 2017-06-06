@@ -22,24 +22,24 @@ const styles = EStyleSheet.create({
   },
 });
 
-class Cart extends Component {
+class Search extends Component {
   render() {
     const { cart, navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Cart asd</Text>
+        <Text>Search</Text>
       </View>
     );
   }
 }
 
-Cart.navigationOptions = () => {
+Search.navigationOptions = () => {
   return {
-    title: 'Cart',
+    title: 'SEARCH',
   };
 };
 
-Cart.propTypes = {
+Search.propTypes = {
   navigation: PropTypes.shape({}),
   cart: PropTypes.shape({}),
 };
@@ -53,4 +53,4 @@ export default connect(state => ({
   dispatch => ({
     cartActions: bindActionCreators(cartActions, dispatch),
   })
-)(Cart);
+)(Search);

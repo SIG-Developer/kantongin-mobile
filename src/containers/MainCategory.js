@@ -18,7 +18,7 @@ import CategoryListView from '../components/CategoryListView';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#FFF',
   },
 });
 
@@ -65,7 +65,7 @@ class MainCategory extends Component {
 
 MainCategory.navigationOptions = () => {
   return {
-    title: 'Catalog',
+    title: 'Catalog'.toUpperCase(),
   };
 };
 

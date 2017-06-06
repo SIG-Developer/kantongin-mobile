@@ -21,7 +21,7 @@ import ProductListView from '../components/ProductListView';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#FFF',
   },
   subCategoriesContainer: {
     flexDirection: 'row',
@@ -136,7 +136,7 @@ class Categories extends Component {
 
 Categories.navigationOptions = ({ navigation }) => {
   return {
-    title: `${navigation.state.params.category.category}`,
+    title: `${navigation.state.params.category.category}`.toUpperCase(),
     mode: 'modal',
   };
 };

@@ -11,13 +11,27 @@ import Categories from './containers/Categories';
 import Cart from './containers/Cart';
 import Profile from './containers/Profile';
 import Offline from './containers/Offline';
+import Search from './containers/Search';
 
 const styles = EStyleSheet.create({
   tabIcon: {
     fontSize: '1.2rem',
-    color: 'black',
+    color: 'red',
   }
 });
+
+const commonCardConfig = {
+  headerStyle: {
+    backgroundColor: '#FAFAFA',
+  },
+  headerTitleStyle: {
+    color: '#242424',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  headerBackTitle: ' ',
+  headerTintColor: '#242424'
+};
 
 const ModalsStack = StackNavigator({
   index: {
@@ -35,18 +49,37 @@ const ModalsStack = StackNavigator({
 const ProfileStack = StackNavigator({
   index: {
     screen: Profile,
-    path: '/'
+    path: '/',
+    navigationOptions: commonCardConfig,
+  }
+});
+
+const CartStack = StackNavigator({
+  index: {
+    screen: Cart,
+    path: '/',
+    navigationOptions: commonCardConfig,
+  }
+});
+
+const SearchStack = StackNavigator({
+  index: {
+    screen: Search,
+    path: '/',
+    navigationOptions: commonCardConfig,
   }
 });
 
 const CatalogStack = StackNavigator({
   index: {
     screen: MainCategory,
-    path: '/'
+    path: '/',
+    navigationOptions: commonCardConfig,
   },
   Category: {
     screen: Categories,
-    path: '/category/:id'
+    path: '/category/:id',
+    navigationOptions: commonCardConfig,
   },
 });
 
@@ -64,8 +97,21 @@ const AppNavigator = TabNavigator({
       ),
     }
   },
+  Search: {
+    screen: SearchStack,
+    path: '/search',
+    navigationOptions: {
+      tabBarLabel: 'Search',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name={'search'}
+          style={[styles.tabIcon, { color: tintColor }]}
+        />
+      ),
+    }
+  },
   Cart: {
-    screen: Cart,
+    screen: CartStack,
     path: '/cart',
     navigationOptions: {
       tabBarLabel: 'Cart',
@@ -94,6 +140,11 @@ const AppNavigator = TabNavigator({
   swipeEnabled: true,
   tabBarOptions: {
     showLabel: false,
+    inactiveTintColor: '#989898',
+    activeTintColor: '#242424',
+    style: {
+      backgroundColor: '#FAFAFA',
+    }
   }
 });
 
