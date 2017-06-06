@@ -23,6 +23,19 @@ const styles = EStyleSheet.create({
 });
 
 class MainCategory extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }),
+    categories: PropTypes.shape({
+      items: PropTypes.array,
+      tree: PropTypes.array,
+    }),
+    categoriesActions: PropTypes.shape({
+      fetch: PropTypes.func,
+    })
+  }
+
   constructor(props) {
     super(props);
 
@@ -67,19 +80,6 @@ MainCategory.navigationOptions = () => {
   return {
     title: 'Catalog'.toUpperCase(),
   };
-};
-
-MainCategory.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-  }),
-  categories: PropTypes.shape({
-    items: PropTypes.array,
-    tree: PropTypes.array,
-  }),
-  categoriesActions: PropTypes.shape({
-    fetch: PropTypes.func,
-  })
 };
 
 export default connect(state => ({

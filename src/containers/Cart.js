@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
+import * as modalsActions from '../actions/modalsActions';
 
 // Components
 
@@ -29,7 +30,7 @@ class Cart extends Component {
     return (
       <View style={styles.container}>
         <Text>Cart asd</Text>
-        <Button title='go' onPress={() => navigation.navigate('offline')} />
+        <Button title='go' onPress={() => this.props.modalsActions.show('Offline')} />
       </View>
     );
   }
@@ -48,11 +49,12 @@ Cart.propTypes = {
 
 export default connect(state => ({
   nav: state.nav,
-  products: state.products,
+  modals: state.modals,
   categories: state.categories,
   cart: state.cart,
 }),
   dispatch => ({
     cartActions: bindActionCreators(cartActions, dispatch),
+    modalsActions: bindActionCreators(modalsActions, dispatch),
   })
 )(Cart);

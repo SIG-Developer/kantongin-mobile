@@ -144,7 +144,7 @@ const AppNavigator = TabNavigator({
     }
   },
 }, {
-  swipeEnabled: true,
+  swipeEnabled: false,
   tabBarOptions: {
     showLabel: false,
     inactiveTintColor: '#989898',

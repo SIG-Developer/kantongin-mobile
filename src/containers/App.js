@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {
   Dimensions,
   View,
+  Modal,
+  Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,9 +14,13 @@ import DropdownAlert from 'react-native-dropdownalert';
 
 // Actions
 import * as flashActions from '../actions/flashActions';
+import * as modalsActions from '../actions/modalsActions';
 
 // Components
 import AppNavigator from '../AppNavigator';
+
+// Containers dor modals
+import Offline from './Offline';
 
 // Calcuate styles
 const { width } = Dimensions.get('window');
@@ -34,13 +40,22 @@ class App extends Component {
     flash: PropTypes.shape({
       notifications: PropTypes.arrayOf(PropTypes.object),
     }),
+    modals: PropTypes.shape({}),
     flashActions: PropTypes.shape({
+      show: PropTypes.func,
+      hide: PropTypes.func,
+    }),
+    modalsActions: PropTypes.shape({
       show: PropTypes.func,
       hide: PropTypes.func,
     }),
     dispatch: PropTypes.func,
     nav: PropTypes.shape({}),
   };
+
+  static defaultProps = {
+    modals: {},
+  }
 
   componentWillReceiveProps(nextProps) {
     const { flash } = nextProps;
@@ -58,7 +73,18 @@ class App extends Component {
     notify.onClose();
   }
 
+  renderModalContent(id) {
+    switch (id) {
+      case 'Offline':
+        return (<Offline />);
+
+      default:
+        return null;
+    }
+  }
+
   render() {
+    const { modals, modalsActions } = this.props;
     return (
       <View style={styles.container}>
         <AppNavigator
@@ -71,6 +97,16 @@ class App extends Component {
           ref={(r) => { this.dropdown = r; }}
           onClose={() => this.handleCloseNotification()}
         />
+        <Modal
+          animationType={modals.animation}
+          visible={modals.visible}
+          transparent
+          onRequestClose={() => {
+            modalsActions.hide();
+          }}
+        >
+          {this.renderModalContent(modals.id)}
+        </Modal>
       </View>
     );
   }
@@ -78,11 +114,13 @@ class App extends Component {
 
 export default connect(state => ({
   nav: state.nav,
-  dispatch: state.dispatch,
   flash: state.flash,
+  modals: state.modals,
+  dispatch: state.dispatch,
 }),
   dispatch => ({
     flashActions: bindActionCreators(flashActions, dispatch),
+    modalsActions: bindActionCreators(modalsActions, dispatch),
     dispatch,
   })
 )(App);

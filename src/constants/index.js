@@ -15,6 +15,9 @@ export const AUTH_RESET_STATE = 'AUTH_RESET_STATE';
 export const FLASH_SHOW = 'FLASH_SHOW';
 export const FLASH_HIDE = 'FLASH_HIDE';
 
+export const MODAL_SHOW = 'MODAL_SHOW';
+export const MODAL_HIDE = 'MODAL_HIDE';
+
 export const NEXT_CATEGORY = 'NEXT_CATEGORY';
 export const PREV_CATEGORY = 'PREV_CATEGORY';
 

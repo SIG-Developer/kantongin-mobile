@@ -39,6 +39,18 @@ const styles = EStyleSheet.create({
 });
 
 class Categories extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }),
+    products: PropTypes.shape({
+      items: PropTypes.object,
+    }),
+    productsActions: PropTypes.shape({
+      fetchByCategory: PropTypes.func,
+    })
+  };
+
   constructor(props) {
     super(props);
     this.activeCategoryId = 0;
@@ -139,18 +151,6 @@ Categories.navigationOptions = ({ navigation }) => {
     title: `${navigation.state.params.category.category}`.toUpperCase(),
     mode: 'modal',
   };
-};
-
-Categories.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-  }),
-  products: PropTypes.shape({
-    items: PropTypes.object,
-  }),
-  productsActions: PropTypes.shape({
-    fetchByCategory: PropTypes.func,
-  })
 };
 
 export default connect(state => ({
