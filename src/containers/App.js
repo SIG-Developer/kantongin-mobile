@@ -4,7 +4,7 @@ import {
   Dimensions,
   View,
   Modal,
-  Text,
+  NetInfo,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,9 +18,7 @@ import * as modalsActions from '../actions/modalsActions';
 
 // Components
 import AppNavigator from '../AppNavigator';
-
-// Containers dor modals
-import Offline from './Offline';
+import Offline from '../components/Offline';
 
 // Calcuate styles
 const { width } = Dimensions.get('window');
@@ -57,6 +55,21 @@ class App extends Component {
     modals: {},
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      offline: false,
+    };
+  }
+
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener(
+      'change',
+      this.handleFirstConnectivityChange.bind(this),
+    );
+  }
+
   componentWillReceiveProps(nextProps) {
     const { flash } = nextProps;
     // Show notifications
@@ -66,6 +79,17 @@ class App extends Component {
     }
   }
 
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this.handleFirstConnectivityChange,
+    );
+  }
+
+  handleFirstConnectivityChange(offline) {
+    this.setState({ offline });
+  }
+
   handleCloseNotification() {
     const { flash, flashActions } = this.props;
     const notify = flash.messages[0];
@@ -73,7 +97,7 @@ class App extends Component {
     notify.onClose();
   }
 
-  renderModalContent(id) {
+  renderModalContent = (id) => {
     switch (id) {
       case 'Offline':
         return (<Offline />);
@@ -81,7 +105,7 @@ class App extends Component {
       default:
         return null;
     }
-  }
+  };
 
   render() {
     const { modals, modalsActions } = this.props;
@@ -107,6 +131,7 @@ class App extends Component {
         >
           {this.renderModalContent(modals.id)}
         </Modal>
+        {this.state.offline && <Offline />}
       </View>
     );
   }

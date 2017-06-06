@@ -10,7 +10,6 @@ import MainCategory from './containers/MainCategory';
 import Categories from './containers/Categories';
 import Cart from './containers/Cart';
 import Profile from './containers/Profile';
-import Offline from './containers/Offline';
 import Search from './containers/Search';
 
 const styles = EStyleSheet.create({
@@ -33,18 +32,6 @@ const commonCardConfig = {
   headerTintColor: '#242424'
 };
 
-const ModalsStack = StackNavigator({
-  index: {
-    screen: Profile,
-    path: '/'
-  },
-  Offline: {
-    screen: Offline,
-    path: '/offline',
-  }
-}, {
-  mode: 'modal',
-});
 
 const ProfileStack = StackNavigator({
   index: {
@@ -60,13 +47,6 @@ const CartStack = StackNavigator({
     path: '/',
     navigationOptions: commonCardConfig,
   },
-  offline: {
-    screen: Offline,
-    path: '/offline',
-    navigationOptions: {
-      mode: 'modal'
-    }
-  }
 });
 
 const SearchStack = StackNavigator({
