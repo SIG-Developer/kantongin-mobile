@@ -59,6 +59,13 @@ const CartStack = StackNavigator({
     screen: Cart,
     path: '/',
     navigationOptions: commonCardConfig,
+  },
+  offline: {
+    screen: Offline,
+    path: '/offline',
+    navigationOptions: {
+      mode: 'modal'
+    }
   }
 });
 

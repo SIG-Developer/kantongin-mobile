@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  Button,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -28,6 +29,7 @@ class Cart extends Component {
     return (
       <View style={styles.container}>
         <Text>Cart asd</Text>
+        <Button title='go' onPress={() => navigation.navigate('offline')} />
       </View>
     );
   }
