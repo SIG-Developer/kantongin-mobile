@@ -126,6 +126,7 @@ class Categories extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
@@ -135,7 +136,7 @@ class Categories extends Component {
           numColumns={2}
           renderItem={item => <ProductListView
             product={item}
-            onPress={activeProduct => this.setState({ productModalVisible: true, activeProduct, })}
+            onPress={product => navigation.navigate('ProductDetail', { product })}
           />}
           onRefresh={() => this.handleRefresh()}
           refreshing={this.state.refreshing}

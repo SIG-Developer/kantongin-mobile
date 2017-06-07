@@ -145,7 +145,6 @@ export default connect(state => ({
 }),
   dispatch => ({
     flashActions: bindActionCreators(flashActions, dispatch),
-    modalsActions: bindActionCreators(modalsActions, dispatch),
     dispatch,
   })
 )(App);

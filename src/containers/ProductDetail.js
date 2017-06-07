@@ -5,15 +5,19 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  Image,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Swiper from 'react-native-swiper';
 
 // Import actions.
-import * as authActions from '../actions/authActions';
 import * as flashActions from '../actions/flashActions';
 
 // Components
-import LoginForm from '../components/LoginForm';
 import Spinner from '../components/Spinner';
 
 const styles = EStyleSheet.create({
@@ -21,52 +25,88 @@ const styles = EStyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  wrapper: {
+    marginTop: -10,
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  productImage: {
+    width: '100%',
+    height: 260,
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: 'red',
+  },
 });
 
 class ProductDetail extends Component {
   static propTypes = {
-    authActions: PropTypes.shape({
-      login: PropTypes.func,
-    }),
     flashActions: PropTypes.shape({
       show: PropTypes.func,
     }),
-    auth: PropTypes.shape({
-      logged: PropTypes.bool,
-      fetching: PropTypes.bool,
-    }),
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { auth, flashActions, authActions } = nextProps;
+  constructor(props) {
+    super(props);
 
-    if (!auth.fetching && auth.error) {
-      flashActions.show({ title: 'Error', text: 'Wrong password' });
-      authActions.resetState();
+    this.state = {
+      product: {},
+      images: [],
+    };
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    const product = navigation.state.params.product;
+    const images = [];
+    // If we haven't images put main image.
+    if ('image_pairs' in product) {
+      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
+    } else {
+      images.push(product.main_pair.detailed.image_path);
     }
-  }
-
-  renderLoginForm() {
-    return (
-      <LoginForm
-        onSubmit={data => this.props.authActions.login(data)}
-        fetching={this.props.auth.fetching}
-      />
-    );
-  }
-
-  renderProfileInfo() {
-    return (
-      <Text>ProductDetail will be here</Text>
-    );
+    this.setState({
+      images,
+      product,
+    });
   }
 
   render() {
-    const { auth } = this.props;
+    const { navigation } = this.props;
+    console.log(navigation);
+    const { product } = this.state;
+    const productImages = this.state.images.map((img, index) =>
+      <View style={styles.slide} key={index}>
+        <Image source={{ uri: img }} style={styles.productImage} />
+      </View>
+    );
     return (
       <View style={styles.container}>
-        { auth.logged ? this.renderProfileInfo() : this.renderLoginForm() }
-        <Spinner visible={auth.fetching} />
+        <StatusBar
+          animated
+          hidden
+        />
+        <ScrollView>
+          <Swiper
+            style={styles.wrapper}
+            horizontal
+            height={300}
+          >
+            {productImages}
+          </Swiper>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+          >
+            <Icon
+              name={'search'}
+              style={[styles.tabIcon]}
+            />
+          </TouchableOpacity>
+          <Text>{product.product}</Text>
+        </ScrollView>
       </View>
     );
   }
@@ -81,10 +121,9 @@ ProductDetail.navigationOptions = () => {
 export default connect(state => ({
   nav: state.nav,
   flash: state.flash,
-  auth: state.auth,
+  products: state.products,
 }),
   dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
     flashActions: bindActionCreators(flashActions, dispatch),
   })
 )(ProductDetail);
