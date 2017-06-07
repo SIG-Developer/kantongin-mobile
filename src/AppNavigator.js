@@ -11,6 +11,7 @@ import Categories from './containers/Categories';
 import Cart from './containers/Cart';
 import Profile from './containers/Profile';
 import Search from './containers/Search';
+import ProductDetail from './containers/ProductDetail';
 
 const styles = EStyleSheet.create({
   tabIcon: {
@@ -70,7 +71,7 @@ const CatalogStack = StackNavigator({
   },
 });
 
-const AppNavigator = TabNavigator({
+const HomeStack = TabNavigator({
   Catalog: {
     screen: CatalogStack,
     path: '/catalog',
@@ -133,6 +134,21 @@ const AppNavigator = TabNavigator({
       backgroundColor: '#FAFAFA',
     }
   }
+});
+
+const AppNavigator = StackNavigator({
+  Home: {
+    screen: HomeStack,
+    path: '/',
+  },
+  ProductDetail: {
+    screen: ProductDetail,
+    path: '/product/:id'
+  }
+}, {
+  mode: 'modal',
+  headerMode: 'none',
+  initialRouteName: 'Home',
 });
 
 export default AppNavigator;

@@ -30,7 +30,7 @@ class Cart extends Component {
     return (
       <View style={styles.container}>
         <Text>Cart asd</Text>
-        <Button title='go' onPress={() => this.props.modalsActions.show('Offline')} />
+        <Button title='go' onPress={() => navigation.navigate('ProductDetail')} />
       </View>
     );
   }
