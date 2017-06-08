@@ -26,7 +26,6 @@ const styles = EStyleSheet.create({
     backgroundColor: '#fff',
   },
   wrapper: {
-    marginTop: -10,
   },
   slide: {
     flex: 1,
@@ -35,11 +34,52 @@ const styles = EStyleSheet.create({
   },
   productImage: {
     width: '100%',
-    height: 260,
+    height: 280,
     resizeMode: 'contain',
-    borderWidth: 1,
-    borderColor: 'red',
   },
+  backBtn: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+  backIcon: {
+    fontSize: 36,
+    paddingRight: 2,
+    marginTop: -2,
+    color: '#fff',
+    backgroundColor: 'transparent',
+  },
+  descriptionBlock: {
+    marginTop: 10,
+    paddingTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F1F1'
+  },
+  nameText: {
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  priceText: {
+    fontSize: '1.1rem',
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center'
+  },
+  promoText: {
+    marginBottom: 10,
+    textAlign: 'center',
+  }
 });
 
 class ProductDetail extends Component {
@@ -76,7 +116,6 @@ class ProductDetail extends Component {
 
   render() {
     const { navigation } = this.props;
-    console.log(navigation);
     const { product } = this.state;
     const productImages = this.state.images.map((img, index) =>
       <View style={styles.slide} key={index}>
@@ -89,23 +128,28 @@ class ProductDetail extends Component {
           animated
           hidden
         />
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flex: 1 }}>
           <Swiper
             style={styles.wrapper}
             horizontal
-            height={300}
+            height={280}
           >
             {productImages}
           </Swiper>
           <TouchableOpacity
+            style={styles.backBtn}
             onPress={() => navigation.goBack()}
           >
             <Icon
-              name={'search'}
-              style={[styles.tabIcon]}
+              name={'angle-left'}
+              style={[styles.backIcon]}
             />
           </TouchableOpacity>
-          <Text>{product.product}</Text>
+          <View style={styles.descriptionBlock}>
+            <Text style={styles.nameText}>{product.product}</Text>
+            <Text style={styles.promoText}>{product.promo_text}</Text>
+            <Text style={styles.priceText}>${product.price}</Text>
+          </View>
         </ScrollView>
       </View>
     );
