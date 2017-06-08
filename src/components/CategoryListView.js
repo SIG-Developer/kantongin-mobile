@@ -18,6 +18,7 @@ const styles = EStyleSheet.create({
     position: 'relative',
     marginTop: 10,
     marginLeft: 10,
+    borderRadius: 6,
   },
   wrapperRight: {
     marginRight: 10,

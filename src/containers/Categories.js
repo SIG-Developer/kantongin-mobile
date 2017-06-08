@@ -6,6 +6,8 @@ import {
   View,
   Text,
   FlatList,
+  ActivityIndicator,
+  InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -30,11 +32,11 @@ const styles = EStyleSheet.create({
     flexWrap: 'wrap',
   },
   header: {
-    fontWeight: '500',
-    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    fontSize: '1.6rem',
     paddingTop: 20,
     paddingLeft: 10,
-    paddingBottom: 10,
+    paddingBottom: 20,
   }
 });
 
@@ -75,10 +77,13 @@ class Categories extends Component {
       newState.refreshing = false;
       newState.products = categoryProducts;
     }
-    this.setState({
-      ...this.state,
-      ...newState,
-    }, () => productsActions.fetchByCategory(this.activeCategoryId));
+
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        ...this.state,
+        ...newState,
+      }, () => productsActions.fetchByCategory(this.activeCategoryId));
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,23 +130,39 @@ class Categories extends Component {
     );
   }
 
-  render() {
+  renderSpinner = () => (
+    <View style={{ flex: 1 }}>
+      <ActivityIndicator
+        size={'large'}
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
+
+  renderList() {
     const { navigation } = this.props;
     return (
+      <FlatList
+        data={this.state.products}
+        keyExtractor={item => +item.product_id}
+        ListHeaderComponent={() => this.renderHeader()}
+        numColumns={2}
+        renderItem={item => <ProductListView
+          product={item}
+          onPress={product => navigation.navigate('ProductDetail', { product })}
+        />}
+        onRefresh={() => this.handleRefresh()}
+        refreshing={this.state.refreshing}
+        onEndReached={() => this.handleLoadMore()}
+      />
+    );
+  }
+
+  render() {
+    const { products } = this.props;
+    return (
       <View style={styles.container}>
-        <FlatList
-          data={this.state.products}
-          keyExtractor={item => +item.product_id}
-          ListHeaderComponent={() => this.renderHeader()}
-          numColumns={2}
-          renderItem={item => <ProductListView
-            product={item}
-            onPress={product => navigation.navigate('ProductDetail', { product })}
-          />}
-          onRefresh={() => this.handleRefresh()}
-          refreshing={this.state.refreshing}
-          onEndReached={() => this.handleLoadMore()}
-        />
+        {products.fetching ? this.renderSpinner() : this.renderList()}
       </View>
     );
   }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -55,22 +56,38 @@ class MainCategory extends Component {
     });
   }
 
-  render() {
+  renderSpinner = () => (
+    <View style={{ flex: 1 }}>
+      <ActivityIndicator
+        size={'large'}
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
+
+  renderList() {
     const { navigation } = this.props;
     return (
+      <FlatList
+        data={this.state.items}
+        keyExtractor={item => item.category_id}
+        numColumns={2}
+        renderItem={item => (
+          <CategoryListView
+            category={item.item}
+            index={item.index}
+            onPress={() => navigation.navigate('Category', { category: item.item })}
+          />
+        )}
+      />
+    );
+  }
+
+  render() {
+    const { categories } = this.props;
+    return (
       <View style={styles.container}>
-        <FlatList
-          data={this.state.items}
-          keyExtractor={item => item.category_id}
-          numColumns={2}
-          renderItem={item => (
-            <CategoryListView
-              category={item.item}
-              index={item.index}
-              onPress={() => navigation.navigate('Category', { category: item.item })}
-            />
-          )}
-        />
+        {categories.fetching ? this.renderSpinner() : this.renderList()}
       </View>
     );
   }
