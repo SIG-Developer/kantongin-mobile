@@ -26,6 +26,7 @@
     "redux-logger": "^3.0.1",
     "redux-persist": "^4.6.0",
     "redux-thunk": "^2.2.0",
+    "rn-splash-screen": "^4.0.0",
     "tcomb-form-native": "^0.6.7"
   },
   "devDependencies": {
