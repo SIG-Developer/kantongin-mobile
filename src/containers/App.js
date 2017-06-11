@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addNavigationHelpers } from 'react-navigation';
-import SplashScreen from "rn-splash-screen";
+import SplashScreen from 'rn-splash-screen';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DropdownAlert from 'react-native-dropdownalert';
 
@@ -25,7 +25,7 @@ import Offline from '../components/Offline';
 const { width } = Dimensions.get('window');
 EStyleSheet.build({
   rem: width > 340 ? 18 : 16,
-  //outline: 1,
+  // outline: 1,
 });
 
 const styles = EStyleSheet.create({
@@ -100,13 +100,14 @@ class App extends Component {
   }
 
   renderModalContent = (id) => {
-    switch (id) {
-      case 'Offline':
-        return (<Offline />);
+    // switch (id) {
+    //   case 'Offline':
+    //     return (<Offline />);
 
-      default:
-        return null;
-    }
+    //   default:
+    //     return null;
+    // }
+    return null;
   };
 
   render() {

@@ -46,28 +46,28 @@ class ProductListView extends Component {
   render() {
     const item = this.props.product.item;
     const imageUri = get(item, 'main_pair.detailed.http_image_path');
-    //console.log(item.product_id);
     return (
-      <TouchableOpacity onPress={() => this.props.onPress(item)}>
-        <View style={styles.container}>
-          {imageUri && <Image
-            style={styles.productImage}
-            source={{ uri: imageUri }}
-          />}
-          <View style={styles.description}>
-            <Text
-              numberOfLines={1}
-              style={styles.productName}
-            >
-              {item.product}
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={styles.productPrice}
-            >
-              {item.price}
-            </Text>
-          </View>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => this.props.onPress(item)}
+      >
+        {imageUri && <Image
+          style={styles.productImage}
+          source={{ uri: imageUri }}
+        />}
+        <View style={styles.description}>
+          <Text
+            numberOfLines={1}
+            style={styles.productName}
+          >
+            {item.product}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={styles.productPrice}
+          >
+            {item.price}
+          </Text>
         </View>
       </TouchableOpacity>
     );

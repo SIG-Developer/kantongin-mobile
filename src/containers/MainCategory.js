@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
+  Text,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
@@ -67,11 +68,12 @@ class MainCategory extends Component {
 
   renderList() {
     const { navigation } = this.props;
+    console.log('ok', this.state.items);
     return (
       <FlatList
+        numColumns={2}
         data={this.state.items}
         keyExtractor={item => item.category_id}
-        numColumns={2}
         renderItem={item => (
           <CategoryListView
             category={item.item}

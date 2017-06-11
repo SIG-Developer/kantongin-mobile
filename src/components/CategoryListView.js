@@ -50,12 +50,13 @@ class CategoryListView extends Component {
     }
     const oddStyle = index % 2 ? styles.wrapperRight : null;
     return (
-      <TouchableOpacity onPress={() => this.props.onPress(item)}>
-        <View style={styles.container}>
-          <View style={[styles.wrapper, oddStyle]}>
-            {imageUri && <Image source={{ uri: imageUri }} style={styles.categoryImage} />}
-            <Text numberOfLines={2} style={styles.categoryTitle}>{item.category}</Text>
-          </View>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => this.props.onPress(item)}
+      >
+        <View style={[styles.wrapper, oddStyle]}>
+          {imageUri && <Image source={{ uri: imageUri }} style={styles.categoryImage} />}
+          <Text numberOfLines={2} style={styles.categoryTitle}>{item.category}</Text>
         </View>
       </TouchableOpacity>
     );
