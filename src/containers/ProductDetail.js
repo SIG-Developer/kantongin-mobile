@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -18,7 +19,6 @@ import Swiper from 'react-native-swiper';
 import * as flashActions from '../actions/flashActions';
 
 // Components
-import Spinner from '../components/Spinner';
 
 const styles = EStyleSheet.create({
   container: {
@@ -112,6 +112,27 @@ class ProductDetail extends Component {
       images,
       product,
     });
+    axios
+      .get('/options/?product_id=12')
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  }
+
+  renderDesc() {
+    const { product } = this.state;
+    if (product.full_description) {
+      return (
+        <Text style={styles.promoText}>{product.full_description}</Text>
+      );
+    }
+    return null;
+  }
+
+  renderPrice() {
+    const { product } = this.state;
+    return (
+      <Text style={styles.priceText}>${product.price}</Text>
+    );
   }
 
   render() {
@@ -147,8 +168,8 @@ class ProductDetail extends Component {
           </TouchableOpacity>
           <View style={styles.descriptionBlock}>
             <Text style={styles.nameText}>{product.product}</Text>
-            <Text style={styles.promoText}>{product.promo_text}</Text>
-            <Text style={styles.priceText}>${product.price}</Text>
+            {this.renderDesc()}
+            {this.renderPrice()}
           </View>
         </ScrollView>
       </View>
