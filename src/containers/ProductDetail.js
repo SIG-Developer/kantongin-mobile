@@ -6,6 +6,7 @@ import {
   View,
   Text,
   Image,
+  Picker,
   StatusBar,
   ScrollView,
   TouchableOpacity,
@@ -84,9 +85,14 @@ const styles = EStyleSheet.create({
 
 class ProductDetail extends Component {
   static propTypes = {
-    flashActions: PropTypes.shape({
-      show: PropTypes.func,
+    navigation: PropTypes.shape({
+      state: PropTypes.Object,
     }),
+    products: PropTypes.shape({
+    }),
+    productsActions: PropTypes.shape({
+      fetchOptions: PropTypes.func,
+    })
   }
 
   constructor(props) {
@@ -99,29 +105,47 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    const { navigation, products, productsActions } = this.props;
+    const { navigation, productsActions } = this.props;
     const { pid, cid } = navigation.state.params;
     productsActions.fetchOptions(cid, pid);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('will', nextProps);
-    // const { products, navigation } = nextProps;
-    // const { pid, cid } = navigation.state.params;
-    // console.log(products, pid, cid);
-    // const product = products.items[cid].find(i => i.product_id === pid);
-    // const images = [];
-    // // If we haven't images put main image.
-    // if ('image_pairs' in product) {
-    //   Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
-    // } else {
-    //   images.push(product.main_pair.detailed.image_path);
-    // }
-    // console.log(images);
-    // this.setState({
-    //   images,
-    //   product,
-    // });
+    const { products, navigation } = nextProps;
+    const { pid, cid } = navigation.state.params;
+    const product = products.items[cid].find(i => i.product_id === pid);
+    const images = [];
+    // If we haven't images put main image.
+    if ('image_pairs' in product) {
+      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
+    } else {
+      images.push(product.main_pair.detailed.image_path);
+    }
+    this.setState({
+      images,
+      product,
+    });
+  }
+
+  renderImage() {
+    const { images } = this.state;
+    const productImages = images.map((img, index) =>
+      <View
+        style={styles.slide}
+        key={index}
+      >
+        <Image source={{ uri: img }} style={styles.productImage} />
+      </View>
+    );
+    return (
+      <Swiper
+        style={styles.wrapper}
+        horizontal
+        height={280}
+      >
+        {productImages}
+      </Swiper>
+    );
   }
 
   renderDesc() {
@@ -141,14 +165,75 @@ class ProductDetail extends Component {
     );
   }
 
+  renderOptionItem(item) {
+    switch (item.option_type) {
+      case 'S':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Selectbox</Text>
+          </View>
+        );
+
+      case 'R':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>RadioGroup</Text>
+          </View>
+        );
+
+      case 'C':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Checkbox</Text>
+          </View>
+        );
+
+      case 'I':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Text</Text>
+          </View>
+        );
+
+      case 'T':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Text area</Text>
+          </View>
+        );
+
+      case 'F':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>File</Text>
+          </View>
+        );
+      default:
+        return null;
+    }
+  }
+
+  renderOptions() {
+    const { product } = this.state;
+    if (!product.options) {
+      return null;
+    }
+    return (
+      <View style={styles.options}>
+        {product.options.map(o => this.renderOptionItem(o))}
+      </View>
+    );
+  }
+
   render() {
     const { navigation } = this.props;
     const { product } = this.state;
-    const productImages = this.state.images.map((img, index) =>
-      <View style={styles.slide} key={index}>
-        <Image source={{ uri: img }} style={styles.productImage} />
-      </View>
-    );
     return (
       <View style={styles.container}>
         <StatusBar
@@ -156,28 +241,23 @@ class ProductDetail extends Component {
           hidden
         />
         <ScrollView contentContainerStyle={{ flex: 1 }}>
-          <Swiper
-            style={styles.wrapper}
-            horizontal
-            height={280}
-          >
-            {productImages}
-          </Swiper>
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
-            <Icon
-              name={'angle-left'}
-              style={[styles.backIcon]}
-            />
-          </TouchableOpacity>
+          {this.renderImage()}
           <View style={styles.descriptionBlock}>
             <Text style={styles.nameText}>{product.product}</Text>
             {this.renderDesc()}
             {this.renderPrice()}
+            {this.renderOptions()}
           </View>
         </ScrollView>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+        >
+          <Icon
+            name={'angle-left'}
+            style={[styles.backIcon]}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -192,7 +272,8 @@ ProductDetail.navigationOptions = () => {
 export default connect(state => ({
   nav: state.nav,
   flash: state.flash,
-  products: state.product,
+  products: state.products,
+  categories: state.categories,
 }),
   dispatch => ({
     flashActions: bindActionCreators(flashActions, dispatch),

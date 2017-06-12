@@ -18,6 +18,7 @@ const initialState = {
 };
 
 let params = {};
+let options = {};
 let items = {};
 let product = {};
 let productIndex = {};
@@ -53,6 +54,7 @@ export default function (state = initialState, action) {
     case FETCH_PRODUCT_OPTIONS_REQUEST:
       return {
         ...state,
+        options: {},
         fetching: false,
       };
 
@@ -60,18 +62,20 @@ export default function (state = initialState, action) {
       items = { ...state.items };
       productIndex = items[action.payload.cid].findIndex(i => i.product_id === action.payload.pid);
       product = items[action.payload.cid][productIndex];
-      product.options = action.payload.options;
+      // FIXME: Brainfuck code to convert object to array.
+      options = Object.keys(action.payload.options).map(k => action.payload.options[k]);
+      product.options = options;
       items[action.payload.cid][productIndex] = product;
       return {
         ...state,
-        items: {},
+        items,
         fetching: false,
-        ya: true,
       };
 
     case FETCH_PRODUCT_OPTIONS_FAIL:
       return {
         ...state,
+        options: {},
         fetching: false,
       };
 
