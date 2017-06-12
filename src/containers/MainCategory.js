@@ -68,7 +68,6 @@ class MainCategory extends Component {
 
   renderList() {
     const { navigation } = this.props;
-    console.log('ok', this.state.items);
     return (
       <FlatList
         numColumns={2}

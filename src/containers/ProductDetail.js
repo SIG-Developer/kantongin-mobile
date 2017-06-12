@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -17,6 +16,7 @@ import Swiper from 'react-native-swiper';
 
 // Import actions.
 import * as flashActions from '../actions/flashActions';
+import * as productsActions from '../actions/productsActions';
 
 // Components
 
@@ -99,23 +99,29 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    const { navigation } = this.props;
-    const product = navigation.state.params.product;
-    const images = [];
-    // If we haven't images put main image.
-    if ('image_pairs' in product) {
-      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
-    } else {
-      images.push(product.main_pair.detailed.image_path);
-    }
-    this.setState({
-      images,
-      product,
-    });
-    axios
-      .get('/options/?product_id=12')
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
+    const { navigation, products, productsActions } = this.props;
+    const { pid, cid } = navigation.state.params;
+    productsActions.fetchOptions(cid, pid);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('will', nextProps);
+    // const { products, navigation } = nextProps;
+    // const { pid, cid } = navigation.state.params;
+    // console.log(products, pid, cid);
+    // const product = products.items[cid].find(i => i.product_id === pid);
+    // const images = [];
+    // // If we haven't images put main image.
+    // if ('image_pairs' in product) {
+    //   Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
+    // } else {
+    //   images.push(product.main_pair.detailed.image_path);
+    // }
+    // console.log(images);
+    // this.setState({
+    //   images,
+    //   product,
+    // });
   }
 
   renderDesc() {
@@ -186,9 +192,10 @@ ProductDetail.navigationOptions = () => {
 export default connect(state => ({
   nav: state.nav,
   flash: state.flash,
-  products: state.products,
+  products: state.product,
 }),
   dispatch => ({
     flashActions: bindActionCreators(flashActions, dispatch),
+    productsActions: bindActionCreators(productsActions, dispatch),
   })
 )(ProductDetail);

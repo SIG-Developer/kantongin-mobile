@@ -149,7 +149,10 @@ class Categories extends Component {
         numColumns={2}
         renderItem={item => <ProductListView
           product={item}
-          onPress={product => navigation.navigate('ProductDetail', { product })}
+          onPress={product => navigation.navigate('ProductDetail', {
+            pid: product.product_id,
+            cid: this.activeCategoryId,
+          })}
         />}
         onRefresh={() => this.handleRefresh()}
         refreshing={this.state.refreshing}

@@ -2,6 +2,10 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
+
+  FETCH_PRODUCT_OPTIONS_REQUEST,
+  FETCH_PRODUCT_OPTIONS_FAIL,
+  FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -14,7 +18,9 @@ const initialState = {
 };
 
 let params = {};
-const items = {};
+let items = {};
+let product = {};
+let productIndex = {};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -39,6 +45,31 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_PRODUCTS_FAIL:
+      return {
+        ...state,
+        fetching: false,
+      };
+
+    case FETCH_PRODUCT_OPTIONS_REQUEST:
+      return {
+        ...state,
+        fetching: false,
+      };
+
+    case FETCH_PRODUCT_OPTIONS_SUCCESS:
+      items = { ...state.items };
+      productIndex = items[action.payload.cid].findIndex(i => i.product_id === action.payload.pid);
+      product = items[action.payload.cid][productIndex];
+      product.options = action.payload.options;
+      items[action.payload.cid][productIndex] = product;
+      return {
+        ...state,
+        items: {},
+        fetching: false,
+        ya: true,
+      };
+
+    case FETCH_PRODUCT_OPTIONS_FAIL:
       return {
         ...state,
         fetching: false,

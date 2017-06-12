@@ -3,6 +3,10 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
+
+  FETCH_PRODUCT_OPTIONS_REQUEST,
+  FETCH_PRODUCT_OPTIONS_FAIL,
+  FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
 
 export function fetch(page = 1) {
@@ -37,6 +41,29 @@ export function fetchByCategory(categoryId, page = 1) {
       .catch((error) => {
         dispatch({
           type: FETCH_PRODUCTS_FAIL,
+          error
+        });
+      });
+  };
+}
+
+export function fetchOptions(cid, pid) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_PRODUCT_OPTIONS_REQUEST });
+    return axios.get(`/options/?product_id=${pid}`)
+      .then((response) => {
+        dispatch({
+          type: FETCH_PRODUCT_OPTIONS_SUCCESS,
+          payload: {
+            cid,
+            pid,
+            options: response.data,
+          },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: FETCH_PRODUCT_OPTIONS_FAIL,
           error
         });
       });
