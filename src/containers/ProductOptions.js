@@ -66,7 +66,7 @@ const styles = EStyleSheet.create({
   }
 });
 
-class ProductDetail extends Component {
+class ProductOptions extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       state: PropTypes.Object,
@@ -89,75 +89,63 @@ class ProductDetail extends Component {
 
   componentDidMount() {
     const { navigation, productsActions } = this.props;
-    const { pid, cid } = navigation.state.params;
-    InteractionManager.runAfterInteractions(() => {
-      productsActions.fetchOptions(cid, pid);
-    });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { products, navigation } = nextProps;
-    const { pid, cid } = navigation.state.params;
-    const product = products.items[cid].find(i => i.product_id === pid);
-    const images = [];
-    // If we haven't images put main image.
-    if ('image_pairs' in product) {
-      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
-    } else {
-      images.push(product.main_pair.detailed.image_path);
+  }
+
+  renderOptionItem(item) {
+    switch (item.option_type) {
+      case 'S':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            
+          </View>
+        );
+
+      case 'R':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>RadioGroup</Text>
+          </View>
+        );
+
+      case 'C':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Checkbox</Text>
+          </View>
+        );
+
+      case 'I':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Text</Text>
+          </View>
+        );
+
+      case 'T':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>Text area</Text>
+          </View>
+        );
+
+      case 'F':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            <Text>File</Text>
+          </View>
+        );
+      default:
+        return null;
     }
-    this.setState({
-      images,
-      product,
-    }, () => this.forceUpdate());
-  }
-
-  renderImage() {
-    const { images } = this.state;
-    const productImages = images.map((img, index) => (
-      <View
-        style={styles.slide}
-        key={index}
-      >
-        <Image source={{ uri: img }} style={styles.productImage} />
-      </View>
-    ));
-    return (
-      <Swiper
-        horizontal
-        height={300}
-        style={styles.wrapper}
-        removeClippedSubviews={false}
-      >
-        {productImages}
-      </Swiper>
-    );
-  }
-
-  renderName() {
-    const { product } = this.state;
-    return (
-      <Text style={styles.nameText}>
-        {product.product}
-      </Text>
-    );
-  }
-
-  renderDesc() {
-    const { product } = this.state;
-    if (product.full_description) {
-      return (
-        <Text style={styles.descText}>{product.full_description}</Text>
-      );
-    }
-    return null;
-  }
-
-  renderPrice() {
-    const { product } = this.state;
-    return (
-      <Text style={styles.priceText}>${parseFloat(product.price).toFixed(2)}</Text>
-    );
   }
 
   renderOptions() {
@@ -166,32 +154,22 @@ class ProductDetail extends Component {
       return null;
     }
     return (
-      <Text onPress={() => this.props.navigation.navigate('ProductOptions')} style={styles.options}>
-        Options
-      </Text>
+      <View style={styles.options}>
+        {product.options.map(o => this.renderOptionItem(o))}
+      </View>
     );
   }
 
   render() {
-    const { navigation } = this.props;
-    const { product } = this.state;
     return (
       <View style={styles.container}>
-        <ScrollView>
-          {this.renderImage()}
-          <View style={styles.descriptionBlock}>
-            {this.renderName()}
-            {this.renderPrice()}
-            {this.renderDesc()}
-            {this.renderOptions()}
-          </View>
-        </ScrollView>
+        <Text>Options</Text>
       </View>
     );
   }
 }
 
-ProductDetail.navigationOptions = ({ navigation }) => {
+ProductOptions.navigationOptions = ({ navigation }) => {
   return {
     title: `Product`.toUpperCase(),
   };
@@ -207,4 +185,4 @@ export default connect(state => ({
     flashActions: bindActionCreators(flashActions, dispatch),
     productsActions: bindActionCreators(productsActions, dispatch),
   })
-)(ProductDetail);
+)(ProductOptions);

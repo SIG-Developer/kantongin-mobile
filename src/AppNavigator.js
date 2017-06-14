@@ -12,6 +12,7 @@ import Cart from './containers/Cart';
 import Profile from './containers/Profile';
 import Search from './containers/Search';
 import ProductDetail from './containers/ProductDetail';
+import ProductOptions from './containers/ProductOptions';
 
 const styles = EStyleSheet.create({
   tabIcon: {
@@ -69,6 +70,11 @@ const CatalogStack = StackNavigator({
     path: '/category/:id',
     navigationOptions: commonCardConfig,
   },
+  ProductDetail: {
+    screen: ProductDetail,
+    path: '/product/:id',
+    navigationOptions: commonCardConfig,
+  }
 });
 
 const HomeStack = TabNavigator({
@@ -141,10 +147,10 @@ const AppNavigator = StackNavigator({
     screen: HomeStack,
     path: '/',
   },
-  ProductDetail: {
-    screen: ProductDetail,
-    path: '/product/:id'
-  }
+  ProductOptions: {
+    screen: ProductOptions,
+    path: '/options',
+  },
 }, {
   mode: 'modal',
   headerMode: 'none',
