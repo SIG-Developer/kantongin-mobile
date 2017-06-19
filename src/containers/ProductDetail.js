@@ -175,13 +175,22 @@ class ProductDetail extends Component {
   }
 
   renderOptionItem(item) {
+    const option = { ...item };
+    // FIXME: Brainfuck code to convert object to array.
+    option.variants = Object.keys(option.variants).map(k => option.variants[k]);
+    const defaultValue = option.variants[0];
+
     switch (item.option_type) {
       case 'S':
         return (
-          <View key={item.option_id}>
-            <Text>{item.option_name}</Text>
-            
-          </View>
+          <SelectOption
+            option={option}
+            value={defaultValue}
+            key={item.option_id}
+            onChange={val => {
+              console.log(val);
+            }}
+          />
         );
       default:
         return null;
@@ -196,9 +205,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.optionsContainer}>
         <View style={styles.optionsWrapper}>
-          <Text onPress={() => this.props.navigation.navigate('ProductOptions')} style={styles.options}>
-            Options
-          </Text>
+          {product.options.map(o => this.renderOptionItem(o))}
         </View>
       </View>
     );

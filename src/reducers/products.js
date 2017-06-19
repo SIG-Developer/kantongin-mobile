@@ -54,7 +54,6 @@ export default function (state = initialState, action) {
     case FETCH_PRODUCT_OPTIONS_REQUEST:
       return {
         ...state,
-        options: {},
         fetching: false,
       };
 
