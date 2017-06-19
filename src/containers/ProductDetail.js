@@ -19,7 +19,7 @@ import * as flashActions from '../actions/flashActions';
 import * as productsActions from '../actions/productsActions';
 
 // Components
-import Picker from '../components/Picker';
+import SelectOption from '../components/SelectOption';
 
 const styles = EStyleSheet.create({
   container: {
@@ -37,10 +37,10 @@ const styles = EStyleSheet.create({
     resizeMode: 'contain',
   },
   descriptionBlock: {
-    marginTop: 10,
     paddingTop: 10,
-    marginLeft: 14,
-    marginRight: 14,
+    marginTop: 10,
+    paddingLeft: 14,
+    paddingRight: 14,
     borderTopWidth: 1,
     borderTopColor: '#F1F1F1'
   },
@@ -58,11 +58,25 @@ const styles = EStyleSheet.create({
   promoText: {
     marginBottom: 10,
   },
-  options: {
-    borderTopWidth: 1,
-    borderTopColor: '#F1F1F1',
-    marginTop: 14,
-    paddingTop: 10,
+  optionsContainer: {
+    backgroundColor: '#EEEEEE',
+    paddingTop: 14,
+    paddingBottom: 14,
+    marginTop: 24,
+    marginBottom: 14,
+  },
+  optionsWrapper: {
+    padding: 14,
+    backgroundColor: '#fff',
+  },
+  addToCartBtn: {
+    backgroundColor: '#FF6008',
+    padding: 14,
+  },
+  addToCartBtnText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: '1rem',
   }
 });
 
@@ -160,15 +174,45 @@ class ProductDetail extends Component {
     );
   }
 
+  renderOptionItem(item) {
+    switch (item.option_type) {
+      case 'S':
+        return (
+          <View key={item.option_id}>
+            <Text>{item.option_name}</Text>
+            
+          </View>
+        );
+      default:
+        return null;
+    }
+  }
+
   renderOptions() {
     const { product } = this.state;
     if (!product.options) {
       return null;
     }
     return (
-      <Text onPress={() => this.props.navigation.navigate('ProductOptions')} style={styles.options}>
-        Options
-      </Text>
+      <View style={styles.optionsContainer}>
+        <View style={styles.optionsWrapper}>
+          <Text onPress={() => this.props.navigation.navigate('ProductOptions')} style={styles.options}>
+            Options
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderAddToCart() {
+    return (
+      <View style={styles.addToCartContainer}>
+        <TouchableOpacity style={styles.addToCartBtn}>
+          <Text style={styles.addToCartBtnText}>
+            Add to cart
+          </Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -183,9 +227,10 @@ class ProductDetail extends Component {
             {this.renderName()}
             {this.renderPrice()}
             {this.renderDesc()}
-            {this.renderOptions()}
           </View>
+          {this.renderOptions()}
         </ScrollView>
+        {this.renderAddToCart()}
       </View>
     );
   }

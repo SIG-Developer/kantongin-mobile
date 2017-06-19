@@ -12,7 +12,6 @@ import Cart from './containers/Cart';
 import Profile from './containers/Profile';
 import Search from './containers/Search';
 import ProductDetail from './containers/ProductDetail';
-import ProductOptions from './containers/ProductOptions';
 
 const styles = EStyleSheet.create({
   tabIcon: {
@@ -146,10 +145,6 @@ const AppNavigator = StackNavigator({
   Home: {
     screen: HomeStack,
     path: '/',
-  },
-  ProductOptions: {
-    screen: ProductOptions,
-    path: '/options',
   },
 }, {
   mode: 'modal',
