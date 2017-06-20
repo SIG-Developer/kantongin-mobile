@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
   InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -97,6 +98,7 @@ class ProductDetail extends Component {
 
     this.state = {
       product: {},
+      selectedOptions: {},
       images: [],
     };
   }
@@ -112,6 +114,7 @@ class ProductDetail extends Component {
   componentWillReceiveProps(nextProps) {
     const { products, navigation } = nextProps;
     const { pid, cid } = navigation.state.params;
+    const { selectedOptions } = this.state;
     const product = products.items[cid].find(i => i.product_id === pid);
     const images = [];
     // If we haven't images put main image.
@@ -120,10 +123,25 @@ class ProductDetail extends Component {
     } else {
       images.push(product.main_pair.detailed.image_path);
     }
+
+    // Add default option values.
+    if ('options' in product) {
+      const defaultOptions = { ...selectedOptions };
+      product.options.forEach((option) => {
+        const variants = Object.keys(option.variants).map(k => option.variants[k]);
+        if (selectedOptions[option.option_name] === undefined) {
+          defaultOptions[option.option_name] = variants[0];
+        }
+      });
+      this.setState({
+        selectedOptions: defaultOptions,
+      });
+    }
+
     this.setState({
       images,
       product,
-    }, () => this.forceUpdate());
+    });
   }
 
   renderImage() {
@@ -150,6 +168,9 @@ class ProductDetail extends Component {
 
   renderName() {
     const { product } = this.state;
+    if (!product.product) {
+      return null;
+    }
     return (
       <Text style={styles.nameText}>
         {product.product}
@@ -169,6 +190,9 @@ class ProductDetail extends Component {
 
   renderPrice() {
     const { product } = this.state;
+    if (!product.price) {
+      return null;
+    }
     return (
       <Text style={styles.priceText}>${parseFloat(product.price).toFixed(2)}</Text>
     );
@@ -176,9 +200,10 @@ class ProductDetail extends Component {
 
   renderOptionItem(item) {
     const option = { ...item };
+    const { selectedOptions } = this.state;
     // FIXME: Brainfuck code to convert object to array.
     option.variants = Object.keys(option.variants).map(k => option.variants[k]);
-    const defaultValue = option.variants[0];
+    const defaultValue = selectedOptions[option.option_name];
 
     switch (item.option_type) {
       case 'S':
@@ -187,9 +212,7 @@ class ProductDetail extends Component {
             option={option}
             value={defaultValue}
             key={item.option_id}
-            onChange={val => {
-              console.log(val);
-            }}
+            onChange={val => this.handleOptionChange(option.option_name, val)}
           />
         );
       default:
@@ -223,8 +246,17 @@ class ProductDetail extends Component {
     );
   }
 
+  handleOptionChange(name, val) {
+    const { selectedOptions } = this.state;
+    const newOptions = { ...selectedOptions };
+    newOptions[name] = val;
+    this.setState({
+      selectedOptions: newOptions,
+    });
+  }
+
   render() {
-    const { navigation } = this.props;
+    const { navigation, products } = this.props;
     const { product } = this.state;
     return (
       <View style={styles.container}>

@@ -37,8 +37,12 @@ const styles = EStyleSheet.create({
     fontWeight: 'bold',
     fontSize: '0.8rem',
   },
+  optionsItemBtnTextActive: {
+    color: '#fff',
+  },
   optionsItemActive: {
     backgroundColor: '#6d90b3',
+    borderColor: '#6d90b3',
   },
 });
 
@@ -76,22 +80,49 @@ export default class extends Component {
   }
 
   handleChange(value) {
+    // this.setState({ value });
     this.props.onChange(value);
   }
 
-  render() {
-    const { option, value } = this.props;
-    const optionsVariantsList = option.variants.map(v => (
+  renderActiveButton = v => (
+    <TouchableOpacity
+      key={v.variant_id}
+      style={[styles.optionsItem, styles.optionsItemActive]}
+      onPress={() => this.handleChange(v)}
+    >
+      <Text style={[styles.optionsItemBtnText, styles.optionsItemBtnTextActive]}>
+        {v.variant_name}
+      </Text>
+    </TouchableOpacity>
+  );
+
+  renderButton = v => {
+    return (
       <TouchableOpacity
         key={v.variant_id}
-        style={styles.optionsItem}
+        style={[styles.optionsItem]}
         onPress={() => this.handleChange(v)}
       >
         <Text style={styles.optionsItemBtnText}>
           {v.variant_name}
         </Text>
       </TouchableOpacity>
-    ));
+    );
+  };
+
+  render() {
+    const { option } = this.props;
+    const { value } = this.state;
+
+    if (!value || !option) {
+      return null;
+    }
+
+    const optionsVariantsList = option.variants.map((v) => {
+      return value.variant_id === v.variant_id ?
+      this.renderActiveButton(v) :
+      this.renderButton(v);
+    });
 
     return (
       <View style={styles.container}>
