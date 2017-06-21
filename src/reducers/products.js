@@ -73,14 +73,8 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_PRODUCT_OPTIONS_FAIL:
-      items = { ...state.items };
-      productIndex = items[action.payload.cid].findIndex(i => i.product_id === action.payload.pid);
-      product = items[action.payload.cid][productIndex];
-      product.options = [];
-      items[action.payload.cid][productIndex] = product;
       return {
         ...state,
-        items,
         fetching: false,
       };
 

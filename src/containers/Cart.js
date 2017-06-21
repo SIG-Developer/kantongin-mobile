@@ -38,7 +38,7 @@ class Cart extends Component {
 
 Cart.navigationOptions = () => {
   return {
-    title: 'Cart',
+    title: 'CART',
   };
 };
 

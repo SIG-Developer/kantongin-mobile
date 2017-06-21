@@ -5,6 +5,7 @@ import cart from './cart';
 import auth from './auth';
 import flash from './flash';
 import modals from './modals';
+import orders from './orders';
 import products from './products';
 import categories from './categories';
 
@@ -14,6 +15,7 @@ export default combineReducers({
   auth,
   flash,
   modals,
+  orders,
   products,
   categories,
 });

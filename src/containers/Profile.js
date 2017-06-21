@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import base64 from 'base-64';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,6 +12,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
+import * as ordersActions from '../actions/ordersActions';
 import * as flashActions from '../actions/flashActions';
 
 // Components
@@ -35,6 +38,13 @@ class Profile extends Component {
       logged: PropTypes.bool,
       fetching: PropTypes.bool,
     }),
+  }
+
+  componentDidMount() {
+    const { auth, ordersActions } = this.props;
+    if (auth.logged) {
+      ordersActions.fetch(auth.token);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +84,7 @@ class Profile extends Component {
 
 Profile.navigationOptions = () => {
   return {
-    title: 'Profile',
+    title: 'PROFILE',
   };
 };
 
@@ -86,5 +96,6 @@ export default connect(state => ({
   dispatch => ({
     authActions: bindActionCreators(authActions, dispatch),
     flashActions: bindActionCreators(flashActions, dispatch),
+    ordersActions: bindActionCreators(ordersActions, dispatch),
   })
 )(Profile);

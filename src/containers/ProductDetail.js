@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 
 // Import actions.
+import * as cartActions from '../actions/cartActions';
 import * as flashActions from '../actions/flashActions';
 import * as productsActions from '../actions/productsActions';
 
@@ -90,6 +91,12 @@ class ProductDetail extends Component {
     }),
     productsActions: PropTypes.shape({
       fetchOptions: PropTypes.func,
+    }),
+    cartActions: PropTypes.shape({
+      add: PropTypes.func,
+    }),
+    auth: PropTypes.shape({
+      token: PropTypes.string,
     })
   }
 
@@ -237,13 +244,36 @@ class ProductDetail extends Component {
   renderAddToCart() {
     return (
       <View style={styles.addToCartContainer}>
-        <TouchableOpacity style={styles.addToCartBtn}>
+        <TouchableOpacity
+          style={styles.addToCartBtn}
+          onPress={() => this.handleAddToCart()}
+        >
           <Text style={styles.addToCartBtnText}>
             Add to cart
           </Text>
         </TouchableOpacity>
       </View>
     );
+  }
+
+  handleAddToCart() {
+    const product = {
+      product_id: 12,
+      amount: 1,
+      product_options: {
+        3: 12,
+        4: 17,
+      },
+    };
+    this.props.cartActions.fetch(this.props.auth.token);
+    // this.props.cartActions.add(
+    //   this.props.auth.token,
+    //   {
+    //     products: {
+    //       [this.state.product.product_id]: product,
+    //     },
+    //   }
+    // );
   }
 
   handleOptionChange(name, val) {
@@ -283,6 +313,7 @@ ProductDetail.navigationOptions = ({ navigation }) => {
 
 export default connect(state => ({
   nav: state.nav,
+  auth: state.auth,
   flash: state.flash,
   products: state.products,
   categories: state.categories,
@@ -290,5 +321,6 @@ export default connect(state => ({
   dispatch => ({
     flashActions: bindActionCreators(flashActions, dispatch),
     productsActions: bindActionCreators(productsActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch),
   })
 )(ProductDetail);
