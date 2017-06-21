@@ -105,6 +105,7 @@ class ProductDetail extends Component {
 
     this.state = {
       product: {},
+      amount: 1,
       selectedOptions: {},
       images: [],
     };
@@ -114,7 +115,7 @@ class ProductDetail extends Component {
     const { navigation, productsActions } = this.props;
     const { pid, cid } = navigation.state.params;
     InteractionManager.runAfterInteractions(() => {
-      productsActions.fetchOptions(cid, pid);
+      productsActions.fetch(pid);
     });
   }
 
@@ -148,6 +149,37 @@ class ProductDetail extends Component {
     this.setState({
       images,
       product,
+    });
+  }
+
+  handleAddToCart() {
+    const productOptions = {};
+    const { product, selectedOptions, } = this.state;
+    // Convert product options to the option_id: variant_id array.
+    Object.keys(selectedOptions).forEach((k) => {
+      productOptions[selectedOptions[k].option_id] = selectedOptions[k].variant_id;
+    });
+
+    const productData = {
+      product_id: product.product_id,
+      amount: 1,
+      product_options: productOptions,
+    };
+    this.props.cartActions.add(
+      {
+        products: {
+          [this.state.product.product_id]: productData,
+        },
+      }
+    );
+  }
+
+  handleOptionChange(name, val) {
+    const { selectedOptions } = this.state;
+    const newOptions = { ...selectedOptions };
+    newOptions[name] = val;
+    this.setState({
+      selectedOptions: newOptions,
     });
   }
 
@@ -254,35 +286,6 @@ class ProductDetail extends Component {
         </TouchableOpacity>
       </View>
     );
-  }
-
-  handleAddToCart() {
-    const product = {
-      product_id: 12,
-      amount: 1,
-      product_options: {
-        3: 12,
-        4: 17,
-      },
-    };
-    this.props.cartActions.fetch(this.props.auth.token);
-    // this.props.cartActions.add(
-    //   this.props.auth.token,
-    //   {
-    //     products: {
-    //       [this.state.product.product_id]: product,
-    //     },
-    //   }
-    // );
-  }
-
-  handleOptionChange(name, val) {
-    const { selectedOptions } = this.state;
-    const newOptions = { ...selectedOptions };
-    newOptions[name] = val;
-    this.setState({
-      selectedOptions: newOptions,
-    });
   }
 
   render() {

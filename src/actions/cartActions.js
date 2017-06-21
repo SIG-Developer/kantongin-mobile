@@ -39,7 +39,7 @@ export function fetch(token) {
   };
 }
 
-export function add(token, params) {
+export function add(params) {
   return (dispatch) => {
     dispatch({ type: ADD_TO_CART_REQUEST });
     return axios({
