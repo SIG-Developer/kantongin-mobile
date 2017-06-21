@@ -27,6 +27,7 @@
     "redux-persist": "^4.6.0",
     "redux-thunk": "^2.2.0",
     "rn-splash-screen": "^4.0.0",
+    "striptags": "^3.0.1",
     "tcomb-form-native": "^0.6.9"
   },
   "devDependencies": {

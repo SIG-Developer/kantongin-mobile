@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import striptags from 'striptags';
 import {
   View,
   Text,
@@ -60,6 +61,10 @@ const styles = EStyleSheet.create({
   promoText: {
     marginBottom: 10,
   },
+  descText: {
+    marginTop: 10,
+    color: 'gray'
+  },
   optionsContainer: {
     backgroundColor: '#EEEEEE',
     paddingTop: 14,
@@ -115,7 +120,7 @@ class ProductDetail extends Component {
     const { navigation, productsActions } = this.props;
     const { pid, cid } = navigation.state.params;
     InteractionManager.runAfterInteractions(() => {
-      productsActions.fetch(pid);
+      productsActions.fetch(cid, pid);
     });
   }
 
@@ -124,9 +129,12 @@ class ProductDetail extends Component {
     const { pid, cid } = navigation.state.params;
     const { selectedOptions } = this.state;
     const product = products.items[cid].find(i => i.product_id === pid);
+    if (!product) {
+      return;
+    }
     const images = [];
     // If we haven't images put main image.
-    if ('image_pairs' in product) {
+    if ('image_pairs' in product && product.image_pairs.length) {
       Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
     } else {
       images.push(product.main_pair.detailed.image_path);
@@ -221,7 +229,9 @@ class ProductDetail extends Component {
     const { product } = this.state;
     if (product.full_description) {
       return (
-        <Text style={styles.descText}>{product.full_description}</Text>
+        <Text style={styles.descText}>
+          {striptags(product.full_description).replace(/\s/g, '')}
+        </Text>
       );
     }
     return null;

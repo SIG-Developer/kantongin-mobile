@@ -111,7 +111,10 @@ class App extends Component {
   };
 
   render() {
-    const { modals, modalsActions } = this.props;
+    const { modals, modalsActions, auth } = this.props;
+    if (!auth.rehydrated) {
+      return null;
+    }
     return (
       <View style={styles.container}>
         <AppNavigator
@@ -142,6 +145,7 @@ class App extends Component {
 
 export default connect(state => ({
   nav: state.nav,
+  auth: state.auth,
   flash: state.flash,
   modals: state.modals,
   dispatch: state.dispatch,

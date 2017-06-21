@@ -14,15 +14,44 @@ import {
   FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
 
-export function fetch(pid) {
+export function fetchOptions(cid, pid) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_PRODUCT_OPTIONS_REQUEST });
+    return axios.get(`/options/?product_id=${pid}`)
+      .then((response) => {
+        dispatch({
+          type: FETCH_PRODUCT_OPTIONS_SUCCESS,
+          payload: {
+            cid,
+            pid,
+            options: response.data,
+          },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: FETCH_PRODUCT_OPTIONS_FAIL,
+          error
+        });
+      });
+  };
+}
+
+export function fetch(cid, pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_ONE_PRODUCT_REQUEST });
     return axios.get(`/products/${pid}?sl=${lang}`)
       .then((response) => {
         dispatch({
           type: FETCH_ONE_PRODUCT_SUCCESS,
-          payload: response.data,
+          payload: {
+            cid,
+            pid,
+            product: response.data,
+          },
         });
+        // get options.
+        setTimeout(() => fetchOptions(cid, pid)(dispatch), 100);
       })
       .catch((error) => {
         dispatch({
@@ -46,29 +75,6 @@ export function fetchByCategory(categoryId, page = 1) {
       .catch((error) => {
         dispatch({
           type: FETCH_PRODUCTS_FAIL,
-          error
-        });
-      });
-  };
-}
-
-export function fetchOptions(cid, pid) {
-  return (dispatch) => {
-    dispatch({ type: FETCH_PRODUCT_OPTIONS_REQUEST });
-    return axios.get(`/options/?product_id=${pid}`)
-      .then((response) => {
-        dispatch({
-          type: FETCH_PRODUCT_OPTIONS_SUCCESS,
-          payload: {
-            cid,
-            pid,
-            options: response.data,
-          },
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: FETCH_PRODUCT_OPTIONS_FAIL,
           error
         });
       });

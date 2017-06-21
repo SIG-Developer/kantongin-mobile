@@ -1,3 +1,4 @@
+import { REHYDRATE } from 'redux-persist/constants';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -9,7 +10,7 @@ const initialState = {
   token: null,
   ttl: null,
   logged: false,
-
+  rehydrated: false,
   fetching: false,
   error: null,
   errorStatus: null,
@@ -17,6 +18,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+
+    case REHYDRATE:
+      return {
+        ...state,
+        ...action.payload,
+        rehydrated: true,
+      };
 
     case AUTH_LOGIN_REQUEST:
       return {

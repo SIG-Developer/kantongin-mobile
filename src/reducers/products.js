@@ -55,6 +55,24 @@ export default function (state = initialState, action) {
         fetching: false,
       };
 
+    case FETCH_ONE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        fetching: true,
+      };
+
+    case FETCH_ONE_PRODUCT_SUCCESS:
+      items = { ...state.items };
+      productIndex = items[action.payload.cid].findIndex(i => i.product_id == action.payload.pid);
+      product = { ...items[action.payload.cid][productIndex], ...action.payload.product };
+      items[action.payload.cid][productIndex] = product;
+      return {
+        ...state,
+        items,
+        fetching: true,
+      };
+
+
     case FETCH_PRODUCT_OPTIONS_REQUEST:
       return {
         ...state,
@@ -63,7 +81,7 @@ export default function (state = initialState, action) {
 
     case FETCH_PRODUCT_OPTIONS_SUCCESS:
       items = { ...state.items };
-      productIndex = items[action.payload.cid].findIndex(i => i.product_id === action.payload.pid);
+      productIndex = items[action.payload.cid].findIndex(i => i.product_id == action.payload.pid);
       product = items[action.payload.cid][productIndex];
       // FIXME: Brainfuck code to convert object to array.
       options = Object.keys(action.payload.options).map(k => action.payload.options[k]);
@@ -77,6 +95,7 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_PRODUCT_OPTIONS_FAIL:
+    case FETCH_ONE_PRODUCT_FAIL:
       return {
         ...state,
         fetching: false,

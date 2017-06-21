@@ -147,13 +147,13 @@ class Categories extends Component {
         keyExtractor={item => +item.product_id}
         ListHeaderComponent={() => this.renderHeader()}
         numColumns={2}
-        renderItem={item => <ProductListView
+        renderItem={item => (<ProductListView
           product={item}
           onPress={product => navigation.navigate('ProductDetail', {
             pid: product.product_id,
             cid: this.activeCategoryId,
           })}
-        />}
+        />)}
         onRefresh={() => this.handleRefresh()}
         refreshing={this.state.refreshing}
         onEndReached={() => this.handleLoadMore()}
