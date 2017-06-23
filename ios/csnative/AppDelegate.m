@@ -25,8 +25,6 @@
                                                       moduleName:@"csnative"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  // Show splash screen (rn-splash-screen)
-  [RCTSplashScreen show:rootView];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
@@ -35,6 +33,9 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  // Show splash screen (rn-splash-screen)
+  [RCTSplashScreen show:rootView];
   return YES;
 }
 
