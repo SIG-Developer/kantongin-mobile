@@ -25,7 +25,10 @@ const store = createStore(
 );
 
 // begin periodically persisting the store
-persistStore(store, { storage: AsyncStorage });
+persistStore(store, {
+  blacklist: ['nav', 'products'],
+  storage: AsyncStorage
+});
 
 // AsyncStorage.clear();
 

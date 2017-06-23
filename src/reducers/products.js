@@ -66,6 +66,7 @@ export default function (state = initialState, action) {
       productIndex = items[action.payload.cid].findIndex(i => i.product_id == action.payload.pid);
       product = { ...items[action.payload.cid][productIndex], ...action.payload.product };
       items[action.payload.cid][productIndex] = product;
+      console.log(productIndex, items[action.payload.cid][productIndex]);
       return {
         ...state,
         items,

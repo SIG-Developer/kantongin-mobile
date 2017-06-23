@@ -9,7 +9,6 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -128,7 +127,8 @@ class ProductDetail extends Component {
     const { products, navigation } = nextProps;
     const { pid, cid } = navigation.state.params;
     const { selectedOptions } = this.state;
-    const product = products.items[cid].find(i => i.product_id === pid);
+    const product = products.items[cid].find(i => i.product_id == pid);
+    console.log('product', products.items[cid], product, pid, cid);
     if (!product) {
       return;
     }
@@ -153,7 +153,6 @@ class ProductDetail extends Component {
         selectedOptions: defaultOptions,
       });
     }
-
     this.setState({
       images,
       product,
