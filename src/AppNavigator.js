@@ -1,9 +1,12 @@
 import React from 'react';
 import {
+  View,
+  Text,
+} from 'react-native';
+import {
   TabNavigator,
   StackNavigator,
 } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import MainCategory from './containers/MainCategory';
@@ -12,13 +15,8 @@ import Cart from './containers/Cart';
 import Profile from './containers/Profile';
 import Search from './containers/Search';
 import ProductDetail from './containers/ProductDetail';
+import TabIcon from './components/TabIcon';
 
-const styles = EStyleSheet.create({
-  tabIcon: {
-    fontSize: '1.2rem',
-    color: 'red',
-  }
-});
 
 const commonCardConfig = {
   headerStyle: {
@@ -83,9 +81,9 @@ const HomeStack = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Catalog',
       tabBarIcon: ({ tintColor }) => (
-        <Icon
-          name={'bars'}
-          style={[styles.tabIcon, { color: tintColor }]}
+        <TabIcon
+          name="bars"
+          style={{ color: tintColor }}
         />
       ),
     }
@@ -96,9 +94,9 @@ const HomeStack = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Search',
       tabBarIcon: ({ tintColor }) => (
-        <Icon
+        <TabIcon
           name={'search'}
-          style={[styles.tabIcon, { color: tintColor }]}
+          style={{ color: tintColor }}
         />
       ),
     }
@@ -109,9 +107,9 @@ const HomeStack = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Cart',
       tabBarIcon: ({ tintColor }) => (
-        <Icon
+        <TabIcon
           name={'shopping-cart'}
-          style={[styles.tabIcon, { color: tintColor }]}
+          style={{ color: tintColor }}
         />
       ),
     }
@@ -122,9 +120,9 @@ const HomeStack = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Profile',
       tabBarIcon: ({ tintColor }) => (
-        <Icon
+        <TabIcon
           name={'user'}
-          style={[styles.tabIcon, { color: tintColor }]}
+          style={{ color: tintColor }}
         />
       ),
     }

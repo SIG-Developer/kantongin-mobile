@@ -1,19 +1,57 @@
 import {
-  ADD_TO_CART,
-  REMOVE_FROM_CART,
+  CART_REQUEST,
+  CART_SUCCESS,
+  CART_FAIL,
+
+  ADD_TO_CART_REQUEST,
+  ADD_TO_CART_SUCCESS,
+  ADD_TO_CART_FAIL,
 } from '../constants';
 
 const initialState = {
-  items: [],
+  amount: 0,
+  products: [],
+  ids: [],
+  fetching: false,
 };
+
+let newState = {};
 
 export default function (state = initialState, action) {
   switch (action.type) {
 
-    case ADD_TO_CART:
+    case ADD_TO_CART_REQUEST:
       return {
         ...state,
-        items: [...state.items, action.payload],
+        fetching: true,
+      };
+
+    case ADD_TO_CART_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case ADD_TO_CART_FAIL:
+      return {
+        ...state,
+      };
+
+    case CART_REQUEST:
+      return {
+        ...state,
+      };
+
+    case CART_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        fetching: false,
+      };
+
+    case CART_FAIL:
+      return {
+        ...state,
+        fetching: false,
       };
 
     default:

@@ -23,6 +23,7 @@ import * as productsActions from '../actions/productsActions';
 
 // Components
 import SelectOption from '../components/SelectOption';
+import Spinner from '../components/Spinner';
 
 const styles = EStyleSheet.create({
   container: {
@@ -97,6 +98,9 @@ class ProductDetail extends Component {
     productsActions: PropTypes.shape({
       fetchOptions: PropTypes.func,
     }),
+    flashActions: PropTypes.shape({
+      show: PropTypes.func,
+    }),
     cartActions: PropTypes.shape({
       add: PropTypes.func,
     }),
@@ -136,10 +140,9 @@ class ProductDetail extends Component {
     }
     const images = [];
     // If we haven't images put main image.
-    if ('image_pairs' in product && product.image_pairs.length) {
-      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
-    } else {
+    if ('image_pairs' in product) {
       images.push(product.main_pair.detailed.image_path);
+      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
     }
 
     // Add default option values.
@@ -164,22 +167,29 @@ class ProductDetail extends Component {
 
   handleAddToCart() {
     const productOptions = {};
-    const { product, selectedOptions, } = this.state;
+    const { product, selectedOptions } = this.state;
+    const { auth, flashActions } = this.props;
     // Convert product options to the option_id: variant_id array.
     Object.keys(selectedOptions).forEach((k) => {
       productOptions[selectedOptions[k].option_id] = selectedOptions[k].variant_id;
     });
 
-    const productData = {
-      product_id: product.product_id,
-      amount: 1,
-      product_options: productOptions,
+    const products = {
+      [this.state.product.product_id]: {
+        product_id: product.product_id,
+        amount: 1,
+        product_options: productOptions,
+      },
     };
     this.props.cartActions.add(
-      {
-        products: {
-          [this.state.product.product_id]: productData,
-        },
+      { products },
+      auth.token,
+      () => {
+        flashActions.show({
+          type: 'success',
+          title: 'Success',
+          text: 'The product was added to your cart.'
+        });
       }
     );
   }
@@ -232,7 +242,7 @@ class ProductDetail extends Component {
     if (product.full_description) {
       return (
         <Text style={styles.descText}>
-          {striptags(product.full_description).replace(/\s/g, '')}
+          {striptags(product.full_description).trimLeft()}
         </Text>
       );
     }
@@ -311,6 +321,7 @@ class ProductDetail extends Component {
 
   render() {
     const { fetching } = this.state;
+    const { cart } = this.props;
     if (fetching) {
       return this.renderSpinner();
     }
@@ -326,6 +337,7 @@ class ProductDetail extends Component {
           {this.renderOptions()}
         </ScrollView>
         {this.renderAddToCart()}
+        <Spinner visible={cart.fetching} />
       </View>
     );
   }
@@ -340,6 +352,7 @@ ProductDetail.navigationOptions = ({ navigation }) => {
 export default connect(state => ({
   nav: state.nav,
   auth: state.auth,
+  cart: state.cart,
   flash: state.flash,
   products: state.products,
   categories: state.categories,

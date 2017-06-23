@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import base64 from 'base-64';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

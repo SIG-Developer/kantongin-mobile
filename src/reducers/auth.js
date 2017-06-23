@@ -22,7 +22,6 @@ export default function (state = initialState, action) {
     case REHYDRATE:
       return {
         ...state,
-        ...action.payload,
         rehydrated: true,
       };
 
