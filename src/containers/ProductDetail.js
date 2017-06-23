@@ -106,7 +106,10 @@ class ProductDetail extends Component {
     }),
     auth: PropTypes.shape({
       token: PropTypes.string,
-    })
+    }),
+    cart: PropTypes.shape({
+      fetching: PropTypes.boolean,
+    }),
   }
 
   constructor(props) {

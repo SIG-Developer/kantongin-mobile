@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -10,10 +11,15 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const styles = EStyleSheet.create({
   container: {
     width: '100%',
-    marginBottom: 10,
+    marginBottom: 14,
   },
   title: {
-    fontSize: '1rem',
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+  },
+  titleSub: {
+    fontWeight: 'normal',
+    color: 'gray',
   },
   optionsList: {},
   optionsVariants: {
@@ -22,11 +28,11 @@ const styles = EStyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'baseline',
     flexWrap: 'wrap',
-    marginTop: 5,
+    marginTop: 8,
   },
   optionsItem: {
     padding: 8,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#EEEEEE',
     borderRadius: 3,
     marginBottom: 6,
@@ -38,11 +44,14 @@ const styles = EStyleSheet.create({
     fontSize: '0.8rem',
   },
   optionsItemBtnTextActive: {
-    color: '#fff',
+    color: '#ff5319',
   },
   optionsItemActive: {
-    backgroundColor: '#6d90b3',
-    borderColor: '#6d90b3',
+    borderColor: '#ff5319',
+  },
+  optionImage: {
+    height: 70,
+    width: 70,
   },
 });
 
@@ -80,35 +89,8 @@ export default class extends Component {
   }
 
   handleChange(value) {
-    // this.setState({ value });
     this.props.onChange(value);
   }
-
-  renderActiveButton = v => (
-    <TouchableOpacity
-      key={v.variant_id}
-      style={[styles.optionsItem, styles.optionsItemActive]}
-      onPress={() => this.handleChange(v)}
-    >
-      <Text style={[styles.optionsItemBtnText, styles.optionsItemBtnTextActive]}>
-        {v.variant_name}
-      </Text>
-    </TouchableOpacity>
-  );
-
-  renderButton = v => {
-    return (
-      <TouchableOpacity
-        key={v.variant_id}
-        style={[styles.optionsItem]}
-        onPress={() => this.handleChange(v)}
-      >
-        <Text style={styles.optionsItemBtnText}>
-          {v.variant_name}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
 
   render() {
     const { option } = this.props;
@@ -119,9 +101,32 @@ export default class extends Component {
     }
 
     const optionsVariantsList = option.variants.map((v) => {
-      return value.variant_id === v.variant_id ?
-      this.renderActiveButton(v) :
-      this.renderButton(v);
+      const active = value.variant_id === v.variant_id;
+      let img = null;
+      if ('icon' in v.image_pair) {
+        img = v.image_pair.icon.http_image_path;
+      }
+      let content = (
+        <Text
+          style={[styles.optionsItemBtnText, active && styles.optionsItemBtnTextActive]}
+        >
+          {v.variant_name}
+        </Text>
+      );
+      if (img) {
+        content = (
+          <Image source={{ uri: img }} style={styles.optionImage} />
+        );
+      }
+      return (
+        <TouchableOpacity
+          key={v.variant_id}
+          style={[styles.optionsItem, active && styles.optionsItemActive]}
+          onPress={() => this.handleChange(v)}
+        >
+          {content}
+        </TouchableOpacity>
+      );
     });
 
     return (
@@ -129,7 +134,7 @@ export default class extends Component {
         <Text
           style={styles.title}
         >
-          {option.option_name}:
+          {option.option_name}: <Text style={styles.titleSub}>{value.variant_name}</Text>
         </Text>
         <View style={styles.optionsVariants}>
           {optionsVariantsList}
