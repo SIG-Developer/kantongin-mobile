@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Dimensions,
   View,
-  Modal,
   NetInfo,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -15,7 +14,6 @@ import DropdownAlert from 'react-native-dropdownalert';
 
 // Actions
 import * as flashActions from '../actions/flashActions';
-import * as modalsActions from '../actions/modalsActions';
 
 // Components
 import AppNavigator from '../AppNavigator';
@@ -39,12 +37,7 @@ class App extends Component {
     flash: PropTypes.shape({
       notifications: PropTypes.arrayOf(PropTypes.object),
     }),
-    modals: PropTypes.shape({}),
     flashActions: PropTypes.shape({
-      show: PropTypes.func,
-      hide: PropTypes.func,
-    }),
-    modalsActions: PropTypes.shape({
       show: PropTypes.func,
       hide: PropTypes.func,
     }),
@@ -52,9 +45,7 @@ class App extends Component {
     nav: PropTypes.shape({}),
   };
 
-  static defaultProps = {
-    modals: {},
-  }
+  static defaultProps = {};
 
   constructor(props) {
     super(props);
@@ -99,22 +90,7 @@ class App extends Component {
     notify.onClose();
   }
 
-  renderModalContent = (id) => {
-    // switch (id) {
-    //   case 'Offline':
-    //     return (<Offline />);
-
-    //   default:
-    //     return null;
-    // }
-    return null;
-  };
-
   render() {
-    const { modals, modalsActions, auth } = this.props;
-    if (!auth.rehydrated) {
-      return null;
-    }
     return (
       <View style={styles.container}>
         <AppNavigator
@@ -127,16 +103,6 @@ class App extends Component {
           ref={(r) => { this.dropdown = r; }}
           onClose={() => this.handleCloseNotification()}
         />
-        <Modal
-          animationType={modals.animation}
-          visible={modals.visible}
-          transparent
-          onRequestClose={() => {
-            modalsActions.hide();
-          }}
-        >
-          {this.renderModalContent(modals.id)}
-        </Modal>
         {this.state.offline && <Offline />}
       </View>
     );
@@ -147,7 +113,6 @@ export default connect(state => ({
   nav: state.nav,
   auth: state.auth,
   flash: state.flash,
-  modals: state.modals,
   dispatch: state.dispatch,
 }),
   dispatch => ({
