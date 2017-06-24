@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
-  Button,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
-import * as modalsActions from '../actions/modalsActions';
 
 // Components
 
@@ -20,27 +18,46 @@ import * as modalsActions from '../actions/modalsActions';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#fff',
   },
 });
 
 class Cart extends Component {
+  static navigationOptions = ({ navigation }) => {
+    let title = 'CART';
+    if ('params' in navigation.state) {
+      title += ` (${navigation.state.params.amount})`;
+    }
+    return {
+      title,
+      headerRight: <Text onPress={() => {
+        console.log(this.props, 'right');
+      }}>Clear</Text>,
+    };
+  };
+
+  componentDidMount() {
+    const { navigation, cart } = this.props;
+    navigation.setParams({
+      amount: cart.amount,
+    });
+  }
+
   render() {
-    const { cart, navigation } = this.props;
+    const { cart } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Cart asd</Text>
-        <Button title='go' onPress={() => navigation.navigate('ProductDetail')} />
+        
       </View>
     );
   }
 }
 
-Cart.navigationOptions = () => {
-  return {
-    title: 'CART',
-  };
-};
+// Cart.navigationOptions = () => {
+//   return {
+//     title: 'CART',
+//   };
+// };
 
 Cart.propTypes = {
   navigation: PropTypes.shape({}),
@@ -49,12 +66,10 @@ Cart.propTypes = {
 
 export default connect(state => ({
   nav: state.nav,
-  modals: state.modals,
   categories: state.categories,
   cart: state.cart,
 }),
   dispatch => ({
     cartActions: bindActionCreators(cartActions, dispatch),
-    modalsActions: bindActionCreators(modalsActions, dispatch),
   })
 )(Cart);
