@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   InteractionManager,
+  KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +24,7 @@ import * as productsActions from '../actions/productsActions';
 
 // Components
 import SelectOption from '../components/SelectOption';
+import InputOption from '../components/InputOption';
 import Spinner from '../components/Spinner';
 
 const styles = EStyleSheet.create({
@@ -76,6 +78,11 @@ const styles = EStyleSheet.create({
   optionsWrapper: {
     padding: 14,
     backgroundColor: '#fff',
+  },
+  addToCartContainer: {
+    // position: 'absolute',
+    //bottom: 0,
+    //marginTop: -60,
   },
   addToCartBtn: {
     backgroundColor: '#FF6008',
@@ -270,6 +277,17 @@ class ProductDetail extends Component {
     const defaultValue = selectedOptions[option.option_name];
 
     switch (item.option_type) {
+      case 'I':
+      case 'T':
+        return (
+          <InputOption
+            option={option}
+            value={defaultValue}
+            key={item.option_id}
+            onChange={val => this.handleOptionChange(option.option_name, val)}
+          />
+        );
+
       case 'S':
         return (
           <SelectOption
@@ -330,16 +348,21 @@ class ProductDetail extends Component {
     }
     return (
       <View style={styles.container}>
-        <ScrollView>
-          {this.renderImage()}
-          <View style={styles.descriptionBlock}>
-            {this.renderName()}
-            {this.renderPrice()}
-            {this.renderDesc()}
-          </View>
-          {this.renderOptions()}
-        </ScrollView>
-        {this.renderAddToCart()}
+        <KeyboardAvoidingView
+          contentContainerStyle={{ marginBottom: 98 }}
+          behavior={'position'}
+        >
+          <ScrollView>
+            {this.renderImage()}
+            <View style={styles.descriptionBlock}>
+              {this.renderName()}
+              {this.renderPrice()}
+              {this.renderDesc()}
+            </View>
+            {this.renderOptions()}
+          </ScrollView>
+          {this.renderAddToCart()}
+        </KeyboardAvoidingView>
         <Spinner visible={cart.fetching} />
       </View>
     );

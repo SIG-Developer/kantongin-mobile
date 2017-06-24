@@ -21,6 +21,10 @@ const styles = EStyleSheet.create({
     fontWeight: 'normal',
     color: 'gray',
   },
+  commentText: {
+    color: '#9cb0c4',
+    marginTop: 3,
+  },
   optionsList: {},
   optionsVariants: {
     flex: 1,
@@ -92,6 +96,13 @@ export default class extends Component {
     this.props.onChange(value);
   }
 
+  renderComment = (option) => {
+    if (option.comment) {
+      return (<Text style={styles.commentText}>{option.comment}</Text>);
+    }
+    return null;
+  };
+
   render() {
     const { option } = this.props;
     const { value } = this.state;
@@ -139,6 +150,7 @@ export default class extends Component {
         <View style={styles.optionsVariants}>
           {optionsVariantsList}
         </View>
+        {this.renderComment(option)}
       </View>
     );
   }
