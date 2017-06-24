@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import theme from '../theme';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -18,16 +20,25 @@ import * as cartActions from '../actions/cartActions';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '$colorPrimary',
   },
 });
 
 class Search extends Component {
   render() {
-    const { cart, navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Search</Text>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('ok');
+            theme.$colorPrimary = 'green';
+            EStyleSheet.build({...theme});
+          }}
+        >
+          <Text>
+            Change theme
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

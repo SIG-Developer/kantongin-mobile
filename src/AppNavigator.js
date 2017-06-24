@@ -17,18 +17,19 @@ import Search from './containers/Search';
 import ProductDetail from './containers/ProductDetail';
 import TabIcon from './components/TabIcon';
 
+import theme from './theme';
 
 const commonCardConfig = {
   headerStyle: {
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.$headerBgColor,
   },
   headerTitleStyle: {
-    color: '#242424',
+    color: theme.$headerTitleColor,
     fontSize: 16,
     fontWeight: 'bold',
   },
   headerBackTitle: ' ',
-  headerTintColor: '#242424'
+  headerTintColor: theme.$headerTintColor,
 };
 
 

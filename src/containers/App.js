@@ -12,6 +12,9 @@ import SplashScreen from 'rn-splash-screen';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DropdownAlert from 'react-native-dropdownalert';
 
+// Theme
+import theme from '../theme';
+
 // Actions
 import * as flashActions from '../actions/flashActions';
 
@@ -23,7 +26,7 @@ import Offline from '../components/Offline';
 const { width } = Dimensions.get('window');
 EStyleSheet.build({
   rem: width > 340 ? 18 : 16,
-  // outline: 1,
+  ...theme,
 });
 
 const styles = EStyleSheet.create({

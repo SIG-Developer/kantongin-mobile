@@ -4,7 +4,6 @@ import {
   View,
   Text,
 } from 'react-native';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
