@@ -56,6 +56,7 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.activeCategoryId = 0;
+    this.isFirstLoad = true;
 
     this.state = {
       products: [],
@@ -94,12 +95,13 @@ class Categories extends Component {
         products: categoryProducts,
         refreshing: false,
       });
+      this.isFirstLoad = false;
     }
   }
 
   handleLoadMore() {
     const { products, productsActions } = this.props;
-    if (products.hasMore && !products.fetching) {
+    if (products.hasMore && !products.fetching && !this.isFirstLoad) {
       productsActions.fetchByCategory(this.activeCategoryId, products.params.page + 1);
     }
   }
@@ -113,12 +115,12 @@ class Categories extends Component {
 
   renderHeader() {
     const { navigation } = this.props;
-    const subCategoriesList = this.state.subCategories.map((item, index) => <CategoryListView
+    const subCategoriesList = this.state.subCategories.map((item, index) => (<CategoryListView
       key={index}
       category={item}
       index={index}
       onPress={() => navigation.navigate('Category', { category: item })}
-    />);
+    />));
     const productHeader = (<Text style={styles.header}>Products</Text>);
     return (
       <View>

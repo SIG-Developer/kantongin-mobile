@@ -129,6 +129,7 @@ const HomeStack = TabNavigator({
     }
   },
 }, {
+  initialRouteName: 'Catalog',
   swipeEnabled: false,
   tabBarOptions: {
     showLabel: false,

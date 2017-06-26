@@ -68,21 +68,27 @@ const styles = EStyleSheet.create({
     marginTop: 10,
     color: 'gray'
   },
-  optionsContainer: {
+  blockContainer: {
     backgroundColor: '#EEEEEE',
     paddingTop: 14,
-    paddingBottom: 14,
+    paddingBottom: 0,
     marginTop: 24,
     marginBottom: 14,
   },
-  optionsWrapper: {
+  blockWrapper: {
     padding: 14,
     backgroundColor: '#fff',
   },
-  addToCartContainer: {
-    // position: 'absolute',
-    //bottom: 0,
-    //marginTop: -60,
+  blockTitle: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F1F1',
+    paddingTop: 0,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  blockTitleText: {
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
   },
   addToCartBtn: {
     backgroundColor: '#FF6008',
@@ -92,6 +98,11 @@ const styles = EStyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontSize: '1rem',
+  },
+  feautureGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   }
 });
 
@@ -269,7 +280,7 @@ class ProductDetail extends Component {
     );
   }
 
-  renderOptionItem(item) {
+  renderOptionItem = (item) => {
     const option = { ...item };
     const { selectedOptions } = this.state;
     // FIXME: Brainfuck code to convert object to array.
@@ -308,9 +319,46 @@ class ProductDetail extends Component {
       return null;
     }
     return (
-      <View style={styles.optionsContainer}>
-        <View style={styles.optionsWrapper}>
+      <View style={styles.blockContainer}>
+        <View style={styles.blockWrapper}>
           {product.options.map(o => this.renderOptionItem(o))}
+        </View>
+      </View>
+    );
+  }
+
+  renderFeautureItem = (item) => {
+    return (
+      <View style={styles.feautureGroup} key={item.feature_id}>
+        <View style={styles.feautureName}>
+          <Text style={styles.feautureNameText}>
+            {item.description}
+          </Text>
+        </View>
+        <View style={styles.feautureValue}>
+          <Text style={styles.feautureValueText}>
+            {item.variant}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderFeatures() {
+    const { product } = this.state;
+    const features = Object.keys(product.product_features).map(k => product.product_features[k]);
+    if (features.length === 0) {
+      return null;
+    }
+    return (
+      <View style={styles.blockContainer}>
+        <View style={styles.blockWrapper}>
+          <View style={styles.blockTitle}>
+            <Text style={styles.blockTitleText}>
+              Features
+            </Text>
+          </View>
+          {features.map(f => this.renderFeautureItem(f))}
         </View>
       </View>
     );
@@ -360,6 +408,7 @@ class ProductDetail extends Component {
               {this.renderDesc()}
             </View>
             {this.renderOptions()}
+            {this.renderFeatures()}
           </ScrollView>
           {this.renderAddToCart()}
         </KeyboardAvoidingView>

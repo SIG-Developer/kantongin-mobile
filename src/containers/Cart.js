@@ -38,9 +38,9 @@ class Cart extends Component {
 
   componentDidMount() {
     const { navigation, cart } = this.props;
-    navigation.setParams({
-      amount: cart.amount,
-    });
+    // navigation.setParams({
+    //   amount: cart.amount,
+    // });
   }
 
   render() {
