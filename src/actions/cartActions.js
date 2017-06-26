@@ -9,6 +9,10 @@ import {
   CART_SUCCESS,
   CART_FAIL,
 
+  CART_CLEAR_REQUEST,
+  CART_CLEAR_SUCCESS,
+  CART_CLEAR_FAIL,
+
   REMOVE_FROM_CART,
 } from '../constants';
 
@@ -70,6 +74,37 @@ export function add(data, token = '', cb = null) {
     .catch((error) => {
       dispatch({
         type: ADD_TO_CART_FAIL,
+        error,
+      });
+    });
+  };
+}
+
+export function clear(token, cb = null) {
+  return (dispatch) => {
+    dispatch({ type: CART_CLEAR_REQUEST });
+    if (token) {
+      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
+    }
+    return axios({
+      method: 'delete',
+      url: '/cart_content/',
+      data: {},
+      headers,
+    })
+    .then((response) => {
+      dispatch({
+        type: CART_CLEAR_SUCCESS,
+        payload: response.data,
+      });
+
+      if (cb) {
+        cb();
+      }
+    })
+    .catch((error) => {
+      dispatch({
+        type: CART_CLEAR_FAIL,
         error,
       });
     });

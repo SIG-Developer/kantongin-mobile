@@ -131,6 +131,7 @@ const HomeStack = TabNavigator({
 }, {
   initialRouteName: 'Catalog',
   swipeEnabled: false,
+  lazy: true,
   tabBarOptions: {
     showLabel: false,
     inactiveTintColor: '#989898',
