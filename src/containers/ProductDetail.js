@@ -44,6 +44,7 @@ const styles = EStyleSheet.create({
   },
   descriptionBlock: {
     paddingTop: 10,
+    paddingBottom: 10,
     marginTop: 10,
     paddingLeft: 14,
     paddingRight: 14,
@@ -72,8 +73,8 @@ const styles = EStyleSheet.create({
     backgroundColor: '#EEEEEE',
     paddingTop: 14,
     paddingBottom: 0,
-    marginTop: 24,
-    marginBottom: 14,
+    //marginTop: 14,
+    // marginBottom: 14,
   },
   blockWrapper: {
     padding: 14,
@@ -102,7 +103,14 @@ const styles = EStyleSheet.create({
   feautureGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F1F1',
+    paddingBottom: 8,
+    paddingTop: 8,
+  },
+  feautureNameText: {
+    fontWeight: 'bold',
   }
 });
 
