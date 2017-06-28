@@ -4,17 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
-  Text,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { blocks } from '../fakeData';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
 
 // Components
 import CategoryListView from '../components/CategoryListView';
+import LayoutBlocks from '../components/LayoutBlocks';
+
 
 // Styles
 const styles = EStyleSheet.create({
@@ -78,6 +80,13 @@ class MainCategory extends Component {
             category={item.item}
             index={item.index}
             onPress={() => navigation.navigate('Category', { category: item.item })}
+          />
+        )}
+        ListFooterComponent={() => (
+          <LayoutBlocks
+            blocks={blocks}
+            location={'mainPage'}
+            navigation={navigation}
           />
         )}
       />

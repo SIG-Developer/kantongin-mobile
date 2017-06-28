@@ -11,7 +11,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
   container: {
-    width: '50%',
     borderWidth: 1,
     borderColor: '#F1F1F1',
     backgroundColor: '#fff',
