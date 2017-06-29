@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import {} from 'react-native';
 import {
   TabNavigator,
   StackNavigator,
@@ -31,7 +28,6 @@ const commonCardConfig = {
   headerBackTitle: ' ',
   headerTintColor: theme.$headerTintColor,
 };
-
 
 const ProfileStack = StackNavigator({
   index: {
