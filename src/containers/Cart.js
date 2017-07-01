@@ -111,10 +111,17 @@ class Cart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cart } = nextProps;
+    const { cart, navigation } = nextProps;
     const products = Object.keys(cart.products).map(k => cart.products[k]);
     this.setState({
       products,
+    }, () => {
+      const newTitle = `CART (${cart.amount})`;
+      if (navigation.state.params.title != newTitle) {
+        navigation.setParams({
+          title: `CART (${cart.amount})`,
+        });
+      }
     });
   }
 
@@ -123,9 +130,9 @@ class Cart extends Component {
   handlePlaceOrder() {
     const { ordersActions, auth } = this.props;
     ordersActions.create(auth.token, {
-      user_id: 0,
+      user_id: '3',
       payment_id: 2,
-      shipping_id: 1,
+      shipping_id: '1',
       products: {
           12: {
             product_id: 12,

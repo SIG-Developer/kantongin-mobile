@@ -1,5 +1,5 @@
 export default {
-  username: 'YOUR ACCOUNT E-MAIL',
-  apiKey: 'YOUR API KEY',
-  baseUrl: 'YOUR SITE BASE URL',
+  username: 'admin@example.com',
+  apiKey: 'LdJN98W2m0841890r1Z1O91jq18bs0B1',
+  baseUrl: 'http://imakarov.us/api/',
 };
