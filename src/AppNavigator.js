@@ -12,6 +12,7 @@ import Cart from './containers/Cart';
 import Profile from './containers/Profile';
 import Search from './containers/Search';
 import ProductDetail from './containers/ProductDetail';
+import Orders from './containers/Orders';
 import TabIcon from './components/TabIcon';
 
 import theme from './theme';
@@ -34,7 +35,12 @@ const ProfileStack = StackNavigator({
     screen: Profile,
     path: '/',
     navigationOptions: commonCardConfig,
-  }
+  },
+  Orders: {
+    screen: Orders,
+    path: '/orders',
+    navigationOptions: commonCardConfig,
+  },
 });
 
 const CartStack = StackNavigator({

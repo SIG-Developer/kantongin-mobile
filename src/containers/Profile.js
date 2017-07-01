@@ -5,8 +5,11 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
@@ -22,6 +25,24 @@ const styles = EStyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  listContainer: {
+    marginTop: 30,
+  },
+  listItem: {
+    padding: 14,
+    borderBottomWidth: 1,
+    borderColor: '#F1F1F1',
+    borderTopWidth: 1,
+  },
+  listItemText: {
+    fontSize: '0.9rem',
+  },
+  listItemIcon: {
+    fontSize: '1.3rem',
+    position: 'absolute',
+    right: 14,
+    top: 12,
+  }
 });
 
 class Profile extends Component {
@@ -36,13 +57,6 @@ class Profile extends Component {
       logged: PropTypes.bool,
       fetching: PropTypes.bool,
     }),
-  }
-
-  componentDidMount() {
-    const { auth, ordersActions } = this.props;
-    if (auth.logged) {
-      ordersActions.fetch(auth.token);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,7 +79,21 @@ class Profile extends Component {
 
   renderProfileInfo() {
     return (
-      <Text>Orders will be here</Text>
+      <ScrollView
+        contentContainerStyle={styles.listContainer}
+      >
+        <TouchableOpacity
+          style={styles.listItem}
+          onPress={() => {
+            this.props.navigation.navigate('Orders');
+          }}
+        >
+          <Text style={styles.listItemText}>
+            Orders
+          </Text>
+          <Icon name="angle-right" style={styles.listItemIcon} />
+        </TouchableOpacity>
+      </ScrollView>
     );
   }
 

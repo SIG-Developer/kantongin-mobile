@@ -16,6 +16,7 @@ import Swipeout from 'react-native-swipeout';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
+import * as ordersActions from '../actions/ordersActions';
 
 // Components
 
@@ -73,6 +74,14 @@ const swipeoutBtns = [
 ];
 
 class Cart extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({}),
+    ordersActions: PropTypes.shape({}),
+    cartActions: PropTypes.shape({}),
+    auth: PropTypes.shape({}),
+    cart: PropTypes.shape({}),
+  };
+
   static navigationOptions = ({ navigation }) => {
     if (!navigation.state.params) {
       return {};
@@ -102,49 +111,80 @@ class Cart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cart, navigation } = nextProps;
+    const { cart } = nextProps;
     const products = Object.keys(cart.products).map(k => cart.products[k]);
     this.setState({
       products,
     });
   }
 
-  handleRefresh() {
-  }
+  handleRefresh = () => {};
 
   handlePlaceOrder() {
-
+    const { ordersActions, auth } = this.props;
+    ordersActions.create(auth.token, {
+      user_id: 0,
+      payment_id: 2,
+      shipping_id: 1,
+      products: {
+          12: {
+            product_id: 12,
+            amount: 1
+          },
+          13: {
+            product_id: 13,
+            amount: 2
+          }
+      },
+      user_data: {
+        email: 'guest@example.com',
+        firstname: 'Guest',
+        lastname: 'Guest',
+        s_firstname: 'Guest',
+        s_lastname: 'Guest',
+        s_country: 'US',
+        s_city: 'Boston',
+        s_state: 'MA',
+        s_zipcode: '02125',
+        s_address: '44 Main street',
+        b_firstname: 'Guest',
+        b_lastname: 'Guest',
+        b_country: 'US',
+        b_city: 'Boston',
+        b_state: 'MA',
+        b_zipcode: '02125',
+        b_address: '44 Main street'
+      }
+    });
   }
 
-  renderClearCart = () => {
-    return (
-      <TouchableOpacity
-        style={styles.topBtn}
-        onPress={() => {
-          Alert.alert(
-            'Clear all cart ?',
-            '',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => {},
-                style: 'cancel'
-              },
-              {
-                text: 'OK',
-                onPress: () => this.props.cartActions.clear(),
-              },
-            ],
-            { cancelable: true }
-          );
-        }}
-      >
-        <Icon name="trash" style={styles.trashIcon} />
-      </TouchableOpacity>
-    );
-  };
+  renderClearCart = () => (
+    <TouchableOpacity
+      style={styles.topBtn}
+      onPress={() => {
+        Alert.alert(
+          'Clear all cart ?',
+          '',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {},
+              style: 'cancel'
+            },
+            {
+              text: 'OK',
+              onPress: () => this.props.cartActions.clear(),
+            },
+          ],
+          { cancelable: true }
+        );
+      }}
+    >
+      <Icon name="trash" style={styles.trashIcon} />
+    </TouchableOpacity>
+  );
 
-  renderProductItem = item => {
+  renderProductItem = (item) => {
     let productImage = null;
     if ('http_image_path' in item.main_pair.detailed) {
       productImage = (<Image
@@ -213,10 +253,11 @@ Cart.propTypes = {
 
 export default connect(state => ({
   nav: state.nav,
-  categories: state.categories,
+  auth: state.auth,
   cart: state.cart,
 }),
   dispatch => ({
     cartActions: bindActionCreators(cartActions, dispatch),
+    ordersActions: bindActionCreators(ordersActions, dispatch),
   })
 )(Cart);
