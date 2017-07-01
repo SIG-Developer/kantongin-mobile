@@ -73,8 +73,6 @@ const styles = EStyleSheet.create({
     backgroundColor: '#EEEEEE',
     paddingTop: 14,
     paddingBottom: 0,
-    //marginTop: 14,
-    // marginBottom: 14,
   },
   blockWrapper: {
     padding: 14,
@@ -178,9 +176,13 @@ class ProductDetail extends Component {
     if ('options' in product) {
       const defaultOptions = { ...selectedOptions };
       product.options.forEach((option) => {
-        const variants = Object.keys(option.variants).map(k => option.variants[k]);
-        if (selectedOptions[option.option_name] === undefined) {
-          defaultOptions[option.option_name] = variants[0];
+        if (option.option_type === 'S') {
+          const variants = Object.keys(option.variants).map(k => option.variants[k]);
+          if (selectedOptions[option.option_id] === undefined && variants.length) {
+            defaultOptions[option.option_id] = variants[0];
+          }
+        } else if (option.option_type === 'I') {
+          defaultOptions[option.option_id] = '';
         }
       });
       this.setState({
@@ -200,7 +202,10 @@ class ProductDetail extends Component {
     const { auth, flashActions } = this.props;
     // Convert product options to the option_id: variant_id array.
     Object.keys(selectedOptions).forEach((k) => {
-      productOptions[selectedOptions[k].option_id] = selectedOptions[k].variant_id;
+      productOptions[k] = selectedOptions[k];
+      if (selectedOptions[k].variant_id) {
+        productOptions[k] = selectedOptions[k].variant_id;
+      }
     });
 
     const products = {
@@ -293,7 +298,7 @@ class ProductDetail extends Component {
     const { selectedOptions } = this.state;
     // FIXME: Brainfuck code to convert object to array.
     option.variants = Object.keys(option.variants).map(k => option.variants[k]);
-    const defaultValue = selectedOptions[option.option_name];
+    const defaultValue = selectedOptions[option.option_id];
 
     switch (item.option_type) {
       case 'I':
@@ -303,7 +308,7 @@ class ProductDetail extends Component {
             option={option}
             value={defaultValue}
             key={item.option_id}
-            onChange={val => this.handleOptionChange(option.option_name, val)}
+            onChange={val => this.handleOptionChange(option.option_id, val)}
           />
         );
 
@@ -313,7 +318,7 @@ class ProductDetail extends Component {
             option={option}
             value={defaultValue}
             key={item.option_id}
-            onChange={val => this.handleOptionChange(option.option_name, val)}
+            onChange={val => this.handleOptionChange(option.option_id, val)}
           />
         );
       default:
