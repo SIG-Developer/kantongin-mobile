@@ -1,10 +1,12 @@
 import React from 'react';
-import {} from 'react-native';
+import {
+  Platform,
+} from 'react-native';
 import {
   TabNavigator,
   StackNavigator,
 } from 'react-navigation';
-import EStyleSheet from 'react-native-extended-stylesheet';
+// import EStyleSheet from 'react-native-extended-stylesheet';
 
 import MainCategory from './containers/MainCategory';
 import Categories from './containers/Categories';
@@ -132,14 +134,18 @@ const HomeStack = TabNavigator({
   },
 }, {
   initialRouteName: 'Catalog',
-  swipeEnabled: false,
+  swipeEnabled: Platform.OS !== 'ios',
   lazy: true,
   tabBarOptions: {
-    showLabel: false,
+    showLabel: Platform.OS !== 'ios',
     inactiveTintColor: '#989898',
     activeTintColor: '#242424',
     style: {
       backgroundColor: '#FAFAFA',
+    },
+    showIcon: true,
+    TabBarTop: {
+      showIcon: true,
     }
   }
 });

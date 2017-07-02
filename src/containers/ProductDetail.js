@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import striptags from 'striptags';
+// import striptags from 'striptags';
 import {
   View,
   Text,
@@ -276,7 +276,7 @@ class ProductDetail extends Component {
     if (product.full_description) {
       return (
         <Text style={styles.descText}>
-          {striptags(product.full_description).trimLeft()}
+          {product.full_description.trimLeft()}
         </Text>
       );
     }
