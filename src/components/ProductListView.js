@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { get } from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { PRODUCT_IMAGE_WIDTH } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -21,8 +22,8 @@ const styles = EStyleSheet.create({
     height: 240,
   },
   productImage: {
-    width: 160,
-    height: 160,
+    width: PRODUCT_IMAGE_WIDTH,
+    height: PRODUCT_IMAGE_WIDTH,
     resizeMode: 'contain',
   },
   description: {

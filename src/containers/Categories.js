@@ -10,6 +10,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { PRODUCT_NUM_COLUMNS } from '../utils';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -148,7 +149,7 @@ class Categories extends Component {
         data={this.state.products}
         keyExtractor={item => +item.product_id}
         ListHeaderComponent={() => this.renderHeader()}
-        numColumns={2}
+        numColumns={PRODUCT_NUM_COLUMNS}
         renderItem={item => (<ProductListView
           product={item}
           onPress={product => navigation.navigate('ProductDetail', {

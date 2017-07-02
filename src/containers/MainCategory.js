@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { blocks } from '../fakeData';
+import { PRODUCT_NUM_COLUMNS } from '../utils';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -72,7 +73,7 @@ class MainCategory extends Component {
     const { navigation } = this.props;
     return (
       <FlatList
-        numColumns={2}
+        numColumns={PRODUCT_NUM_COLUMNS}
         data={this.state.items}
         keyExtractor={item => item.category_id}
         renderItem={item => (
