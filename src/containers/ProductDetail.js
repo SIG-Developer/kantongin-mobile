@@ -117,7 +117,7 @@ class ProductDetail extends Component {
     navigation: PropTypes.shape({
       state: PropTypes.Object,
     }),
-    products: PropTypes.shape({
+    productDetail: PropTypes.shape({
     }),
     productsActions: PropTypes.shape({
       fetchOptions: PropTypes.func,
@@ -150,18 +150,17 @@ class ProductDetail extends Component {
 
   componentDidMount() {
     const { navigation, productsActions } = this.props;
-    const { pid, cid } = navigation.state.params;
+    const { pid } = navigation.state.params;
     InteractionManager.runAfterInteractions(() => {
-      productsActions.fetch(cid, pid);
+      productsActions.fetch(pid);
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { products, navigation } = nextProps;
-    const { pid, cid } = navigation.state.params;
+    const { productDetail } = nextProps;
     const { selectedOptions } = this.state;
     // FIXME
-    const product = products.items[cid].find(i => i.product_id == pid);
+    const product = productDetail;
     if (!product) {
       return;
     }
@@ -172,7 +171,7 @@ class ProductDetail extends Component {
       Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
     }
 
-    // Add default option values.
+    // // Add default option values.
     if ('options' in product) {
       const defaultOptions = { ...selectedOptions };
       product.options.forEach((option) => {
@@ -192,7 +191,7 @@ class ProductDetail extends Component {
     this.setState({
       images,
       product,
-      fetching: products.fetching,
+      fetching: productDetail.fetching,
     });
   }
 
@@ -328,7 +327,7 @@ class ProductDetail extends Component {
 
   renderOptions() {
     const { product } = this.state;
-    if (!product.options) {
+    if (!product.options.length) {
       return null;
     }
     return (
@@ -442,8 +441,7 @@ export default connect(state => ({
   auth: state.auth,
   cart: state.cart,
   flash: state.flash,
-  products: state.products,
-  categories: state.categories,
+  productDetail: state.productDetail,
 }),
   dispatch => ({
     flashActions: bindActionCreators(flashActions, dispatch),

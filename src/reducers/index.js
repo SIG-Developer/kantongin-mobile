@@ -8,6 +8,7 @@ import modals from './modals';
 import orders from './orders';
 import products from './products';
 import categories from './categories';
+import productDetail from './productDetail';
 
 export default combineReducers({
   nav,
@@ -18,4 +19,5 @@ export default combineReducers({
   orders,
   products,
   categories,
+  productDetail,
 });

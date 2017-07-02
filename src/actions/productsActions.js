@@ -14,7 +14,7 @@ import {
   FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
 
-export function fetchOptions(cid, pid) {
+export function fetchOptions(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCT_OPTIONS_REQUEST });
     return axios.get(`/options/?product_id=${pid}`)
@@ -22,8 +22,6 @@ export function fetchOptions(cid, pid) {
         dispatch({
           type: FETCH_PRODUCT_OPTIONS_SUCCESS,
           payload: {
-            cid,
-            pid,
             options: response.data,
           },
         });
@@ -37,7 +35,7 @@ export function fetchOptions(cid, pid) {
   };
 }
 
-export function fetch(cid, pid) {
+export function fetch(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_ONE_PRODUCT_REQUEST });
     return axios.get(`/products/${pid}?sl=${lang}`)
@@ -45,13 +43,11 @@ export function fetch(cid, pid) {
         dispatch({
           type: FETCH_ONE_PRODUCT_SUCCESS,
           payload: {
-            cid,
-            pid,
             product: response.data,
           },
         });
         // get options.
-        setTimeout(() => fetchOptions(cid, pid)(dispatch), 100);
+        setTimeout(() => fetchOptions(pid)(dispatch), 100);
       })
       .catch((error) => {
         dispatch({

@@ -2,14 +2,6 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
-
-  FETCH_ONE_PRODUCT_REQUEST,
-  FETCH_ONE_PRODUCT_FAIL,
-  FETCH_ONE_PRODUCT_SUCCESS,
-
-  FETCH_PRODUCT_OPTIONS_REQUEST,
-  FETCH_PRODUCT_OPTIONS_FAIL,
-  FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -22,10 +14,7 @@ const initialState = {
 };
 
 let params = {};
-let options = {};
 let items = {};
-let product = {};
-let productIndex = {};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -51,51 +40,6 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_PRODUCTS_FAIL:
-      return {
-        ...state,
-        fetching: false,
-      };
-
-    case FETCH_ONE_PRODUCT_REQUEST:
-      return {
-        ...state,
-        fetching: true,
-      };
-
-    case FETCH_ONE_PRODUCT_SUCCESS:
-      items = { ...state.items };
-      productIndex = items[action.payload.cid].findIndex(i => i.product_id == action.payload.pid);
-      product = { ...items[action.payload.cid][productIndex], ...action.payload.product };
-      items[action.payload.cid][productIndex] = product;
-      return {
-        ...state,
-        items,
-      };
-
-
-    case FETCH_PRODUCT_OPTIONS_REQUEST:
-      return {
-        ...state,
-        fetching: false,
-      };
-
-    case FETCH_PRODUCT_OPTIONS_SUCCESS:
-      items = { ...state.items };
-      productIndex = items[action.payload.cid].findIndex(i => i.product_id == action.payload.pid);
-      product = items[action.payload.cid][productIndex];
-      // FIXME: Brainfuck code to convert object to array.
-      options = Object.keys(action.payload.options).map(k => action.payload.options[k]);
-      product.options = options;
-      // Asign options to the product.
-      items[action.payload.cid][productIndex] = product;
-      return {
-        ...state,
-        items,
-        fetching: false,
-      };
-
-    case FETCH_PRODUCT_OPTIONS_FAIL:
-    case FETCH_ONE_PRODUCT_FAIL:
       return {
         ...state,
         fetching: false,

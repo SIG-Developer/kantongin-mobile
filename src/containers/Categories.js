@@ -153,7 +153,6 @@ class Categories extends Component {
           product={item}
           onPress={product => navigation.navigate('ProductDetail', {
             pid: product.product_id,
-            cid: this.activeCategoryId,
           })}
         />)}
         onRefresh={() => this.handleRefresh()}
