@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import striptags from 'striptags';
 import {
   View,
   Text,
@@ -14,8 +13,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
+import { stripTags } from '../utils';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -275,7 +274,7 @@ class ProductDetail extends Component {
     if (product.full_description) {
       return (
         <Text style={styles.descText}>
-          {product.full_description.trimLeft()}
+          {stripTags(product.full_description).trimLeft()}
         </Text>
       );
     }
