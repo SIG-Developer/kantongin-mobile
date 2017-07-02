@@ -274,7 +274,7 @@ class ProductDetail extends Component {
     if (product.full_description) {
       return (
         <Text style={styles.descText}>
-          {stripTags(product.full_description).trimLeft()}
+          {stripTags(product.full_description)}
         </Text>
       );
     }
