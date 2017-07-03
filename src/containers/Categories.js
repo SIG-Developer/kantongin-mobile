@@ -34,6 +34,7 @@ const styles = EStyleSheet.create({
   },
   header: {
     fontWeight: 'bold',
+    color: 'black',
     fontSize: '1.6rem',
     paddingTop: 20,
     paddingLeft: 10,
@@ -167,7 +168,11 @@ class Categories extends Component {
     const { products } = this.props;
     return (
       <View style={styles.container}>
-        {products.fetching ? this.renderSpinner() : this.renderList()}
+        {
+          (products.fetching && this.isFirstLoad) ?
+          this.renderSpinner() :
+          this.renderList()
+        }
       </View>
     );
   }

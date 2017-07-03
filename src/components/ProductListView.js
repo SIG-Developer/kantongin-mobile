@@ -34,11 +34,12 @@ const styles = EStyleSheet.create({
     padding: 8,
   },
   productName: {
-    color: '#BCBCBC',
+    color: 'black',
     fontWeight: 'bold'
   },
   productPrice: {
-    color: '#73626B'
+    color: '#73626B',
+    fontWeight: 'bold'
   },
 });
 
@@ -66,7 +67,7 @@ class ProductListView extends Component {
             numberOfLines={1}
             style={styles.productPrice}
           >
-            {item.price}
+            ${parseFloat(item.price).toFixed(2)}
           </Text>
         </View>
       </TouchableOpacity>
