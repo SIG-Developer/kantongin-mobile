@@ -19,6 +19,7 @@ import * as cartActions from '../actions/cartActions';
 import * as ordersActions from '../actions/ordersActions';
 
 // Components
+import Spinner from '../components/Spinner';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -95,18 +96,15 @@ const styles = EStyleSheet.create({
   },
 });
 
-const swipeoutBtns = [
-  {
-    text: 'Delete',
-    type: 'delete'
-  }
-];
-
 class Cart extends Component {
   static propTypes = {
     navigation: PropTypes.shape({}),
     ordersActions: PropTypes.shape({}),
-    cartActions: PropTypes.shape({}),
+    cartActions: PropTypes.shape({
+      fetch: PropTypes.func,
+      clear: PropTypes.func,
+      remove: PropTypes.func,
+    }),
     auth: PropTypes.shape({}),
     cart: PropTypes.shape({}),
   };
@@ -140,10 +138,18 @@ class Cart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cart, navigation } = nextProps;
-    const products = Object.keys(cart.products).map(k => cart.products[k]);
+    const { cart, navigation, auth } = nextProps;
+    if (cart.fetching) {
+      return;
+    }
+    const products = Object.keys(cart.products).map((key) => {
+      const result = cart.products[key];
+      result.cartId = key;
+      return result;
+    });
     this.setState({
       products,
+      refreshing: false,
     }, () => {
       const newTitle = `CART (${cart.amount})`;
       if (navigation.state.params.title != newTitle) {
@@ -154,7 +160,13 @@ class Cart extends Component {
     });
   }
 
-  handleRefresh = () => {};
+  handleRefresh() {
+    const { cartActions, auth } = this.props;
+    this.setState(
+      { refreshing: true },
+      () => cartActions.fetch(auth.token),
+    );
+  }
 
   handlePlaceOrder() {
     const { ordersActions, auth } = this.props;
@@ -220,6 +232,11 @@ class Cart extends Component {
     </TouchableOpacity>
   );
 
+  handleRemoveProduct = (product) => {
+    const { cartActions, auth } = this.props;
+    cartActions.remove(auth.token, product.cartId);
+  };
+
   renderProductItem = (item) => {
     let productImage = null;
     if ('http_image_path' in item.main_pair.detailed) {
@@ -228,6 +245,14 @@ class Cart extends Component {
         style={styles.productItemImage}
       />);
     }
+
+    const swipeoutBtns = [
+      {
+        text: 'Delete',
+        type: 'delete',
+        onPress: () => this.handleRemoveProduct(item),
+      },
+    ];
 
     return (
       <Swipeout
@@ -295,12 +320,22 @@ class Cart extends Component {
     );
   }
 
+  renderSpinner = () => {
+    const { cart } = this.props;
+    if (this.state.refreshing) {
+      return false;
+    }
+    return (
+      <Spinner visible={cart.fetching} />
+    );
+  };
+
   render() {
     const { products } = this.state;
     return (
       <View style={styles.container}>
         {products.length ? this.renderList() : this.renderEmptyList()}
-        
+        {this.renderSpinner()}
       </View>
     );
   }

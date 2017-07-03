@@ -9,6 +9,10 @@ import {
   CART_SUCCESS,
   CART_FAIL,
 
+  CART_REMOVE_REQUEST,
+  CART_REMOVE_SUCCESS,
+  CART_REMOVE_FAIL,
+
   CART_CLEAR_REQUEST,
   CART_CLEAR_SUCCESS,
   CART_CLEAR_FAIL,
@@ -111,11 +115,29 @@ export function clear(token, cb = null) {
   };
 }
 
-export function remove(product) {
+export function remove(token, id) {
   return (dispatch) => {
-    dispatch({
-      type: REMOVE_FROM_CART,
-      payload: product,
+    dispatch({ type: CART_REMOVE_REQUEST });
+    if (token) {
+      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
+    }
+    return axios({
+      method: 'delete',
+      url: `/cart_content/${id}/`,
+      data: {},
+      headers,
+    })
+    .then((response) => {
+      dispatch({
+        type: CART_REMOVE_SUCCESS,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: CART_REMOVE_FAIL,
+        error,
+      });
     });
   };
 }

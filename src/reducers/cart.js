@@ -43,6 +43,7 @@ export default function (state = initialState, action) {
     case CART_REQUEST:
       return {
         ...state,
+        fetching: true,
       };
 
     case CART_SUCCESS:
