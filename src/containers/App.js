@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addNavigationHelpers } from 'react-navigation';
-// import SplashScreen from 'rn-splash-screen';
+import SplashScreen from 'react-native-splash-screen';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DropdownAlert from 'react-native-dropdownalert';
 
@@ -64,7 +64,7 @@ class App extends Component {
       'change',
       this.handleFirstConnectivityChange.bind(this),
     );
-    // SplashScreen.hide();
+    SplashScreen.hide();
   }
 
   componentWillReceiveProps(nextProps) {

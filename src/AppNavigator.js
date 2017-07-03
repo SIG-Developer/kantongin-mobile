@@ -135,11 +135,15 @@ const HomeStack = TabNavigator({
 }, {
   initialRouteName: 'Catalog',
   swipeEnabled: Platform.OS !== 'ios',
+  tabBarPosition: 'bottom',
   lazy: true,
   tabBarOptions: {
-    showLabel: Platform.OS !== 'ios',
+    showLabel: false,
     inactiveTintColor: '#989898',
     activeTintColor: '#242424',
+    indicatorStyle: {
+      backgroundColor: '#242424',
+    },
     style: {
       backgroundColor: '#FAFAFA',
     },
