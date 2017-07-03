@@ -5,19 +5,19 @@ export const blocks = [
     location: 'mainPage',
     items: [
       {
-        http_image_path: 'http://localhost/cs-cart/images/promo/1/banner-en-sale-40-80.png',
+        http_image_path: 'http://imakarov.us/images/promo/1/banner-en-sale-40-80.png',
         href: 'test',
       },
       {
-        http_image_path: 'http://localhost/cs-cart/images/promo/1/banner-en-xbox360.png',
+        http_image_path: 'http://imakarov.us/images/promo/1/banner-en-xbox360.png',
         href: 'test',
       },
       {
-        http_image_path: 'http://localhost/cs-cart/images/promo/1/banner-en-point.png',
+        http_image_path: 'http://imakarov.us/images/promo/1/banner-en-point.png',
         href: 'test',
       },
       {
-        http_image_path: 'http://localhost/cs-cart/images/promo/1/banner-en-girl.png',
+        http_image_path: 'http://imakarov.us/images/promo/1/banner-en-girl.png',
         href: 'test',
       },
     ],
@@ -33,7 +33,7 @@ export const blocks = [
         price: 14.24,
         main_pair: {
           detailed: {
-            http_image_path: 'http://localhost/cs-cart/images/detailed/0/1917865.jpg',
+            http_image_path: 'http://imakarov.us/images/detailed/0/1917865.jpg',
           }
         }
       },
@@ -44,7 +44,7 @@ export const blocks = [
         price: 22.24,
         main_pair: {
           detailed: {
-            http_image_path: 'http://localhost/cs-cart/images/detailed/0/437394_010_B.jpg',
+            http_image_path: 'http://imakarov.us/images/detailed/0/437394_010_B.jpg',
           }
         }
       }
