@@ -8,7 +8,6 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   InteractionManager,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -391,12 +390,7 @@ class ProductDetail extends Component {
   }
 
   renderSpinner = () => (
-    <View style={styles.container}>
-      <ActivityIndicator
-        size={'large'}
-        style={{ flex: 1 }}
-      />
-    </View>
+    <Spinner visible mode="content" />
   );
 
   render() {

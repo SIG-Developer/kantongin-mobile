@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  Text,
-  ActivityIndicator,
   Modal,
+  ActivityIndicator,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -16,9 +15,29 @@ const styles = EStyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  indicator: {
+    flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  }
 });
 
 class Spinner extends Component {
+  static propTypes = {
+    visible: PropTypes.bool.isRequired,
+    mode: PropTypes.string,
+  };
+
+  static defaultProps = {
+    mode: 'modal',
+    visible: false,
+  };
+
   constructor(props) {
     super(props);
 
@@ -35,27 +54,38 @@ class Spinner extends Component {
     this.setState({ visible: nextProps.visible });
   }
 
+  renderAsModal = () => (
+    <Modal
+      animationType={'fade'}
+      transparent
+      visible={this.state.visible}
+    >
+      <View style={styles.container}>
+        <ActivityIndicator
+          color={'white'}
+          size={'large'}
+          style={styles.indicator}
+        />
+      </View>
+    </Modal>
+  );
+
+  renderAsContent = () => (
+    <View style={styles.contentContainer}>
+      <ActivityIndicator
+        size={'large'}
+        style={styles.indicator}
+      />
+    </View>
+  );
+
   render() {
-    return (
-      <Modal
-        animationType={'fade'}
-        transparent
-        visible={this.state.visible}
-      >
-        <View style={styles.container}>
-          <ActivityIndicator
-            color={'white'}
-            size={'large'}
-            style={{ flex: 1 }}
-          />
-        </View>
-      </Modal>
-    );
+    const { mode } = this.props;
+    if (mode === 'content') {
+      return this.renderAsContent();
+    }
+    return this.renderAsModal();
   }
 }
-
-Spinner.propTypes = {
-  visible: PropTypes.bool.isRequired,
-};
 
 export default Spinner;

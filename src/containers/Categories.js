@@ -19,6 +19,7 @@ import * as productsActions from '../actions/productsActions';
 // Components
 import CategoryListView from '../components/CategoryListView';
 import ProductListView from '../components/ProductListView';
+import Spinner from '../components/Spinner';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -135,12 +136,7 @@ class Categories extends Component {
   }
 
   renderSpinner = () => (
-    <View style={{ flex: 1 }}>
-      <ActivityIndicator
-        size={'large'}
-        style={{ flex: 1 }}
-      />
-    </View>
+    <Spinner visible mode="content" />
   );
 
   renderList() {

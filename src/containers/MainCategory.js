@@ -17,6 +17,7 @@ import * as categoriesActions from '../actions/categoriesActions';
 // Components
 import CategoryListView from '../components/CategoryListView';
 import LayoutBlocks from '../components/LayoutBlocks';
+import Spinner from '../components/Spinner';
 
 
 // Styles
@@ -61,12 +62,7 @@ class MainCategory extends Component {
   }
 
   renderSpinner = () => (
-    <View style={{ flex: 1 }}>
-      <ActivityIndicator
-        size={'large'}
-        style={{ flex: 1 }}
-      />
-    </View>
+    <Spinner visible mode="content" />
   );
 
   renderList() {
