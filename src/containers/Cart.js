@@ -265,8 +265,13 @@ class Cart extends Component {
   }
 
   renderPlaceOrder() {
+    const { cart } = this.props;
     return (
-      <View style={styles.placeOrderContainer}>
+      <View style={styles.orderInfo}>
+        <View>
+          <Text>Subtotal: {cart.subtotal}</Text>
+          <Text>Total: {cart.total}</Text>
+        </View>
         <TouchableOpacity
           style={styles.placeOrderBtn}
           onPress={() => this.handlePlaceOrder()}

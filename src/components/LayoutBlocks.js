@@ -58,12 +58,10 @@ export default class LayoutBlocks extends Component {
         return (
           <ProductBlock
             items={block.items}
-            onPress={product => {
-              alert(`Press ${product.product_id}`)
-              // navigation.navigate('ProductDetail', {
-              //   pid: product.product_id,
-              //   cid: product.main_category,
-              // }) 
+            onPress={(product) => {
+              navigation.navigate('ProductDetail', {
+                pid: product.product_id,
+              });
             }}
             key={index}
           />
