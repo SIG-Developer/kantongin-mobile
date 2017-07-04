@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
+import { has } from 'lodash';
 import { stripTags } from '../utils';
 
 // Import actions.
@@ -164,7 +165,7 @@ class ProductDetail extends Component {
     }
     const images = [];
     // If we haven't images put main image.
-    if ('image_pairs' in product) {
+    if (has(product, 'main_pair.detailed.image_path')) {
       images.push(product.main_pair.detailed.image_path);
       Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
     }

@@ -138,7 +138,7 @@ class Cart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cart, navigation, auth } = nextProps;
+    const { cart, navigation } = nextProps;
     if (cart.fetching) {
       return;
     }
@@ -150,13 +150,6 @@ class Cart extends Component {
     this.setState({
       products,
       refreshing: false,
-    }, () => {
-      const newTitle = `CART (${cart.amount})`;
-      if (navigation.state.params.title != newTitle) {
-        navigation.setParams({
-          title: `CART (${cart.amount})`,
-        });
-      }
     });
   }
 
@@ -170,41 +163,42 @@ class Cart extends Component {
 
   handlePlaceOrder() {
     const { ordersActions, auth } = this.props;
-    ordersActions.create(auth.token, {
-      user_id: '3',
-      payment_id: 2,
-      shipping_id: '1',
-      products: {
-          12: {
-            product_id: 12,
-            amount: 1
-          },
-          13: {
-            product_id: 13,
-            amount: 2
+    ordersActions.create({
+      "user_id": "3",
+      "shipping_id": "1",
+      "payment_id": "2",
+      "products": {
+          "12": {
+            "product_id": "12",
+            "amount": "1"
+           },
+          "13": {
+            "product_id": "13",
+            "amount":"2"
           }
-      },
-      user_data: {
-        email: 'guest@example.com',
-        firstname: 'Guest',
-        lastname: 'Guest',
-        s_firstname: 'Guest',
-        s_lastname: 'Guest',
-        s_country: 'US',
-        s_city: 'Boston',
-        s_state: 'MA',
-        s_zipcode: '02125',
-        s_address: '44 Main street',
-        b_firstname: 'Guest',
-        b_lastname: 'Guest',
-        b_country: 'US',
-        b_city: 'Boston',
-        b_state: 'MA',
-        b_zipcode: '02125',
-        b_address: '44 Main street'
       }
     });
   }
+
+  handleRemoveProduct = (product) => {
+    const { cartActions, auth } = this.props;
+    cartActions.remove(auth.token, product.cartId);
+  };
+
+  handleChangeScreenTitle = () => {
+    const { cart, navigation } = this.props;
+    const newTitle = `CART (${cart.amount})`;
+    // FIXME brainfuck code to update title.
+    if ('params' in navigation.state) {
+      if (navigation.state.params.title != newTitle) {
+        setTimeout(() => {
+          navigation.setParams({
+            title: `CART (${cart.amount})`,
+          });
+        }, 100);
+      }
+    }
+  };
 
   renderClearCart = () => (
     <TouchableOpacity
@@ -231,11 +225,6 @@ class Cart extends Component {
       <Icon name="trash" style={styles.trashIcon} />
     </TouchableOpacity>
   );
-
-  handleRemoveProduct = (product) => {
-    const { cartActions, auth } = this.props;
-    cartActions.remove(auth.token, product.cartId);
-  };
 
   renderProductItem = (item) => {
     let productImage = null;
@@ -332,6 +321,7 @@ class Cart extends Component {
 
   render() {
     const { products } = this.state;
+    this.handleChangeScreenTitle();
     return (
       <View style={styles.container}>
         {products.length ? this.renderList() : this.renderEmptyList()}

@@ -12,4 +12,5 @@ config = config.default;
 axios.defaults.baseURL = config.baseUrl;
 axios.defaults.headers = {
   Authorization: `Basic ${base64.encode(`${config.username}:${config.apiKey}`)}`,
+  'Content-type': 'application/json',
 };

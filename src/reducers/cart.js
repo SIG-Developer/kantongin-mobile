@@ -19,8 +19,6 @@ const initialState = {
   fetching: false,
 };
 
-let newState = {};
-
 export default function (state = initialState, action) {
   switch (action.type) {
 

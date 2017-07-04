@@ -16,8 +16,6 @@ import {
   CART_CLEAR_REQUEST,
   CART_CLEAR_SUCCESS,
   CART_CLEAR_FAIL,
-
-  REMOVE_FROM_CART,
 } from '../constants';
 
 const headers = {
@@ -115,7 +113,7 @@ export function clear(token, cb = null) {
   };
 }
 
-export function remove(token, id) {
+export function remove(token, id, cb = null) {
   return (dispatch) => {
     dispatch({ type: CART_REMOVE_REQUEST });
     if (token) {
@@ -132,6 +130,8 @@ export function remove(token, id) {
         type: CART_REMOVE_SUCCESS,
         payload: response.data,
       });
+      // Calculate cart
+      setTimeout(() => fetch(token, cb)(dispatch), 50);
     })
     .catch((error) => {
       dispatch({

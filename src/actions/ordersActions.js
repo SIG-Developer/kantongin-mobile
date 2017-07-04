@@ -15,18 +15,13 @@ const headers = {
   'Content-type': 'application/json',
 };
 
-export function create(token = null, data, cb = null) {
-  if (token) {
-    headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-  }
+export function create(data, cb = null) {
   return (dispatch) => {
     dispatch({ type: ORDER_CREATE_REQUEST });
     return axios({
       method: 'post',
-      url: '/orders',
-      headers: {
-        Authorization: `Basic ${base64.encode(`${token}:`)}`,
-      }
+      url: '/stores/1/orders/',
+      data,
     })
     .then((response) => {
       dispatch({
