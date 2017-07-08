@@ -36,6 +36,7 @@ export default function (state = initialState, action) {
     case ADD_TO_CART_FAIL:
       return {
         ...state,
+        fetching: false,
       };
 
     case CART_REQUEST:

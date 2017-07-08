@@ -213,6 +213,7 @@ class ProductDetail extends Component {
         product_options: productOptions,
       },
     };
+    //this.props.cartActions.fetch(auth.token, () => console.log('okok'));
     this.props.cartActions.add(
       { products },
       auth.token,

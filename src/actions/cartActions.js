@@ -31,7 +31,6 @@ export function fetch(token, cb = null) {
     return axios({
       method: 'get',
       url: '/cart_content/',
-      data: {},
       headers,
     })
     .then((response) => {
@@ -39,7 +38,6 @@ export function fetch(token, cb = null) {
         type: CART_SUCCESS,
         payload: response.data,
       });
-
       if (cb) {
         cb();
       }
