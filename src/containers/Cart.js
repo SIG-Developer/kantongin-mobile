@@ -162,22 +162,11 @@ class Cart extends Component {
   }
 
   handlePlaceOrder() {
-    const { ordersActions, auth } = this.props;
-    ordersActions.create({
-      "user_id": "3",
-      "shipping_id": "1",
-      "payment_id": "2",
-      "products": {
-          "12": {
-            "product_id": "12",
-            "amount": "1"
-           },
-          "13": {
-            "product_id": "13",
-            "amount":"2"
-          }
-      }
-    });
+    const { auth, navigation } = this.props;
+    if (!auth.logged) {
+      return navigation.navigate('Login');
+    }
+    return navigation.navigate('Checkout');
   }
 
   handleRemoveProduct = (product) => {
@@ -191,40 +180,46 @@ class Cart extends Component {
     // FIXME brainfuck code to update title.
     if ('params' in navigation.state) {
       if (navigation.state.params.title != newTitle) {
-        setTimeout(() => {
-          navigation.setParams({
-            title: `CART (${cart.amount})`,
-          });
-        }, 100);
+        // setTimeout(() => {
+        //   navigation.setParams({
+        //     title: `CART (${cart.amount})`,
+        //     headerRight: this.renderClearCart(),
+        //   });
+        // }, 500);
       }
     }
   };
 
-  renderClearCart = () => (
-    <TouchableOpacity
-      style={styles.topBtn}
-      onPress={() => {
-        Alert.alert(
-          'Clear all cart ?',
-          '',
-          [
-            {
-              text: 'Cancel',
-              onPress: () => {},
-              style: 'cancel'
-            },
-            {
-              text: 'OK',
-              onPress: () => this.props.cartActions.clear(),
-            },
-          ],
-          { cancelable: true }
-        );
-      }}
-    >
-      <Icon name="trash" style={styles.trashIcon} />
-    </TouchableOpacity>
-  );
+  renderClearCart = () => {
+    if (!this.props.cart.amount) {
+      return null;
+    }
+    return (
+      <TouchableOpacity
+        style={styles.topBtn}
+        onPress={() => {
+          Alert.alert(
+            'Clear all cart ?',
+            '',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => {},
+                style: 'cancel'
+              },
+              {
+                text: 'OK',
+                onPress: () => this.props.cartActions.clear(),
+              },
+            ],
+            { cancelable: true }
+          );
+        }}
+      >
+        <Icon name="trash" style={styles.trashIcon} />
+      </TouchableOpacity>
+    );
+  };
 
   renderProductItem = (item) => {
     let productImage = null;
@@ -338,7 +333,9 @@ class Cart extends Component {
 
 Cart.propTypes = {
   navigation: PropTypes.shape({}),
-  cart: PropTypes.shape({}),
+  cart: PropTypes.shape({
+    amount: PropTypes.number,
+  }),
 };
 
 export default connect(state => ({

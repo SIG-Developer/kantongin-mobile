@@ -7,6 +7,7 @@ import flash from './flash';
 import modals from './modals';
 import orders from './orders';
 import products from './products';
+import shippings from './shippings';
 import categories from './categories';
 import productDetail from './productDetail';
 
@@ -18,6 +19,7 @@ export default combineReducers({
   modals,
   orders,
   products,
+  shippings,
   categories,
   productDetail,
 });

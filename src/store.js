@@ -30,6 +30,6 @@ persistStore(store, {
   storage: AsyncStorage
 });
 
-AsyncStorage.clear();
+// AsyncStorage.clear();
 
 export default store;

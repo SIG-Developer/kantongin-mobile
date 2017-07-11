@@ -8,14 +8,17 @@ import {
 } from 'react-navigation';
 // import EStyleSheet from 'react-native-extended-stylesheet';
 
-import MainCategory from './containers/MainCategory';
-import Categories from './containers/Categories';
 import Cart from './containers/Cart';
-import Profile from './containers/Profile';
 import Search from './containers/Search';
-import ProductDetail from './containers/ProductDetail';
 import Orders from './containers/Orders';
 import TabIcon from './components/TabIcon';
+import Profile from './containers/Profile';
+import Checkout from './containers/Checkout';
+import LoginModal from './containers/LoginModal';
+import Categories from './containers/Categories';
+import MainCategory from './containers/MainCategory';
+import ProductDetail from './containers/ProductDetail';
+import CheckoutStepTwo from './containers/CheckoutStepTwo';
 
 import theme from './theme';
 
@@ -51,6 +54,16 @@ const CartStack = StackNavigator({
     path: '/',
     navigationOptions: commonCardConfig,
   },
+  Checkout: {
+    screen: Checkout,
+    path: '/checkout',
+    navigationOptions: commonCardConfig,
+  },
+  CheckoutStepTwo: {
+    screen: CheckoutStepTwo,
+    path: '/checkout/2',
+    navigationOptions: commonCardConfig,
+  }
 });
 
 const SearchStack = StackNavigator({
@@ -159,6 +172,10 @@ const AppNavigator = StackNavigator({
     screen: HomeStack,
     path: '/',
   },
+  Login: {
+    screen: LoginModal,
+    path: '/login',
+  }
 }, {
   mode: 'modal',
   headerMode: 'none',
