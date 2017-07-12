@@ -19,6 +19,7 @@ import Categories from './containers/Categories';
 import MainCategory from './containers/MainCategory';
 import ProductDetail from './containers/ProductDetail';
 import CheckoutStepTwo from './containers/CheckoutStepTwo';
+import CheckoutStepThree from './containers/CheckoutStepThree';
 
 import theme from './theme';
 
@@ -63,7 +64,12 @@ const CartStack = StackNavigator({
     screen: CheckoutStepTwo,
     path: '/checkout/2',
     navigationOptions: commonCardConfig,
-  }
+  },
+  CheckoutStepThree: {
+    screen: CheckoutStepThree,
+    path: '/checkout/3',
+    navigationOptions: commonCardConfig,
+  },
 });
 
 const SearchStack = StackNavigator({

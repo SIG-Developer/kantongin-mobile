@@ -6,7 +6,6 @@ import {
   View,
   Text,
   FlatList,
-  ActivityIndicator,
   InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';

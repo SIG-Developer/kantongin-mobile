@@ -8,7 +8,7 @@ import {
 export function fetchAll() {
   return (dispatch) => {
     dispatch({ type: SHIPPING_REQUEST });
-    return axios.get('/shippings?items_per_page=100')
+    return axios.get('/shippings?items_per_page=200')
     .then((response) => {
       dispatch({
         type: SHIPPING_SUCCESS,

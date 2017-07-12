@@ -12,7 +12,9 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
-import * as shippingActions from '../actions/shippingActions';
+import * as ordersActions from '../actions/ordersActions';
+import * as paymentsActions from '../actions/paymentsActions';
+import * as flashActions from '../actions/flashActions';
 
 // Components
 import Spinner from '../components/Spinner';
@@ -25,21 +27,27 @@ const styles = EStyleSheet.create({
   contentContainer: {
     padding: 14,
   },
-  shippingItem: {
+  paymentItem: {
     padding: 14,
     borderBottomWidth: 1,
     borderColor: '#F1F1F1',
   }
 });
 
-class CheckoutStepTwo extends Component {
+class CheckoutStepThree extends Component {
   static propTypes = {
-    shippingActions: PropTypes.shape({
+    ordersActions: PropTypes.shape({
+      create: PropTypes.func,
+    }),
+    paymentsActions: PropTypes.shape({
       fetchAll: PropTypes.func,
     }),
-    shippings: PropTypes.shape({
-      fetching: PropTypes.bool,
+    payments: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
+      fetching: PropTypes.bool,
+    }),
+    flashActions: PropTypes.shape({
+      show: PropTypes.func,
     }),
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -50,22 +58,21 @@ class CheckoutStepTwo extends Component {
     super(props);
 
     this.state = {
-      items: [],
       fetching: false,
     };
   }
 
   componentDidMount() {
-    const { shippingActions } = this.props;
+    const { paymentsActions } = this.props;
     InteractionManager.runAfterInteractions(() => {
-      shippingActions.fetchAll();
+      paymentsActions.fetchAll();
     });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      items: nextProps.shippings.items,
-      fetching: nextProps.shippings.fetching,
+      items: nextProps.payments.items,
+      fetching: nextProps.payments.fetching,
     });
   }
 
@@ -73,7 +80,7 @@ class CheckoutStepTwo extends Component {
     return (
       <FlatList
         data={this.state.items}
-        keyExtractor={item => +item.shipping_id}
+        keyExtractor={item => +item.payment_id}
         numColumns={1}
         renderItem={({ item }) => this.renderItem(item)}
       />
@@ -81,21 +88,30 @@ class CheckoutStepTwo extends Component {
   }
 
   renderItem = (item) => {
-    const { navigation } = this.props;
+    const { navigation, ordersActions, flashActions } = this.props;
     return (
       <TouchableOpacity
-        style={styles.shippingItem}
-        onPress={() => navigation.navigate('CheckoutStepThree', {
-          ...navigation.state.params,
-          shipping_id: item.shipping_id,
-        })}
+        style={styles.paymentItem}
+        onPress={() => {
+          const orderData = {
+            ...navigation.state.params,
+            payment_id: item.payment_id,
+          };
+          ordersActions.create(orderData, () => {
+            flashActions.show({
+              type: 'success',
+              title: 'Success',
+              text: 'Order has been placed.'
+            });
+          });
+        }}
       >
-        <Text style={styles.shippingItemText}>
-          {item.shipping} {item.delivery_time}
+        <Text style={styles.paymentItemText}>
+          {item.description}
         </Text>
       </TouchableOpacity>
     );
-  };
+  }
 
   renderSpinner = () => (
     <Spinner visible mode="content" />
@@ -110,17 +126,20 @@ class CheckoutStepTwo extends Component {
   }
 }
 
-CheckoutStepTwo.navigationOptions = () => {
+CheckoutStepThree.navigationOptions = () => {
   return {
-    title: 'Shipping Options'.toUpperCase(),
+    title: 'Billing Options'.toUpperCase(),
   };
 };
 
 export default connect(state => ({
   nav: state.nav,
-  shippings: state.shippings,
+  payments: state.payments,
+  flash: state.flash,
 }),
   dispatch => ({
-    shippingActions: bindActionCreators(shippingActions, dispatch),
+    ordersActions: bindActionCreators(ordersActions, dispatch),
+    paymentsActions: bindActionCreators(paymentsActions, dispatch),
+    flashActions: bindActionCreators(flashActions, dispatch),
   })
-)(CheckoutStepTwo);
+)(CheckoutStepThree);

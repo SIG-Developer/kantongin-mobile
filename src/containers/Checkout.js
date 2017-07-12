@@ -115,10 +115,16 @@ class Checkout extends Component {
     };
   }
 
+  componentDidMount() {
+  }
+
   handleLogin() {
     const { navigation } = this.props;
     const value = this.refs.checkoutForm.getValue();
-    navigation.navigate('CheckoutStepTwo', { data: value });
+    navigation.navigate('CheckoutStepTwo', {
+      ...navigation.state.params,
+      user_data: {},
+    });
     if (value) {
       navigation.navigate('CheckoutStepTwo', { data: value });
     }
@@ -152,7 +158,7 @@ class Checkout extends Component {
 
 Checkout.navigationOptions = () => {
   return {
-    title: 'Checkout'.toUpperCase(),
+    title: 'Billing and Shipping Address'.toUpperCase(),
   };
 };
 

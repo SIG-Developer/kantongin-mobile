@@ -1,7 +1,7 @@
 import {
-  SHIPPING_REQUEST,
-  SHIPPING_FAIL,
-  SHIPPING_SUCCESS,
+  BILLING_REQUEST,
+  BILLING_FAIL,
+  BILLING_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -18,15 +18,15 @@ let items = [];
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SHIPPING_REQUEST:
+    case BILLING_REQUEST:
       return {
         ...state,
         fetching: true,
       };
 
-    case SHIPPING_SUCCESS:
+    case BILLING_SUCCESS:
       params = { ...action.payload.params };
-      items = action.payload.shippings.filter(i => i.status === 'A');
+      items = action.payload.payments.filter(i => i.status === 'A');
       return {
         items,
         params,
@@ -34,7 +34,7 @@ export default function (state = initialState, action) {
         hasMore: (params.items_per_page * params.page) < +params.total_items,
       };
 
-    case SHIPPING_FAIL:
+    case BILLING_FAIL:
       return {
         ...state,
         fetching: false,

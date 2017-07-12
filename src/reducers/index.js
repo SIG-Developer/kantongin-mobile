@@ -7,6 +7,7 @@ import flash from './flash';
 import modals from './modals';
 import orders from './orders';
 import products from './products';
+import payments from './payments';
 import shippings from './shippings';
 import categories from './categories';
 import productDetail from './productDetail';
@@ -19,6 +20,7 @@ export default combineReducers({
   modals,
   orders,
   products,
+  payments,
   shippings,
   categories,
   productDetail,

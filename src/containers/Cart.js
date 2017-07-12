@@ -163,10 +163,21 @@ class Cart extends Component {
 
   handlePlaceOrder() {
     const { auth, navigation } = this.props;
+
     if (!auth.logged) {
       return navigation.navigate('Login');
     }
-    return navigation.navigate('Checkout');
+    const products = {};
+    this.state.products.forEach((p) => {
+      products[p.product_id] = {
+        product_id: p.product_id,
+        amount: p.amount,
+      };
+    });
+    return navigation.navigate('Checkout', {
+      user_id: 3, // FIXME
+      products,
+    });
   }
 
   handleRemoveProduct = (product) => {
@@ -345,6 +356,5 @@ export default connect(state => ({
 }),
   dispatch => ({
     cartActions: bindActionCreators(cartActions, dispatch),
-    ordersActions: bindActionCreators(ordersActions, dispatch),
   })
 )(Cart);

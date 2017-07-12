@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 import ProductListView from './ProductListView';
@@ -26,15 +23,13 @@ export default class ProductBlocks extends Component {
     items: []
   }
 
-  renderProduct = (item, index) => {
-    return (
-      <ProductListView
-        key={index}
-        product={{ item, }}
-        onPress={() => this.props.onPress(item)}
-      />
-    );
-  }
+  renderProduct = (item, index) => (
+    <ProductListView
+      key={index}
+      product={{ item, }}
+      onPress={() => this.props.onPress(item)}
+    />
+  );
 
   render() {
     const { items } = this.props;
