@@ -55,9 +55,12 @@ const CartStack = StackNavigator({
     path: '/',
     navigationOptions: commonCardConfig,
   },
-  Checkout: {
+});
+
+const CheckoutStack = StackNavigator({
+  index: {
     screen: Checkout,
-    path: '/checkout',
+    path: '/',
     navigationOptions: commonCardConfig,
   },
   CheckoutStepTwo: {
@@ -181,6 +184,10 @@ const AppNavigator = StackNavigator({
   Login: {
     screen: LoginModal,
     path: '/login',
+  },
+  Checkout: {
+    screen: CheckoutStack,
+    path: '/checkout'
   }
 }, {
   mode: 'modal',

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import {
   View,
   Text,
@@ -10,6 +11,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import * as t from 'tcomb-form-native';
 
 // Import actions.
@@ -34,6 +36,13 @@ const styles = EStyleSheet.create({
     fontSize: '1rem',
     textAlign: 'center',
   },
+  closeBtn: {
+    padding: 10,
+  },
+  closeIcon: {
+    height: 20,
+    fontSize: 20,
+  }
 });
 
 const Form = t.form.Form;
@@ -101,8 +110,20 @@ class Checkout extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
+      dispatch: PropTypes.func,
     }),
-  }
+  };
+
+  static navigationOptions = ({ navigation }) => {
+    if (!navigation.state.params) {
+      return {};
+    }
+    const { headerRight } = navigation.state.params;
+    return {
+      headerRight,
+      title: 'Billing and Shipping Address'.toUpperCase(),
+    };
+  };
 
   constructor(props) {
     super(props);
@@ -116,6 +137,19 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
+    const { navigation } = this.props;
+    navigation.setParams({
+      headerRight: (
+        <TouchableOpacity
+          style={styles.closeBtn}
+          onPress={() => {
+            this.props.navigation.dispatch(NavigationActions.back());
+          }}
+        >
+          <Icon name="times" style={styles.closeIcon} />
+        </TouchableOpacity>
+      ),
+    });
   }
 
   handleLogin() {
@@ -155,12 +189,6 @@ class Checkout extends Component {
     );
   }
 }
-
-Checkout.navigationOptions = () => {
-  return {
-    title: 'Billing and Shipping Address'.toUpperCase(),
-  };
-};
 
 export default connect(state => ({
   nav: state.nav,

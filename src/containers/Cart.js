@@ -16,7 +16,6 @@ import Swipeout from 'react-native-swipeout';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
-import * as ordersActions from '../actions/ordersActions';
 
 // Components
 import Spinner from '../components/Spinner';
@@ -99,7 +98,6 @@ const styles = EStyleSheet.create({
 class Cart extends Component {
   static propTypes = {
     navigation: PropTypes.shape({}),
-    ordersActions: PropTypes.shape({}),
     cartActions: PropTypes.shape({
       fetch: PropTypes.func,
       clear: PropTypes.func,
