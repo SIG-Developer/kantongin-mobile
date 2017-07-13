@@ -10,6 +10,8 @@ import {
   CART_CLEAR_REQUEST,
   CART_CLEAR_SUCCESS,
   CART_CLEAR_FAIL,
+
+  ORDER_CREATE_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -77,6 +79,9 @@ export default function (state = initialState, action) {
         ...state,
         fetching: false,
       };
+
+    case ORDER_CREATE_SUCCESS:
+      return initialState;
 
     default:
       return state;

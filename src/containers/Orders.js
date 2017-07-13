@@ -25,28 +25,39 @@ const styles = EStyleSheet.create({
   },
   orderItem: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#F1F1F1',
     padding: 14,
   },
-  orderItemId: {
-    fontSize: '0.8rem',
-    fontWeight: 'bold',
-    maxWidth: 50,
-    marginRight: 20,
+  orderItemEmail: {
+    fontSize: '0.7rem',
+    color: 'gray'
   },
   orderItemCustomer: {
     marginRight: 20,
+  },
+  orderItemCustomerText: {
+    fontWeight: 'bold',
+  },
+  orderItemStatusText: {
+    textAlign: 'right',
+  },
+  orderItemTotal: {
+    fontWeight: 'bold',
+    fontSize: '0.7rem',
+    textAlign: 'right',
   }
 });
 
-class Profile extends Component {
+class Orders extends Component {
   static propTypes = {
-    authActions: PropTypes.shape({
+    ordersActions: PropTypes.shape({
       login: PropTypes.func,
     }),
-    flashActions: PropTypes.shape({
-      show: PropTypes.func,
+    orders: PropTypes.shape({
+      fetching: PropTypes.bool,
+      items: PropTypes.arrayOf(PropTypes.object),
     }),
     auth: PropTypes.shape({
       logged: PropTypes.bool,
@@ -56,7 +67,7 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-  
+
     this.state = {
       orders: [],
       fetching: true,
@@ -78,29 +89,78 @@ class Profile extends Component {
     });
   }
 
-  renderItem(item) {
+  getOrderStatus = (status) => {
+    switch (status) {
+      case 'P':
+        return {
+          text: 'Processed',
+          style: { color: '#97cf4d' }
+        };
+
+      case 'C':
+        return {
+          text: 'Complete',
+          style: { color: '#97cf4d' }
+        };
+
+      case 'O':
+        return {
+          text: 'Open',
+          style: { color: '#ff9522' }
+        };
+
+      case 'F':
+        return {
+          text: 'Failed',
+          style: { color: '#ff5215' }
+        };
+
+      case 'D':
+        return {
+          text: 'Declined',
+          style: { color: '#ff5215' }
+        };
+
+      case 'B':
+        return {
+          text: 'Backordered',
+          style: { color: '#28abf6' }
+        };
+
+      case 'I':
+        return {
+          text: 'Canceled',
+          style: { color: '#c2c2c2' }
+        };
+
+      default:
+        return null;
+    }
+  }
+
+  renderItem = (item) => {
+    const status = this.getOrderStatus(item.status);
     return (
       <View style={styles.orderItem}>
-        <Text style={styles.orderItemId}>
-          {item.order_id}
-        </Text>
         <View style={styles.orderItemCustomer}>
           <Text style={styles.orderItemCustomerText}>
-            {item.firstname} {item.lastname}
+            #{item.order_id} {item.firstname} {item.lastname}
           </Text>
           <Text style={styles.orderItemEmail}>
             {item.email}
           </Text>
         </View>
-        <Text style={styles.orderItemStatus}>
-          {item.status}
-        </Text>
-        <Text style={styles.orderItemTotal}>
-          {item.total}
-        </Text>
+        <View style={styles.orderItemStatus}>
+          <Text style={[styles.orderItemStatusText, status.style]}>
+            {status.text}
+          </Text>
+          <Text style={styles.orderItemTotal}>
+            {item.total}
+          </Text>
+        </View>
       </View>
     );
-  }
+  };
 
   renderList = () => {
     const { orders, fetching } = this.state;
@@ -121,13 +181,13 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         {this.renderList()}
-        <Spinner visible={fetching} />
+        <Spinner visible={fetching} mode="content" />
       </View>
     );
   }
 }
 
-Profile.navigationOptions = () => {
+Orders.navigationOptions = () => {
   return {
     title: 'Orders'.toUpperCase(),
   };
@@ -144,4 +204,4 @@ export default connect(state => ({
     flashActions: bindActionCreators(flashActions, dispatch),
     ordersActions: bindActionCreators(ordersActions, dispatch),
   })
-)(Profile);
+)(Orders);

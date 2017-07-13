@@ -31,10 +31,8 @@ export function create(data, cb = null) {
       if (cb) {
         cb(response.data);
       }
-      console.log('ok', response.data);
     })
     .catch((error) => {
-      console.log('fail', error.response.data);
       dispatch({
         type: ORDER_CREATE_FAIL,
         error,

@@ -70,14 +70,19 @@ class Spinner extends Component {
     </Modal>
   );
 
-  renderAsContent = () => (
-    <View style={styles.contentContainer}>
-      <ActivityIndicator
-        size={'large'}
-        style={styles.indicator}
-      />
-    </View>
-  );
+  renderAsContent = () => {
+    if (!this.state.visible) {
+      return null;
+    }
+    return (
+      <View style={styles.contentContainer}>
+        <ActivityIndicator
+          size={'large'}
+          style={styles.indicator}
+        />
+      </View>
+    );
+  }
 
   render() {
     const { mode } = this.props;
