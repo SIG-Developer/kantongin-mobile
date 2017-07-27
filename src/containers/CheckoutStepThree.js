@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import {
   View,
   Text,
@@ -103,6 +104,7 @@ class CheckoutStepThree extends Component {
               title: 'Success',
               text: 'Order has been placed.'
             });
+            this.props.navigation.navigate('Home');
           });
         }}
       >

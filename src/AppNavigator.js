@@ -5,13 +5,13 @@ import {
 import {
   TabNavigator,
   StackNavigator,
+  DrawerNavigator,
 } from 'react-navigation';
 // import EStyleSheet from 'react-native-extended-stylesheet';
 
 import Cart from './containers/Cart';
 import Search from './containers/Search';
 import Orders from './containers/Orders';
-import TabIcon from './components/TabIcon';
 import Profile from './containers/Profile';
 import Checkout from './containers/Checkout';
 import LoginModal from './containers/LoginModal';
@@ -20,6 +20,10 @@ import MainCategory from './containers/MainCategory';
 import ProductDetail from './containers/ProductDetail';
 import CheckoutStepTwo from './containers/CheckoutStepTwo';
 import CheckoutStepThree from './containers/CheckoutStepThree';
+
+// Components
+import Drawer from './components/Drawer';
+import TabIcon from './components/TabIcon';
 
 import theme from './theme';
 
@@ -176,7 +180,7 @@ const HomeStack = TabNavigator({
   }
 });
 
-const AppNavigator = StackNavigator({
+const ModalsStack = StackNavigator({
   Home: {
     screen: HomeStack,
     path: '/',
@@ -193,6 +197,14 @@ const AppNavigator = StackNavigator({
   mode: 'modal',
   headerMode: 'none',
   initialRouteName: 'Home',
+});
+
+const AppNavigator = DrawerNavigator({
+  index: {
+    screen: ModalsStack,
+  },
+}, {
+  contentComponent: props => (<Drawer {...props} />),
 });
 
 export default AppNavigator;
