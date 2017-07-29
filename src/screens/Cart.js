@@ -20,6 +20,9 @@ import * as cartActions from '../actions/cartActions';
 // Components
 import Spinner from '../components/Spinner';
 
+// links
+import { registerDrawerDeepLinks } from '../utils/deepLinks';
+
 // Styles
 const styles = EStyleSheet.create({
   container: {
@@ -107,17 +110,6 @@ class Cart extends Component {
     cart: PropTypes.shape({}),
   };
 
-  static navigationOptions = ({ navigation }) => {
-    if (!navigation.state.params) {
-      return {};
-    }
-    let { title, headerRight } = navigation.state.params;
-    return {
-      title,
-      headerRight,
-    };
-  };
-
   constructor(props) {
     super(props);
 
@@ -125,18 +117,19 @@ class Cart extends Component {
       refreshing: false,
       products: [],
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    const { navigation, cart } = this.props;
-    navigation.setParams({
-      title: `CART (${cart.amount})`,
-      headerRight: this.renderClearCart(),
-    });
+    // const { navigation, cart } = this.props;
+    // navigation.setParams({
+    //   title: `CART (${cart.amount})`,
+    //   headerRight: this.renderClearCart(),
+    // });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cart, navigation } = nextProps;
+    const { cart } = nextProps;
     if (cart.fetching) {
       return;
     }
@@ -151,6 +144,11 @@ class Cart extends Component {
     });
   }
 
+  onNavigatorEvent(event) {
+    // handle a deep link
+    registerDrawerDeepLinks(event, this.props.navigator);
+  }
+
   handleRefresh() {
     const { cartActions, auth } = this.props;
     this.setState(
@@ -163,7 +161,7 @@ class Cart extends Component {
     const { auth, navigation } = this.props;
 
     if (!auth.logged) {
-      return navigation.navigate('Login');
+      // return navigation.navigate('Login');
     }
     const products = {};
     this.state.products.forEach((p) => {
@@ -172,10 +170,10 @@ class Cart extends Component {
         amount: p.amount,
       };
     });
-    return navigation.navigate('Checkout', {
-      user_id: 3, // FIXME
-      products,
-    });
+    // return navigation.navigate('Checkout', {
+    //   user_id: 3, // FIXME
+    //   products,
+    // });
   }
 
   handleRemoveProduct = (product) => {
@@ -184,19 +182,19 @@ class Cart extends Component {
   };
 
   handleChangeScreenTitle = () => {
-    const { cart, navigation } = this.props;
-    const newTitle = `CART (${cart.amount})`;
-    // FIXME brainfuck code to update title.
-    if ('params' in navigation.state) {
-      if (navigation.state.params.title != newTitle) {
-        // setTimeout(() => {
-        //   navigation.setParams({
-        //     title: `CART (${cart.amount})`,
-        //     headerRight: this.renderClearCart(),
-        //   });
-        // }, 500);
-      }
-    }
+    // const { cart, navigation } = this.props;
+    // const newTitle = `CART (${cart.amount})`;
+    // // FIXME brainfuck code to update title.
+    // if ('params' in navigation.state) {
+    //   if (navigation.state.params.title != newTitle) {
+    //     // setTimeout(() => {
+    //     //   navigation.setParams({
+    //     //     title: `CART (${cart.amount})`,
+    //     //     headerRight: this.renderClearCart(),
+    //     //   });
+    //     // }, 500);
+    //   }
+    // }
   };
 
   renderClearCart = () => {

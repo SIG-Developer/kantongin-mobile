@@ -90,14 +90,23 @@ class Drawer extends Component {
         {this.renderSearchBar()}
         <View style={styles.group}>
           {this.renderItem('Home', () => {
-            navigator.resetTo({
-              screen: 'MainCatgory',
+            navigator.handleDeepLink({
+              link: 'home/',
+              payload: {},
             });
             navigator.toggleDrawer({
               side: 'left',
             });
           })}
-          {this.renderItem('Cart')}
+          {this.renderItem('Cart', () => {
+            navigator.handleDeepLink({
+              link: 'cart/content',
+              payload: {},
+            });
+            navigator.toggleDrawer({
+              side: 'left',
+            });
+          })}
           {this.renderItem('My Profile')}
           {this.renderItem('Orders')}
         </View>

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import nav from './nav';
 import cart from './cart';
 import auth from './auth';
 import flash from './flash';
@@ -13,7 +12,6 @@ import categories from './categories';
 import productDetail from './productDetail';
 
 export default combineReducers({
-  nav,
   cart,
   auth,
   flash,

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
+import { iconsMap, iconsLoaded } from '../utils/AppIcons';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -44,15 +45,21 @@ const styles = EStyleSheet.create({
 
 class Categories extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+      setOnNavigatorEvent: PropTypes.func,
     }),
+    navProps: PropTypes.shape({}),
     products: PropTypes.shape({
       items: PropTypes.object,
     }),
     productsActions: PropTypes.shape({
       fetchByCategory: PropTypes.func,
     })
+  };
+
+  static navigatorStyle = {
+    navBarLeftButtonColor: '#000000',
   };
 
   constructor(props) {
@@ -65,11 +72,13 @@ class Categories extends Component {
       subCategories: [],
       refreshing: false,
     };
+
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    const { navigation, productsActions, products } = this.props;
-    const category = navigation.state.params.category;
+    const { productsActions, products, navProps, navigator } = this.props;
+    const category = navProps.category;
     this.activeCategoryId = category.category_id;
     const categoryProducts = products.items[this.activeCategoryId];
     const newState = {};
@@ -87,6 +96,25 @@ class Categories extends Component {
         ...newState,
       }, () => productsActions.fetchByCategory(this.activeCategoryId));
     });
+
+    navigator.setTitle({
+      title: category.category.toUpperCase(),
+    });
+
+    iconsLoaded.then(() => {
+      navigator.setButtons({
+        rightButtons: [
+          {
+            id: 'cart',
+            icon: iconsMap['shopping-cart'],
+          },
+          {
+            id: 'search',
+            icon: iconsMap['search'],
+          },
+        ],
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,6 +126,23 @@ class Categories extends Component {
         refreshing: false,
       });
       this.isFirstLoad = false;
+    }
+  }
+
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'cart') {
+        navigator.resetTo({
+          screen: 'Cart',
+          animated: false,
+        });
+      } else if (event.id === 'search') {
+        navigator.resetTo({
+          screen: 'Search',
+          animated: false,
+        });
+      }
     }
   }
 
@@ -116,12 +161,20 @@ class Categories extends Component {
   }
 
   renderHeader() {
-    const { navigation } = this.props;
+    const { navigator } = this.props;
     const subCategoriesList = this.state.subCategories.map((item, index) => (<CategoryListView
       key={index}
       category={item}
       index={index}
-      onPress={() => navigation.navigate('Category', { category: item })}
+      onPress={() => navigator.push({
+        screen: 'Categories',
+        backButtonTitle: '',
+        passProps: {
+          navProps: {
+            category: item,
+          }
+        },
+      })}
     />));
     const productHeader = (<Text style={styles.header}>Products</Text>);
     return (
@@ -139,7 +192,7 @@ class Categories extends Component {
   );
 
   renderList() {
-    const { navigation } = this.props;
+    const { navigator } = this.props;
     return (
       <FlatList
         data={this.state.products}
@@ -148,8 +201,12 @@ class Categories extends Component {
         numColumns={PRODUCT_NUM_COLUMNS}
         renderItem={item => (<ProductListView
           product={item}
-          onPress={product => navigation.navigate('ProductDetail', {
-            pid: product.product_id,
+          onPress={product => navigator.push({
+            screen: 'ProductDetail',
+            backButtonTitle: '',
+            navProps: {
+              pid: product.product_id,
+            }
           })}
         />)}
         onRefresh={() => this.handleRefresh()}
@@ -173,15 +230,7 @@ class Categories extends Component {
   }
 }
 
-Categories.navigationOptions = ({ navigation }) => {
-  return {
-    title: `${navigation.state.params.category.category}`.toUpperCase(),
-    mode: 'modal',
-  };
-};
-
 export default connect(state => ({
-  nav: state.nav,
   categories: state.categories,
   products: state.products,
 }),

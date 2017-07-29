@@ -6,7 +6,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import './config';
 import store from './store';
-//import App from './containers/App';
 import theme from './theme';
 import { registerScreens } from './screens';
 
@@ -29,10 +28,7 @@ class App extends Component {
   startApp() {
     Navigation.startSingleScreenApp({
       screen: {
-        screen: 'MainCatgory',
-        title: 'Welcome',
-        navigatorStyle: {},
-        navigatorButtons: {}
+        screen: 'MainCategory',
       },
       drawer: {
         left: {

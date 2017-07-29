@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import {
   View,
   FlatList,
-  ActivityIndicator,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { blocks } from '../fakeData';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
+import { iconsMap, iconsLoaded } from '../utils/AppIcons';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -19,6 +19,8 @@ import CategoryListView from '../components/CategoryListView';
 import LayoutBlocks from '../components/LayoutBlocks';
 import Spinner from '../components/Spinner';
 
+// links
+import { registerDrawerDeepLinks } from '../utils/deepLinks';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -30,8 +32,10 @@ const styles = EStyleSheet.create({
 
 class MainCategory extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+      setOnNavigatorEvent: PropTypes.func,
+      setButtons: PropTypes.func,
     }),
     categories: PropTypes.shape({
       items: PropTypes.array,
@@ -40,7 +44,13 @@ class MainCategory extends Component {
     categoriesActions: PropTypes.shape({
       fetch: PropTypes.func,
     })
-  }
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+    navBarButtonFontSize: 10,
+  };
 
   constructor(props) {
     super(props);
@@ -48,10 +58,36 @@ class MainCategory extends Component {
     this.state = {
       items: [],
     };
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    this.props.categoriesActions.fetch();
+    const { navigator, categoriesActions } = this.props;
+    categoriesActions.fetch();
+    // FIXME: Set title
+    navigator.setTitle({
+      title: 'CS-Cart'.toUpperCase(),
+    });
+    iconsLoaded.then(() => {
+      navigator.setButtons({
+        leftButtons: [
+          {
+            id: 'sideMenu',
+            icon: iconsMap['bars'],
+          },
+        ],
+        rightButtons: [
+          {
+            id: 'cart',
+            icon: iconsMap['shopping-cart'],
+          },
+          {
+            id: 'search',
+            icon: iconsMap['search'],
+          },
+        ],
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,12 +97,32 @@ class MainCategory extends Component {
     });
   }
 
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    registerDrawerDeepLinks(event, navigator);
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'sideMenu') {
+        navigator.toggleDrawer({ side: 'left' });
+      } else if (event.id === 'cart') {
+        navigator.resetTo({
+          screen: 'Cart',
+          animated: false,
+        });
+      } else if (event.id === 'search') {
+        navigator.resetTo({
+          screen: 'Search',
+          animated: false,
+        });
+      }
+    }
+  }
+
   renderSpinner = () => (
     <Spinner visible mode="content" />
   );
 
   renderList() {
-    const { navigation } = this.props;
+    const { navigator } = this.props;
     return (
       <FlatList
         numColumns={PRODUCT_NUM_COLUMNS}
@@ -76,14 +132,22 @@ class MainCategory extends Component {
           <CategoryListView
             category={item.item}
             index={item.index}
-            onPress={() => navigation.navigate('Category', { category: item.item })}
+            onPress={() => navigator.push({
+              screen: 'Categories',
+              backButtonTitle: '',
+              passProps: {
+                navProps: {
+                  category: item.item,
+                }
+              },
+            })}
           />
         )}
         ListFooterComponent={() => (
           <LayoutBlocks
             blocks={blocks}
             location={'mainPage'}
-            navigation={navigation}
+            navigation={navigator}
           />
         )}
       />
@@ -100,14 +164,7 @@ class MainCategory extends Component {
   }
 }
 
-MainCategory.navigationOptions = () => {
-  return {
-    title: 'Catalog'.toUpperCase(),
-  };
-};
-
 export default connect(state => ({
-  nav: state.nav,
   categories: state.categories,
 }),
   dispatch => ({
