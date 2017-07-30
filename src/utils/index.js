@@ -28,3 +28,5 @@ export const lang = DeviceInfo.getDeviceLocale().split('-')[0];
 
 // Strip tags
 export const stripTags = str => str.replace(/(<([^>]+)>)/ig, '').trimLeft();
+
+export const formatPrice = price => `$${parseFloat(price).toFixed(2)}`;

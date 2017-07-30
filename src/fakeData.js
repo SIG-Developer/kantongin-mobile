@@ -2,7 +2,7 @@
 export const blocks = [
   {
     type: 'banners',
-    location: 'mainPage',
+    location: 'mainPageTop',
     items: [
       {
         http_image_path: 'http://imakarov.us/images/promo/1/banner-en-sale-40-80.png',
@@ -24,7 +24,7 @@ export const blocks = [
   },
   {
     type: 'products',
-    location: 'mainPage',
+    location: 'mainPageBottom',
     items: [
       {
         product: 'Birds of Prey: The Complete Series (DVD)',

@@ -12,7 +12,7 @@ const styles = EStyleSheet.create({
   img: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   }
 });
 
@@ -42,7 +42,7 @@ export default class BannerBlocks extends Component {
     return (
       <Swiper
         horizontal
-        height={220}
+        height={200}
         style={styles.container}
       >
         {itemsList}

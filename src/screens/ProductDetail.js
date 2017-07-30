@@ -14,7 +14,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 import { has } from 'lodash';
-import { stripTags } from '../utils';
+import { stripTags, formatPrice } from '../utils';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -24,6 +24,7 @@ import * as productsActions from '../actions/productsActions';
 // Components
 import SelectOption from '../components/SelectOption';
 import InputOption from '../components/InputOption';
+import QtyOption from '../components/QtyOption';
 import Spinner from '../components/Spinner';
 
 const styles = EStyleSheet.create({
@@ -51,13 +52,12 @@ const styles = EStyleSheet.create({
     borderTopColor: '#F1F1F1'
   },
   nameText: {
-    fontSize: '1.3rem',
-    fontWeight: 'bold',
+    fontSize: '1.2rem',
     color: 'black',
     marginBottom: 5,
   },
   priceText: {
-    fontSize: '0.8rem',
+    fontSize: '1rem',
     fontWeight: 'bold',
     color: 'black',
   },
@@ -96,6 +96,9 @@ const styles = EStyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontSize: '1rem',
+  },
+  addToCartBtnTextSmall: {
+    fontSize: '0.7rem',
   },
   feautureGroup: {
     flexDirection: 'row',
@@ -174,7 +177,7 @@ class ProductDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { productDetail } = nextProps;
+    const { productDetail, navigator } = nextProps;
     const { selectedOptions } = this.state;
     // FIXME
     const product = productDetail;
@@ -209,6 +212,10 @@ class ProductDetail extends Component {
       images,
       product,
       fetching: productDetail.fetching,
+    });
+
+    navigator.setTitle({
+      title: product.product.toUpperCase(),
     });
   }
 
@@ -322,7 +329,9 @@ class ProductDetail extends Component {
       return null;
     }
     return (
-      <Text style={styles.priceText}>${parseFloat(product.price).toFixed(2)}</Text>
+      <Text style={styles.priceText}>
+        {formatPrice(product.price)}
+      </Text>
     );
   }
 
@@ -368,6 +377,14 @@ class ProductDetail extends Component {
       <View style={styles.blockContainer}>
         <View style={styles.blockWrapper}>
           {product.options.map(o => this.renderOptionItem(o))}
+          <QtyOption
+            value={this.state.amount}
+            onChange={(val) => {
+              this.setState({
+                amount: val,
+              });
+            }}
+          />
         </View>
       </View>
     );
@@ -411,6 +428,7 @@ class ProductDetail extends Component {
   }
 
   renderAddToCart() {
+    const { product } = this.state;
     return (
       <View style={styles.addToCartContainer}>
         <TouchableOpacity
@@ -418,7 +436,9 @@ class ProductDetail extends Component {
           onPress={() => this.handleAddToCart()}
         >
           <Text style={styles.addToCartBtnText}>
-            Add to cart
+            Add to cart <Text style={styles.addToCartBtnTextSmall}>
+              ({formatPrice(product.price)})
+            </Text>
           </Text>
         </TouchableOpacity>
       </View>

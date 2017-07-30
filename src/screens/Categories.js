@@ -135,9 +135,9 @@ class Categories extends Component {
           animated: false,
         });
       } else if (event.id === 'search') {
-        navigator.resetTo({
+        navigator.showModal({
           screen: 'Search',
-          animated: false,
+          title: 'search'
         });
       }
     }

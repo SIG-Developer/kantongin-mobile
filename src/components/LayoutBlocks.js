@@ -11,7 +11,6 @@ import ProductBlock from './ProductBlock';
 
 const styles = EStyleSheet.create({
   container: {
-    marginTop: 10,
     marginBottom: 10,
   },
 });

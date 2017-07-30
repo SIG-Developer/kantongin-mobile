@@ -100,7 +100,10 @@ const styles = EStyleSheet.create({
 
 class Cart extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({}),
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+      setOnNavigatorEvent: PropTypes.func,
+    }),
     cartActions: PropTypes.shape({
       fetch: PropTypes.func,
       clear: PropTypes.func,
@@ -110,6 +113,11 @@ class Cart extends Component {
     cart: PropTypes.shape({}),
   };
 
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+  };
+
   constructor(props) {
     super(props);
 
@@ -117,15 +125,25 @@ class Cart extends Component {
       refreshing: false,
       products: [],
     };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    // const { navigation, cart } = this.props;
-    // navigation.setParams({
-    //   title: `CART (${cart.amount})`,
-    //   headerRight: this.renderClearCart(),
-    // });
+    const { navigator, cart } = this.props;
+    navigator.setButtons({
+      leftButtons: [
+        {
+          id: 'sideMenu',
+          icon: require('../assets/icons/bars.png'),
+        },
+      ],
+      rightButtons: [
+        {
+          id: 'clearCart',
+          icon: require('../assets/icons/search.png'),
+        },
+      ],
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -147,6 +165,29 @@ class Cart extends Component {
   onNavigatorEvent(event) {
     // handle a deep link
     registerDrawerDeepLinks(event, this.props.navigator);
+    const { navigator } = this.props;
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'sideMenu') {
+        navigator.toggleDrawer({ side: 'left' });
+      } else if (event.id === 'clearCart') {
+        Alert.alert(
+          'Clear all cart ?',
+          '',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {},
+              style: 'cancel'
+            },
+            {
+              text: 'OK',
+              onPress: () => this.props.cartActions.clear(),
+            },
+          ],
+          { cancelable: true }
+        );
+      }
+    }
   }
 
   handleRefresh() {
@@ -158,7 +199,7 @@ class Cart extends Component {
   }
 
   handlePlaceOrder() {
-    const { auth, navigation } = this.props;
+    const { auth, navigator } = this.props;
 
     if (!auth.logged) {
       // return navigation.navigate('Login');
@@ -179,53 +220,6 @@ class Cart extends Component {
   handleRemoveProduct = (product) => {
     const { cartActions, auth } = this.props;
     cartActions.remove(auth.token, product.cartId);
-  };
-
-  handleChangeScreenTitle = () => {
-    // const { cart, navigation } = this.props;
-    // const newTitle = `CART (${cart.amount})`;
-    // // FIXME brainfuck code to update title.
-    // if ('params' in navigation.state) {
-    //   if (navigation.state.params.title != newTitle) {
-    //     // setTimeout(() => {
-    //     //   navigation.setParams({
-    //     //     title: `CART (${cart.amount})`,
-    //     //     headerRight: this.renderClearCart(),
-    //     //   });
-    //     // }, 500);
-    //   }
-    // }
-  };
-
-  renderClearCart = () => {
-    if (!this.props.cart.amount) {
-      return null;
-    }
-    return (
-      <TouchableOpacity
-        style={styles.topBtn}
-        onPress={() => {
-          Alert.alert(
-            'Clear all cart ?',
-            '',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => {},
-                style: 'cancel'
-              },
-              {
-                text: 'OK',
-                onPress: () => this.props.cartActions.clear(),
-              },
-            ],
-            { cancelable: true }
-          );
-        }}
-      >
-        <Icon name="trash" style={styles.trashIcon} />
-      </TouchableOpacity>
-    );
   };
 
   renderProductItem = (item) => {
@@ -328,7 +322,6 @@ class Cart extends Component {
 
   render() {
     const { products } = this.state;
-    this.handleChangeScreenTitle();
     return (
       <View style={styles.container}>
         {products.length ? this.renderList() : this.renderEmptyList()}
@@ -338,15 +331,7 @@ class Cart extends Component {
   }
 }
 
-Cart.propTypes = {
-  navigation: PropTypes.shape({}),
-  cart: PropTypes.shape({
-    amount: PropTypes.number,
-  }),
-};
-
 export default connect(state => ({
-  nav: state.nav,
   auth: state.auth,
   cart: state.cart,
 }),

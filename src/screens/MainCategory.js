@@ -106,9 +106,9 @@ class MainCategory extends Component {
           animated: false,
         });
       } else if (event.id === 'search') {
-        navigator.resetTo({
+        navigator.showModal({
           screen: 'Search',
-          animated: false,
+          title: 'search'
         });
       }
     }
@@ -125,6 +125,13 @@ class MainCategory extends Component {
         numColumns={PRODUCT_NUM_COLUMNS}
         data={this.state.items}
         keyExtractor={item => item.category_id}
+        ListHeaderComponent={() => (
+          <LayoutBlocks
+            blocks={blocks}
+            location={'mainPageTop'}
+            navigation={navigator}
+          />
+        )}
         renderItem={item => (
           <CategoryListView
             category={item.item}
@@ -143,7 +150,7 @@ class MainCategory extends Component {
         ListFooterComponent={() => (
           <LayoutBlocks
             blocks={blocks}
-            location={'mainPage'}
+            location={'mainPageBottom'}
             navigation={navigator}
           />
         )}
