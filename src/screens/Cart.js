@@ -19,6 +19,7 @@ import * as cartActions from '../actions/cartActions';
 
 // Components
 import Spinner from '../components/Spinner';
+import QtyOption from '../components/QtyOption';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
@@ -27,7 +28,7 @@ import { registerDrawerDeepLinks } from '../utils/deepLinks';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAFAFA',
   },
   topBtn: {
     padding: 10,
@@ -37,24 +38,32 @@ const styles = EStyleSheet.create({
     fontSize: 20,
   },
   productItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F1',
-    paddingBottom: 10,
+    marginTop: 15,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#F1F1F1',
     flexDirection: 'row',
+    paddingBottom: 10,
     padding: 14,
+    width: '100%',
+    overflow: 'hidden',
   },
   productItemImage: {
     width: 100,
     height: 100,
   },
+  productItemDetail: {
+    marginLeft: 10,
+    width: '70%',
+  },
   productItemName: {
     fontSize: '0.9rem',
     color: 'black',
     marginBottom: 5,
+    fontWeight: 'bold',
   },
   productItemPrice: {
-    fontSize: '0.8rem',
-    fontWeight: 'bold',
+    fontSize: '0.7rem',
     color: 'black',
   },
   placeOrderBtn: {
@@ -129,7 +138,8 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    const { navigator, cart } = this.props;
+    const { navigator } = this.props;
+    this.handleRefresh();
     navigator.setButtons({
       leftButtons: [
         {
@@ -140,9 +150,13 @@ class Cart extends Component {
       rightButtons: [
         {
           id: 'clearCart',
-          icon: require('../assets/icons/search.png'),
+          icon: require('../assets/icons/trash.png'),
         },
       ],
+    });
+
+    navigator.setTitle({
+      title: 'Cart'.toUpperCase(),
     });
   }
 
@@ -151,6 +165,7 @@ class Cart extends Component {
     if (cart.fetching) {
       return;
     }
+
     const products = Object.keys(cart.products).map((key) => {
       const result = cart.products[key];
       result.cartId = key;
@@ -243,17 +258,28 @@ class Cart extends Component {
       <Swipeout
         autoClose
         right={swipeoutBtns}
-        backgroundColor={'#fff'}
+        backgroundColor={'#FAFAFA'}
       >
         <View style={styles.productItem}>
           {productImage}
           <View style={styles.productItemDetail}>
-            <Text style={styles.productItemName}>
+            <Text
+              style={styles.productItemName}
+              numberOfLines={1}
+            >
               {item.product}
             </Text>
             <Text style={styles.productItemPrice}>
               {item.amount} x ${item.price}
             </Text>
+            <QtyOption
+              value={2}
+              onChange={(val) => {
+                this.setState({
+                  amount: val,
+                });
+              }}
+            />
           </View>
         </View>
       </Swipeout>
