@@ -1,4 +1,2 @@
-import { AppRegistry } from 'react-native';
-import App from './src';
-
-AppRegistry.registerComponent('csnative', () => App);
+import Application from './src';
+const App = new Application();

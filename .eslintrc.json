@@ -23,7 +23,7 @@
     "globals": {
         "__DEV__": false,
         "Dimensions": false,
-        "require": false,
+        "require": true,
         "fetch": false,
         "WebSocket": false,
         "FormData": false,

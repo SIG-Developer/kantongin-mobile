@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
-import { iconsMap, iconsLoaded } from '../utils/AppIcons';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -100,20 +99,18 @@ class Categories extends Component {
     navigator.setTitle({
       title: category.category.toUpperCase(),
     });
-
-    iconsLoaded.then(() => {
-      navigator.setButtons({
-        rightButtons: [
-          {
-            id: 'cart',
-            icon: iconsMap['shopping-cart'],
-          },
-          {
-            id: 'search',
-            icon: iconsMap['search'],
-          },
-        ],
-      });
+    navigator.setButtons({
+      rightButtons: [
+        {
+          id: 'cart',
+          icon: require('../assets/icons/shopping-cart.png'),
+        },
+        {
+          id: 'search',
+          title: 'search',
+          icon: require('../assets/icons/search.png'),
+        },
+      ],
     });
   }
 
@@ -204,8 +201,10 @@ class Categories extends Component {
           onPress={product => navigator.push({
             screen: 'ProductDetail',
             backButtonTitle: '',
-            navProps: {
-              pid: product.product_id,
+            passProps: {
+              navProps: {
+                pid: product.product_id,
+              }
             }
           })}
         />)}

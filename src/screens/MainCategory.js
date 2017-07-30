@@ -9,7 +9,6 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { blocks } from '../fakeData';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
-import { iconsMap, iconsLoaded } from '../utils/AppIcons';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -68,25 +67,23 @@ class MainCategory extends Component {
     navigator.setTitle({
       title: 'CS-Cart'.toUpperCase(),
     });
-    iconsLoaded.then(() => {
-      navigator.setButtons({
-        leftButtons: [
-          {
-            id: 'sideMenu',
-            icon: iconsMap['bars'],
-          },
-        ],
-        rightButtons: [
-          {
-            id: 'cart',
-            icon: iconsMap['shopping-cart'],
-          },
-          {
-            id: 'search',
-            icon: iconsMap['search'],
-          },
-        ],
-      });
+    navigator.setButtons({
+      leftButtons: [
+        {
+          id: 'sideMenu',
+          icon: require('../assets/icons/bars.png'),
+        },
+      ],
+      rightButtons: [
+        {
+          id: 'cart',
+          icon: require('../assets/icons/shopping-cart.png'),
+        },
+        {
+          id: 'search',
+          icon: require('../assets/icons/search.png'),
+        },
+      ],
     });
   }
 

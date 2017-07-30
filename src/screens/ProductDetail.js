@@ -113,8 +113,12 @@ const styles = EStyleSheet.create({
 
 class ProductDetail extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      state: PropTypes.Object,
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+      setOnNavigatorEvent: PropTypes.func,
+    }),
+    navProps: PropTypes.shape({
+      pid: PropTypes.string,
     }),
     productDetail: PropTypes.shape({
     }),
@@ -145,13 +149,27 @@ class ProductDetail extends Component {
       selectedOptions: {},
       images: [],
     };
+
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    const { navigation, productsActions } = this.props;
-    const { pid } = navigation.state.params;
+    const { productsActions, navProps, navigator } = this.props;
     InteractionManager.runAfterInteractions(() => {
-      productsActions.fetch(pid);
+      productsActions.fetch(navProps.pid);
+    });
+
+    navigator.setButtons({
+      rightButtons: [
+        {
+          id: 'cart',
+          icon: require('../assets/icons/shopping-cart.png'),
+        },
+        {
+          id: 'search',
+          icon: require('../assets/icons/search.png'),
+        },
+      ],
     });
   }
 
@@ -192,6 +210,23 @@ class ProductDetail extends Component {
       product,
       fetching: productDetail.fetching,
     });
+  }
+
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'cart') {
+        navigator.resetTo({
+          screen: 'Cart',
+          animated: false,
+        });
+      } else if (event.id === 'search') {
+        navigator.resetTo({
+          screen: 'Search',
+          animated: false,
+        });
+      }
+    }
   }
 
   handleAddToCart() {
@@ -424,14 +459,7 @@ class ProductDetail extends Component {
   }
 }
 
-ProductDetail.navigationOptions = ({ navigation }) => {
-  return {
-    title: `Product`.toUpperCase(),
-  };
-};
-
 export default connect(state => ({
-  nav: state.nav,
   auth: state.auth,
   cart: state.cart,
   flash: state.flash,
