@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  Share,
   Image,
   ScrollView,
   TouchableOpacity,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { has } from 'lodash';
 import { stripTags, formatPrice } from '../utils';
 
@@ -99,6 +101,18 @@ const styles = EStyleSheet.create({
   },
   addToCartBtnTextSmall: {
     fontSize: '0.7rem',
+  },
+  outlineBtn: {
+    borderWidth: 1,
+    borderColor: '#FD542A',
+    borderRadius: 6,
+  },
+  outlineBtnText: {
+    color: '#FD542A',
+    padding: 16,
+    textAlign: 'center',
+    fontSize: '0.9rem',
+    backgroundColor: 'transparent',
   },
   feautureGroup: {
     flexDirection: 'row',
@@ -411,18 +425,63 @@ class ProductDetail extends Component {
     const { product } = this.state;
     const features = Object.keys(product.product_features).map(k => product.product_features[k]);
     if (features.length === 0) {
-      return null;
+      return (
+        <View style={styles.blockWrapper}>
+          <Text> There are no feautures. </Text>
+        </View>
+      );
     }
     return (
+      <View style={styles.blockWrapper}>
+        {features.map(f => this.renderFeautureItem(f))}
+      </View>
+    );
+  }
+
+  renderShare() {
+    const { product } = this.state;
+    return (
+      <View style={styles.blockWrapper}>
+        <TouchableOpacity
+          style={styles.outlineBtn}
+          onPress={() => {
+            Share.share({
+              message: product.full_description,
+              title: product.product,
+              url: 'http://amelekesov.tk',
+            }, {
+              dialogTitle: product.product,
+              excludedActivityTypes: [
+                'com.apple.UIKit.activity.PostToTwitter',
+                'com.apple.uikit.activity.mail'
+              ],
+              tintColor: 'black'
+            })
+            .catch(err => console.log(err));
+          }}
+        >
+          <Text style={styles.outlineBtnText}> Share product </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  renderTabs() {
+    return (
       <View style={styles.blockContainer}>
-        <View style={styles.blockWrapper}>
-          <View style={styles.blockTitle}>
-            <Text style={styles.blockTitleText}>
-              Features
-            </Text>
+        <ScrollableTabView
+          tabBarUnderlineStyle={{ backgroundColor: '#FD542A' }}
+          tabBarActiveTextColor={'#FD542A'}
+          tabBarInactiveTextColor={'#212121'}
+          tabBarTextStyle={{ fontSize: 16 }}
+        >
+          <View tabLabel="Features">
+            {this.renderFeatures()}
           </View>
-          {features.map(f => this.renderFeautureItem(f))}
-        </View>
+          <View tabLabel="Share">
+            {this.renderShare()}
+          </View>
+        </ScrollableTabView>
       </View>
     );
   }
@@ -469,7 +528,7 @@ class ProductDetail extends Component {
               {this.renderDesc()}
             </View>
             {this.renderOptions()}
-            {this.renderFeatures()}
+            {this.renderTabs()}
           </ScrollView>
           {this.renderAddToCart()}
         </KeyboardAvoidingView>
