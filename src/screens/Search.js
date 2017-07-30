@@ -30,8 +30,9 @@ class Search extends Component {
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => {
-            theme.$colorPrimary = 'green';
-            EStyleSheet.build({ ...theme });
+            //theme.$colorPrimary = 'green';
+            //EStyleSheet.build({ ...theme });
+            this.props.navigator.dismissLightBox();
           }}
         >
           <Text>

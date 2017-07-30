@@ -20,7 +20,6 @@ import { stripTags, formatPrice } from '../utils';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
-import * as flashActions from '../actions/flashActions';
 import * as productsActions from '../actions/productsActions';
 
 // Components
@@ -133,6 +132,7 @@ class ProductDetail extends Component {
     navigator: PropTypes.shape({
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
+      showInAppNotification: PropTypes.func,
     }),
     navProps: PropTypes.shape({
       pid: PropTypes.string,
@@ -141,9 +141,6 @@ class ProductDetail extends Component {
     }),
     productsActions: PropTypes.shape({
       fetchOptions: PropTypes.func,
-    }),
-    flashActions: PropTypes.shape({
-      show: PropTypes.func,
     }),
     cartActions: PropTypes.shape({
       add: PropTypes.func,
@@ -253,7 +250,7 @@ class ProductDetail extends Component {
   handleAddToCart() {
     const productOptions = {};
     const { product, selectedOptions } = this.state;
-    const { auth, flashActions } = this.props;
+    const { auth, navigator } = this.props;
     // Convert product options to the option_id: variant_id array.
     Object.keys(selectedOptions).forEach((k) => {
       productOptions[k] = selectedOptions[k];
@@ -273,10 +270,13 @@ class ProductDetail extends Component {
       { products },
       auth.token,
       () => {
-        flashActions.show({
-          type: 'success',
-          title: 'Success',
-          text: 'The product was added to your cart.'
+        navigator.showInAppNotification({
+          screen: 'Notification',
+          passProps: {
+            type: 'success',
+            title: 'Success',
+            text: 'The product was added to your cart.'
+          }
         });
       }
     );
@@ -294,12 +294,21 @@ class ProductDetail extends Component {
   renderImage() {
     const { images } = this.state;
     const productImages = images.map((img, index) => (
-      <View
+      <TouchableOpacity
         style={styles.slide}
         key={index}
+        onPress={() => {
+          this.props.navigator.showLightBox({
+            screen: 'Search',
+            style: {
+              backgroundBlur: 'drk',
+              backgroundColor: 'rgba(20,20,20, 0.5)'
+            }
+          });
+        }}
       >
         <Image source={{ uri: img }} style={styles.productImage} />
-      </View>
+      </TouchableOpacity>
     ));
     return (
       <Swiper
@@ -541,11 +550,9 @@ class ProductDetail extends Component {
 export default connect(state => ({
   auth: state.auth,
   cart: state.cart,
-  flash: state.flash,
   productDetail: state.productDetail,
 }),
   dispatch => ({
-    flashActions: bindActionCreators(flashActions, dispatch),
     productsActions: bindActionCreators(productsActions, dispatch),
     cartActions: bindActionCreators(cartActions, dispatch),
   })
