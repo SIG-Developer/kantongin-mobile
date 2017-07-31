@@ -49,10 +49,12 @@ export default class extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
+    noTitle: PropTypes.bool,
   };
 
   static defaultProps = {
     value: 1,
+    noTitle: false,
     onChange() {},
   };
 
@@ -79,14 +81,10 @@ export default class extends Component {
   }
 
   render() {
-    const { value } = this.state;
+    const { value, noTitle } = this.state;
     return (
       <View style={styles.container}>
-        <Text
-          style={styles.title}
-        >
-          Quantity
-        </Text>
+        {noTitle && <Text style={styles.title}>Quantity</Text>}
         <View style={styles.btnGroup}>
           <TouchableOpacity
             style={styles.btn}

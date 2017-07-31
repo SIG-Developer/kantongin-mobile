@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import {
   Text,
   View,
@@ -40,6 +42,36 @@ const styles = EStyleSheet.create({
   },
   group: {
     marginTop: 40,
+  },
+  itemBadgeRed: {
+    position: 'absolute',
+    top: 1,
+    right: 1,
+    minWidth: 20,
+    height: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FD542A'
+  },
+  itemBadgeRedText: {
+    color: '#fff',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+  },
+  itemBadgeGray: {
+    position: 'absolute',
+    top: 1,
+    right: 1,
+    minWidth: 20,
+    height: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'gray'
+  },
+  itemBadgeGrayText: {
+    color: 'black',
   }
 });
 
@@ -49,6 +81,9 @@ class Drawer extends Component {
       resetTo: PropTypes.func,
       toggleDrawer: PropTypes.func,
     }),
+    cart: PropTypes.shape({
+      amount: PropTypes.number,
+    })
   };
 
   renderLogo = () => (
@@ -70,16 +105,36 @@ class Drawer extends Component {
     </TouchableOpacity>
   );
 
-  renderItem = (text, onPress) => (
-    <TouchableOpacity
-      style={styles.itemBtn}
-      onPress={onPress}
-    >
-      <Text style={styles.itemBtnText}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  );
+  renderItem = (text, onPress, badge = 0, type = 'red') => {
+    const renderBadge = () => {
+      if (badge !== 0) {
+        let badgeStyle = styles.itemBadgeRed;
+        let badgeTextStyle = styles.itemBadgeRedText;
+        if (type === 'gray') {
+          badgeStyle = styles.itemBadgeGray;
+          badgeTextStyle = styles.itemBadgeGrayText;
+        }
+        return (
+          <View style={badgeStyle}>
+            <Text style={badgeTextStyle}>{badge}</Text>
+          </View>
+        );
+      }
+    };
+    return (
+      <TouchableOpacity
+        style={styles.itemBtn}
+        onPress={onPress}
+      >
+        <View>
+          <Text style={styles.itemBtnText}>
+            {text}
+          </Text>
+          {renderBadge()}
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   render() {
     const { navigator } = this.props;
@@ -106,7 +161,7 @@ class Drawer extends Component {
             navigator.toggleDrawer({
               side: 'left',
             });
-          })}
+          }, this.props.cart.amount)}
           {this.renderItem('My Profile')}
           {this.renderItem('Orders')}
         </View>
@@ -119,4 +174,11 @@ class Drawer extends Component {
   }
 }
 
-export default Drawer;
+export default connect(state => ({
+  auth: state.auth,
+  cart: state.cart,
+}),
+  dispatch => ({
+    // productsActions: bindActionCreators(productsActions, dispatch),
+  })
+)(Drawer);

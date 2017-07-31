@@ -9,6 +9,8 @@ import {
   CART_SUCCESS,
   CART_FAIL,
 
+  CHANGE_AMOUNT,
+
   CART_REMOVE_REQUEST,
   CART_REMOVE_SUCCESS,
   CART_REMOVE_FAIL,
@@ -136,6 +138,18 @@ export function remove(token, id, cb = null) {
         type: CART_REMOVE_FAIL,
         error,
       });
+    });
+  };
+}
+
+export function changeAmount(cid, amount) {
+  return (dispatch) => {
+    dispatch({
+      type: CHANGE_AMOUNT,
+      payload: {
+        cid,
+        amount,
+      },
     });
   };
 }

@@ -11,6 +11,8 @@ import {
   CART_CLEAR_SUCCESS,
   CART_CLEAR_FAIL,
 
+  CHANGE_AMOUNT,
+
   ORDER_CREATE_SUCCESS,
 } from '../constants';
 
@@ -20,6 +22,8 @@ const initialState = {
   ids: [],
   fetching: false,
 };
+
+let newProducts = [];
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -82,6 +86,14 @@ export default function (state = initialState, action) {
 
     case ORDER_CREATE_SUCCESS:
       return initialState;
+
+    case CHANGE_AMOUNT:
+      newProducts = { ...state.products };
+      newProducts[action.payload.cid].amount = action.payload.amount;
+      return {
+        ...state,
+        products: newProducts,
+      };
 
     default:
       return state;

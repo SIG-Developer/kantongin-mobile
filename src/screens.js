@@ -2,7 +2,7 @@ import { Navigation } from 'react-native-navigation';
 
 import Cart from './screens/Cart';
 import Search from './screens/Search';
-import Drawer from './components/Drawer';
+import Drawer from './screens/Drawer';
 import Categories from './screens/Categories';
 import MainCategory from './screens/MainCategory';
 import ProductDetail from './screens/ProductDetail';
