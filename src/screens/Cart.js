@@ -253,7 +253,9 @@ class Cart extends Component {
     const { auth, navigator } = this.props;
 
     if (!auth.logged) {
-      // return navigation.navigate('Login');
+      return navigator.showModal({
+        screen: 'Login',
+      });
     }
     const products = {};
     this.state.products.forEach((p) => {
@@ -262,10 +264,13 @@ class Cart extends Component {
         amount: p.amount,
       };
     });
-    // return navigation.navigate('Checkout', {
-    //   user_id: 3, // FIXME
-    //   products,
-    // });
+    return navigator.push({
+      screen: 'Checkout',
+      passProps: {
+        user_id: 3, // FIXME
+        products,
+      },
+    });
   }
 
   handleRemoveProduct = (product) => {
@@ -325,7 +330,7 @@ class Cart extends Component {
 
   renderPlaceOrder() {
     const { cart } = this.props;
-    if (!cart.products.length) {
+    if (!this.state.products.length) {
       return null;
     }
     return (
