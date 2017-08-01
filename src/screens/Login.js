@@ -9,7 +9,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
-import * as flashActions from '../actions/flashActions';
 
 // Components
 import LoginForm from '../components/LoginForm';
@@ -27,8 +26,12 @@ class LoginModal extends Component {
     authActions: PropTypes.shape({
       login: PropTypes.func,
     }),
-    flashActions: PropTypes.shape({
-      show: PropTypes.func,
+    onAfterLogin: PropTypes.func,
+    navigator: PropTypes.shape({
+      setOnNavigatorEvent: PropTypes.func,
+      setTitle: PropTypes.func,
+      setStyle: PropTypes.func,
+      push: PropTypes.func,
     }),
     auth: PropTypes.shape({
       logged: PropTypes.bool,
@@ -36,12 +39,56 @@ class LoginModal extends Component {
     }),
   }
 
+  constructor(props) {
+    super(props);
+
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentDidMount() {
+    const { navigator } = this.props;
+    navigator.setButtons({
+      rightButtons: [
+        {
+          id: 'close',
+          title: 'Close',
+        },
+      ],
+    });
+    navigator.setStyle({
+      navBarRightButtonColor: '#FF6008',
+    });
+    navigator.setTitle({
+      title: 'Login'.toUpperCase(),
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { auth, flashActions, authActions } = nextProps;
+    const { auth, authActions, navigator } = nextProps;
 
     if (!auth.fetching && auth.error) {
-      flashActions.show({ title: 'Error', text: 'Wrong password' });
+      navigator.showInAppNotification({
+        screen: 'Notification',
+        passProps: {
+          type: 'warning',
+          title: 'Error',
+          text: 'Wrong password.'
+        }
+      });
       authActions.resetState();
+    }
+
+    if (!auth.error && auth.logged) {
+      nextProps.onAfterLogin();
+    }
+  }
+
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'close') {
+        navigator.dismissModal();
+      }
     }
   }
 
@@ -60,12 +107,9 @@ class LoginModal extends Component {
 }
 
 export default connect(state => ({
-  nav: state.nav,
-  flash: state.flash,
   auth: state.auth,
 }),
   dispatch => ({
     authActions: bindActionCreators(authActions, dispatch),
-    flashActions: bindActionCreators(flashActions, dispatch),
   })
 )(LoginModal);

@@ -251,12 +251,6 @@ class Cart extends Component {
 
   handlePlaceOrder() {
     const { auth, navigator } = this.props;
-
-    if (!auth.logged) {
-      return navigator.showModal({
-        screen: 'Login',
-      });
-    }
     const products = {};
     this.state.products.forEach((p) => {
       products[p.product_id] = {
@@ -264,6 +258,23 @@ class Cart extends Component {
         amount: p.amount,
       };
     });
+
+    if (!auth.logged) {
+      return navigator.showModal({
+        screen: 'Login',
+        passProps: {
+          onAfterLogin: () => {
+            navigator.push({
+              screen: 'Checkout',
+              passProps: {
+                user_id: 3, // FIXME
+                products,
+              },
+            });
+          }
+        }
+      });
+    }
     return navigator.push({
       screen: 'Checkout',
       passProps: {

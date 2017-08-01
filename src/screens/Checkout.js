@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 import {
   View,
   Text,
@@ -11,12 +10,13 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import * as t from 'tcomb-form-native';
+
+// Import components
+import CheckoutSteps from '../components/CheckoutSteps';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
-import * as flashActions from '../actions/flashActions';
 
 const styles = EStyleSheet.create({
   container: {
@@ -108,22 +108,22 @@ const options = {
 
 class Checkout extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-      dispatch: PropTypes.func,
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+      pop: PropTypes.func,
     }),
   };
 
-  static navigationOptions = ({ navigation }) => {
-    if (!navigation.state.params) {
-      return {};
-    }
-    const { headerRight } = navigation.state.params;
-    return {
-      headerRight,
-      title: 'Billing and Shipping Address'.toUpperCase(),
-    };
-  };
+  // static navigationOptions = ({ navigation }) => {
+  //   if (!navigation.state.params) {
+  //     return {};
+  //   }
+  //   const { headerRight } = navigation.state.params;
+  //   return {
+  //     headerRight,
+  //     title: 'Billing and Shipping Address'.toUpperCase(),
+  //   };
+  // };
 
   constructor(props) {
     super(props);
@@ -137,31 +137,31 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    const { navigation } = this.props;
-    navigation.setParams({
-      headerRight: (
-        <TouchableOpacity
-          style={styles.closeBtn}
-          onPress={() => {
-            this.props.navigation.dispatch(NavigationActions.back());
-          }}
-        >
-          <Icon name="times" style={styles.closeIcon} />
-        </TouchableOpacity>
-      ),
-    });
+    const { navigator } = this.props;
+    // navigation.setParams({
+    //   headerRight: (
+    //     <TouchableOpacity
+    //       style={styles.closeBtn}
+    //       onPress={() => {
+    //         this.props.navigation.dispatch(NavigationActions.back());
+    //       }}
+    //     >
+    //       <Icon name="times" style={styles.closeIcon} />
+    //     </TouchableOpacity>
+    //   ),
+    // });
   }
 
   handleLogin() {
-    const { navigation } = this.props;
-    const value = this.refs.checkoutForm.getValue();
-    navigation.navigate('CheckoutStepTwo', {
-      ...navigation.state.params,
-      user_data: {},
-    });
-    if (value) {
-      navigation.navigate('CheckoutStepTwo', { data: value });
-    }
+    // const { navigator } = this.props;
+    // const value = this.refs.checkoutForm.getValue();
+    // navigator.navigate('CheckoutStepTwo', {
+    //   ...navigation.state.params,
+    //   user_data: {},
+    // });
+    // if (value) {
+    //   navigation.navigate('CheckoutStepTwo', { data: value });
+    // }
   }
 
   render() {
@@ -171,6 +171,7 @@ class Checkout extends Component {
           behavior="position"
         >
           <ScrollView contentContainerStyle={styles.contentContainer}>
+            <CheckoutSteps step={2} />
             <Form
               ref={'checkoutForm'}
               type={FormFields}
@@ -191,12 +192,9 @@ class Checkout extends Component {
 }
 
 export default connect(state => ({
-  nav: state.nav,
   auth: state.auth,
-  flash: state.flash,
 }),
   dispatch => ({
     authActions: bindActionCreators(authActions, dispatch),
-    flashActions: bindActionCreators(flashActions, dispatch),
   })
 )(Checkout);
