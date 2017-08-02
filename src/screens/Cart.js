@@ -24,6 +24,7 @@ import QtyOption from '../components/QtyOption';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import { formatPrice } from '../utils';
+import i18n from '../utils/i18n';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -172,7 +173,7 @@ class Cart extends Component {
     cartActions.fetch(auth.token);
 
     navigator.setTitle({
-      title: 'Cart'.toUpperCase(),
+      title: i18n.gettext('Cart').toUpperCase(),
     });
   }
 
@@ -222,16 +223,16 @@ class Cart extends Component {
         navigator.toggleDrawer({ side: 'left' });
       } else if (event.id === 'clearCart') {
         Alert.alert(
-          'Clear all cart ?',
+          i18n.gettext('Clear all cart ?'),
           '',
           [
             {
-              text: 'Cancel',
+              text: i18n.gettext('Cancel'),
               onPress: () => {},
               style: 'cancel'
             },
             {
-              text: 'OK',
+              text: i18n.gettext('Ok'),
               onPress: () => this.props.cartActions.clear(),
             },
           ],
@@ -300,7 +301,7 @@ class Cart extends Component {
 
     const swipeoutBtns = [
       {
-        text: 'Delete',
+        text: i18n.gettext('Delete'),
         type: 'delete',
         onPress: () => this.handleRemoveProduct(item),
       },
@@ -347,7 +348,7 @@ class Cart extends Component {
     return (
       <View style={styles.cartInfo}>
         <View>
-          <Text style={styles.cartInfoTitle}>TOTAL</Text>
+          <Text style={styles.cartInfoTitle}>{i18n.gettext('Total').toUpperCase()}</Text>
           <Text style={styles.cartInfoTotal}>{formatPrice(cart.total)}</Text>
         </View>
         <TouchableOpacity
@@ -355,7 +356,7 @@ class Cart extends Component {
           onPress={() => this.handlePlaceOrder()}
         >
           <Text style={styles.placeOrderBtnText}>
-            CHECKOUT
+            {i18n.gettext('Checkout').toUpperCase()}
           </Text>
         </TouchableOpacity>
       </View>
@@ -372,10 +373,10 @@ class Cart extends Component {
           <Icon name="shopping-cart" style={styles.emptyListIcon} />
         </View>
         <Text style={styles.emptyListHeader}>
-          Your shopping cart is empty.
+          {i18n.gettext('Your shopping cart is empty.')}
         </Text>
         <Text style={styles.emptyListDesc}>
-          Looking for ideas?
+          {i18n.gettext('Looking for ideas?')}
         </Text>
       </View>
     );

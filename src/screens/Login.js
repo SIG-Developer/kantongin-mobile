@@ -14,6 +14,8 @@ import * as authActions from '../actions/authActions';
 import LoginForm from '../components/LoginForm';
 import Spinner from '../components/Spinner';
 
+import i18n from '../utils/i18n';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -51,7 +53,7 @@ class LoginModal extends Component {
       rightButtons: [
         {
           id: 'close',
-          title: 'Close',
+          title: i18n.gettext('Close'),
         },
       ],
     });
@@ -59,7 +61,7 @@ class LoginModal extends Component {
       navBarRightButtonColor: '#FF6008',
     });
     navigator.setTitle({
-      title: 'Login'.toUpperCase(),
+      title: i18n.gettext('Login').toUpperCase(),
     });
   }
 
@@ -71,8 +73,8 @@ class LoginModal extends Component {
         screen: 'Notification',
         passProps: {
           type: 'warning',
-          title: 'Error',
-          text: 'Wrong password.'
+          title: i18n.gettext('Error'),
+          text: i18n.gettext('Wrong password.')
         }
       });
       authActions.resetState();

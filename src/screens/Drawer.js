@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -79,6 +80,7 @@ class Drawer extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       resetTo: PropTypes.func,
+      showModal: PropTypes.func,
       toggleDrawer: PropTypes.func,
     }),
     cart: PropTypes.shape({
@@ -98,9 +100,19 @@ class Drawer extends Component {
   );
 
   renderSignInBtn = () => (
-    <TouchableOpacity style={styles.signInBtn}>
+    <TouchableOpacity
+      style={styles.signInBtn}
+      onPress={() => {
+        this.props.navigator.toggleDrawer({
+          side: 'left',
+        });
+        this.props.navigator.showModal({
+          screen: 'Login',
+        });
+      }}
+    >
       <Text style={styles.signInBtnText}>
-        Sign in
+        {i18n.gettext('Sign in')}
       </Text>
     </TouchableOpacity>
   );
@@ -116,7 +128,9 @@ class Drawer extends Component {
         }
         return (
           <View style={badgeStyle}>
-            <Text style={badgeTextStyle}>{badge}</Text>
+            <Text style={badgeTextStyle}>
+              {badge}
+            </Text>
           </View>
         );
       }
@@ -144,7 +158,7 @@ class Drawer extends Component {
         {this.renderSignInBtn()}
         {this.renderSearchBar()}
         <View style={styles.group}>
-          {this.renderItem('Home', () => {
+          {this.renderItem(i18n.gettext('Home'), () => {
             navigator.handleDeepLink({
               link: 'home/',
               payload: {},
@@ -153,7 +167,7 @@ class Drawer extends Component {
               side: 'left',
             });
           })}
-          {this.renderItem('Cart', () => {
+          {this.renderItem(i18n.gettext('Cart'), () => {
             navigator.handleDeepLink({
               link: 'cart/content',
               payload: {},
@@ -162,8 +176,8 @@ class Drawer extends Component {
               side: 'left',
             });
           }, this.props.cart.amount)}
-          {this.renderItem('My Profile')}
-          {this.renderItem('Orders')}
+          {this.renderItem(i18n.gettext('My Profile'))}
+          {this.renderItem(i18n.gettext('Orders'))}
         </View>
         <View style={styles.group}>
           {this.renderItem('About our company')}

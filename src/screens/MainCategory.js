@@ -20,6 +20,7 @@ import Spinner from '../components/Spinner';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
+import i18n from '../utils/i18n';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -108,7 +109,7 @@ class MainCategory extends Component {
       } else if (event.id === 'search') {
         navigator.showModal({
           screen: 'Search',
-          title: 'search'
+          title: i18n.gettext('Search'),
         });
       }
     }

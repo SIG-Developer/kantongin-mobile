@@ -26,7 +26,8 @@
     "redux-logger": "^3.0.1",
     "redux-persist": "^4.6.0",
     "redux-thunk": "^2.2.0",
-    "tcomb-form-native": "^0.6.9"
+    "tcomb-form-native": "^0.6.9",
+    "gettext.js": "git+https://github.com/freiserg/gettext.js.git"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
@@ -38,6 +39,8 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "jest": "20.0.4",
+    "po2json": "0.4.5",
+    "react-gettext-parser": "1.1.4",
     "react-test-renderer": "16.0.0-alpha.12"
   },
   "jest": {

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
+import i18n from '../utils/i18n';
 
 // Import actions.
 import * as categoriesActions from '../actions/categoriesActions';
@@ -137,7 +138,7 @@ class Categories extends Component {
       } else if (event.id === 'search') {
         navigator.showModal({
           screen: 'Search',
-          title: 'search'
+          title: i18n.gettext('Search'),
         });
       }
     }

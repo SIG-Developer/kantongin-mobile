@@ -28,6 +28,8 @@ import InputOption from '../components/InputOption';
 import QtyOption from '../components/QtyOption';
 import Spinner from '../components/Spinner';
 
+import i18n from '../utils/i18n';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -274,8 +276,8 @@ class ProductDetail extends Component {
           screen: 'Notification',
           passProps: {
             type: 'success',
-            title: 'Success',
-            text: 'The product was added to your cart.'
+            title: i18n.gettext('Success'),
+            text: i18n.gettext('The product was added to your cart.'),
           }
         });
       }
@@ -436,7 +438,7 @@ class ProductDetail extends Component {
     if (features.length === 0) {
       return (
         <View style={styles.blockWrapper}>
-          <Text> There are no feautures. </Text>
+          <Text> {i18n.gettext('There are no feautures.')} </Text>
         </View>
       );
     }
@@ -469,7 +471,7 @@ class ProductDetail extends Component {
             .catch(err => console.log(err));
           }}
         >
-          <Text style={styles.outlineBtnText}> Share product </Text>
+          <Text style={styles.outlineBtnText}> {i18n.gettext('Share product')} </Text>
         </TouchableOpacity>
       </View>
     );
@@ -504,7 +506,7 @@ class ProductDetail extends Component {
           onPress={() => this.handleAddToCart()}
         >
           <Text style={styles.addToCartBtnText}>
-            Add to cart <Text style={styles.addToCartBtnTextSmall}>
+            {i18n.gettext('Add to cart')} <Text style={styles.addToCartBtnTextSmall}>
               ({formatPrice(product.price)})
             </Text>
           </Text>
