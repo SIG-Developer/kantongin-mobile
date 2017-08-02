@@ -135,6 +135,7 @@ class ProductDetail extends Component {
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
       showInAppNotification: PropTypes.func,
+      showLightBox: PropTypes.func,
     }),
     navProps: PropTypes.shape({
       pid: PropTypes.string,
@@ -228,7 +229,7 @@ class ProductDetail extends Component {
     });
 
     navigator.setTitle({
-      title: product.product.toUpperCase(),
+      title: product.product,
     });
   }
 
@@ -415,22 +416,20 @@ class ProductDetail extends Component {
     );
   }
 
-  renderFeautureItem = (item) => {
-    return (
-      <View style={styles.feautureGroup} key={item.feature_id}>
-        <View style={styles.feautureName}>
-          <Text style={styles.feautureNameText}>
-            {item.description}
-          </Text>
-        </View>
-        <View style={styles.feautureValue}>
-          <Text style={styles.feautureValueText}>
-            {item.variant}
-          </Text>
-        </View>
+  renderFeautureItem = item => (
+    <View style={styles.feautureGroup} key={item.feature_id}>
+      <View style={styles.feautureName}>
+        <Text style={styles.feautureNameText}>
+          {item.description}
+        </Text>
       </View>
-    );
-  }
+      <View style={styles.feautureValue}>
+        <Text style={styles.feautureValueText}>
+          {item.variant}
+        </Text>
+      </View>
+    </View>
+  );
 
   renderFeatures() {
     const { product } = this.state;

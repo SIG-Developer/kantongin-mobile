@@ -174,7 +174,13 @@ class Categories extends Component {
         },
       })}
     />));
-    const productHeader = (<Text style={styles.header}>Products</Text>);
+    const productHeader = (
+      <Text style={styles.header}>
+        {i18n.gettext('Products')}
+          {i18n.gettext('')}
+          
+      </Text>
+    );
     return (
       <View>
         <View style={styles.subCategoriesContainer}>
