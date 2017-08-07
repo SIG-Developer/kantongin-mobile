@@ -9,6 +9,8 @@ import {
 import * as t from 'tcomb-form-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import i18n from '../utils/i18n';
+
 const styles = EStyleSheet.create({
   container: {
     padding: 12,
@@ -22,6 +24,14 @@ const styles = EStyleSheet.create({
     color: '#fff',
     fontSize: '1rem',
     textAlign: 'center',
+  },
+  btnRegistration: {
+    marginTop: 20,
+  },
+  btnRegistrationText: {
+    color: 'black',
+    fontSize: '1rem',
+    textAlign: 'center'
   }
 });
 
@@ -50,6 +60,9 @@ export default class LoginForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     fetching: PropTypes.bool,
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+    }),
   }
 
   handleLogin() {
@@ -72,7 +85,20 @@ export default class LoginForm extends Component {
           onPress={() => this.handleLogin()}
           disabled={this.props.fetching}
         >
-          <Text style={styles.btnText}>Login</Text>
+          <Text style={styles.btnText}>
+            {i18n.gettext('Login')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btnRegistration}
+          onPress={() => this.props.navigator.push({
+            screen: 'Registration',
+            backButtonTitle: '',
+          })}
+        >
+          <Text style={styles.btnRegistrationText}>
+            {i18n.gettext('Registration')}
+          </Text>
         </TouchableOpacity>
       </View>
     );

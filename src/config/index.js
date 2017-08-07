@@ -21,3 +21,7 @@ axios.defaults.headers = {
   Authorization: `Basic ${base64.encode(`${config.username}:${config.apiKey}`)}`,
   'Content-type': 'application/json',
 };
+
+export {
+  config,
+};

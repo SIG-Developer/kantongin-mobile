@@ -4,6 +4,7 @@ import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAIL,
   AUTH_RESET_STATE,
+  AUTH_LOGOUT,
 } from '../constants';
 
 const initialState = {
@@ -51,6 +52,9 @@ export default function (state = initialState, action) {
       };
 
     case AUTH_RESET_STATE:
+      return initialState;
+
+    case AUTH_LOGOUT:
       return initialState;
 
     default:

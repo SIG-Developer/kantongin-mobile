@@ -13,7 +13,6 @@ export function fetch(page = 1) {
     dispatch({ type: FETCH_CATEGORIES_REQUEST });
     return axios.get(`/categories?items_per_page=0&page=${page}&get_images=1`)
       .then((response) => {
-        console.log(response);
         dispatch({
           type: FETCH_CATEGORIES_SUCCESS,
           payload: response.data,

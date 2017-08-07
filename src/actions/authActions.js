@@ -4,6 +4,8 @@ import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAIL,
   AUTH_RESET_STATE,
+
+  AUTH_LOGOUT,
 } from '../constants';
 
 export function login(data) {
@@ -23,6 +25,14 @@ export function login(data) {
           payload: error.response.data,
         });
       });
+  };
+}
+
+export function logout() {
+  return (dispatch) => {
+    dispatch({
+      type: AUTH_LOGOUT,
+    });
   };
 }
 

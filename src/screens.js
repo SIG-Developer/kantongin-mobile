@@ -8,6 +8,7 @@ import MainCategory from './screens/MainCategory';
 import ProductDetail from './screens/ProductDetail';
 import Notification from './components/Notification';
 import Login from './screens/Login';
+import Registration from './screens/Registration';
 import Checkout from './screens/Checkout';
 
 // register all screens of the app (including internal ones)
@@ -20,5 +21,6 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('Notification', () => Notification, store, Provider);
   Navigation.registerComponent('ProductDetail', () => ProductDetail, store, Provider);
   Navigation.registerComponent('Login', () => Login, store, Provider);
+  Navigation.registerComponent('Registration', () => Registration, store, Provider);
   Navigation.registerComponent('Checkout', () => Checkout, store, Provider);
 }

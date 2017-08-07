@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
+  WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -11,10 +12,10 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import * as authActions from '../actions/authActions';
 
 // Components
-import LoginForm from '../components/LoginForm';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
+import * as config from '../config';
 
 const styles = EStyleSheet.create({
   container: {
@@ -23,16 +24,16 @@ const styles = EStyleSheet.create({
   }
 });
 
-class LoginModal extends Component {
+class Registration extends Component {
   static propTypes = {
     authActions: PropTypes.shape({
       login: PropTypes.func,
     }),
-    onAfterLogin: PropTypes.func,
     navigator: PropTypes.shape({
       setOnNavigatorEvent: PropTypes.func,
       setTitle: PropTypes.func,
-      setStyle: PropTypes.func,
+      dismissModal: PropTypes.func,
+      showInAppNotification: PropTypes.func,
       push: PropTypes.func,
     }),
     auth: PropTypes.shape({
@@ -45,6 +46,9 @@ class LoginModal extends Component {
     super(props);
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    props.navigator.setTitle({
+      title: i18n.gettext('Registration')
+    });
   }
 
   componentDidMount() {
@@ -65,22 +69,6 @@ class LoginModal extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { auth, authActions, navigator } = nextProps;
-
-    if (!auth.fetching && auth.error) {
-      navigator.showInAppNotification({
-        screen: 'Notification',
-        passProps: {
-          type: 'warning',
-          title: i18n.gettext('Error'),
-          text: i18n.gettext('Wrong password.')
-        }
-      });
-      authActions.resetState();
-    }
-  }
-
   onNavigatorEvent(event) {
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
@@ -90,14 +78,34 @@ class LoginModal extends Component {
     }
   }
 
+  onNavigationStateChange(e) {
+    if (e.url === `${config.config.siteUrl}index.php?dispatch=profiles.success_add`) {
+      this.props.navigator.showInAppNotification({
+        screen: 'Notification',
+        passProps: {
+          type: 'success',
+          title: i18n.gettext('Registration'),
+          text: i18n.gettext('Registration complete.')
+        }
+      });
+      this.props.navigator.dismissModal();
+    }
+  }
+
   render() {
-    const { auth, navigator } = this.props;
+    const { auth } = this.props;
     return (
       <View style={styles.container}>
-        <LoginForm
-          onSubmit={data => this.props.authActions.login(data)}
-          fetching={auth.fetching}
-          navigator={navigator}
+        <WebView
+          automaticallyAdjustContentInsets={false}
+          javaScriptEnabled
+          scalesPageToFit
+          startInLoadingState
+          userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
+          source={{
+            uri: `${config.config.siteUrl}profiles-add/`,
+          }}
+          onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />
         <Spinner visible={auth.fetching} />
       </View>
@@ -111,4 +119,4 @@ export default connect(state => ({
   dispatch => ({
     authActions: bindActionCreators(authActions, dispatch),
   })
-)(LoginModal);
+)(Registration);

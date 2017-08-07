@@ -29,6 +29,7 @@ export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
 export const AUTH_RESET_STATE = 'AUTH_RESET_STATE';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const FLASH_SHOW = 'FLASH_SHOW';
 export const FLASH_HIDE = 'FLASH_HIDE';

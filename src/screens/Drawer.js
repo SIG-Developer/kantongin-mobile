@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 import {
   Text,
   View,
@@ -11,6 +12,10 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import i18n from '../utils/i18n';
+
+import * as config from '../config';
+
+import * as authActions from '../actions/authActions';
 
 const styles = EStyleSheet.create({
   container: {
@@ -73,7 +78,10 @@ const styles = EStyleSheet.create({
   },
   itemBadgeGrayText: {
     color: 'black',
-  }
+  },
+  signOutBtn: {
+    backgroundColor: 'gray',
+  },
 });
 
 class Drawer extends Component {
@@ -82,15 +90,41 @@ class Drawer extends Component {
       resetTo: PropTypes.func,
       showModal: PropTypes.func,
       toggleDrawer: PropTypes.func,
+      dismissModal: PropTypes.func,
+      showInAppNotification: PropTypes.func,
     }),
     cart: PropTypes.shape({
       amount: PropTypes.number,
-    })
+    }),
+    auth: PropTypes.shape({
+      logged: PropTypes.bool,
+    }),
+    authActions: PropTypes.shape({
+      logout: PropTypes.func,
+    }),
   };
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.logged) {
+      this.props.navigator.showInAppNotification({
+        screen: 'Notification',
+        passProps: {
+          type: 'success',
+          title: i18n.gettext('Success'),
+          text: i18n.gettext('You have successfully logged in.'),
+        },
+      });
+      Navigation.dismissModal();
+    }
+  }
 
   renderLogo = () => (
     <Image
-      source={{ uri: 'http://82.202.226.53/images/logos/1/cart.png' }}
+      source={{ uri: config.config.logoUrl }}
       style={styles.logo}
     />
   );
@@ -99,23 +133,40 @@ class Drawer extends Component {
     <View style={styles.search} />
   );
 
-  renderSignInBtn = () => (
-    <TouchableOpacity
-      style={styles.signInBtn}
-      onPress={() => {
-        this.props.navigator.toggleDrawer({
-          side: 'left',
-        });
-        this.props.navigator.showModal({
-          screen: 'Login',
-        });
-      }}
-    >
-      <Text style={styles.signInBtnText}>
-        {i18n.gettext('Sign in')}
-      </Text>
-    </TouchableOpacity>
-  );
+  renderSignInBtn = () => {
+    if (this.props.auth.logged) {
+      return (
+        <TouchableOpacity
+          style={[styles.signInBtn, styles.signOutBtn]}
+          onPress={() => {
+            this.props.navigator.toggleDrawer({});
+            this.props.authActions.logout();
+          }}
+        >
+          <Text style={styles.signInBtnText}>
+            {i18n.gettext('Logout')}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <TouchableOpacity
+        style={styles.signInBtn}
+        onPress={() => {
+          this.props.navigator.toggleDrawer({
+            side: 'left',
+          });
+          this.props.navigator.showModal({
+            screen: 'Login',
+          });
+        }}
+      >
+        <Text style={styles.signInBtnText}>
+          {i18n.gettext('Sign in')}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
 
   renderItem = (text, onPress, badge = 0, type = 'red') => {
     const renderBadge = () => {
@@ -193,6 +244,6 @@ export default connect(state => ({
   cart: state.cart,
 }),
   dispatch => ({
-    // productsActions: bindActionCreators(productsActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch),
   })
 )(Drawer);
