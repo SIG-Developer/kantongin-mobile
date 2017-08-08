@@ -109,17 +109,17 @@ class Drawer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.logged) {
-      this.props.navigator.showInAppNotification({
-        screen: 'Notification',
-        passProps: {
-          type: 'success',
-          title: i18n.gettext('Success'),
-          text: i18n.gettext('You have successfully logged in.'),
-        },
-      });
-      Navigation.dismissModal();
-    }
+    // if (nextProps.auth.logged) {
+    //   this.props.navigator.showInAppNotification({
+    //     screen: 'Notification',
+    //     passProps: {
+    //       type: 'success',
+    //       title: i18n.gettext('Success'),
+    //       text: i18n.gettext('You have successfully logged in.'),
+    //     },
+    //   });
+    //   Navigation.dismissModal();
+    // }
   }
 
   renderLogo = () => (

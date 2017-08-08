@@ -7,26 +7,72 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import i18n from '../utils/i18n';
+
 const styles = EStyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: '#EAEAEA',
+    borderTopWidth: 1,
+    borderTopColor: '#EAEAEA',
     flexDirection: 'row',
     height: 30,
+    marginLeft: -14,
+    marginRight: -14,
   },
   checkIcon: {
-    height: 20,
-    width: 20,
+    height: 24,
+    width: 24,
+    marginTop: -2,
+    opacity: 0.4,
+  },
+  stepContainer: {
+  },
+  stepContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 10,
   },
   arrowTop: {
     borderRightWidth: 1,
-    borderRightColor: 'red',
-    height: 20,
+    borderRightColor: '#D6D6D6',
+    height: 24,
+    right: 0,
     position: 'absolute',
-    top: 0,
+    top: -16,
     transform: [
-      { rotate: '20deg' },
+      { rotate: '-30deg' },
     ],
+  },
+  arrowBottom: {
+    borderRightWidth: 1,
+    borderRightColor: '#D6D6D6',
+    height: 26,
+    right: 0,
+    position: 'absolute',
+    bottom: -2,
+    transform: [
+      { rotate: '30deg' },
+    ],
+  },
+  roundNumber: {
+    minWidth: 20,
+    height: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#242424',
+    marginRight: 8,
+  },
+  roundNumberText: {
+    color: '#fff',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    fontSize: '0.8rem',
+  },
+  roundNumberGray: {
+    backgroundColor: '#989898',
   }
 });
 
@@ -44,10 +90,10 @@ export default class extends Component {
     this.state = {
       stepId: 0,
       steps: [
-        'Login',
-        'Delivery',
-        'Step 2',
-        'Step 3',
+        i18n.gettext('Login'),
+        i18n.gettext('Delivery'),
+        i18n.gettext('Shipping'),
+        i18n.gettext('Billing'),
       ],
     };
   }
@@ -66,10 +112,12 @@ export default class extends Component {
         break;
       }
       stepsList.push(
-        <View key={i}>
-          <Image source={require('../assets/icons/check-circle-o.png')} style={styles.checkIcon} />
+        <View style={styles.stepContainer} key={i}>
           <View style={styles.arrowTop} />
           <View style={styles.arrowBottom} />
+          <View style={styles.stepContent}>
+            <Image source={require('../assets/icons/check-circle-o.png')} style={styles.checkIcon} />
+          </View>
         </View>
       );
     }
@@ -79,10 +127,19 @@ export default class extends Component {
   renderActiveStep() {
     const activeStep = this.state.steps[this.state.stepId];
     return (
-      <View>
-        <Text>
-          {activeStep} - {this.state.stepId + 1}
-        </Text>
+      <View style={styles.stepContainer}>
+        <View style={styles.stepContent}>
+          <View style={styles.roundNumber}>
+            <Text style={styles.roundNumberText}>
+              {this.state.stepId + 1}
+            </Text>
+          </View>
+          <Text>
+            {activeStep}
+          </Text>
+        </View>
+        <View style={styles.arrowTop} />
+        <View style={styles.arrowBottom} />
       </View>
     );
   }
@@ -92,8 +149,16 @@ export default class extends Component {
     const stepsList = [];
     for (let i = (stepId + 1); i < steps.length; i += 1) {
       stepsList.push(
-        <View key={i}>
-          <Text>Passed</Text>
+        <View style={styles.stepContainer} key={i}>
+          <View style={styles.stepContent}>
+            <View style={[styles.roundNumber, styles.roundNumberGray]}>
+              <Text style={styles.roundNumberText}>
+                {i + 1}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.arrowTop} />
+          <View style={styles.arrowBottom} />
         </View>
       );
     }

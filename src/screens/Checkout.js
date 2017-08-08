@@ -25,6 +25,7 @@ const styles = EStyleSheet.create({
   },
   contentContainer: {
     padding: 14,
+    marginBottom: 130,
   },
   btn: {
     backgroundColor: '#4fbe31',
@@ -51,6 +52,7 @@ const Country = t.enums({
   AL: 'Aland Islands',
   ALB: 'Albania',
 });
+
 const FormFields = t.struct({
   firstName: t.String,
   lastName: t.String,
@@ -170,7 +172,9 @@ class Checkout extends Component {
         <KeyboardAvoidingView
           behavior="position"
         >
-          <ScrollView contentContainerStyle={styles.contentContainer}>
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
+          >
             <CheckoutSteps step={2} />
             <Form
               ref={'checkoutForm'}

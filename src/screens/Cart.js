@@ -260,23 +260,6 @@ class Cart extends Component {
         amount: p.amount,
       };
     });
-
-    if (!auth.logged) {
-      return navigator.showModal({
-        screen: 'Login',
-        passProps: {
-          onAfterLogin: () => {
-            navigator.push({
-              screen: 'Checkout',
-              passProps: {
-                user_id: 3, // FIXME
-                products,
-              },
-            });
-          }
-        }
-      });
-    }
     return navigator.push({
       screen: 'Checkout',
       passProps: {
