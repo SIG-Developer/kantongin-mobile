@@ -21,7 +21,7 @@ import * as authActions from '../actions/authActions';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAFAFA',
   },
   contentContainer: {
     padding: 14,

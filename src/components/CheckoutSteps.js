@@ -11,36 +11,51 @@ import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#EAEAEA',
     borderTopWidth: 1,
     borderTopColor: '#EAEAEA',
     flexDirection: 'row',
-    height: 30,
+    alignItems: 'center',
+    height: 50,
     marginLeft: -14,
     marginRight: -14,
+    marginTop: -14,
+    marginBottom: 14,
+    overflow: 'hidden',
   },
   checkIcon: {
-    height: 24,
-    width: 24,
-    marginTop: -2,
+    height: 27,
+    width: 27,
+    marginLeft: 4,
+    marginRight: 4,
     opacity: 0.4,
   },
   stepContainer: {
+    position: 'relative',
   },
   stepContent: {
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 15,
     marginRight: 10,
+    height: 30,
+  },
+  arrowContainer: {
+    height: 50,
+    width: 20,
+    right: 0,
+    top: -12,
+    position: 'absolute',
   },
   arrowTop: {
     borderRightWidth: 1,
     borderRightColor: '#D6D6D6',
-    height: 24,
+    height: 30,
     right: 0,
     position: 'absolute',
-    top: -16,
+    top: -0,
     transform: [
       { rotate: '-30deg' },
     ],
@@ -48,10 +63,10 @@ const styles = EStyleSheet.create({
   arrowBottom: {
     borderRightWidth: 1,
     borderRightColor: '#D6D6D6',
-    height: 26,
+    height: 30,
     right: 0,
     position: 'absolute',
-    bottom: -2,
+    bottom: -6,
     transform: [
       { rotate: '30deg' },
     ],
@@ -63,7 +78,7 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#242424',
-    marginRight: 8,
+    marginRight: 6,
   },
   roundNumberText: {
     color: '#fff',
@@ -73,6 +88,7 @@ const styles = EStyleSheet.create({
   },
   roundNumberGray: {
     backgroundColor: '#989898',
+    marginLeft: 6,
   }
 });
 
@@ -104,6 +120,13 @@ export default class extends Component {
     });
   }
 
+  renderArrow = () => (
+    <View style={styles.arrowContainer}>
+      <View style={styles.arrowTop} />
+      <View style={styles.arrowBottom} />
+    </View>
+  );
+
   renderPassedSteps() {
     const { stepId, steps } = this.state;
     const stepsList = [];
@@ -113,11 +136,10 @@ export default class extends Component {
       }
       stepsList.push(
         <View style={styles.stepContainer} key={i}>
-          <View style={styles.arrowTop} />
-          <View style={styles.arrowBottom} />
           <View style={styles.stepContent}>
             <Image source={require('../assets/icons/check-circle-o.png')} style={styles.checkIcon} />
           </View>
+          {this.renderArrow()}
         </View>
       );
     }
@@ -138,8 +160,7 @@ export default class extends Component {
             {activeStep}
           </Text>
         </View>
-        <View style={styles.arrowTop} />
-        <View style={styles.arrowBottom} />
+        {this.renderArrow()}
       </View>
     );
   }
@@ -157,8 +178,7 @@ export default class extends Component {
               </Text>
             </View>
           </View>
-          <View style={styles.arrowTop} />
-          <View style={styles.arrowBottom} />
+          {this.renderArrow()}
         </View>
       );
     }
