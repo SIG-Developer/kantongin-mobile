@@ -131,9 +131,8 @@ class Categories extends Component {
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'cart') {
-        navigator.resetTo({
+        navigator.showModal({
           screen: 'Cart',
-          animated: false,
         });
       } else if (event.id === 'search') {
         navigator.showModal({

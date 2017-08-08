@@ -138,6 +138,7 @@ class Cart extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
+      dismissModal: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
     cartActions: PropTypes.shape({
@@ -197,8 +198,8 @@ class Cart extends Component {
     const navButtons = {
       leftButtons: [
         {
-          id: 'sideMenu',
-          icon: require('../assets/icons/bars.png'),
+          id: 'close',
+          icon: require('../assets/icons/times.png'),
         },
       ],
     };
@@ -219,8 +220,8 @@ class Cart extends Component {
     registerDrawerDeepLinks(event, this.props.navigator);
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'sideMenu') {
-        navigator.toggleDrawer({ side: 'left' });
+      if (event.id === 'close') {
+        navigator.dismissModal();
       } else if (event.id === 'clearCart') {
         Alert.alert(
           i18n.gettext('Clear all cart ?'),

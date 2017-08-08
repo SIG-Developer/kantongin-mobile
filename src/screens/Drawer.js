@@ -219,9 +219,8 @@ class Drawer extends Component {
             });
           })}
           {this.renderItem(i18n.gettext('Cart'), () => {
-            navigator.handleDeepLink({
-              link: 'cart/content',
-              payload: {},
+            navigator.showModal({
+              screen: 'Cart',
             });
             navigator.toggleDrawer({
               side: 'left',

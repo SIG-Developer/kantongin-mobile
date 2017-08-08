@@ -102,9 +102,8 @@ class MainCategory extends Component {
       if (event.id === 'sideMenu') {
         navigator.toggleDrawer({ side: 'left' });
       } else if (event.id === 'cart') {
-        navigator.resetTo({
+        navigator.showModal({
           screen: 'Cart',
-          animated: false,
         });
       } else if (event.id === 'search') {
         navigator.showModal({
