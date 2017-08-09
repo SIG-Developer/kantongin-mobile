@@ -7,6 +7,7 @@ import {
   WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import qs from 'shitty-qs';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
@@ -40,7 +41,12 @@ class Registration extends Component {
       logged: PropTypes.bool,
       fetching: PropTypes.bool,
     }),
-  }
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+  };
 
   constructor(props) {
     super(props);
@@ -65,7 +71,7 @@ class Registration extends Component {
       navBarRightButtonColor: '#FF6008',
     });
     navigator.setTitle({
-      title: i18n.gettext('Login').toUpperCase(),
+      title: i18n.gettext('Registration').toUpperCase(),
     });
   }
 
@@ -79,16 +85,14 @@ class Registration extends Component {
   }
 
   onNavigationStateChange(e) {
-    if (e.url === `${config.config.siteUrl}index.php?dispatch=profiles.success_add`) {
-      this.props.navigator.showInAppNotification({
-        screen: 'Notification',
-        passProps: {
-          type: 'success',
-          title: i18n.gettext('Registration'),
-          text: i18n.gettext('Registration complete.')
-        }
-      });
-      this.props.navigator.dismissModal();
+    let url = e.url;
+    let response = {};
+    response = qs(url);
+    if (response.token != undefined) {
+      this.props.authActions.registration(
+        response.token,
+        this.props.navigator,
+      );
     }
   }
 
@@ -103,7 +107,7 @@ class Registration extends Component {
           startInLoadingState
           userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
           source={{
-            uri: `${config.config.siteUrl}profiles-add/`,
+            uri: `${config.config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />

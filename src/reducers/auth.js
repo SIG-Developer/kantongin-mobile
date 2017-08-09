@@ -5,6 +5,7 @@ import {
   AUTH_LOGIN_FAIL,
   AUTH_RESET_STATE,
   AUTH_LOGOUT,
+  AUTH_REGESTRATION_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -35,6 +36,7 @@ export default function (state = initialState, action) {
       };
 
     case AUTH_LOGIN_SUCCESS:
+    case AUTH_REGESTRATION_SUCCESS:
       return {
         ...state,
         token: action.payload.token,
