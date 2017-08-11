@@ -66,18 +66,9 @@ class LoginModal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { auth, authActions, navigator } = nextProps;
-
-    if (!auth.fetching && auth.error) {
-      navigator.showInAppNotification({
-        screen: 'Notification',
-        passProps: {
-          type: 'warning',
-          title: i18n.gettext('Error'),
-          text: i18n.gettext('Wrong password.')
-        }
-      });
-      authActions.resetState();
+    const { auth, navigator } = nextProps;
+    if (auth.logged) {
+      navigator.dismissModal();
     }
   }
 
@@ -95,7 +86,7 @@ class LoginModal extends Component {
     return (
       <View style={styles.container}>
         <LoginForm
-          onSubmit={data => this.props.authActions.login(data)}
+          onSubmit={data => this.props.authActions.login(data, navigator)}
           fetching={auth.fetching}
           navigator={navigator}
         />
@@ -108,7 +99,7 @@ class LoginModal extends Component {
 export default connect(state => ({
   auth: state.auth,
 }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
-  })
+dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch),
+})
 )(LoginModal);

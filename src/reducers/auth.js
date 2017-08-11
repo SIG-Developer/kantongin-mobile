@@ -43,6 +43,8 @@ export default function (state = initialState, action) {
         ttl: action.payload.ttl,
         logged: true,
         fetching: false,
+        error: null,
+        errorStatus: null,
       };
 
     case AUTH_LOGIN_FAIL:

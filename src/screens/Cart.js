@@ -260,13 +260,28 @@ class Cart extends Component {
         amount: p.amount,
       };
     });
-    return navigator.push({
-      screen: 'Checkout',
-      passProps: {
-        user_id: 3, // FIXME
-        products,
-      },
-    });
+    if (!auth.logged) {
+      navigator.showModal({
+        screen: 'Login',
+        title: i18n.gettext('Login'),
+        backButtonTitle: '',
+        passProps: {
+          cb: () => {
+            console.log('asd');
+          },
+          asd: {aaa: 'asd'},
+        },
+      });
+    } else {
+      navigator.push({
+        screen: 'CheckoutDelivery',
+        backButtonTitle: '',
+        passProps: {
+          user_id: 3, // FIXME
+          products,
+        },
+      });
+    }
   }
 
   handleRemoveProduct = (product) => {

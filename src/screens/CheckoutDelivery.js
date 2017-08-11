@@ -14,9 +14,12 @@ import * as t from 'tcomb-form-native';
 
 // Import components
 import CheckoutSteps from '../components/CheckoutSteps';
+import FormBlock from '../components/FormBlock';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
+
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -116,16 +119,10 @@ class Checkout extends Component {
     }),
   };
 
-  // static navigationOptions = ({ navigation }) => {
-  //   if (!navigation.state.params) {
-  //     return {};
-  //   }
-  //   const { headerRight } = navigation.state.params;
-  //   return {
-  //     headerRight,
-  //     title: 'Billing and Shipping Address'.toUpperCase(),
-  //   };
-  // };
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: 'black',
+  };
 
   constructor(props) {
     super(props);
@@ -140,18 +137,21 @@ class Checkout extends Component {
 
   componentDidMount() {
     const { navigator } = this.props;
-    // navigation.setParams({
-    //   headerRight: (
-    //     <TouchableOpacity
-    //       style={styles.closeBtn}
-    //       onPress={() => {
-    //         this.props.navigation.dispatch(NavigationActions.back());
-    //       }}
-    //     >
-    //       <Icon name="times" style={styles.closeIcon} />
-    //     </TouchableOpacity>
-    //   ),
-    // });
+
+    navigator.setTitle({
+      title: i18n.gettext('Checkout').toUpperCase(),
+    });
+    navigator.setButtons({
+      rightButtons: [
+        {
+          title: i18n.gettext('Next'),
+          id: 'next',
+          buttonColor: '#FD542A',
+          buttonFontWeight: '600',
+          buttonFontSize: 16,
+        },
+      ],
+    });
   }
 
   handleLogin() {
@@ -175,19 +175,29 @@ class Checkout extends Component {
           <ScrollView
             contentContainerStyle={styles.contentContainer}
           >
-            <CheckoutSteps step={2} />
-            <Form
-              ref={'checkoutForm'}
-              type={FormFields}
-              value={this.state.values}
-              options={options}
-            />
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => this.handleLogin()}
+            <CheckoutSteps step={1} />
+            <FormBlock
+              title={i18n.gettext('Billing address')}
             >
-              <Text style={styles.btnText}>Continue</Text>
-            </TouchableOpacity>
+              <Form
+                ref={'checkoutForm'}
+                type={FormFields}
+                value={this.state.values}
+                options={options}
+              />
+            </FormBlock>
+
+            <FormBlock
+              title={i18n.gettext('Shipping address')}
+              few
+            >
+              <Form
+                ref={'checkoutForm'}
+                type={FormFields}
+                value={this.state.values}
+                options={options}
+              />
+            </FormBlock>
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
@@ -198,7 +208,7 @@ class Checkout extends Component {
 export default connect(state => ({
   auth: state.auth,
 }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
-  })
+dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch),
+})
 )(Checkout);
