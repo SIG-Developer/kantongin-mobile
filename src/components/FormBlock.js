@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import Button from '../components/Button';
+
 const styles = EStyleSheet.create({
   container: {
     margin: 0,
@@ -26,6 +28,17 @@ const styles = EStyleSheet.create({
 export default class FormBlock extends Component {
   static propTypes = {
     children: PropTypes.shape(),
+    buttonText: PropTypes.string,
+    title: PropTypes.string,
+    simpleView: PropTypes.shape(),
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showMore: false,
+    };
   }
 
   renderTitle() {
@@ -40,13 +53,37 @@ export default class FormBlock extends Component {
     );
   }
 
+  renderContent() {
+    if (this.props.buttonText && !this.state.showMore) {
+      return (
+        <View>
+          {this.props.simpleView}
+          <Button
+            onPress={() => {
+              this.setState({
+                showMore: !this.state.showMore,
+              });
+            }}
+          >
+            {this.props.buttonText}
+          </Button>
+        </View>
+      );
+    }
+    return (
+      <View>
+        {this.props.children}
+      </View>
+    );
+  }
+
   render() {
     return (
       <View
         style={styles.container}
       >
         {this.renderTitle()}
-        {this.props.children}
+        {this.renderContent()}
       </View>
     );
   }

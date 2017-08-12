@@ -66,9 +66,9 @@ class LoginModal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { auth, navigator } = nextProps;
+    const { auth } = nextProps;
     if (auth.logged) {
-      navigator.dismissModal();
+      this.props.navigator.dismissModal();
     }
   }
 

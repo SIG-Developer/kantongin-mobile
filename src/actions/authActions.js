@@ -21,14 +21,15 @@ export function login(data, navigator) {
           type: AUTH_LOGIN_SUCCESS,
           payload: response.data,
         });
-        navigator.showInAppNotification({
-          screen: 'Notification',
-          passProps: {
-            type: 'success',
-            title: i18n.gettext('Success'),
-            text: i18n.gettext('You are logged in.')
-          }
-        });
+        navigator.dismissModal();
+        // navigator.showInAppNotification({
+        //   screen: 'Notification',
+        //   passProps: {
+        //     type: 'success',
+        //     title: i18n.gettext('Success'),
+        //     text: i18n.gettext('You are logged in.')
+        //   }
+        // });
       })
       .catch((error) => {
         navigator.showInAppNotification({

@@ -86,7 +86,7 @@ class Orders extends Component {
     };
 
     props.navigator.setTitle({
-      title: i18n.gettext('Orders'),
+      title: i18n.gettext('Orders').toUpperCase(),
     });
     props.navigator.setButtons({
       leftButtons: [

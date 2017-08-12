@@ -189,7 +189,14 @@ class Checkout extends Component {
 
             <FormBlock
               title={i18n.gettext('Shipping address')}
-              few
+              buttonText={i18n.gettext('Change address')}
+              simpleView={
+                <View>
+                  <Text>Simple</Text>
+                  <Text>Simple</Text>
+                  <Text>Simple</Text>
+                </View>
+              }
             >
               <Form
                 ref={'checkoutForm'}
