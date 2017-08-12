@@ -17,6 +17,8 @@ import * as flashActions from '../actions/flashActions';
 
 // Components
 import Spinner from '../components/Spinner';
+import i18n from '../utils/i18n';
+import { registerDrawerDeepLinks } from '../utils/deepLinks';
 
 const styles = EStyleSheet.create({
   container: {
@@ -63,7 +65,17 @@ class Orders extends Component {
       logged: PropTypes.bool,
       fetching: PropTypes.bool,
     }),
-  }
+    navigator: PropTypes.shape({
+      setTitle: PropTypes.func,
+      setButtons: PropTypes.func,
+    }),
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+    navBarButtonFontSize: 10,
+  };
 
   constructor(props) {
     super(props);
@@ -72,6 +84,30 @@ class Orders extends Component {
       orders: [],
       fetching: true,
     };
+
+    props.navigator.setTitle({
+      title: i18n.gettext('Orders'),
+    });
+    props.navigator.setButtons({
+      leftButtons: [
+        {
+          id: 'sideMenu',
+          icon: require('../assets/icons/bars.png'),
+        },
+      ],
+      rightButtons: [
+        {
+          id: 'cart',
+          icon: require('../assets/icons/shopping-cart.png'),
+        },
+        {
+          id: 'search',
+          icon: require('../assets/icons/search.png'),
+        },
+      ],
+    });
+
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
@@ -87,6 +123,25 @@ class Orders extends Component {
       orders: orders.items,
       fetching: orders.fetching,
     });
+  }
+
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    registerDrawerDeepLinks(event, navigator);
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'sideMenu') {
+        navigator.toggleDrawer({ side: 'left' });
+      } else if (event.id === 'cart') {
+        navigator.showModal({
+          screen: 'Cart',
+        });
+      } else if (event.id === 'search') {
+        navigator.showModal({
+          screen: 'Search',
+          title: i18n.gettext('Search'),
+        });
+      }
+    }
   }
 
   getOrderStatus = (status) => {
@@ -199,9 +254,9 @@ export default connect(state => ({
   flash: state.flash,
   orders: state.orders,
 }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
-    flashActions: bindActionCreators(flashActions, dispatch),
-    ordersActions: bindActionCreators(ordersActions, dispatch),
-  })
+dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch),
+  flashActions: bindActionCreators(flashActions, dispatch),
+  ordersActions: bindActionCreators(ordersActions, dispatch),
+})
 )(Orders);

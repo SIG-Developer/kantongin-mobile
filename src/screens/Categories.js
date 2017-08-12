@@ -59,7 +59,7 @@ class Categories extends Component {
   };
 
   static navigatorStyle = {
-    navBarLeftButtonColor: '#000000',
+    navBarBackgroundColor: '#FAFAFA',
   };
 
   constructor(props) {
@@ -104,11 +104,12 @@ class Categories extends Component {
       rightButtons: [
         {
           id: 'cart',
+          title: i18n.gettext('Cart'),
           icon: require('../assets/icons/shopping-cart.png'),
         },
         {
           id: 'search',
-          title: 'search',
+          title: i18n.gettext('Search'),
           icon: require('../assets/icons/search.png'),
         },
       ],

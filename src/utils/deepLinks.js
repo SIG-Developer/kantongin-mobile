@@ -11,6 +11,18 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         screen: 'Cart',
         animated: false,
       });
+    } else if (e.link === 'myProfile') {
+      navigator.resetTo({
+        screen: 'MyProfile',
+        animated: false,
+      });
+    } else if (e.link === 'orders/') {
+      navigator.resetTo({
+        screen: 'Orders',
+        animated: false,
+      });
     }
   }
 };
+
+export const unregisterDrawerDeepLinks = () => {};

@@ -226,8 +226,24 @@ class Drawer extends Component {
               side: 'left',
             });
           }, this.props.cart.amount)}
-          {this.renderItem(i18n.gettext('My Profile'))}
-          {this.renderItem(i18n.gettext('Orders'))}
+          {this.renderItem(i18n.gettext('My Profile'), () => {
+            navigator.handleDeepLink({
+              link: 'myProfile/',
+              payload: {},
+            });
+            navigator.toggleDrawer({
+              side: 'left',
+            });
+          })}
+          {this.renderItem(i18n.gettext('Orders'), () => {
+            navigator.handleDeepLink({
+              link: 'orders/',
+              payload: {},
+            });
+            navigator.toggleDrawer({
+              side: 'left',
+            });
+          })}
         </View>
         <View style={styles.group}>
           {this.renderItem('About our company')}
@@ -242,7 +258,7 @@ export default connect(state => ({
   auth: state.auth,
   cart: state.cart,
 }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
-  })
+dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch),
+})
 )(Drawer);
