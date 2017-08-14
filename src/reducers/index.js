@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 
 import cart from './cart';
 import auth from './auth';
-import modals from './modals';
 import orders from './orders';
 import products from './products';
 import payments from './payments';
@@ -13,7 +12,6 @@ import productDetail from './productDetail';
 export default combineReducers({
   cart,
   auth,
-  modals,
   orders,
   products,
   payments,
