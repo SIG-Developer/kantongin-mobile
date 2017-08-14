@@ -4,6 +4,7 @@ import Cart from './screens/Cart';
 import Login from './screens/Login';
 import Search from './screens/Search';
 import Drawer from './screens/Drawer';
+import Gallery from './screens/Gallery';
 import Orders from './screens/Orders';
 import Categories from './screens/Categories';
 import MainCategory from './screens/MainCategory';
@@ -19,6 +20,7 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('Search', () => Search, store, Provider);
   Navigation.registerComponent('Drawer', () => Drawer, store, Provider);
   Navigation.registerComponent('Orders', () => Orders, store, Provider);
+  Navigation.registerComponent('Gallery', () => Gallery, store, Provider);
   Navigation.registerComponent('Categories', () => Categories, store, Provider);
   Navigation.registerComponent('MainCategory', () => MainCategory, store, Provider);
   Navigation.registerComponent('Notification', () => Notification, store, Provider);

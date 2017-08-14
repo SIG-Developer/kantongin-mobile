@@ -301,7 +301,10 @@ class ProductDetail extends Component {
         key={index}
         onPress={() => {
           this.props.navigator.showLightBox({
-            screen: 'Search',
+            screen: 'Gallery',
+            passProps: {
+              images: [...this.state.images],
+            },
             style: {
               backgroundBlur: 'dark',
               backgroundColor: 'rgba(20,20,20, 0.5)'

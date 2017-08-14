@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Navigation } from 'react-native-navigation';
 import {
   Text,
   View,
@@ -104,24 +103,6 @@ class Drawer extends Component {
     }),
   };
 
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // if (nextProps.auth.logged) {
-    //   this.props.navigator.showInAppNotification({
-    //     screen: 'Notification',
-    //     passProps: {
-    //       type: 'success',
-    //       title: i18n.gettext('Success'),
-    //       text: i18n.gettext('You have successfully logged in.'),
-    //     },
-    //   });
-    //   Navigation.dismissModal();
-    // }
-  }
-
   renderLogo = () => (
     <Image
       source={{ uri: config.config.logoUrl }}
@@ -170,21 +151,22 @@ class Drawer extends Component {
 
   renderItem = (text, onPress, badge = 0, type = 'red') => {
     const renderBadge = () => {
-      if (badge !== 0) {
-        let badgeStyle = styles.itemBadgeRed;
-        let badgeTextStyle = styles.itemBadgeRedText;
-        if (type === 'gray') {
-          badgeStyle = styles.itemBadgeGray;
-          badgeTextStyle = styles.itemBadgeGrayText;
-        }
-        return (
-          <View style={badgeStyle}>
-            <Text style={badgeTextStyle}>
-              {badge}
-            </Text>
-          </View>
-        );
+      if (badge === 0) {
+        return null;
       }
+      let badgeStyle = styles.itemBadgeRed;
+      let badgeTextStyle = styles.itemBadgeRedText;
+      if (type === 'gray') {
+        badgeStyle = styles.itemBadgeGray;
+        badgeTextStyle = styles.itemBadgeGrayText;
+      }
+      return (
+        <View style={badgeStyle}>
+          <Text style={badgeTextStyle}>
+            {badge}
+          </Text>
+        </View>
+      );
     };
     return (
       <TouchableOpacity
