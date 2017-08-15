@@ -11,7 +11,7 @@ import {
 } from '../constants';
 import i18n from '../utils/i18n';
 
-export function login(data, navigator) {
+export function login(data) {
   return (dispatch) => {
     dispatch({ type: AUTH_LOGIN_REQUEST });
 
@@ -21,25 +21,8 @@ export function login(data, navigator) {
           type: AUTH_LOGIN_SUCCESS,
           payload: response.data,
         });
-        navigator.dismissModal();
-        // navigator.showInAppNotification({
-        //   screen: 'Notification',
-        //   passProps: {
-        //     type: 'success',
-        //     title: i18n.gettext('Success'),
-        //     text: i18n.gettext('You are logged in.')
-        //   }
-        // });
       })
       .catch((error) => {
-        navigator.showInAppNotification({
-          screen: 'Notification',
-          passProps: {
-            type: 'warning',
-            title: i18n.gettext('Error'),
-            text: i18n.gettext('Wrong password.')
-          }
-        });
         dispatch({
           type: AUTH_LOGIN_FAIL,
           payload: error.response.data,

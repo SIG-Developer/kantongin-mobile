@@ -176,6 +176,21 @@ class Cart extends Component {
     navigator.setTitle({
       title: i18n.gettext('Cart').toUpperCase(),
     });
+
+    navigator.setButtons({
+      leftButtons: [
+        {
+          id: 'close',
+          icon: require('../assets/icons/times.png'),
+        },
+      ],
+      rightButtons: [
+        {
+          id: 'clearCart',
+          icon: require('../assets/icons/trash.png'),
+        },
+      ],
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -194,25 +209,6 @@ class Cart extends Component {
       fetching: false,
       refreshing: false,
     });
-
-    const navButtons = {
-      leftButtons: [
-        {
-          id: 'close',
-          icon: require('../assets/icons/times.png'),
-        },
-      ],
-    };
-
-    if (products.length) {
-      navButtons.rightButtons = [
-        {
-          id: 'clearCart',
-          icon: require('../assets/icons/trash.png'),
-        },
-      ];
-    }
-    navigator.setButtons(navButtons);
   }
 
   onNavigatorEvent(event) {
@@ -263,13 +259,10 @@ class Cart extends Component {
     if (!auth.logged) {
       navigator.showModal({
         screen: 'Login',
-        title: i18n.gettext('Login'),
         backButtonTitle: '',
         passProps: {
-          cb: () => {
-            console.log('asd');
-          },
-          asd: {aaa: 'asd'},
+          user_id: 3, // FIXME
+          products,
         },
       });
     } else {
@@ -425,7 +418,7 @@ export default connect(state => ({
   auth: state.auth,
   cart: state.cart,
 }),
-  dispatch => ({
-    cartActions: bindActionCreators(cartActions, dispatch),
-  })
+dispatch => ({
+  cartActions: bindActionCreators(cartActions, dispatch),
+})
 )(Cart);

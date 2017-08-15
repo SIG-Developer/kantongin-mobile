@@ -35,21 +35,21 @@ export function fetch(token, cb = null) {
       url: '/cart_content/',
       headers,
     })
-    .then((response) => {
-      dispatch({
-        type: CART_SUCCESS,
-        payload: response.data,
+      .then((response) => {
+        dispatch({
+          type: CART_SUCCESS,
+          payload: response.data,
+        });
+        if (cb) {
+          cb();
+        }
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_FAIL,
+          error,
+        });
       });
-      if (cb) {
-        cb();
-      }
-    })
-    .catch((error) => {
-      dispatch({
-        type: CART_FAIL,
-        error,
-      });
-    });
   };
 }
 
@@ -65,20 +65,20 @@ export function add(data, token = '', cb = null) {
       data,
       headers,
     })
-    .then((response) => {
-      dispatch({
-        type: ADD_TO_CART_SUCCESS,
-        payload: response.data,
+      .then((response) => {
+        dispatch({
+          type: ADD_TO_CART_SUCCESS,
+          payload: response.data,
+        });
+        // Calculate cart
+        setTimeout(() => fetch(token, cb)(dispatch), 50);
+      })
+      .catch((error) => {
+        dispatch({
+          type: ADD_TO_CART_FAIL,
+          error,
+        });
       });
-      // Calculate cart
-      setTimeout(() => fetch(token, cb)(dispatch), 50);
-    })
-    .catch((error) => {
-      dispatch({
-        type: ADD_TO_CART_FAIL,
-        error,
-      });
-    });
   };
 }
 
@@ -94,22 +94,22 @@ export function clear(token, cb = null) {
       data: {},
       headers,
     })
-    .then((response) => {
-      dispatch({
-        type: CART_CLEAR_SUCCESS,
-        payload: response.data,
-      });
+      .then((response) => {
+        dispatch({
+          type: CART_CLEAR_SUCCESS,
+          payload: response.data,
+        });
 
-      if (cb) {
-        cb();
-      }
-    })
-    .catch((error) => {
-      dispatch({
-        type: CART_CLEAR_FAIL,
-        error,
+        if (cb) {
+          cb();
+        }
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_CLEAR_FAIL,
+          error,
+        });
       });
-    });
   };
 }
 
@@ -125,20 +125,20 @@ export function remove(token, id, cb = null) {
       data: {},
       headers,
     })
-    .then((response) => {
-      dispatch({
-        type: CART_REMOVE_SUCCESS,
-        payload: response.data,
+      .then((response) => {
+        dispatch({
+          type: CART_REMOVE_SUCCESS,
+          payload: response.data,
+        });
+        // Calculate cart
+        setTimeout(() => fetch(token, cb)(dispatch), 50);
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_REMOVE_FAIL,
+          error,
+        });
       });
-      // Calculate cart
-      setTimeout(() => fetch(token, cb)(dispatch), 50);
-    })
-    .catch((error) => {
-      dispatch({
-        type: CART_REMOVE_FAIL,
-        error,
-      });
-    });
   };
 }
 

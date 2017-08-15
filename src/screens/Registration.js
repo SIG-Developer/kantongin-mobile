@@ -51,7 +51,6 @@ class Registration extends Component {
   constructor(props) {
     super(props);
 
-    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     props.navigator.setTitle({
       title: i18n.gettext('Registration')
     });
@@ -59,29 +58,12 @@ class Registration extends Component {
 
   componentDidMount() {
     const { navigator } = this.props;
-    navigator.setButtons({
-      rightButtons: [
-        {
-          id: 'close',
-          title: i18n.gettext('Close'),
-        },
-      ],
-    });
     navigator.setStyle({
       navBarRightButtonColor: '#FF6008',
     });
     navigator.setTitle({
       title: i18n.gettext('Registration').toUpperCase(),
     });
-  }
-
-  onNavigatorEvent(event) {
-    const { navigator } = this.props;
-    if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'close') {
-        navigator.dismissModal();
-      }
-    }
   }
 
   onNavigationStateChange(e) {

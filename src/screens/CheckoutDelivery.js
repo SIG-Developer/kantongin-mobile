@@ -175,7 +175,7 @@ class Checkout extends Component {
           <ScrollView
             contentContainerStyle={styles.contentContainer}
           >
-            <CheckoutSteps step={1} />
+            <CheckoutSteps step={0} />
             <FormBlock
               title={i18n.gettext('Billing address')}
             >

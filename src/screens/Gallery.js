@@ -38,7 +38,7 @@ export default class Gallery extends Component {
   };
 
   render() {
-    const { navigator, images } = this.props;
+    const { images } = this.props;
     if (!images.length) {
       return null;
     }
