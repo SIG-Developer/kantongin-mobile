@@ -67,7 +67,7 @@ export function getUserData(token) {
     }
     return axios({
       method: 'get',
-      url: '/carts/1',
+      url: '/carts/3',
       headers,
     })
       .then((response) => {

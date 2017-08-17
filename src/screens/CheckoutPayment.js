@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 import {
   View,
   Text,
@@ -19,11 +18,12 @@ import * as flashActions from '../actions/flashActions';
 
 // Components
 import Spinner from '../components/Spinner';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAFAFA',
   },
   contentContainer: {
     padding: 14,
@@ -47,12 +47,14 @@ class CheckoutStepThree extends Component {
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
-    flashActions: PropTypes.shape({
-      show: PropTypes.func,
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
     }),
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    })
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: 'black',
   };
 
   constructor(props) {
@@ -80,6 +82,8 @@ class CheckoutStepThree extends Component {
   renderList() {
     return (
       <FlatList
+        contentContainerStyle={styles.contentContainer}
+        ListHeaderComponent={() => <CheckoutSteps step={3} />}
         data={this.state.items}
         keyExtractor={item => +item.payment_id}
         numColumns={1}
@@ -128,20 +132,11 @@ class CheckoutStepThree extends Component {
   }
 }
 
-CheckoutStepThree.navigationOptions = () => {
-  return {
-    title: 'Billing Options'.toUpperCase(),
-  };
-};
-
 export default connect(state => ({
-  nav: state.nav,
   payments: state.payments,
-  flash: state.flash,
 }),
-  dispatch => ({
-    ordersActions: bindActionCreators(ordersActions, dispatch),
-    paymentsActions: bindActionCreators(paymentsActions, dispatch),
-    flashActions: bindActionCreators(flashActions, dispatch),
-  })
+dispatch => ({
+  ordersActions: bindActionCreators(ordersActions, dispatch),
+  paymentsActions: bindActionCreators(paymentsActions, dispatch),
+})
 )(CheckoutStepThree);

@@ -14,6 +14,7 @@ import Notification from './components/Notification';
 import CheckoutAuth from './screens/CheckoutAuth';
 import CheckoutDelivery from './screens/CheckoutDelivery';
 import CheckoutShipping from './screens/CheckoutShipping';
+import CheckoutPayment from './screens/CheckoutPayment';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
@@ -31,4 +32,5 @@ export default function registerScreens(store, Provider) {
   Navigation.registerComponent('CheckoutAuth', () => CheckoutAuth, store, Provider);
   Navigation.registerComponent('CheckoutDelivery', () => CheckoutDelivery, store, Provider);
   Navigation.registerComponent('CheckoutShipping', () => CheckoutShipping, store, Provider);
+  Navigation.registerComponent('CheckoutPayment', () => CheckoutPayment, store, Provider);
 }

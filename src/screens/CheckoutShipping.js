@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
-  FlatList,
   TouchableOpacity,
-  InteractionManager,
+  SectionList,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -16,9 +15,9 @@ import * as shippingActions from '../actions/shippingActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
-import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
+import { stripTags } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -30,23 +29,37 @@ const styles = EStyleSheet.create({
   },
   shippingItem: {
     padding: 14,
+    marginLeft: -14,
+    marginRight: -14,
     borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: '#F1F1F1',
-  }
+    backgroundColor: '#fff',
+    marginBottom: 6,
+  },
+  shippingItemText: {
+    fontSize: '0.9rem',
+    paddingBottom: 6,
+  },
+  shippingItemDesc: {
+    fontSize: '0.8rem',
+    paddingBottom: 6,
+    color: 'gray'
+  },
+  shippingTitle: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    marginBottom: 14,
+    textAlign: 'center',
+  },
 });
 
-class CheckoutStepTwo extends Component {
+class CheckoutShipping extends Component {
   static propTypes = {
-    shippingActions: PropTypes.shape({
-      fetchAll: PropTypes.func,
-    }),
-    shippings: PropTypes.shape({
-      fetching: PropTypes.bool,
-      items: PropTypes.arrayOf(PropTypes.object),
-    }),
     navigator: PropTypes.shape({
       setButtons: PropTypes.func,
-    })
+    }),
+    cart: PropTypes.shape({}),
   };
 
   static navigatorStyle = {
@@ -64,79 +77,107 @@ class CheckoutStepTwo extends Component {
   }
 
   componentDidMount() {
-    const { shippingActions, navigator } = this.props;
-    InteractionManager.runAfterInteractions(() => {
-      shippingActions.fetchAll();
-    });
-    navigator.setButtons({
-      rightButtons: [
-        {
-          title: i18n.gettext('Next'),
-          id: 'next',
-          buttonColor: '#FD542A',
-          buttonFontWeight: '600',
-          buttonFontSize: 16,
-        },
-      ],
-    });
-  }
+    const { navigator, cart } = this.props;
+    // navigator.setButtons({
+    //   rightButtons: [
+    //     {
+    //       title: i18n.gettext('Next'),
+    //       id: 'next',
+    //       buttonColor: '#FD542A',
+    //       buttonFontWeight: '600',
+    //       buttonFontSize: 16,
+    //     },
+    //   ],
+    // });
 
-  componentWillReceiveProps(nextProps) {
     this.setState({
-      items: nextProps.shippings.items,
-      fetching: nextProps.shippings.fetching,
+      items: this.normalizeData(cart.product_groups),
+      fetching: false,
     });
   }
 
-  renderList() {
-    return (
-      <View style={{ flex: 1, }}>
-        <FlatList
-          contentContainerStyle={styles.contentContainer}
-          data={this.state.items}
-          keyExtractor={item => +item.shipping_id}
-          numColumns={1}
-          ListHeaderComponent={() => <CheckoutSteps step={2} />}
-          renderItem={({ item }) => this.renderItem(item)}
-        />
-      </View>
-    );
+  normalizeData = (blobData) => {
+    const items = [];
+    const itemsWithSections = {};
+    // Add section: [{item}] to the eventsWithSections.
+    blobData.map((currentItem) => {
+      const sectionName = currentItem.name;
+      if (!{}.hasOwnProperty.call(itemsWithSections, sectionName)) {
+        itemsWithSections[sectionName] = [];
+      }
+      const shippingsAsArray = Object
+        .keys(currentItem.shippings).map(k => currentItem.shippings[k]);
+      itemsWithSections[sectionName] = shippingsAsArray;
+      return itemsWithSections;
+    });
+    Object.keys(itemsWithSections).forEach((key) => {
+      items.push({
+        data: itemsWithSections[key],
+        title: key,
+      });
+    });
+    return items;
   }
 
   renderItem = (item) => {
-    const { navigation } = this.props;
+    const { navigator } = this.props;
     return (
       <TouchableOpacity
         style={styles.shippingItem}
-        onPress={() => navigation.push('CheckoutStepThree', {
-          ...navigation.state.params,
-          shipping_id: item.shipping_id,
+        onPress={() => navigator.push({
+          screen: 'CheckoutPayment',
+          backButtonTitle: '',
+          title: i18n.gettext('Checkout').toUpperCase(),
+          passProps: {
+            shipping_id: item.shipping_id,
+          }
         })}
       >
-        <Text style={styles.shippingItemText}>
-          {item.shipping} {item.delivery_time}
+        <View>
+          <Text style={styles.shippingItemText}>
+            {item.shipping} {item.delivery_time}
+          </Text>
+        </View>
+        <Text style={styles.shippingItemDesc}>
+          {stripTags(item.description)}
         </Text>
       </TouchableOpacity>
     );
   };
 
-  renderSpinner = () => (
-    <Spinner visible mode="content" />
-  );
+  renderHeader = (section) => {
+    if (this.state.items.length === 1) {
+      return null;
+    }
+    return (
+      <Text style={styles.shippingTitle}>
+        {section.title}
+      </Text>
+    );
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.fetching ? this.renderSpinner() : this.renderList()}
+        <SectionList
+          contentContainerStyle={styles.contentContainer}
+          sections={this.state.items}
+          keyExtractor={item => +item.shipping_id}
+          numColumns={1}
+          ListHeaderComponent={() => <CheckoutSteps step={2} />}
+          renderSectionHeader={({ section }) => this.renderHeader(section)}
+          renderItem={({ item }) => this.renderItem(item)}
+        />
       </View>
     );
   }
 }
 
 export default connect(state => ({
+  cart: state.cart,
   shippings: state.shippings,
 }),
 dispatch => ({
   shippingActions: bindActionCreators(shippingActions, dispatch),
 })
-)(CheckoutStepTwo);
+)(CheckoutShipping);
