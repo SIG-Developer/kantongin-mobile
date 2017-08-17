@@ -11,10 +11,12 @@ import MainCategory from './screens/MainCategory';
 import Registration from './screens/Registration';
 import ProductDetail from './screens/ProductDetail';
 import Notification from './components/Notification';
+import CheckoutAuth from './screens/CheckoutAuth';
 import CheckoutDelivery from './screens/CheckoutDelivery';
+import CheckoutShipping from './screens/CheckoutShipping';
 
 // register all screens of the app (including internal ones)
-export function registerScreens(store, Provider) {
+export default function registerScreens(store, Provider) {
   Navigation.registerComponent('Cart', () => Cart, store, Provider);
   Navigation.registerComponent('Login', () => Login, store, Provider);
   Navigation.registerComponent('Search', () => Search, store, Provider);
@@ -26,5 +28,7 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('Notification', () => Notification, store, Provider);
   Navigation.registerComponent('Registration', () => Registration, store, Provider);
   Navigation.registerComponent('ProductDetail', () => ProductDetail, store, Provider);
+  Navigation.registerComponent('CheckoutAuth', () => CheckoutAuth, store, Provider);
   Navigation.registerComponent('CheckoutDelivery', () => CheckoutDelivery, store, Provider);
+  Navigation.registerComponent('CheckoutShipping', () => CheckoutShipping, store, Provider);
 }

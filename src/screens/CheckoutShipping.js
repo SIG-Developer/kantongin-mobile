@@ -15,12 +15,15 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import * as shippingActions from '../actions/shippingActions';
 
 // Components
+import CheckoutSteps from '../components/CheckoutSteps';
 import Spinner from '../components/Spinner';
+
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAFAFA',
   },
   contentContainer: {
     padding: 14,
@@ -41,9 +44,14 @@ class CheckoutStepTwo extends Component {
       fetching: PropTypes.bool,
       items: PropTypes.arrayOf(PropTypes.object),
     }),
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
+    navigator: PropTypes.shape({
+      setButtons: PropTypes.func,
     })
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: 'black',
   };
 
   constructor(props) {
@@ -56,9 +64,20 @@ class CheckoutStepTwo extends Component {
   }
 
   componentDidMount() {
-    const { shippingActions } = this.props;
+    const { shippingActions, navigator } = this.props;
     InteractionManager.runAfterInteractions(() => {
       shippingActions.fetchAll();
+    });
+    navigator.setButtons({
+      rightButtons: [
+        {
+          title: i18n.gettext('Next'),
+          id: 'next',
+          buttonColor: '#FD542A',
+          buttonFontWeight: '600',
+          buttonFontSize: 16,
+        },
+      ],
     });
   }
 
@@ -71,12 +90,16 @@ class CheckoutStepTwo extends Component {
 
   renderList() {
     return (
-      <FlatList
-        data={this.state.items}
-        keyExtractor={item => +item.shipping_id}
-        numColumns={1}
-        renderItem={({ item }) => this.renderItem(item)}
-      />
+      <View style={{ flex: 1, }}>
+        <FlatList
+          contentContainerStyle={styles.contentContainer}
+          data={this.state.items}
+          keyExtractor={item => +item.shipping_id}
+          numColumns={1}
+          ListHeaderComponent={() => <CheckoutSteps step={2} />}
+          renderItem={({ item }) => this.renderItem(item)}
+        />
+      </View>
     );
   }
 
@@ -85,7 +108,7 @@ class CheckoutStepTwo extends Component {
     return (
       <TouchableOpacity
         style={styles.shippingItem}
-        onPress={() => navigation.navigate('CheckoutStepThree', {
+        onPress={() => navigation.push('CheckoutStepThree', {
           ...navigation.state.params,
           shipping_id: item.shipping_id,
         })}
@@ -110,17 +133,10 @@ class CheckoutStepTwo extends Component {
   }
 }
 
-CheckoutStepTwo.navigationOptions = () => {
-  return {
-    title: 'Shipping Options'.toUpperCase(),
-  };
-};
-
 export default connect(state => ({
-  nav: state.nav,
   shippings: state.shippings,
 }),
-  dispatch => ({
-    shippingActions: bindActionCreators(shippingActions, dispatch),
-  })
+dispatch => ({
+  shippingActions: bindActionCreators(shippingActions, dispatch),
+})
 )(CheckoutStepTwo);

@@ -7,7 +7,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import './config';
 import store from './store';
 import theme from './theme';
-import { registerScreens } from './screens';
+import registerScreens from './screens';
 
 registerScreens(store, Provider);
 

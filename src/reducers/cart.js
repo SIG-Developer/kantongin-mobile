@@ -3,6 +3,12 @@ import {
   CART_SUCCESS,
   CART_FAIL,
 
+  CART_CONTENT_REQUEST,
+  CART_CONTENT_SUCCESS,
+  CART_CONTENT_FAIL,
+
+  CART_CONTENT_SAVE,
+
   ADD_TO_CART_REQUEST,
   ADD_TO_CART_SUCCESS,
   ADD_TO_CART_FAIL,
@@ -21,13 +27,13 @@ const initialState = {
   products: [],
   ids: [],
   fetching: false,
+  user_data: {},
 };
 
 let newProducts = [];
 
 export default function (state = initialState, action) {
   switch (action.type) {
-
     case ADD_TO_CART_REQUEST:
       return {
         ...state,
@@ -82,6 +88,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetching: false,
+      };
+
+    case CART_CONTENT_SUCCESS:
+      return {
+        ...state,
+        user_data: action.payload.user_data,
+      };
+
+    case CART_CONTENT_SAVE:
+      return {
+        ...state,
+        user_data: {
+          ...state.user_data,
+          ...action.payload,
+        }
       };
 
     case ORDER_CREATE_SUCCESS:

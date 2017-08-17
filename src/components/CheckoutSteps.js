@@ -106,6 +106,7 @@ export default class extends Component {
     this.state = {
       stepId: 0,
       steps: [
+        i18n.gettext('Authentication'),
         i18n.gettext('Delivery'),
         i18n.gettext('Shipping'),
         i18n.gettext('Billing'),

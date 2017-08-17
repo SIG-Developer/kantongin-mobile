@@ -5,6 +5,12 @@ import {
   ADD_TO_CART_SUCCESS,
   ADD_TO_CART_FAIL,
 
+  CART_CONTENT_REQUEST,
+  CART_CONTENT_SUCCESS,
+  CART_CONTENT_FAIL,
+
+  CART_CONTENT_SAVE,
+
   CART_REQUEST,
   CART_SUCCESS,
   CART_FAIL,
@@ -50,6 +56,41 @@ export function fetch(token, cb = null) {
           error,
         });
       });
+  };
+}
+
+export function getUserData(token) {
+  return (dispatch) => {
+    dispatch({ type: CART_CONTENT_REQUEST });
+    if (token) {
+      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
+    }
+    return axios({
+      method: 'get',
+      url: '/carts/1',
+      headers,
+    })
+      .then((response) => {
+        dispatch({
+          type: CART_CONTENT_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_CONTENT_FAIL,
+          error,
+        });
+      });
+  };
+}
+
+export function saveUserData(data) {
+  return (dispatch) => {
+    dispatch({
+      type: CART_CONTENT_SAVE,
+      payload: data,
+    });
   };
 }
 

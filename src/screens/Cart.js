@@ -257,8 +257,8 @@ class Cart extends Component {
       };
     });
     if (!auth.logged) {
-      navigator.showModal({
-        screen: 'Login',
+      navigator.push({
+        screen: 'CheckoutAuth',
         backButtonTitle: '',
         passProps: {
           user_id: 3, // FIXME
