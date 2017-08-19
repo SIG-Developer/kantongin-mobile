@@ -176,18 +176,20 @@ class ProductDetail extends Component {
       productsActions.fetch(navProps.pid);
     });
 
-    navigator.setButtons({
-      rightButtons: [
-        {
-          id: 'cart',
-          icon: require('../assets/icons/shopping-cart.png'),
-        },
-        {
-          id: 'search',
-          icon: require('../assets/icons/search.png'),
-        },
-      ],
-    });
+    setTimeout(() => {
+      navigator.setButtons({
+        rightButtons: [
+          {
+            id: 'cart',
+            component: 'CartBtn',
+          },
+          {
+            id: 'search',
+            icon: require('../assets/icons/search.png'),
+          },
+        ],
+      });
+    }, 360);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -236,11 +238,7 @@ class ProductDetail extends Component {
   onNavigatorEvent(event) {
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'cart') {
-        navigator.showModal({
-          screen: 'Cart',
-        });
-      } else if (event.id === 'search') {
+      if (event.id === 'search') {
         navigator.resetTo({
           screen: 'Search',
           animated: false,

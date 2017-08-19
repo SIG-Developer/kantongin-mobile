@@ -13,7 +13,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import i18n from '../utils/i18n';
 
 import * as config from '../config';
-
 import * as authActions from '../actions/authActions';
 
 const styles = EStyleSheet.create({

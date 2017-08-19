@@ -100,20 +100,22 @@ class Categories extends Component {
     navigator.setTitle({
       title: category.category.toUpperCase(),
     });
-    navigator.setButtons({
-      rightButtons: [
-        {
-          id: 'cart',
-          title: i18n.gettext('Cart'),
-          icon: require('../assets/icons/shopping-cart.png'),
-        },
-        {
-          id: 'search',
-          title: i18n.gettext('Search'),
-          icon: require('../assets/icons/search.png'),
-        },
-      ],
-    });
+
+    setTimeout(() => {
+      navigator.setButtons({
+        rightButtons: [
+          {
+            id: 'cart',
+            component: 'CartBtn',
+          },
+          {
+            id: 'search',
+            title: i18n.gettext('Search'),
+            icon: require('../assets/icons/search.png'),
+          },
+        ],
+      });
+    }, 360);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -131,11 +133,7 @@ class Categories extends Component {
   onNavigatorEvent(event) {
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'cart') {
-        navigator.showModal({
-          screen: 'Cart',
-        });
-      } else if (event.id === 'search') {
+      if (event.id === 'search') {
         navigator.showModal({
           screen: 'Search',
           title: i18n.gettext('Search'),

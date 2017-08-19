@@ -55,6 +55,8 @@ class MainCategory extends Component {
   constructor(props) {
     super(props);
 
+    console.disableYellowBox = true;
+
     this.state = {
       items: [],
     };
@@ -78,7 +80,7 @@ class MainCategory extends Component {
       rightButtons: [
         {
           id: 'cart',
-          icon: require('../assets/icons/shopping-cart.png'),
+          component: 'CartBtn',
         },
         {
           id: 'search',
@@ -101,10 +103,6 @@ class MainCategory extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'sideMenu') {
         navigator.toggleDrawer({ side: 'left' });
-      } else if (event.id === 'cart') {
-        navigator.showModal({
-          screen: 'Cart',
-        });
       } else if (event.id === 'search') {
         navigator.showModal({
           screen: 'Search',
