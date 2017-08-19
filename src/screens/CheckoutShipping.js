@@ -77,19 +77,7 @@ class CheckoutShipping extends Component {
   }
 
   componentDidMount() {
-    const { navigator, cart } = this.props;
-    // navigator.setButtons({
-    //   rightButtons: [
-    //     {
-    //       title: i18n.gettext('Next'),
-    //       id: 'next',
-    //       buttonColor: '#FD542A',
-    //       buttonFontWeight: '600',
-    //       buttonFontSize: 16,
-    //     },
-    //   ],
-    // });
-
+    const { cart } = this.props;
     this.setState({
       items: this.normalizeData(cart.product_groups),
       fetching: false,

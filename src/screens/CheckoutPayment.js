@@ -7,18 +7,18 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as ordersActions from '../actions/ordersActions';
 import * as paymentsActions from '../actions/paymentsActions';
-import * as flashActions from '../actions/flashActions';
 
 // Components
-import Spinner from '../components/Spinner';
 import CheckoutSteps from '../components/CheckoutSteps';
+
+import i18n from '../utils/i18n';
+import { stripTags } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -30,9 +30,23 @@ const styles = EStyleSheet.create({
   },
   paymentItem: {
     padding: 14,
+    marginLeft: -14,
+    marginRight: -14,
     borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: '#F1F1F1',
-  }
+    backgroundColor: '#fff',
+    marginBottom: 6,
+  },
+  paymentItemText: {
+    fontSize: '0.9rem',
+    paddingBottom: 6,
+  },
+  paymentItemDesc: {
+    fontSize: '0.8rem',
+    paddingBottom: 6,
+    color: 'gray'
+  },
 });
 
 class CheckoutStepThree extends Component {
@@ -40,10 +54,7 @@ class CheckoutStepThree extends Component {
     ordersActions: PropTypes.shape({
       create: PropTypes.func,
     }),
-    paymentsActions: PropTypes.shape({
-      fetchAll: PropTypes.func,
-    }),
-    payments: PropTypes.shape({
+    cart: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
@@ -61,72 +72,57 @@ class CheckoutStepThree extends Component {
     super(props);
 
     this.state = {
-      fetching: false,
+      items: [],
     };
   }
 
   componentDidMount() {
-    const { paymentsActions } = this.props;
-    InteractionManager.runAfterInteractions(() => {
-      paymentsActions.fetchAll();
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
+    const { cart } = this.props;
+    const items = Object.keys(cart.payments).map(k => cart.payments[k]);
     this.setState({
-      items: nextProps.payments.items,
-      fetching: nextProps.payments.fetching,
+      items,
     });
-  }
-
-  renderList() {
-    return (
-      <FlatList
-        contentContainerStyle={styles.contentContainer}
-        ListHeaderComponent={() => <CheckoutSteps step={3} />}
-        data={this.state.items}
-        keyExtractor={item => +item.payment_id}
-        numColumns={1}
-        renderItem={({ item }) => this.renderItem(item)}
-      />
-    );
   }
 
   renderItem = (item) => {
-    const { navigation, ordersActions, flashActions } = this.props;
+    const { navigator, ordersActions } = this.props;
     return (
       <TouchableOpacity
         style={styles.paymentItem}
         onPress={() => {
-          const orderData = {
-            ...navigation.state.params,
-            payment_id: item.payment_id,
-          };
-          ordersActions.create(orderData, () => {
-            flashActions.show({
-              type: 'success',
-              title: 'Success',
-              text: 'Order has been placed.'
-            });
-            this.props.navigation.navigate('Home');
-          });
+          // const orderData = {
+          //   payment_id: item.payment_id,
+          // };
+          // ordersActions.create(orderData, () => {
+          //   navigator.push({
+          //     screen: 'Home',
+          //   });
+          // });
         }}
       >
-        <Text style={styles.paymentItemText}>
-          {item.description}
+        <View>
+          <Text style={styles.paymentItemText}>
+            {item.description}
+          </Text>
+        </View>
+        <Text style={styles.paymentItemDesc}>
+          {stripTags(item.instructions)}
         </Text>
       </TouchableOpacity>
     );
   }
 
-  renderSpinner = () => (
-    <Spinner visible mode="content" />
-  );
-
   render() {
     return (
       <View style={styles.container}>
-        {this.state.fetching ? this.renderSpinner() : this.renderList()}
+        <FlatList
+          contentContainerStyle={styles.contentContainer}
+          ListHeaderComponent={() => <CheckoutSteps step={3} />}
+          data={this.state.items}
+          keyExtractor={(item, index) => index}
+          numColumns={1}
+          renderItem={({ item }) => this.renderItem(item)}
+        />
       </View>
     );
   }
@@ -134,6 +130,7 @@ class CheckoutStepThree extends Component {
 
 export default connect(state => ({
   payments: state.payments,
+  cart: state.cart,
 }),
 dispatch => ({
   ordersActions: bindActionCreators(ordersActions, dispatch),
