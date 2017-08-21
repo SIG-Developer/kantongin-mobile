@@ -16,6 +16,7 @@ import CheckoutDelivery from './screens/CheckoutDelivery';
 import CheckoutShipping from './screens/CheckoutShipping';
 import CheckoutPayment from './screens/CheckoutPayment';
 import CartBtn from './screens/CartBtn';
+import PaymentPhone from './screens/PaymentPhone';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
@@ -35,4 +36,5 @@ export default function registerScreens(store, Provider) {
   Navigation.registerComponent('CheckoutDelivery', () => CheckoutDelivery, store, Provider);
   Navigation.registerComponent('CheckoutShipping', () => CheckoutShipping, store, Provider);
   Navigation.registerComponent('CheckoutPayment', () => CheckoutPayment, store, Provider);
+  Navigation.registerComponent('PaymentPhone', () => PaymentPhone, store, Provider);
 }

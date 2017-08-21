@@ -15,29 +15,33 @@ const headers = {
   'Content-type': 'application/json',
 };
 
-export function create(data, cb = null) {
+export function create(data, token, cb = null) {
   return (dispatch) => {
+    if (token) {
+      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
+    }
     dispatch({ type: ORDER_CREATE_REQUEST });
     return axios({
       method: 'post',
       url: '/stores/1/orders/',
       data,
+      headers,
     })
-    .then((response) => {
-      dispatch({
-        type: ORDER_CREATE_SUCCESS,
-        payload: response.data,
+      .then((response) => {
+        dispatch({
+          type: ORDER_CREATE_SUCCESS,
+          payload: response.data,
+        });
+        if (cb) {
+          cb(response.data);
+        }
+      })
+      .catch((error) => {
+        dispatch({
+          type: ORDER_CREATE_FAIL,
+          error,
+        });
       });
-      if (cb) {
-        cb(response.data);
-      }
-    })
-    .catch((error) => {
-      dispatch({
-        type: ORDER_CREATE_FAIL,
-        error,
-      });
-    });
   };
 }
 
@@ -52,17 +56,17 @@ export function fetch(token, page = 1) {
       url: `/orders?items_per_page=100&page=${page}&sl=${lang}`,
       headers,
     })
-    .then((response) => {
-      dispatch({
-        type: FETCH_ORDERS_SUCCESS,
-        payload: response.data,
+      .then((response) => {
+        dispatch({
+          type: FETCH_ORDERS_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: FETCH_ORDERS_FAIL,
+          error,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: FETCH_ORDERS_FAIL,
-        error,
-      });
-    });
   };
 }

@@ -16,8 +16,6 @@ import * as paymentsActions from '../actions/paymentsActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
-
-import i18n from '../utils/i18n';
 import { stripTags } from '../utils';
 
 const styles = EStyleSheet.create({
@@ -51,13 +49,11 @@ const styles = EStyleSheet.create({
 
 class CheckoutStepThree extends Component {
   static propTypes = {
-    ordersActions: PropTypes.shape({
-      create: PropTypes.func,
-    }),
     cart: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
+    shipping_id: PropTypes.string,
     navigator: PropTypes.shape({
       push: PropTypes.func,
     }),
@@ -85,19 +81,21 @@ class CheckoutStepThree extends Component {
   }
 
   renderItem = (item) => {
-    const { navigator, ordersActions } = this.props;
+    const { navigator, shipping_id } = this.props;
     return (
       <TouchableOpacity
         style={styles.paymentItem}
         onPress={() => {
-          // const orderData = {
-          //   payment_id: item.payment_id,
-          // };
-          // ordersActions.create(orderData, () => {
-          //   navigator.push({
-          //     screen: 'Home',
-          //   });
-          // });
+          if (item.payment === 'Phone ordering') {
+            navigator.push({
+              screen: 'PaymentPhone',
+              backButtonTitle: '',
+              passProps: {
+                shipping_id,
+                payment_id: 2, // FIXME HARDCODED payment id
+              },
+            });
+          }
         }}
       >
         <View>
