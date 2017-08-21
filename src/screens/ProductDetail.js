@@ -76,6 +76,9 @@ const styles = EStyleSheet.create({
     paddingTop: 14,
     paddingBottom: 0,
   },
+  blockContainerLast: {
+    marginBottom: 20,
+  },
   blockWrapper: {
     padding: 14,
     backgroundColor: '#fff',
@@ -228,7 +231,7 @@ class ProductDetail extends Component {
       images,
       product,
       fetching: productDetail.fetching,
-    });
+    }, () => this.calculatePrice());
 
     navigator.setTitle({
       title: product.product,
@@ -245,6 +248,22 @@ class ProductDetail extends Component {
         });
       }
     }
+  }
+
+  calculatePrice = () => {
+    const { selectedOptions, product } = this.state;
+    const { productDetail } = this.props;
+    let newPrice = 0;
+    newPrice += +productDetail.price;
+    Object.keys(selectedOptions).map((key, index) => {
+      newPrice += +selectedOptions[key].modifier;
+    });
+    this.setState({
+      product: {
+        ...product,
+        price: newPrice,
+      },
+    });
   }
 
   handleAddToCart() {
@@ -288,7 +307,7 @@ class ProductDetail extends Component {
     newOptions[name] = val;
     this.setState({
       selectedOptions: newOptions,
-    });
+    }, () => this.calculatePrice());
   }
 
   renderImage() {
@@ -400,7 +419,7 @@ class ProductDetail extends Component {
       return null;
     }
     return (
-      <View style={styles.blockContainer}>
+      <View style={[styles.blockContainer, styles.blockContainerLast]}>
         <View style={styles.blockWrapper}>
           {product.options.map(o => this.renderOptionItem(o))}
           <QtyOption
@@ -527,7 +546,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          contentContainerStyle={{ marginBottom: 98 }}
+          contentContainerStyle={{ marginBottom: 96 }}
           behavior={'position'}
         >
           <ScrollView>
@@ -553,8 +572,8 @@ export default connect(state => ({
   cart: state.cart,
   productDetail: state.productDetail,
 }),
-  dispatch => ({
-    productsActions: bindActionCreators(productsActions, dispatch),
-    cartActions: bindActionCreators(cartActions, dispatch),
-  })
+dispatch => ({
+  productsActions: bindActionCreators(productsActions, dispatch),
+  cartActions: bindActionCreators(cartActions, dispatch),
+})
 )(ProductDetail);

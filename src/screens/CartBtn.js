@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   TouchableOpacity,
   Image,
-  View,
   Text,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
@@ -15,7 +14,6 @@ const styles = EStyleSheet.create({
   btn: {
     height: 28,
     width: 28,
-    backgroundColor: 'red',
     padding: 15,
     opacity: 0.4,
     position: 'relative',
