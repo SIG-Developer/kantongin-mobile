@@ -30,9 +30,14 @@ const headers = {
   'Content-type': 'application/json',
 };
 
-export function fetch(token, cb = null) {
+export function fetch(token, cb = null, fetching = true) {
   return (dispatch) => {
-    dispatch({ type: CART_REQUEST });
+    dispatch({
+      type: CART_REQUEST,
+      payload: {
+        fetching,
+      }
+    });
     if (token) {
       headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
     }
@@ -112,7 +117,7 @@ export function add(data, token = '', cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, cb)(dispatch), 50);
+        setTimeout(() => fetch(token, cb, false)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({
@@ -172,7 +177,7 @@ export function remove(token, id, cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, cb)(dispatch), 50);
+        setTimeout(() => fetch(token, cb, false)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({

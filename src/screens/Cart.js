@@ -194,7 +194,7 @@ class Cart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cart, navigator } = nextProps;
+    const { cart } = nextProps;
     if (cart.fetching) {
       return;
     }

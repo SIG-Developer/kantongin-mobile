@@ -7,6 +7,9 @@ import {
   CART_CONTENT_SUCCESS,
   CART_CONTENT_FAIL,
 
+  CART_REMOVE_REQUEST,
+  CART_REMOVE_SUCCESS,
+
   CART_CONTENT_SAVE,
 
   ADD_TO_CART_REQUEST,
@@ -54,7 +57,7 @@ export default function (state = initialState, action) {
     case CART_REQUEST:
       return {
         ...state,
-        fetching: true,
+        fetching: action.payload.fetching,
       };
 
     case CART_SUCCESS:
