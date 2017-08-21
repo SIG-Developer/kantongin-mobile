@@ -15,7 +15,10 @@ const styles = EStyleSheet.create({
   btn: {
     height: 28,
     width: 28,
+    backgroundColor: 'red',
+    padding: 15,
     opacity: 0.4,
+    position: 'relative',
   },
   badge: {
     position: 'absolute',
@@ -47,11 +50,18 @@ class CartBtn extends Component {
     }
 
     return (
-      <View style={styles.badge}>
+      <TouchableOpacity
+        style={styles.badge}
+        onPress={() => {
+          Navigation.showModal({
+            screen: 'Cart',
+          });
+        }}
+      >
         <Text style={styles.badgeTextStyle}>
           {cart.amount}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
