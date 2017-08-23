@@ -15,9 +15,10 @@ import * as shippingActions from '../actions/shippingActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
+import CartFooter from '../components/CartFooter';
 
 import i18n from '../utils/i18n';
-import { stripTags } from '../utils';
+import { stripTags, formatPrice } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -52,6 +53,15 @@ const styles = EStyleSheet.create({
     marginBottom: 14,
     textAlign: 'center',
   },
+  shippingItemRate: {
+    fontWeight: 'bold',
+    color: 'black',
+    fontSize: '1rem',
+  },
+  shippingItemTitleWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 
 class CheckoutShipping extends Component {
@@ -121,9 +131,12 @@ class CheckoutShipping extends Component {
           }
         })}
       >
-        <View>
+        <View style={styles.shippingItemTitleWrap}>
           <Text style={styles.shippingItemText}>
             {item.shipping} {item.delivery_time}
+          </Text>
+          <Text style={styles.shippingItemRate}>
+            {formatPrice(item.rate)}
           </Text>
         </View>
         <Text style={styles.shippingItemDesc}>
@@ -145,6 +158,7 @@ class CheckoutShipping extends Component {
   };
 
   render() {
+    const { cart } = this.props;
     return (
       <View style={styles.container}>
         <SectionList
@@ -155,6 +169,11 @@ class CheckoutShipping extends Component {
           ListHeaderComponent={() => <CheckoutSteps step={2} />}
           renderSectionHeader={({ section }) => this.renderHeader(section)}
           renderItem={({ item }) => this.renderItem(item)}
+        />
+        <CartFooter
+          totalPrice={formatPrice(cart.total)}
+          btnText={i18n.gettext('Next').toUpperCase()}
+          onBtnPress={() => this.handlePlaceOrder()}
         />
       </View>
     );

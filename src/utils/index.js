@@ -1,6 +1,7 @@
 import DeviceInfo from 'react-native-device-info';
 
 import { Dimensions } from 'react-native';
+import countries from './countries';
 
 // Calculate product image width and items count.
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -20,8 +21,8 @@ const IMAGE_PADDING = (WINDOW_WIDTH > MIN_TABLET_WIDTH) ?
 
 export const PRODUCT_NUM_COLUMNS = Math.floor(WINDOW_WIDTH / PRODUCT_AVERAGE_SIZE);
 export const PRODUCT_IMAGE_WIDTH = (
-    Math.floor((WINDOW_WIDTH / PRODUCT_NUM_COLUMNS) * 10000) / 10000
-  ) - IMAGE_PADDING;
+  Math.floor((WINDOW_WIDTH / PRODUCT_NUM_COLUMNS) * 10000) / 10000
+) - IMAGE_PADDING;
 
 // Get device info
 export const lang = DeviceInfo.getDeviceLocale().split('-')[0];
@@ -30,3 +31,28 @@ export const lang = DeviceInfo.getDeviceLocale().split('-')[0];
 export const stripTags = str => str.replace(/(<([^>]+)>)/ig, '').trimLeft();
 
 export const formatPrice = price => `$${parseFloat(price).toFixed(2)}`;
+
+export function getCountries() {
+  const result = {};
+  countries.forEach((item) => {
+    if (!result[item.code]) {
+      result[item.code] = item.name;
+    }
+  });
+
+  return result;
+}
+
+export function getStates(code) {
+  const result = {};
+  const country = countries.find(i => i.code === code);
+  if (!country || !country.states) {
+    return null;
+  }
+  country.states.forEach((item) => {
+    if (!result[item.code]) {
+      result[`${item.code}`] = item.name;
+    }
+  });
+  return result;
+}

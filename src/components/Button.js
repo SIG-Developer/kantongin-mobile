@@ -8,32 +8,62 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
-  container: {
+  default: {
     backgroundColor: '#242424',
     borderRadius: 4,
     padding: 14,
-    marginTop: 14,
-    marginBottom: 14,
   },
-  text: {
+  defaultText: {
     color: '#fff',
     textAlign: 'center',
     fontSize: '0.9rem',
+  },
+  primary: {
+    backgroundColor: '#FF6008',
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 22,
+    paddingRight: 22,
+    borderRadius: 4,
+  },
+  primaryText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: '1rem',
   }
 });
 
 export default class extends PureComponent {
   static propTypes = {
+    style: PropTypes.shape(),
+    children: PropTypes.shape(),
+    type: PropTypes.string,
   };
+
+  getStyleByType() {
+    switch (this.props.type) {
+      case 'primary':
+        return {
+          btn: styles.primary,
+          btnText: styles.primaryText,
+        };
+
+      default:
+        return {
+          btn: styles.default,
+          btnText: styles.defaultText,
+        };
+    }
+  }
 
   render() {
     return (
       <TouchableOpacity
-        style={styles.container}
+        style={[this.getStyleByType().btn, this.props.style]}
         {...this.props}
       >
-        <Text style={styles.text}>
-          {this.props.children.toUpperCase()}
+        <Text style={[this.getStyleByType().btnText]}>
+          {this.props.children}
         </Text>
       </TouchableOpacity>
     );

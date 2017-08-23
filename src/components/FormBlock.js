@@ -22,12 +22,20 @@ const styles = EStyleSheet.create({
     marginBottom: 14,
     fontWeight: 'bold',
     fontSize: '0.9rem',
+  },
+  btnWrapper: {
+    marginTop: 14,
+    marginBottom: 14,
   }
 });
 
 export default class FormBlock extends Component {
   static propTypes = {
-    children: PropTypes.shape(),
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.node,
+    ]),
     buttonText: PropTypes.string,
     title: PropTypes.string,
     simpleView: PropTypes.shape(),
@@ -58,15 +66,17 @@ export default class FormBlock extends Component {
       return (
         <View>
           {this.props.simpleView}
-          <Button
-            onPress={() => {
-              this.setState({
-                showMore: !this.state.showMore,
-              });
-            }}
-          >
-            {this.props.buttonText}
-          </Button>
+          <View style={styles.btnWrapper}>
+            <Button
+              onPress={() => {
+                this.setState({
+                  showMore: !this.state.showMore,
+                });
+              }}
+            >
+              {this.props.buttonText.toUpperCase()}
+            </Button>
+          </View>
         </View>
       );
     }

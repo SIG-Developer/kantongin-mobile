@@ -20,6 +20,7 @@ import * as cartActions from '../actions/cartActions';
 // Components
 import Spinner from '../components/Spinner';
 import QtyOption from '../components/QtyOption';
+import CartFooter from '../components/CartFooter';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
@@ -67,35 +68,6 @@ const styles = EStyleSheet.create({
   productItemPrice: {
     fontSize: '0.7rem',
     color: 'black',
-  },
-  cartInfo: {
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#F1F1F1',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 14,
-  },
-  cartInfoTitle: {
-    color: '#979797',
-  },
-  cartInfoTotal: {
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    color: '#FD542A',
-  },
-  placeOrderBtn: {
-    backgroundColor: '#FF6008',
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 22,
-    paddingRight: 22,
-    borderRadius: 4,
-  },
-  placeOrderBtnText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: '1rem',
   },
   emptyListContainer: {
     marginTop: '3rem',
@@ -338,20 +310,11 @@ class Cart extends Component {
       return null;
     }
     return (
-      <View style={styles.cartInfo}>
-        <View>
-          <Text style={styles.cartInfoTitle}>{i18n.gettext('Total').toUpperCase()}</Text>
-          <Text style={styles.cartInfoTotal}>{formatPrice(cart.total)}</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.placeOrderBtn}
-          onPress={() => this.handlePlaceOrder()}
-        >
-          <Text style={styles.placeOrderBtnText}>
-            {i18n.gettext('Checkout').toUpperCase()}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <CartFooter
+        totalPrice={formatPrice(cart.total)}
+        btnText={i18n.gettext('Checkout').toUpperCase()}
+        onBtnPress={() => this.handlePlaceOrder()}
+      />
     );
   }
 

@@ -43,7 +43,7 @@ export function fetch(token, cb = null, fetching = true) {
     }
     return axios({
       method: 'get',
-      url: '/cart_content/',
+      url: '/cart_content/?calculate_shipping=A',
       headers,
     })
       .then((response) => {
@@ -70,6 +70,65 @@ export function getUserData(token) {
     if (token) {
       headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
     }
+    return dispatch({
+      type: CART_CONTENT_SUCCESS,
+      payload: {
+        "user_data": {
+          "user_id": "3",
+          "status": "A",
+          "user_type": "C",
+          "user_login": "customer",
+          "referer": "",
+          "is_root": "N",
+          "company_id": "1",
+          "last_login": "1503513379",
+          "timestamp": "1116709280",
+          "firstname": "Customer",
+          "lastname": "Customer",
+          "company": "Simtech",
+          "email": "customer@example.com",
+          "phone": "77 77 777 7777",
+          "fax": "",
+          "url": "",
+          "tax_exempt": "N",
+          "lang_code": "en",
+          "birthday": "",
+          "purchase_timestamp_from": "",
+          "purchase_timestamp_to": "",
+          "responsible_email": "",
+          "usergroups": [],
+          "profile_id": "2",
+          "profile_type": "P",
+          "b_firstname": "Customer",
+          "b_lastname": "Customer",
+          "b_address": "44 Main street",
+          "b_address_2": "",
+          "b_city": "Boston",
+          "b_county": "",
+          "b_state": "MA",
+          "b_country": "US",
+          "b_zipcode": "02134",
+          "b_phone": "",
+          "s_firstname": "Customer",
+          "s_lastname": "Customer",
+          "s_address": "44 Main street",
+          "s_address_2": "",
+          "s_city": "Boston",
+          "s_county": "",
+          "s_state": "MA",
+          "s_country": "US",
+          "s_zipcode": "02134",
+          "s_phone": "",
+          "s_address_type": "",
+          "profile_name": "Main",
+          "fields": [],
+          "b_country_descr": "United States",
+          "s_country_descr": "United States",
+          "b_state_descr": "Massachusetts",
+          "s_state_descr": "Massachusetts"
+      },
+      },
+    });
     return axios({
       method: 'get',
       url: '/carts/3',
