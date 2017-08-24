@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
   SectionList,
 } from 'react-native';
@@ -61,15 +62,24 @@ const styles = EStyleSheet.create({
   shippingItemTitleWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  uncheckIcon: {
+    width: 20,
+    height: 20,
+  },
+  checkIcon: {
+    width: 20,
+    height: 20,
+    opacity: 0.5,
   }
 });
 
 class CheckoutShipping extends Component {
   static propTypes = {
-    navigator: PropTypes.shape({
-      setButtons: PropTypes.func,
-    }),
     cart: PropTypes.shape({}),
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+    }),
   };
 
   static navigatorStyle = {
@@ -82,6 +92,7 @@ class CheckoutShipping extends Component {
 
     this.state = {
       items: [],
+      selectedId: null,
       fetching: false,
     };
   }
@@ -117,21 +128,35 @@ class CheckoutShipping extends Component {
     return items;
   }
 
-  renderItem = (item) => {
+  handleNextPress() {
     const { navigator } = this.props;
+    navigator.push({
+      screen: 'CheckoutPayment',
+      title: i18n.gettext('Checkout').toUpperCase(),
+      backButtonTitle: '',
+      passProps: {
+        shipping_id: this.state.selectedItem.shipping_id,
+      },
+    });
+  }
+
+  renderItem = (item) => {
+    const isSelected = (item.shipping_id && this.state.selectedId);
     return (
       <TouchableOpacity
-        style={styles.shippingItem}
-        onPress={() => navigator.push({
-          screen: 'CheckoutPayment',
-          backButtonTitle: '',
-          title: i18n.gettext('Checkout').toUpperCase(),
-          passProps: {
-            shipping_id: item.shipping_id,
-          }
-        })}
+        style={[styles.shippingItem]}
+        onPress={() => {
+          this.setState({
+            selectedId: item.shipping_id,
+            selectedItem: item,
+          });
+        }}
       >
         <View style={styles.shippingItemTitleWrap}>
+          {isSelected ?
+            <Image source={require('../assets/icons/check-circle-o.png')} style={styles.uncheckIcon} /> :
+            <Image source={require('../assets/icons/circle-o.png')} style={styles.checkIcon} />
+          }
           <Text style={styles.shippingItemText}>
             {item.shipping} {item.delivery_time}
           </Text>
@@ -173,7 +198,8 @@ class CheckoutShipping extends Component {
         <CartFooter
           totalPrice={formatPrice(cart.total)}
           btnText={i18n.gettext('Next').toUpperCase()}
-          onBtnPress={() => this.handlePlaceOrder()}
+          isBtnDisabled={this.state.selectedId == null}
+          onBtnPress={() => this.handleNextPress()}
         />
       </View>
     );

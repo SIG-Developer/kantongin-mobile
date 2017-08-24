@@ -109,7 +109,7 @@ export default class extends Component {
         i18n.gettext('Authentication'),
         i18n.gettext('Delivery'),
         i18n.gettext('Shipping'),
-        i18n.gettext('Billing'),
+        i18n.gettext('Payment method'),
       ],
     };
   }

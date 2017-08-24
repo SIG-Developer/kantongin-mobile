@@ -32,7 +32,6 @@ const styles = EStyleSheet.create({
 export default class FormBlock extends Component {
   static propTypes = {
     children: PropTypes.oneOfType([
-      PropTypes.string,
       PropTypes.object,
       PropTypes.node,
     ]),

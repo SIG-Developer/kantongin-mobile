@@ -36,7 +36,11 @@ const styles = EStyleSheet.create({
 export default class extends PureComponent {
   static propTypes = {
     style: PropTypes.shape(),
-    children: PropTypes.shape(),
+    children: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+      PropTypes.node,
+    ]),
     type: PropTypes.string,
   };
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -34,6 +33,7 @@ export default class extends PureComponent {
     totalPrice: PropTypes.string,
     btnText: PropTypes.string,
     onBtnPress: PropTypes.func,
+    isBtnDisabled: PropTypes.bool,
   };
 
   render() {
@@ -45,7 +45,11 @@ export default class extends PureComponent {
             {this.props.totalPrice}
           </Text>
         </View>
-        <Button type="primary" onPress={() => this.props.onBtnPress()}>
+        <Button
+          type="primary"
+          onPress={() => this.props.onBtnPress()}
+          disabled={this.props.isBtnDisabled}
+        >
           <Text style={styles.placeOrderBtnText}>
             {this.props.btnText}
           </Text>

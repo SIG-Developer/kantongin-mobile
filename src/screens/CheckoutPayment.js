@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
+  Image,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
@@ -16,7 +17,11 @@ import * as paymentsActions from '../actions/paymentsActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
-import { stripTags } from '../utils';
+import CartFooter from '../components/CartFooter';
+import FormBlock from '../components/FormBlock';
+import PaymentPhoneForm from '../components/PaymentPhoneForm';
+import { stripTags, formatPrice } from '../utils';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -35,6 +40,7 @@ const styles = EStyleSheet.create({
     borderColor: '#F1F1F1',
     backgroundColor: '#fff',
     marginBottom: 6,
+    flexDirection: 'row',
   },
   paymentItemText: {
     fontSize: '0.9rem',
@@ -43,8 +49,20 @@ const styles = EStyleSheet.create({
   paymentItemDesc: {
     fontSize: '0.8rem',
     paddingBottom: 6,
-    color: 'gray'
+    color: 'gray',
+    marginTop: 10,
   },
+  uncheckIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 6,
+  },
+  checkIcon: {
+    width: 20,
+    height: 20,
+    opacity: 0.2,
+    marginRight: 6,
+  }
 });
 
 class CheckoutStepThree extends Component {
@@ -68,6 +86,7 @@ class CheckoutStepThree extends Component {
     super(props);
 
     this.state = {
+      selectedItem: null,
       items: [],
     };
   }
@@ -75,51 +94,82 @@ class CheckoutStepThree extends Component {
   componentDidMount() {
     const { cart } = this.props;
     const items = Object.keys(cart.payments).map(k => cart.payments[k]);
+    // FIXME: Default selected payment method.
+    const selectedItem = items[1];
+
     this.setState({
       items,
+      selectedItem,
     });
   }
 
   renderItem = (item) => {
-    const { navigator, shipping_id } = this.props;
+    // FIXME compare by name.
+    const isSelected = item.payment === this.state.selectedItem.payment;
     return (
       <TouchableOpacity
         style={styles.paymentItem}
         onPress={() => {
-          if (item.payment === 'Phone ordering') {
-            navigator.push({
-              screen: 'PaymentPhone',
-              backButtonTitle: '',
-              passProps: {
-                shipping_id,
-                payment_id: 2, // FIXME HARDCODED payment id
-              },
-            });
-          }
+          this.setState({
+            selectedItem: item,
+          }, () => {
+            this.listView.scrollToOffset({ x: 0, y: 0, animated: true });
+          });
         }}
       >
-        <View>
-          <Text style={styles.paymentItemText}>
-            {item.description}
-          </Text>
-        </View>
-        <Text style={styles.paymentItemDesc}>
-          {stripTags(item.instructions)}
+        {isSelected ?
+          <Image source={require('../assets/icons/check-circle-o.png')} style={styles.uncheckIcon} /> :
+          <Image source={require('../assets/icons/circle-o.png')} style={styles.checkIcon} />
+        }
+        <Text style={styles.paymentItemText}>
+          {item.description}
         </Text>
       </TouchableOpacity>
     );
   }
 
+  renderHeader() {
+    const { selectedItem } = this.state;
+    if (!selectedItem) {
+      return null;
+    }
+    let form = (<PaymentPhoneForm />);
+    if (selectedItem.payment === 'Visa, Mastercard, etc...') {
+      form = (<PaymentPhoneForm />);
+    }
+    return (
+      <View>
+        <CheckoutSteps step={3} />
+        <FormBlock
+          title={i18n.gettext('Payment info')}
+        >
+          {form}
+          <Text style={styles.paymentItemDesc}>
+            {stripTags(selectedItem.instructions)}
+          </Text>
+        </FormBlock>
+      </View>
+    );
+  }
+
   render() {
+    const { cart } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
+          ref={ref => this.listView = ref}
           contentContainerStyle={styles.contentContainer}
-          ListHeaderComponent={() => <CheckoutSteps step={3} />}
+          ListHeaderComponent={() => this.renderHeader()}
           data={this.state.items}
           keyExtractor={(item, index) => index}
           numColumns={1}
           renderItem={({ item }) => this.renderItem(item)}
+        />
+        <CartFooter
+          totalPrice={formatPrice(cart.total)}
+          btnText={i18n.gettext('Place order').toUpperCase()}
+          isBtnDisabled={this.state.selectedId == null}
+          onBtnPress={() => this.handleNextPress()}
         />
       </View>
     );
