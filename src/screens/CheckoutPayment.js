@@ -13,7 +13,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as ordersActions from '../actions/ordersActions';
-import * as paymentsActions from '../actions/paymentsActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -71,6 +70,12 @@ class CheckoutStepThree extends Component {
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
+    auth: PropTypes.shape({
+      token: PropTypes.string,
+    }),
+    ordersActions: PropTypes.shape({
+      create: PropTypes.func,
+    }),
     shipping_id: PropTypes.string,
     navigator: PropTypes.shape({
       push: PropTypes.func,
@@ -87,6 +92,7 @@ class CheckoutStepThree extends Component {
 
     this.state = {
       selectedItem: null,
+      disablePlaceOrder: true,
       items: [],
     };
   }
@@ -100,10 +106,42 @@ class CheckoutStepThree extends Component {
     this.setState({
       items,
       selectedItem,
+      selectedIndex: 1,
     });
   }
 
-  renderItem = (item) => {
+  handlePlaceOrder() {
+    const { cart, shipping_id, ordersActions, navigator } = this.props;
+    const values = this.paymentFormRef.getValue();
+    if (!values) {
+      return null;
+    }
+    const orderInfo = {
+      products: {},
+      shipping_id,
+      payment_id: this.state.selectedIndex,
+      user_data: cart.user_data,
+      user_id: 3, // FIXME: hardcoded userid
+    };
+    Object.keys(cart.products).map((key) => {
+      const p = cart.products[key];
+      orderInfo.products[p.product_id] = {
+        product_id: p.product_id,
+        amount: p.amount,
+      };
+    });
+    ordersActions.create(orderInfo, (orderId) => {
+      navigator.push({
+        screen: 'CheckoutComplete',
+        passProps: {
+          orderId,
+        }
+      });
+    });
+    return null;
+  }
+
+  renderItem = (item, index) => {
     // FIXME compare by name.
     const isSelected = item.payment === this.state.selectedItem.payment;
     return (
@@ -112,6 +150,7 @@ class CheckoutStepThree extends Component {
         onPress={() => {
           this.setState({
             selectedItem: item,
+            selectedIndex: index,
           }, () => {
             this.listView.scrollToOffset({ x: 0, y: 0, animated: true });
           });
@@ -133,7 +172,13 @@ class CheckoutStepThree extends Component {
     if (!selectedItem) {
       return null;
     }
-    let form = (<PaymentPhoneForm />);
+    let form = (
+      <PaymentPhoneForm
+        onInit={(ref) => {
+          this.paymentFormRef = ref;
+        }}
+      />
+    );
     if (selectedItem.payment === 'Visa, Mastercard, etc...') {
       form = (<PaymentPhoneForm />);
     }
@@ -163,13 +208,13 @@ class CheckoutStepThree extends Component {
           data={this.state.items}
           keyExtractor={(item, index) => index}
           numColumns={1}
-          renderItem={({ item }) => this.renderItem(item)}
+          renderItem={({ item, index }) => this.renderItem(item, index)}
         />
         <CartFooter
           totalPrice={formatPrice(cart.total)}
           btnText={i18n.gettext('Place order').toUpperCase()}
-          isBtnDisabled={this.state.selectedId == null}
-          onBtnPress={() => this.handleNextPress()}
+          isBtnDisabled={false}
+          onBtnPress={() => this.handlePlaceOrder()}
         />
       </View>
     );
@@ -177,11 +222,10 @@ class CheckoutStepThree extends Component {
 }
 
 export default connect(state => ({
-  payments: state.payments,
   cart: state.cart,
+  auth: state.auth,
 }),
 dispatch => ({
   ordersActions: bindActionCreators(ordersActions, dispatch),
-  paymentsActions: bindActionCreators(paymentsActions, dispatch),
 })
 )(CheckoutStepThree);

@@ -50,9 +50,11 @@ const PhoneFormOptions = {
 
 export default class PaymentPhoneForm extends Component {
   static propTypes = {
+    onInit: PropTypes.func,
   };
 
   componentDidMount() {
+    this.props.onInit(this.refs.paymentPhone);
   }
 
   render() {

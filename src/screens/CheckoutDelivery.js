@@ -285,7 +285,7 @@ class Checkout extends Component {
               ref={'checkoutBilling'}
               type={this.state.billingFormFields}
               value={this.state.billingValues}
-              onChange={values => this.handleChange(values)}              
+              onChange={values => this.handleChange(values)}
               options={BillingOptions}
             />
           </FormBlock>
