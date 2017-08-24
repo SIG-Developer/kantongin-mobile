@@ -33,6 +33,7 @@ export default class FormBlock extends Component {
   static propTypes = {
     children: PropTypes.oneOfType([
       PropTypes.object,
+      PropTypes.array,
       PropTypes.node,
     ]),
     buttonText: PropTypes.string,

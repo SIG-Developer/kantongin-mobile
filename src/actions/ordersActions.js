@@ -6,6 +6,10 @@ import {
   FETCH_ORDERS_FAIL,
   FETCH_ORDERS_SUCCESS,
 
+  FETCH_ORDER_DETAIL_REQUEST,
+  FETCH_ORDER_DETAIL_FAIL,
+  FETCH_ORDER_DETAIL_SUCCESS,
+
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAIL,
@@ -39,6 +43,29 @@ export function create(data, cb = null) {
       .catch((error) => {
         dispatch({
           type: ORDER_CREATE_FAIL,
+          error,
+        });
+      });
+  };
+}
+
+export function fetchOne(id) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_ORDER_DETAIL_REQUEST });
+
+    return axios({
+      method: 'get',
+      url: `/orders/${id}/?sl=${lang}`,
+    })
+      .then((response) => {
+        dispatch({
+          type: FETCH_ORDER_DETAIL_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: FETCH_ORDER_DETAIL_FAIL,
           error,
         });
       });

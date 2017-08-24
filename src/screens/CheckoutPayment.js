@@ -13,6 +13,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as ordersActions from '../actions/ordersActions';
+import * as cartActions from '../actions/cartActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -111,7 +112,7 @@ class CheckoutStepThree extends Component {
   }
 
   handlePlaceOrder() {
-    const { cart, shipping_id, ordersActions, navigator } = this.props;
+    const { cart, auth, shipping_id, ordersActions, navigator, cartActions } = this.props;
     const values = this.paymentFormRef.getValue();
     if (!values) {
       return null;
@@ -131,10 +132,14 @@ class CheckoutStepThree extends Component {
       };
     });
     ordersActions.create(orderInfo, (orderId) => {
+      cartActions.clear(auth.token);
+      console.log('payment', orderId);
       navigator.push({
         screen: 'CheckoutComplete',
+        backButtonTitle: '',
+        backButtonHidden: true,
         passProps: {
-          orderId,
+          orderId: orderId.order_id,
         }
       });
     });
@@ -227,5 +232,6 @@ export default connect(state => ({
 }),
 dispatch => ({
   ordersActions: bindActionCreators(ordersActions, dispatch),
+  cartActions: bindActionCreators(cartActions, dispatch),
 })
 )(CheckoutStepThree);

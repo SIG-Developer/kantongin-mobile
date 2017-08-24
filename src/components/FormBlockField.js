@@ -24,7 +24,12 @@ const styles = EStyleSheet.create({
 export default class extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
-    children: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.node,
+      PropTypes.string,
+      PropTypes.array,
+    ]),
   };
 
   render() {
