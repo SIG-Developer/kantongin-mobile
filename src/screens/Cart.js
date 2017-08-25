@@ -232,7 +232,6 @@ class Cart extends Component {
         screen: 'CheckoutAuth',
         backButtonTitle: '',
         passProps: {
-          user_id: 3, // FIXME
           products,
         },
       });
@@ -241,7 +240,6 @@ class Cart extends Component {
         screen: 'CheckoutDelivery',
         backButtonTitle: '',
         passProps: {
-          user_id: 3, // FIXME
           products,
         },
       });

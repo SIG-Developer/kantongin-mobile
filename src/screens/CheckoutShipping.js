@@ -80,6 +80,7 @@ class CheckoutShipping extends Component {
     navigator: PropTypes.shape({
       push: PropTypes.func,
     }),
+    total: PropTypes.number,
   };
 
   static navigatorStyle = {
@@ -92,7 +93,11 @@ class CheckoutShipping extends Component {
 
     this.state = {
       items: [],
+      total: 0,
       selectedId: null,
+      selectedItem: {
+        rate: 0,
+      },
       fetching: false,
     };
   }
@@ -102,6 +107,7 @@ class CheckoutShipping extends Component {
     this.setState({
       items: this.normalizeData(cart.product_groups),
       fetching: false,
+      total: this.props.total,
     });
   }
 
@@ -135,6 +141,7 @@ class CheckoutShipping extends Component {
       title: i18n.gettext('Checkout').toUpperCase(),
       backButtonTitle: '',
       passProps: {
+        total: this.state.total,
         shipping_id: this.state.selectedItem.shipping_id,
       },
     });
@@ -149,6 +156,7 @@ class CheckoutShipping extends Component {
           this.setState({
             selectedId: item.shipping_id,
             selectedItem: item,
+            total: item.rate + this.state.total,
           });
         }}
       >
@@ -196,7 +204,7 @@ class CheckoutShipping extends Component {
           renderItem={({ item }) => this.renderItem(item)}
         />
         <CartFooter
-          totalPrice={formatPrice(cart.total)}
+          totalPrice={formatPrice(this.state.total)}
           btnText={i18n.gettext('Next').toUpperCase()}
           isBtnDisabled={this.state.selectedId == null}
           onBtnPress={() => this.handleNextPress()}

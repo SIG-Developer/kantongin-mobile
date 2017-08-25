@@ -193,7 +193,6 @@ class Checkout extends Component {
       shippingFormFields: t.struct({
         ...shippingFields,
       }),
-
       billingValues: {},
       shippingValues: {},
     };
@@ -266,6 +265,9 @@ class Checkout extends Component {
         screen: 'CheckoutShipping',
         backButtonTitle: '',
         title: i18n.gettext('Checkout').toUpperCase(),
+        passProps: {
+          total: this.props.cart.total,
+        },
       });
     }
   }

@@ -43,7 +43,7 @@ const PhoneFormOptions = {
             height: 150
           }
         }
-      }
+     },
     },
   }
 };

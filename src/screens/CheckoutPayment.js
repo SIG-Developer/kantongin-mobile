@@ -81,6 +81,7 @@ class CheckoutStepThree extends Component {
     navigator: PropTypes.shape({
       push: PropTypes.func,
     }),
+    total: PropTypes.number,
   };
 
   static navigatorStyle = {
@@ -94,6 +95,7 @@ class CheckoutStepThree extends Component {
     this.state = {
       selectedItem: null,
       disablePlaceOrder: true,
+      total: 0,
       items: [],
     };
   }
@@ -108,6 +110,7 @@ class CheckoutStepThree extends Component {
       items,
       selectedItem,
       selectedIndex: 1,
+      total: this.props.total,
     });
   }
 
@@ -122,7 +125,6 @@ class CheckoutStepThree extends Component {
       shipping_id,
       payment_id: this.state.selectedIndex,
       user_data: cart.user_data,
-      user_id: 3, // FIXME: hardcoded userid
     };
     Object.keys(cart.products).map((key) => {
       const p = cart.products[key];
@@ -131,9 +133,8 @@ class CheckoutStepThree extends Component {
         amount: p.amount,
       };
     });
-    ordersActions.create(orderInfo, (orderId) => {
+    ordersActions.create(orderInfo, auth.token, (orderId) => {
       cartActions.clear(auth.token);
-      console.log('payment', orderId);
       navigator.push({
         screen: 'CheckoutComplete',
         backButtonTitle: '',
@@ -203,7 +204,6 @@ class CheckoutStepThree extends Component {
   }
 
   render() {
-    const { cart } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
@@ -216,7 +216,7 @@ class CheckoutStepThree extends Component {
           renderItem={({ item, index }) => this.renderItem(item, index)}
         />
         <CartFooter
-          totalPrice={formatPrice(cart.total)}
+          totalPrice={formatPrice(this.state.total)}
           btnText={i18n.gettext('Place order').toUpperCase()}
           isBtnDisabled={false}
           onBtnPress={() => this.handlePlaceOrder()}
