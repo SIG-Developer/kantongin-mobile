@@ -15,6 +15,7 @@ import * as authActions from '../actions/authActions';
 // Components
 import Spinner from '../components/Spinner';
 import FormBlock from '../components/FormBlock';
+import Button from '../components/Button';
 import CheckoutSteps from '../components/CheckoutSteps';
 import i18n from '../utils/i18n';
 
@@ -74,28 +75,8 @@ class CheckoutAuth extends Component {
     navBarButtonColor: '#989898',
   };
 
-  constructor(props) {
-    super(props);
-
-    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
   componentDidMount() {
     const { navigator } = this.props;
-    navigator.setButtons({
-      rightButtons: [
-        {
-          title: i18n.gettext('Next'),
-          id: 'next',
-          buttonColor: '#FD542A',
-          buttonFontWeight: '600',
-          buttonFontSize: 16,
-        },
-      ],
-    });
-    navigator.setStyle({
-      navBarRightButtonColor: '#FF6008',
-    });
     navigator.setTitle({
       title: i18n.gettext('Login').toUpperCase(),
     });
@@ -122,15 +103,11 @@ class CheckoutAuth extends Component {
     }
   }
 
-  onNavigatorEvent(event) {
+  handleLogin() {
     const { authActions } = this.props;
-    if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'next') {
-        const value = this.refs.form.getValue();
-        if (value) {
-          authActions.login(value);
-        }
-      }
+    const value = this.refs.form.getValue();
+    if (value) {
+      authActions.login(value);
     }
   }
 
@@ -148,6 +125,9 @@ class CheckoutAuth extends Component {
               type={FormFields}
               options={options}
             />
+            <Button type="primary" onPress={() => this.handleLogin()}>
+              {i18n.gettext('Sign in')}
+            </Button>
           </FormBlock>
         </ScrollView>
         <Spinner visible={auth.fetching} />
