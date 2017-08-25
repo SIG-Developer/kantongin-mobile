@@ -3,13 +3,7 @@ import {
   CART_SUCCESS,
   CART_FAIL,
 
-  CART_CONTENT_REQUEST,
   CART_CONTENT_SUCCESS,
-  CART_CONTENT_FAIL,
-
-  CART_REMOVE_REQUEST,
-  CART_REMOVE_SUCCESS,
-
   CART_CONTENT_SAVE,
 
   ADD_TO_CART_REQUEST,
@@ -21,6 +15,7 @@ import {
   CART_CLEAR_FAIL,
 
   CHANGE_AMOUNT,
+  AUTH_LOGOUT,
 
   ORDER_CREATE_SUCCESS,
 } from '../constants';
@@ -109,6 +104,7 @@ export default function (state = initialState, action) {
       };
 
     case ORDER_CREATE_SUCCESS:
+    case AUTH_LOGOUT:
       return initialState;
 
     case CHANGE_AMOUNT:
@@ -118,7 +114,7 @@ export default function (state = initialState, action) {
         ...state,
         products: newProducts,
       };
-
+    
     default:
       return state;
   }

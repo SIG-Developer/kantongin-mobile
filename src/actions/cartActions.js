@@ -9,6 +9,10 @@ import {
   CART_CONTENT_SUCCESS,
   CART_CONTENT_FAIL,
 
+  CART_CHANGE_REQUEST,
+  CART_CHANGE_SUCCESS,
+  CART_CHANGE_FAIL,
+
   CART_CONTENT_SAVE,
 
   CART_REQUEST,
@@ -30,7 +34,7 @@ const headers = {
   'Content-type': 'application/json',
 };
 
-export function fetch(token, cb = null, fetching = true) {
+export function fetch(token, fetching = true, cb = null) {
   return (dispatch) => {
     dispatch({
       type: CART_REQUEST,
@@ -176,7 +180,7 @@ export function add(data, token = '', cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, cb, false)(dispatch), 50);
+        setTimeout(() => fetch(token, false, cb)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({
@@ -218,6 +222,35 @@ export function clear(token, cb = null) {
   };
 }
 
+export function change(token, id, data, cb = null) {
+  return (dispatch) => {
+    dispatch({ type: CART_CHANGE_REQUEST });
+    if (token) {
+      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
+    }
+    return axios({
+      method: 'put',
+      url: `/cart_content/${id}/`,
+      data,
+      headers,
+    })
+      .then((response) => {
+        dispatch({
+          type: CART_CHANGE_SUCCESS,
+          payload: response.data,
+        });
+        // Calculate cart
+        setTimeout(() => fetch(token, false, cb)(dispatch), 50);
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_CHANGE_FAIL,
+          error,
+        });
+      });
+  };
+}
+
 export function remove(token, id, cb = null) {
   return (dispatch) => {
     dispatch({ type: CART_REMOVE_REQUEST });
@@ -236,7 +269,7 @@ export function remove(token, id, cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, cb, false)(dispatch), 50);
+        setTimeout(() => fetch(token, false, cb)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({
