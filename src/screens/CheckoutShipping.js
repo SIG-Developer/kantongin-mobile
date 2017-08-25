@@ -153,6 +153,9 @@ class CheckoutShipping extends Component {
       <TouchableOpacity
         style={[styles.shippingItem]}
         onPress={() => {
+          if (isSelected) {
+            return;
+          }
           this.setState({
             selectedId: item.shipping_id,
             selectedItem: item,
