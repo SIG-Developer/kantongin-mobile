@@ -54,13 +54,10 @@ class MainCategory extends Component {
 
   constructor(props) {
     super(props);
-
     console.disableYellowBox = true;
-
     this.state = {
       items: [],
     };
-    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
@@ -88,6 +85,7 @@ class MainCategory extends Component {
         },
       ],
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -169,7 +167,7 @@ class MainCategory extends Component {
 export default connect(state => ({
   categories: state.categories,
 }),
-  dispatch => ({
-    categoriesActions: bindActionCreators(categoriesActions, dispatch),
-  })
+dispatch => ({
+  categoriesActions: bindActionCreators(categoriesActions, dispatch),
+})
 )(MainCategory);

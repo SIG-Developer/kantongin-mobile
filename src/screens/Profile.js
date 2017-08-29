@@ -4,124 +4,78 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
+  WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import qs from 'shitty-qs';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
-import * as ordersActions from '../actions/ordersActions';
-import * as flashActions from '../actions/flashActions';
 
-// Components
-import LoginForm from '../components/LoginForm';
-import Spinner from '../components/Spinner';
+import { registerDrawerDeepLinks } from '../utils/deepLinks';
+import * as config from '../config';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-  listContainer: {
-    marginTop: 30,
-  },
-  listItem: {
-    padding: 14,
-    borderBottomWidth: 1,
-    borderColor: '#F1F1F1',
-    borderTopWidth: 1,
-  },
-  listItemText: {
-    fontSize: '0.9rem',
-  },
-  listItemIcon: {
-    fontSize: '1.3rem',
-    position: 'absolute',
-    right: 14,
-    top: 12,
-  }
 });
 
 class Profile extends Component {
-  static propTypes = {
-    authActions: PropTypes.shape({
-      login: PropTypes.func,
-    }),
-    flashActions: PropTypes.shape({
-      show: PropTypes.func,
-    }),
-    auth: PropTypes.shape({
-      logged: PropTypes.bool,
-      fetching: PropTypes.bool,
-    }),
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+    navBarButtonFontSize: 10,
+  };
+
+  componentDidMount() {
+    const { navigator } = this.props;
+    // FIXME: Set title
+    navigator.setTitle({
+      title: 'Profile'.toUpperCase(),
+    });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { auth, flashActions, authActions } = nextProps;
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    registerDrawerDeepLinks(event, navigator);
+  }
 
-    if (!auth.fetching && auth.error) {
-      flashActions.show({ title: 'Error', text: 'Wrong password' });
-      authActions.resetState();
+  onNavigationStateChange = (e) => {
+    let url = e.url;
+    let response = {};
+    response = qs(url);
+    if (response.token != undefined) {
+      console.log('ok', url);
     }
   }
 
-  renderLoginForm() {
-    return (
-      <LoginForm
-        onSubmit={data => this.props.authActions.login(data)}
-        fetching={this.props.auth.fetching}
-      />
-    );
-  }
-
-  renderProfileInfo() {
-    return (
-      <ScrollView
-        contentContainerStyle={styles.listContainer}
-      >
-        <TouchableOpacity
-          style={styles.listItem}
-          onPress={() => {
-            this.props.navigation.navigate('Orders');
-          }}
-        >
-          <Text style={styles.listItemText}>
-            Orders
-          </Text>
-          <Icon name="angle-right" style={styles.listItemIcon} />
-        </TouchableOpacity>
-      </ScrollView>
-    );
-  }
-
   render() {
-    const { auth } = this.props;
     return (
       <View style={styles.container}>
-        { auth.logged ? this.renderProfileInfo() : this.renderLoginForm() }
-        <Spinner visible={auth.fetching} />
+        <WebView
+          automaticallyAdjustContentInsets={false}
+          javaScriptEnabled
+          scalesPageToFit
+          startInLoadingState
+          userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
+          source={{
+            uri: `${config.config.siteUrl}profiles-update/`,
+          }}
+          onNavigationStateChange={e => this.onNavigationStateChange(e)}
+        />
       </View>
     );
   }
 }
 
-Profile.navigationOptions = () => {
-  return {
-    title: 'PROFILE',
-  };
-};
-
 export default connect(state => ({
-  nav: state.nav,
-  flash: state.flash,
   auth: state.auth,
 }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
-    flashActions: bindActionCreators(flashActions, dispatch),
-    ordersActions: bindActionCreators(ordersActions, dispatch),
-  })
+dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch),
+})
 )(Profile);

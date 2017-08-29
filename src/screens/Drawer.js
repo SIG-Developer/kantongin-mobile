@@ -209,7 +209,7 @@ class Drawer extends Component {
           }, this.props.cart.amount)}
           {this.renderItem(i18n.gettext('My Profile'), () => {
             navigator.handleDeepLink({
-              link: 'myProfile/',
+              link: 'profile/',
               payload: {},
             });
             navigator.toggleDrawer({

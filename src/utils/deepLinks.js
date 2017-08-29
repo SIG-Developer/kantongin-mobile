@@ -1,5 +1,6 @@
 
 export const registerDrawerDeepLinks = (e, navigator) => {
+  console.log(e.link, 'asdas');
   if (e.type === 'DeepLink') {
     if (e.link === 'home/') {
       navigator.resetTo({
@@ -11,9 +12,10 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         screen: 'Cart',
         animated: false,
       });
-    } else if (e.link === 'myProfile') {
-      navigator.resetTo({
-        screen: 'MyProfile',
+    } else if (e.link === 'profile/') {
+      navigator.push({
+        screen: 'Profile',
+        backButtonTitle: '',
         animated: false,
       });
     } else if (e.link === 'orders/') {
