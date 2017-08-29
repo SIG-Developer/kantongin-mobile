@@ -46,7 +46,7 @@ export function getCountries() {
 export function getStates(code) {
   const result = {};
   const country = countries.find(i => i.code === code);
-  if (!country || !country.states) {
+  if (!country || !country.states.length) {
     return null;
   }
   country.states.forEach((item) => {

@@ -34,7 +34,6 @@ const styles = EStyleSheet.create({
 });
 
 const cachedCountries = getCountries();
-
 const Form = t.form.Form;
 const Country = t.enums(cachedCountries);
 
@@ -47,7 +46,7 @@ const billingFields = {
   b_address_2: t.maybe(t.String),
   b_city: t.String,
   b_country: Country,
-  // b_state: States,
+  b_state: t.String,
   b_zipcode: t.String,
 };
 const BillingOptions = {
@@ -110,7 +109,7 @@ const shippingFields = {
   s_address_2: t.maybe(t.String),
   s_city: t.String,
   s_country: Country,
-  // s_state: States,
+  s_state: t.String,
   s_zipcode: t.String,
 };
 const ShippingOptions = {
@@ -150,7 +149,7 @@ const ShippingOptions = {
       label: 'City',
       clearButtonMode: 'while-editing',
     },
-    b_country: {
+    s_country: {
       label: 'Country',
     },
     s_state: {
@@ -185,6 +184,7 @@ class Checkout extends Component {
 
   constructor(props) {
     super(props);
+    this.isFirstLoad = true;
     this.state = {
       fetching: false,
       billingFormFields: t.struct({
@@ -234,20 +234,63 @@ class Checkout extends Component {
         s_state: cart.user_data.s_state,
         s_zipcode: cart.user_data.s_zipcode,
       },
+    }, () => {
+      if (this.isFirstLoad) {
+        this.isFirstLoad = false;
+        this.handleChange(this.state.billingValues, 'billing');
+        this.handleChange(this.state.shippingValues, 'shipping');
+      }
     });
   }
 
-  handleChange = (value) => {
-    // const states = getStates(value.b_country);
-    
-    // if (states) {
-    //   this.setState({
-    //     billingFormFields: t.struct({
-    //       ...billingFields,
-    //       b_state: t.enums(states),
-    //     }),
-    //   });
-    // }
+  handleChange = (value, type) => {
+    if (type === 'billing') {
+      const bState = getStates(value.b_country);
+      if (bState) {
+        this.setState({
+          billingFormFields: t.struct({
+            ...billingFields,
+            b_state: t.enums(bState),
+          }),
+          billingValues: {
+            ...value,
+          },
+        });
+      } else {
+        this.setState({
+          billingFormFields: t.struct({
+            ...billingFields,
+          }),
+          billingValues: {
+            ...value,
+            b_state: '',
+          }
+        });
+      }
+    } else if (type === 'shipping') {
+      const sState = getStates(value.s_country);
+      if (sState) {
+        this.setState({
+          shippingFormFields: t.struct({
+            ...shippingFields,
+            s_state: t.enums(sState),
+          }),
+          shippingValues: {
+            ...value,
+          },
+        });
+      } else {
+        this.setState({
+          shippingFormFields: t.struct({
+            ...shippingFields,
+          }),
+          shippingValues: {
+            ...value,
+            s_state: '',
+          }
+        });
+      }
+    }
   }
 
   handleNextPress() {
@@ -287,7 +330,7 @@ class Checkout extends Component {
               ref={'checkoutBilling'}
               type={this.state.billingFormFields}
               value={this.state.billingValues}
-              onChange={values => this.handleChange(values)}
+              onChange={values => this.handleChange(values, 'billing')}
               options={BillingOptions}
             />
           </FormBlock>
@@ -310,6 +353,7 @@ class Checkout extends Component {
               ref={'checkoutShipping'}
               type={this.state.shippingFormFields}
               value={this.state.shippingValues}
+              onChange={values => this.handleChange(values, 'shipping')}
               options={ShippingOptions}
             />
           </FormBlock>
