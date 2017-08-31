@@ -12,7 +12,6 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swipeout from 'react-native-swipeout';
-import debounce from 'lodash/debounce';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';

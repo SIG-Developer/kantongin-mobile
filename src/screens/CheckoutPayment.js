@@ -20,6 +20,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import CartFooter from '../components/CartFooter';
 import FormBlock from '../components/FormBlock';
 import PaymentPhoneForm from '../components/PaymentPhoneForm';
+import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
 import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
@@ -125,6 +126,7 @@ class CheckoutStepThree extends Component {
       shipping_id,
       payment_id: this.state.selectedIndex,
       user_data: cart.user_data,
+      ...values,
     };
     Object.keys(cart.products).map((key) => {
       const p = cart.products[key];
@@ -133,6 +135,7 @@ class CheckoutStepThree extends Component {
         amount: p.amount,
       };
     });
+    console.log(orderInfo);
     ordersActions.create(orderInfo, auth.token, (orderId) => {
       cartActions.clear(auth.token);
       navigator.push({
@@ -156,7 +159,7 @@ class CheckoutStepThree extends Component {
         onPress={() => {
           this.setState({
             selectedItem: item,
-            selectedIndex: index,
+            selectedIndex: (index + 1),
           }, () => {
             this.listView.scrollToOffset({ x: 0, y: 0, animated: true });
           });
@@ -185,14 +188,21 @@ class CheckoutStepThree extends Component {
         }}
       />
     );
-    if (selectedItem.payment === 'Visa, Mastercard, etc...') {
-      form = (<PaymentPhoneForm />);
+    // FIXME: HARDCOD
+    if (selectedItem.payment === 'Credit card') {
+      form = (
+        <PaymentCreditCardForm
+          onInit={(ref) => {
+            this.paymentFormRef = ref;
+          }}
+        />
+      );
     }
     return (
       <View>
         <CheckoutSteps step={3} />
         <FormBlock
-          title={i18n.gettext('Payment info')}
+          title={selectedItem.payment}
         >
           {form}
           <Text style={styles.paymentItemDesc}>

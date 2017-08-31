@@ -19,14 +19,37 @@ const styles = EStyleSheet.create({
 
 const Form = t.form.Form;
 const formFields = t.struct({
-  phone: t.String,
+  cardNumber: t.Number,
+  expiryMonth: t.Number,
+  expiryYear: t.Number,
+  cardholderName: t.String,
+  ccv: t.Number,
   comment: t.maybe(t.String),
 });
 const formOptions = {
   disableOrder: true,
   fields: {
-    phone: {
-      label: i18n.gettext('Phone'),
+    cardNumber: {
+      label: i18n.gettext('Card Number'),
+      clearButtonMode: 'while-editing',
+      keyboardType: 'phone-pad',
+    },
+    expiryMonth: {
+      label: i18n.gettext('Valid thru (mm)'),
+      clearButtonMode: 'while-editing',
+      keyboardType: 'phone-pad',
+    },
+    expiryYear: {
+      label: i18n.gettext('Valid thru (yy)'),
+      clearButtonMode: 'while-editing',
+      keyboardType: 'phone-pad',
+    },
+    cardholderName: {
+      label: i18n.gettext('Cardholder\'s name'),
+      clearButtonMode: 'while-editing',
+    },
+    cvv: {
+      label: i18n.gettext('CVV/CVC'),
       clearButtonMode: 'while-editing',
       keyboardType: 'phone-pad',
     },
@@ -48,7 +71,7 @@ const formOptions = {
   }
 };
 
-export default class PaymentPhoneForm extends Component {
+export default class PaymentCreditCardForm extends Component {
   static propTypes = {
     onInit: PropTypes.func,
   };
