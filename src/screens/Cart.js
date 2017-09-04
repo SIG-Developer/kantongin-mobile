@@ -12,6 +12,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swipeout from 'react-native-swipeout';
+import debounce from 'lodash/debounce';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -295,8 +296,11 @@ class Cart extends Component {
               noTitle
               value={item.amount}
               onChange={(val) => {
-                this.props.cartActions.changeAmount(item.cartId, val);
-                this.props.cartActions.change(this.props.auth.token, item.cartId, item);
+                const debounceFunc = debounce(() => {
+                  this.props.cartActions.changeAmount(item.cartId, val);
+                  this.props.cartActions.change(this.props.auth.token, item.cartId, item);
+                }, 1000, false);
+                debounceFunc();
               }}
             />
           </View>
