@@ -2,39 +2,48 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   TouchableOpacity,
-  Text,
   View,
   Image,
-  ScrollView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 
 const styles = EStyleSheet.create({
   container: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: 'green',
+    flex: 1,
+    backgroundColor: '#fff',
   },
   img: {
-    height: 300,
-    width: 300,
+    width: '94%',
+    height: 400,
   },
-  scroll: {
+  slide: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeBtnContainer: {
+    position: 'absolute',
+    top: 30,
+    right: 14,
+  },
+  closeBtn: {
+    opacity: 0.6,
   }
 });
 
 export default class Gallery extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
-      resetTo: PropTypes.func,
-      showModal: PropTypes.func,
-      toggleDrawer: PropTypes.func,
       dismissModal: PropTypes.func,
-      showInAppNotification: PropTypes.func,
     }),
     images: PropTypes.arrayOf(PropTypes.string),
+    activeIndex: PropTypes.number,
+  };
+
+  static navigatorStyle = {
+    navBarHidden: true,
   };
 
   render() {
@@ -44,24 +53,33 @@ export default class Gallery extends Component {
     }
     const items = images.map((href, index) => {
       return (
-        <Image
-          key={index}
-          style={styles.img}
-          source={{ uri: href }}
-        />
+        <View style={styles.slide}>
+          <Image
+            key={index}
+            style={styles.img}
+            source={{ uri: href }}
+          />
+        </View>
       );
     });
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => this.props.navigator.dismissLightBox()}>
-          <Text>Close</Text>
-        </TouchableOpacity>
-        <ScrollView
-          contentContainerStyle={styles.scroll}
+        <Swiper
+          horizontal
+          index={this.props.activeIndex}
         >
           {items}
-        </ScrollView>
+        </Swiper>
+        <TouchableOpacity
+          style={styles.closeBtnContainer}
+          onPress={() => this.props.navigator.dismissModal({ animationType: 'fade' })}
+        >
+          <Image
+            style={styles.closeBtn}
+            source={require('../assets/icons/times.png')}
+          />
+        </TouchableOpacity>
       </View>
     );
   }

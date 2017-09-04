@@ -138,7 +138,7 @@ class ProductDetail extends Component {
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
       showInAppNotification: PropTypes.func,
-      showLightBox: PropTypes.func,
+      showModal: PropTypes.func,
     }),
     navProps: PropTypes.shape({
       pid: PropTypes.string,
@@ -317,15 +317,13 @@ class ProductDetail extends Component {
         style={styles.slide}
         key={index}
         onPress={() => {
-          this.props.navigator.showLightBox({
+          this.props.navigator.showModal({
             screen: 'Gallery',
+            animationType: 'fade',
             passProps: {
               images: [...this.state.images],
+              activeIndex: index,
             },
-            style: {
-              backgroundBlur: 'dark',
-              backgroundColor: 'rgba(20,20,20, 0.5)'
-            }
           });
         }}
       >
