@@ -1,6 +1,5 @@
 
 export const registerDrawerDeepLinks = (e, navigator) => {
-  console.log(e.link, 'asdas');
   if (e.type === 'DeepLink') {
     if (e.link === 'home/') {
       navigator.resetTo({

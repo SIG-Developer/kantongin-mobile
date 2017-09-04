@@ -21,6 +21,7 @@ import CartFooter from '../components/CartFooter';
 import FormBlock from '../components/FormBlock';
 import PaymentPhoneForm from '../components/PaymentPhoneForm';
 import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
+import PaymentCheckForm from '../components/PaymentCheckForm';
 import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
@@ -74,6 +75,9 @@ class CheckoutStepThree extends Component {
     }),
     auth: PropTypes.shape({
       token: PropTypes.string,
+    }),
+    cartActions: PropTypes.shape({
+      clear: PropTypes.func,
     }),
     ordersActions: PropTypes.shape({
       create: PropTypes.func,
@@ -135,7 +139,6 @@ class CheckoutStepThree extends Component {
         amount: p.amount,
       };
     });
-    console.log(orderInfo);
     ordersActions.create(orderInfo, auth.token, (orderId) => {
       cartActions.clear(auth.token);
       navigator.push({
@@ -192,6 +195,14 @@ class CheckoutStepThree extends Component {
     if (selectedItem.payment === 'Credit card') {
       form = (
         <PaymentCreditCardForm
+          onInit={(ref) => {
+            this.paymentFormRef = ref;
+          }}
+        />
+      );
+    } else if (selectedItem.payment === 'Check') {
+      form = (
+        <PaymentCheckForm
           onInit={(ref) => {
             this.paymentFormRef = ref;
           }}
