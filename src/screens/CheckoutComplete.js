@@ -115,7 +115,6 @@ class CheckoutComplete extends Component {
   }
 
   componentDidMount() {
-    console.log('complete', this.props);
     this.props.ordersActions.fetchOne(this.props.orderId);
     this.props.navigator.setTitle({
       title: i18n.gettext('Checkout complete').toUpperCase(),

@@ -5,6 +5,10 @@ import {
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
 
+  SEARCH_PRODUCTS_REQUEST,
+  SEARCH_PRODUCTS_FAIL,
+  SEARCH_PRODUCTS_SUCCESS,
+
   FETCH_ONE_PRODUCT_REQUEST,
   FETCH_ONE_PRODUCT_FAIL,
   FETCH_ONE_PRODUCT_SUCCESS,
@@ -38,7 +42,14 @@ export function fetchOptions(pid) {
 export function fetch(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_ONE_PRODUCT_REQUEST });
-    return axios.get(`/products/${pid}?sl=${lang}`)
+
+    return axios({
+      method: 'get',
+      url: `/products/${pid}`,
+      params: {
+        sl: lang,
+      },
+    })
       .then((response) => {
         dispatch({
           type: FETCH_ONE_PRODUCT_SUCCESS,
@@ -52,6 +63,34 @@ export function fetch(pid) {
       .catch((error) => {
         dispatch({
           type: FETCH_ONE_PRODUCT_FAIL,
+          error
+        });
+      });
+  };
+}
+
+export function search(params = {}) {
+  return (dispatch) => {
+    dispatch({ type: SEARCH_PRODUCTS_REQUEST });
+
+    return axios({
+      method: 'get',
+      url: '/products',
+      params: {
+        sl: lang,
+        items_per_page: 0,
+        ...params,
+      },
+    })
+      .then((response) => {
+        dispatch({
+          type: SEARCH_PRODUCTS_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: SEARCH_PRODUCTS_FAIL,
           error
         });
       });

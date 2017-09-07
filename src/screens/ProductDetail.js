@@ -142,6 +142,7 @@ class ProductDetail extends Component {
     }),
     navProps: PropTypes.shape({
       pid: PropTypes.string,
+      hideSearch: PropTypes.bool,
     }),
     productDetail: PropTypes.shape({
     }),
@@ -179,18 +180,25 @@ class ProductDetail extends Component {
       productsActions.fetch(navProps.pid);
     });
 
+    let rightButtons = [
+      {
+        id: 'cart',
+        component: 'CartBtn',
+      },
+      {
+        id: 'search',
+        icon: require('../assets/icons/search.png'),
+      },
+    ];
+
+    // Remove search button.
+    if (navProps.hideSearch) {
+      rightButtons.pop();
+    }
+
     setTimeout(() => {
       navigator.setButtons({
-        rightButtons: [
-          {
-            id: 'cart',
-            component: 'CartBtn',
-          },
-          {
-            id: 'search',
-            icon: require('../assets/icons/search.png'),
-          },
-        ],
+        rightButtons,
       });
     }, 360);
   }
@@ -242,7 +250,7 @@ class ProductDetail extends Component {
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'search') {
-        navigator.resetTo({
+        navigator.showModal({
           screen: 'Search',
           animated: false,
         });

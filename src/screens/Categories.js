@@ -226,8 +226,8 @@ class Categories extends Component {
       <View style={styles.container}>
         {
           (products.fetching && this.isFirstLoad) ?
-          this.renderSpinner() :
-          this.renderList()
+            this.renderSpinner() :
+            this.renderList()
         }
       </View>
     );
@@ -238,8 +238,8 @@ export default connect(state => ({
   categories: state.categories,
   products: state.products,
 }),
-  dispatch => ({
-    productsActions: bindActionCreators(productsActions, dispatch),
-    categoriesActions: bindActionCreators(categoriesActions, dispatch),
-  })
+dispatch => ({
+  productsActions: bindActionCreators(productsActions, dispatch),
+  categoriesActions: bindActionCreators(categoriesActions, dispatch),
+})
 )(Categories);
