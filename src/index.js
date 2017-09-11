@@ -25,10 +25,17 @@ class App extends Component {
     this.startApp();
   }
 
-  startApp() {
+  startApp = () => {
     Navigation.startSingleScreenApp({
       screen: {
         screen: 'MainCategory',
+        navigatorStyle: {
+          navBarBackgroundColor: theme.$navBarBackgroundColor,
+          navBarButtonColor: theme.$navBarButtonColor,
+          navBarButtonFontSize: theme.$navBarButtonFontSize,
+          navBarTextColor: theme.$navBarTextColor,
+          screenBackgroundColor: theme.$screenBackgroundColor,
+        }
       },
       drawer: {
         left: {
@@ -37,7 +44,7 @@ class App extends Component {
         style: {
           drawerShadow: 'NO',
           leftDrawerWidth: 80,
-          contentOverlayColor: 'rgba(0, 0, 0, 0.70)',
+          contentOverlayColor: theme.$contentOverlayColor,
         },
       },
     });

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -9,7 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
   default: {
-    backgroundColor: '#242424',
+    backgroundColor: '$darkColor',
     borderRadius: 4,
     padding: 14,
   },
@@ -19,7 +18,7 @@ const styles = EStyleSheet.create({
     fontSize: '0.9rem',
   },
   primary: {
-    backgroundColor: '#FF6008',
+    backgroundColor: '$primaryColor',
     paddingTop: 8,
     paddingBottom: 8,
     paddingLeft: 22,

@@ -14,7 +14,7 @@ import * as authActions from '../actions/authActions';
 
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import * as config from '../config';
-import i18n from '../utils/i18n';
+// import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -24,12 +24,11 @@ const styles = EStyleSheet.create({
 });
 
 class Profile extends Component {
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
-    navBarButtonFontSize: 10,
+  static propTypes = {
+    navigator: PropTypes.shape({
+      setOnNavigatorEvent: PropTypes.func,
+    })
   };
-
   componentDidMount() {
     const { navigator } = this.props;
     // FIXME: Set title

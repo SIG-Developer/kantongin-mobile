@@ -89,11 +89,6 @@ class CheckoutStepThree extends Component {
     total: PropTypes.number,
   };
 
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: 'black',
-  };
-
   constructor(props) {
     super(props);
 

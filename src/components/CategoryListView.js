@@ -13,12 +13,12 @@ const styles = EStyleSheet.create({
     width: '50%',
   },
   wrapper: {
-    backgroundColor: '#47C9AF',
+    backgroundColor: '$secondaryColor',
     height: 100,
     position: 'relative',
     marginTop: 10,
     marginLeft: 10,
-    borderRadius: 6,
+    borderRadius: '$borderRadius',
   },
   wrapperRight: {
     marginRight: 10,
@@ -26,6 +26,9 @@ const styles = EStyleSheet.create({
   categoryImage: {
     height: 100,
     resizeMode: 'cover'
+  },
+  withImage: {
+    backgroundColor: 'transparent',
   },
   categoryTitle: {
     position: 'absolute',
@@ -54,7 +57,7 @@ class CategoryListView extends Component {
         style={styles.container}
         onPress={() => this.props.onPress(item)}
       >
-        <View style={[styles.wrapper, oddStyle]}>
+        <View style={[styles.wrapper, oddStyle, imageUri && styles.withImage]}>
           {imageUri && <Image source={{ uri: imageUri }} style={styles.categoryImage} />}
           <Text numberOfLines={2} style={styles.categoryTitle}>{item.category}</Text>
         </View>

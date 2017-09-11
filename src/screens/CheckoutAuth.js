@@ -70,11 +70,6 @@ class CheckoutAuth extends Component {
     }),
   };
 
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
-  };
-
   componentDidMount() {
     const { navigator } = this.props;
     navigator.setTitle({

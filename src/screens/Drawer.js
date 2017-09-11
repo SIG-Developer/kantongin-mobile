@@ -18,7 +18,7 @@ import * as authActions from '../actions/authActions';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '$drawerBgColor',
     paddingTop: 30,
   },
   logo: {

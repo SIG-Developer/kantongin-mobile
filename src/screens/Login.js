@@ -13,6 +13,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 // Import actions.
 import * as authActions from '../actions/authActions';
 
+// theme
+import theme from '../theme';
+
 // Components
 import Spinner from '../components/Spinner';
 import i18n from '../utils/i18n';
@@ -85,8 +88,8 @@ class Login extends Component {
   };
 
   static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
   };
 
   constructor(props) {

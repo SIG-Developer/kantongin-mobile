@@ -22,6 +22,9 @@ import Spinner from '../components/Spinner';
 import QtyOption from '../components/QtyOption';
 import CartFooter from '../components/CartFooter';
 
+// theme
+import theme from '../theme';
+
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import { formatPrice } from '../utils';
@@ -127,8 +130,8 @@ class Cart extends Component {
   };
 
   static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
   };
 
   constructor(props) {
@@ -276,7 +279,7 @@ class Cart extends Component {
       <Swipeout
         autoClose
         right={swipeoutBtns}
-        backgroundColor={'#FAFAFA'}
+        backgroundColor={theme.$navBarBackgroundColor}
       >
         <View style={styles.productItem}>
           {productImage}

@@ -12,6 +12,9 @@ import qs from 'shitty-qs';
 // Import actions.
 import * as authActions from '../actions/authActions';
 
+// theme
+import theme from '../theme';
+
 // Components
 import Spinner from '../components/Spinner';
 
@@ -28,7 +31,7 @@ const styles = EStyleSheet.create({
 class Registration extends Component {
   static propTypes = {
     authActions: PropTypes.shape({
-      login: PropTypes.func,
+      registration: PropTypes.func,
     }),
     navigator: PropTypes.shape({
       setOnNavigatorEvent: PropTypes.func,
@@ -43,11 +46,6 @@ class Registration extends Component {
     }),
   };
 
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
-  };
-
   constructor(props) {
     super(props);
 
@@ -59,7 +57,7 @@ class Registration extends Component {
   componentDidMount() {
     const { navigator } = this.props;
     navigator.setStyle({
-      navBarRightButtonColor: '#FF6008',
+      navBarRightButtonColor: theme.$navBarRightButtonColor,
     });
     navigator.setTitle({
       title: i18n.gettext('Registration').toUpperCase(),
@@ -102,7 +100,7 @@ class Registration extends Component {
 export default connect(state => ({
   auth: state.auth,
 }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch),
-  })
+dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch),
+})
 )(Registration);

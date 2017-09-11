@@ -25,7 +25,6 @@ import Spinner from '../components/Spinner';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
   },
   subCategoriesContainer: {
     flexDirection: 'row',
@@ -56,10 +55,6 @@ class Categories extends Component {
     productsActions: PropTypes.shape({
       fetchByCategory: PropTypes.func,
     })
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
   };
 
   constructor(props) {
@@ -175,8 +170,7 @@ class Categories extends Component {
     const productHeader = (
       <Text style={styles.header}>
         {i18n.gettext('Products')}
-          {i18n.gettext('')}
-          
+        {i18n.gettext('')}
       </Text>
     );
     return (

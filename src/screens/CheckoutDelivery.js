@@ -177,11 +177,6 @@ class Checkout extends Component {
     }),
   };
 
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: 'black',
-  };
-
   constructor(props) {
     super(props);
     this.isFirstLoad = true;

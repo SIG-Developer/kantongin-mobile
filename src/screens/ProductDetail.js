@@ -33,7 +33,6 @@ import i18n from '../utils/i18n';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   slide: {
     flex: 1,
@@ -56,13 +55,13 @@ const styles = EStyleSheet.create({
   },
   nameText: {
     fontSize: '1.2rem',
-    color: 'black',
+    color: '$darkColor',
     marginBottom: 5,
   },
   priceText: {
     fontSize: '1rem',
     fontWeight: 'bold',
-    color: 'black',
+    color: '$darkColor',
   },
   promoText: {
     marginBottom: 10,
@@ -72,7 +71,7 @@ const styles = EStyleSheet.create({
     color: 'gray'
   },
   blockContainer: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: '$grayColor',
     paddingTop: 14,
     paddingBottom: 0,
   },
@@ -95,7 +94,7 @@ const styles = EStyleSheet.create({
     fontWeight: 'bold',
   },
   addToCartBtn: {
-    backgroundColor: '#FF6008',
+    backgroundColor: '$primaryColor',
     padding: 14,
   },
   addToCartBtnText: {
@@ -263,7 +262,7 @@ class ProductDetail extends Component {
     const { productDetail } = this.props;
     let newPrice = 0;
     newPrice += +productDetail.price;
-    Object.keys(selectedOptions).map((key, index) => {
+    Object.keys(selectedOptions).map((key) => {
       newPrice += +selectedOptions[key].modifier;
     });
     this.setState({
@@ -491,8 +490,7 @@ class ProductDetail extends Component {
                 'com.apple.uikit.activity.mail'
               ],
               tintColor: 'black'
-            })
-            .catch(err => console.log(err));
+            });
           }}
         >
           <Text style={styles.outlineBtnText}> {i18n.gettext('Share product')} </Text>

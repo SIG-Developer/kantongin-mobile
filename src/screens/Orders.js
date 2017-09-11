@@ -71,12 +71,6 @@ class Orders extends Component {
     }),
   };
 
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
-    navBarButtonFontSize: 10,
-  };
-
   constructor(props) {
     super(props);
 
