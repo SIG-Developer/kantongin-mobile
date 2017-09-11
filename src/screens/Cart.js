@@ -319,7 +319,7 @@ class Cart extends Component {
     }
     return (
       <CartFooter
-        totalPrice={formatPrice(cart.total)}
+        totalPrice={formatPrice(cart.subtotal)}
         btnText={i18n.gettext('Checkout').toUpperCase()}
         onBtnPress={() => this.handlePlaceOrder()}
       />

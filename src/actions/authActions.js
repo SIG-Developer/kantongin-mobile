@@ -10,6 +10,7 @@ import {
   AUTH_LOGOUT,
 } from '../constants';
 import i18n from '../utils/i18n';
+import * as cartActions from './cartActions';
 
 export function login(data) {
   return (dispatch) => {
@@ -17,6 +18,7 @@ export function login(data) {
 
     return axios.post('/auth_tokens', data)
       .then((response) => {
+        cartActions.fetchCart(dispatch, data.token, false);
         dispatch({
           type: AUTH_LOGIN_SUCCESS,
           payload: response.data,

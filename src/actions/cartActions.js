@@ -68,6 +68,38 @@ export function fetch(token, fetching = true, cb = null) {
   };
 }
 
+export function fetchCart(dispatch, token, fetching = true, cb = null) {
+  dispatch({
+    type: CART_REQUEST,
+    payload: {
+      fetching,
+    }
+  });
+  if (token) {
+    headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
+  }
+  return axios({
+    method: 'get',
+    url: '/cart_content/?calculate_shipping=A',
+    headers,
+  })
+    .then((response) => {
+      dispatch({
+        type: CART_SUCCESS,
+        payload: response.data,
+      });
+      if (cb) {
+        cb();
+      }
+    })
+    .catch((error) => {
+      dispatch({
+        type: CART_FAIL,
+        error,
+      });
+    });
+}
+
 export function getUserData(token) {
   return (dispatch) => {
     dispatch({ type: CART_CONTENT_REQUEST });

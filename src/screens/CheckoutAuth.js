@@ -54,6 +54,7 @@ class CheckoutAuth extends Component {
   static propTypes = {
     authActions: PropTypes.shape({
       login: PropTypes.func,
+      logout: PropTypes.func,
     }),
     navigator: PropTypes.shape({
       setOnNavigatorEvent: PropTypes.func,
@@ -106,24 +107,42 @@ class CheckoutAuth extends Component {
     }
   }
 
+  handleLogout() {
+    this.props.authActions.logout();
+  }
+
+  renderLoginForm() {
+    return (
+      <FormBlock title={i18n.gettext('Auth')}>
+        <Form
+          ref={'form'}
+          type={FormFields}
+          options={options}
+        />
+        <Button type="primary" onPress={() => this.handleLogin()}>
+          {i18n.gettext('Sign in')}
+        </Button>
+      </FormBlock>
+    );
+  }
+
+  renderReLogin() {
+    return (
+      <Button type="primary" onPress={() => this.handleLogout()}>
+        {i18n.gettext('Sign in as a different user')}
+      </Button>
+    );
+  }
+
   render() {
-    const { auth, navigator } = this.props;
+    const { auth } = this.props;
     return (
       <View style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.contentContainer}
         >
           <CheckoutSteps step={0} />
-          <FormBlock title={i18n.gettext('Auth')}>
-            <Form
-              ref={'form'}
-              type={FormFields}
-              options={options}
-            />
-            <Button type="primary" onPress={() => this.handleLogin()}>
-              {i18n.gettext('Sign in')}
-            </Button>
-          </FormBlock>
+          {auth.logged ? this.renderReLogin() : this.renderLoginForm()}
         </ScrollView>
         <Spinner visible={auth.fetching} />
       </View>

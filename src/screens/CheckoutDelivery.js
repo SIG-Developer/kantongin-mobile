@@ -355,7 +355,7 @@ class Checkout extends Component {
 
         </ScrollView>
         <CartFooter
-          totalPrice={formatPrice(cart.total)}
+          totalPrice={formatPrice(cart.subtotal)}
           btnText={i18n.gettext('Next').toUpperCase()}
           onBtnPress={() => this.handleNextPress()}
         />
