@@ -6,14 +6,18 @@ import {
   Text,
   View,
   Image,
+  Alert,
+  Linking,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import uniqueId from 'lodash/uniqueId';
 import i18n from '../utils/i18n';
 
 import * as config from '../config';
 import * as authActions from '../actions/authActions';
+import * as pagesActions from '../actions/pagesActions';
 
 const styles = EStyleSheet.create({
   container: {
@@ -94,13 +98,34 @@ class Drawer extends Component {
     cart: PropTypes.shape({
       amount: PropTypes.number,
     }),
+    pages: PropTypes.shape({
+      items: PropTypes.arrayOf(PropTypes.object),
+    }),
     auth: PropTypes.shape({
       logged: PropTypes.bool,
     }),
     authActions: PropTypes.shape({
       logout: PropTypes.func,
     }),
+    pagesActions: PropTypes.shape({
+      fetch: PropTypes.func,
+    }),
   };
+
+  componentDidMount() {
+    this.props.pagesActions.fetch();
+  }
+
+  handleOpenPage = (page) => {
+    const url = `${config.config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
+    Linking.canOpenURL(url).then((supported) => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        Alert.alert(`Don't know how to open URI: ${url}`);
+      }
+    });
+  }
 
   renderLogo = () => (
     <Image
@@ -171,6 +196,7 @@ class Drawer extends Component {
       <TouchableOpacity
         style={styles.itemBtn}
         onPress={onPress}
+        key={uniqueId()}
       >
         <View>
           <Text style={styles.itemBtnText}>
@@ -183,7 +209,9 @@ class Drawer extends Component {
   };
 
   render() {
-    const { navigator } = this.props;
+    const { navigator, pages } = this.props;
+    const pagesList = pages.items
+      .map(p => this.renderItem(p.page, () => this.handleOpenPage(p)));
     return (
       <ScrollView style={styles.container}>
         {this.renderLogo()}
@@ -227,8 +255,7 @@ class Drawer extends Component {
           })}
         </View>
         <View style={styles.group}>
-          {this.renderItem('About our company')}
-          {this.renderItem('Privacy policy')}
+          {pagesList}
         </View>
       </ScrollView>
     );
@@ -238,8 +265,10 @@ class Drawer extends Component {
 export default connect(state => ({
   auth: state.auth,
   cart: state.cart,
+  pages: state.pages,
 }),
 dispatch => ({
   authActions: bindActionCreators(authActions, dispatch),
+  pagesActions: bindActionCreators(pagesActions, dispatch),
 })
 )(Drawer);
