@@ -7,8 +7,9 @@ import search from './search';
 import orders from './orders';
 import products from './products';
 import categories from './categories';
-import productDetail from './productDetail';
 import orderDetail from './orderDetail';
+import notifications from './notifications';
+import productDetail from './productDetail';
 
 export default combineReducers({
   cart,
@@ -19,5 +20,6 @@ export default combineReducers({
   products,
   categories,
   orderDetail,
+  notifications,
   productDetail,
 });

@@ -12,7 +12,7 @@ const { width } = Dimensions.get('window');
 const styles = EStyleSheet.create({
   container: {
     width,
-    height: 80,
+    minHeight: 80,
     backgroundColor: '#D9534F',
     paddingTop: 30,
     paddingLeft: 14,

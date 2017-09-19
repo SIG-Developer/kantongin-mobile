@@ -11,6 +11,7 @@ import { blocks } from '../fakeData';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
 
 // Import actions.
+import * as notificationsActions from '../actions/notificationsActions';
 import * as categoriesActions from '../actions/categoriesActions';
 
 // Components
@@ -36,6 +37,12 @@ class MainCategory extends Component {
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
       setButtons: PropTypes.func,
+    }),
+    notificationsActions: PropTypes.shape({
+      hide: PropTypes.func,
+    }),
+    notifications: PropTypes.shape({
+      items: PropTypes.array,
     }),
     categories: PropTypes.shape({
       items: PropTypes.array,
@@ -83,10 +90,26 @@ class MainCategory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { categories } = nextProps;
+    const { categories, navigator } = nextProps;
     this.setState({
       items: categories.tree,
     });
+    if (nextProps.notifications.items.length) {
+      const notify = nextProps.notifications.items[nextProps.notifications.items.length - 1];
+      if (notify.closeLastModal) {
+        navigator.dismissModal();
+      }
+      navigator.showInAppNotification({
+        screen: 'Notification',
+        passProps: {
+          dismissWithSwipe: true,
+          title: notify.title,
+          type: notify.type,
+          text: notify.text,
+        },
+      });
+      this.props.notificationsActions.hide(notify.id);
+    }
   }
 
   onNavigatorEvent(event) {
@@ -159,9 +182,11 @@ class MainCategory extends Component {
 }
 
 export default connect(state => ({
+  notifications: state.notifications,
   categories: state.categories,
 }),
 dispatch => ({
   categoriesActions: bindActionCreators(categoriesActions, dispatch),
+  notificationsActions: bindActionCreators(notificationsActions, dispatch),
 })
 )(MainCategory);

@@ -88,6 +88,7 @@ class CheckoutComplete extends Component {
     ordersActions: PropTypes.shape({
       fetchOne: PropTypes.func,
     }),
+    orderId: PropTypes.number,
     orderDetail: PropTypes.shape({
       fetching: PropTypes.bool,
     }),

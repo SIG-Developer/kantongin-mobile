@@ -15,6 +15,8 @@ import {
 
   CART_CONTENT_SAVE,
 
+  NOTIFICATION_SHOW,
+
   CART_REQUEST,
   CART_SUCCESS,
   CART_FAIL,
@@ -30,11 +32,13 @@ import {
   CART_CLEAR_FAIL,
 } from '../constants';
 
+import i18n from '../utils/i18n';
+
 const headers = {
   'Content-type': 'application/json',
 };
 
-export function fetch(token, fetching = true, cb = null) {
+export function fetch(token, fetching = true) {
   return (dispatch) => {
     dispatch({
       type: CART_REQUEST,
@@ -55,9 +59,6 @@ export function fetch(token, fetching = true, cb = null) {
           type: CART_SUCCESS,
           payload: response.data,
         });
-        if (cb) {
-          cb();
-        }
       })
       .catch((error) => {
         dispatch({
@@ -68,7 +69,7 @@ export function fetch(token, fetching = true, cb = null) {
   };
 }
 
-export function fetchCart(dispatch, token, fetching = true, cb = null) {
+export function fetchCart(dispatch, token, fetching = true) {
   dispatch({
     type: CART_REQUEST,
     payload: {
@@ -88,9 +89,6 @@ export function fetchCart(dispatch, token, fetching = true, cb = null) {
         type: CART_SUCCESS,
         payload: response.data,
       });
-      if (cb) {
-        cb();
-      }
     })
     .catch((error) => {
       dispatch({
@@ -194,7 +192,7 @@ export function saveUserData(data) {
   };
 }
 
-export function add(data, token = '', cb = null) {
+export function add(data, token = '') {
   return (dispatch) => {
     dispatch({ type: ADD_TO_CART_REQUEST });
     if (token) {
@@ -212,9 +210,30 @@ export function add(data, token = '', cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, false, cb)(dispatch), 50);
+        setTimeout(() => fetch(token, false)(dispatch), 50);
+        dispatch({
+          type: NOTIFICATION_SHOW,
+          payload: {
+            type: 'success',
+            title: i18n.gettext('Success'),
+            text: i18n.gettext('The product was added to your cart.'),
+            closeLastModal: true,
+          },
+        });
       })
       .catch((error) => {
+        // Out of stock error
+        if (error.response.data.status === 409) {
+          dispatch({
+            type: NOTIFICATION_SHOW,
+            payload: {
+              type: 'warning',
+              title: i18n.gettext('Notice'),
+              text: i18n.gettext('Product has zero inventory and cannot be added to the cart.'),
+              closeLastModal: true,
+            },
+          });
+        }
         dispatch({
           type: ADD_TO_CART_FAIL,
           error,
@@ -223,7 +242,7 @@ export function add(data, token = '', cb = null) {
   };
 }
 
-export function clear(token, cb = null) {
+export function clear(token) {
   return (dispatch) => {
     dispatch({ type: CART_CLEAR_REQUEST });
     if (token) {
@@ -240,10 +259,6 @@ export function clear(token, cb = null) {
           type: CART_CLEAR_SUCCESS,
           payload: response.data,
         });
-
-        if (cb) {
-          cb();
-        }
       })
       .catch((error) => {
         dispatch({
@@ -254,7 +269,7 @@ export function clear(token, cb = null) {
   };
 }
 
-export function change(token, id, data, cb = null) {
+export function change(id, data, token) {
   return (dispatch) => {
     dispatch({ type: CART_CHANGE_REQUEST });
     if (token) {
@@ -272,7 +287,7 @@ export function change(token, id, data, cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, false, cb)(dispatch), 50);
+        setTimeout(() => fetch(token, false)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({
@@ -283,7 +298,7 @@ export function change(token, id, data, cb = null) {
   };
 }
 
-export function remove(token, id, cb = null) {
+export function remove(id, token) {
   return (dispatch) => {
     dispatch({ type: CART_REMOVE_REQUEST });
     if (token) {
@@ -301,7 +316,7 @@ export function remove(token, id, cb = null) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, false, cb)(dispatch), 50);
+        setTimeout(() => fetch(token, false)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({

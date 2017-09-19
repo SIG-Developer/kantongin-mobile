@@ -292,20 +292,7 @@ class ProductDetail extends Component {
         product_options: productOptions,
       },
     };
-    this.props.cartActions.add(
-      { products },
-      auth.token,
-      () => {
-        navigator.showInAppNotification({
-          screen: 'Notification',
-          passProps: {
-            type: 'success',
-            title: i18n.gettext('Success'),
-            text: i18n.gettext('The product was added to your cart.'),
-          }
-        });
-      }
-    );
+    this.props.cartActions.add({ products }, auth.token);
   }
 
   handleOptionChange(name, val) {

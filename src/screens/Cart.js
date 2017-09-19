@@ -255,7 +255,7 @@ class Cart extends Component {
 
   handleRemoveProduct = (product) => {
     const { cartActions, auth } = this.props;
-    cartActions.remove(auth.token, product.cartId);
+    cartActions.remove(product.cartId, auth.token);
   };
 
   renderProductItem = (item) => {
@@ -301,7 +301,7 @@ class Cart extends Component {
               onChange={(val) => {
                 const debounceFunc = debounce(() => {
                   this.props.cartActions.changeAmount(item.cartId, val);
-                  this.props.cartActions.change(this.props.auth.token, item.cartId, item);
+                  this.props.cartActions.change(item.cartId, item, this.props.auth.token);
                 }, 1000, false);
                 debounceFunc();
               }}

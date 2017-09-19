@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+// Styles
+import theme from '../theme';
+
 // Import actions.
 import * as authActions from '../actions/authActions';
 import * as ordersActions from '../actions/ordersActions';
@@ -69,6 +72,14 @@ class Orders extends Component {
       setTitle: PropTypes.func,
       setButtons: PropTypes.func,
     }),
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
