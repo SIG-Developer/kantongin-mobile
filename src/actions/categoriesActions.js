@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_FAIL,
@@ -7,11 +6,12 @@ import {
   NEXT_CATEGORY,
   PREV_CATEGORY
 } from '../constants';
+import userApi from '../services/userApi';
 
 export function fetch(page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_CATEGORIES_REQUEST });
-    return axios.get(`/categories?items_per_page=0&page=${page}&get_images=1`)
+    return userApi.get(`/categories?page=${page}&get_images=1`)
       .then((response) => {
         dispatch({
           type: FETCH_CATEGORIES_SUCCESS,

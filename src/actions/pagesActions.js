@@ -1,23 +1,14 @@
-import axios from 'axios';
-import { lang } from '../utils';
 import {
   FETCH_PAGES_REQUEST,
   FETCH_PAGES_FAIL,
   FETCH_PAGES_SUCCESS,
 } from '../constants';
-
-const headers = {
-  'Content-type': 'application/json',
-};
+import adminApi from '../services/adminApi';
 
 export function fetch() {
   return (dispatch) => {
     dispatch({ type: FETCH_PAGES_REQUEST });
-    return axios({
-      method: 'get',
-      url: `/pages?items_per_page=100&sl=${lang}&page_type=T&status=A&simple=true`,
-      headers,
-    })
+    return adminApi.get('/pages?items_per_page=100&page_type=T&status=A&simple=true')
       .then((response) => {
         dispatch({
           type: FETCH_PAGES_SUCCESS,
@@ -32,4 +23,6 @@ export function fetch() {
       });
   };
 }
+
+export const dummy = () => {};
 

@@ -1,6 +1,3 @@
-import axios from 'axios';
-import base64 from 'base-64';
-import { lang } from '../utils';
 import {
   FETCH_ORDERS_REQUEST,
   FETCH_ORDERS_FAIL,
@@ -15,22 +12,12 @@ import {
   ORDER_CREATE_FAIL,
 } from '../constants';
 
-const headers = {
-  'Content-type': 'application/json',
-};
+import userApi from '../services/userApi';
 
-export function create(data, token, cb = null) {
+export function create(data, cb = null) {
   return (dispatch) => {
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
     dispatch({ type: ORDER_CREATE_REQUEST });
-    return axios({
-      method: 'post',
-      url: '/orders/',
-      data,
-      headers,
-    })
+    return userApi.post('/orders/', data)
       .then((response) => {
         dispatch({
           type: ORDER_CREATE_SUCCESS,
@@ -53,10 +40,7 @@ export function fetchOne(id) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDER_DETAIL_REQUEST });
 
-    return axios({
-      method: 'get',
-      url: `/orders/${id}/?sl=${lang}`,
-    })
+    return userApi.get(`/orders/${id}`)
       .then((response) => {
         dispatch({
           type: FETCH_ORDER_DETAIL_SUCCESS,
@@ -72,17 +56,10 @@ export function fetchOne(id) {
   };
 }
 
-export function fetch(token, page = 1) {
+export function fetch(page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDERS_REQUEST });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
-    return axios({
-      method: 'get',
-      url: `/orders?items_per_page=100&page=${page}&sl=${lang}`,
-      headers,
-    })
+    return userApi.get(`/orders?page=${page}`)
       .then((response) => {
         dispatch({
           type: FETCH_ORDERS_SUCCESS,

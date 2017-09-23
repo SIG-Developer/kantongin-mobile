@@ -1,5 +1,3 @@
-import axios from 'axios';
-import base64 from 'base-64';
 import {
   BILLING_REQUEST,
   BILLING_SUCCESS,
@@ -10,14 +8,12 @@ import {
   PAYPAL_SETTLEMENTS_FAIL,
 } from '../constants';
 
-const headers = {
-  'Content-type': 'application/json',
-};
+import userApi from '../services/userApi';
 
 export function fetchAll() {
   return (dispatch) => {
     dispatch({ type: BILLING_REQUEST });
-    return axios.get('/payments?items_per_page=200')
+    return userApi.get('/payments')
       .then((response) => {
         dispatch({
           type: BILLING_SUCCESS,
@@ -33,18 +29,14 @@ export function fetchAll() {
   };
 }
 
-export function paypalSettlements(token, orderId, replay) {
+export function paypalSettlements(orderId, replay) {
   return (dispatch) => {
     dispatch({ type: PAYPAL_SETTLEMENTS_REQUEST });
     const data = {
       order_id: orderId,
       replay,
     };
-    return axios({
-      method: 'post',
-      url: '/sra_settlements/',
-      data,
-    })
+    return userApi.post('/sra_settlements', data)
       .then((response) => {
         dispatch({
           type: PAYPAL_SETTLEMENTS_SUCCESS,

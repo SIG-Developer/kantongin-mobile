@@ -19,7 +19,7 @@ import theme from '../theme';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
-import * as config from '../config';
+import config from '../config';
 
 const styles = EStyleSheet.create({
   container: {
@@ -87,7 +87,7 @@ class Registration extends Component {
           startInLoadingState
           userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
           source={{
-            uri: `${config.config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`,
+            uri: `${config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />

@@ -16,7 +16,6 @@ import theme from '../theme';
 // Import actions.
 import * as authActions from '../actions/authActions';
 import * as ordersActions from '../actions/ordersActions';
-import * as flashActions from '../actions/flashActions';
 
 // Components
 import Spinner from '../components/Spinner';
@@ -116,9 +115,9 @@ class Orders extends Component {
   }
 
   componentDidMount() {
-    const { auth, ordersActions } = this.props;
+    const { ordersActions } = this.props;
     InteractionManager.runAfterInteractions(() => {
-      ordersActions.fetch(auth.token);
+      ordersActions.fetch();
     });
   }
 
@@ -261,7 +260,6 @@ export default connect(state => ({
 }),
 dispatch => ({
   authActions: bindActionCreators(authActions, dispatch),
-  flashActions: bindActionCreators(flashActions, dispatch),
   ordersActions: bindActionCreators(ordersActions, dispatch),
 })
 )(Orders);

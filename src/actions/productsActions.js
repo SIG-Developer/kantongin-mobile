@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { lang } from '../utils';
 import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_FAIL,
@@ -17,11 +15,12 @@ import {
   FETCH_PRODUCT_OPTIONS_FAIL,
   FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
+import userApi from '../services/userApi';
 
 export function fetchOptions(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCT_OPTIONS_REQUEST });
-    return axios.get(`/options/?product_id=${pid}`)
+    return userApi.get(`/options/?product_id=${pid}`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCT_OPTIONS_SUCCESS,
@@ -43,13 +42,7 @@ export function fetch(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_ONE_PRODUCT_REQUEST });
 
-    return axios({
-      method: 'get',
-      url: `/products/${pid}`,
-      params: {
-        sl: lang,
-      },
-    })
+    return userApi.get(`/products/${pid}`)
       .then((response) => {
         dispatch({
           type: FETCH_ONE_PRODUCT_SUCCESS,
@@ -73,14 +66,10 @@ export function search(params = {}) {
   return (dispatch) => {
     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
 
-    return axios({
-      method: 'get',
-      url: '/products',
+    return userApi.get('/products', {
       params: {
-        sl: lang,
-        items_per_page: 0,
         ...params,
-      },
+      }
     })
       .then((response) => {
         dispatch({
@@ -100,7 +89,7 @@ export function search(params = {}) {
 export function fetchByCategory(categoryId, page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return axios.get(`/categories/${categoryId}/products?items_per_page=100&page=${page}&subcats=Y&sl=${lang}`)
+    return userApi.get(`/categories/${categoryId}/products?items_per_page=100&page=${page}&subcats=Y`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,

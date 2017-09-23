@@ -276,7 +276,6 @@ class ProductDetail extends Component {
   handleAddToCart() {
     const productOptions = {};
     const { product, selectedOptions } = this.state;
-    const { auth, navigator } = this.props;
     // Convert product options to the option_id: variant_id array.
     Object.keys(selectedOptions).forEach((k) => {
       productOptions[k] = selectedOptions[k];
@@ -292,7 +291,7 @@ class ProductDetail extends Component {
         product_options: productOptions,
       },
     };
-    this.props.cartActions.add({ products }, auth.token);
+    this.props.cartActions.add({ products });
   }
 
   handleOptionChange(name, val) {

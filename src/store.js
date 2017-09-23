@@ -1,6 +1,5 @@
 import { compose, applyMiddleware, createStore } from 'redux';
-import { AsyncStorage } from 'react-native';
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -23,12 +22,6 @@ const store = createStore(
     autoRehydrate(),
   ),
 );
-
-// begin periodically persisting the store
-persistStore(store, {
-  blacklist: ['nav', 'products'],
-  storage: AsyncStorage
-});
 
 // AsyncStorage.clear();
 

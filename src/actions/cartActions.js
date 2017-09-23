@@ -1,5 +1,3 @@
-import axios from 'axios';
-import base64 from 'base-64';
 import {
   ADD_TO_CART_REQUEST,
   ADD_TO_CART_SUCCESS,
@@ -33,12 +31,9 @@ import {
 } from '../constants';
 
 import i18n from '../utils/i18n';
+import userApi from '../services/userApi';
 
-const headers = {
-  'Content-type': 'application/json',
-};
-
-export function fetch(token, fetching = true) {
+export function fetch(fetching = true) {
   return (dispatch) => {
     dispatch({
       type: CART_REQUEST,
@@ -46,14 +41,7 @@ export function fetch(token, fetching = true) {
         fetching,
       }
     });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
-    return axios({
-      method: 'get',
-      url: '/cart_content/?calculate_shipping=A',
-      headers,
-    })
+    return userApi.get('/cart_content/?calculate_shipping=A')
       .then((response) => {
         dispatch({
           type: CART_SUCCESS,
@@ -69,21 +57,14 @@ export function fetch(token, fetching = true) {
   };
 }
 
-export function fetchCart(dispatch, token, fetching = true) {
+export function fetchCart(dispatch, fetching = true) {
   dispatch({
     type: CART_REQUEST,
     payload: {
       fetching,
     }
   });
-  if (token) {
-    headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-  }
-  return axios({
-    method: 'get',
-    url: '/cart_content/?calculate_shipping=A',
-    headers,
-  })
+  return userApi.get('/cart_content/?calculate_shipping=A')
     .then((response) => {
       dispatch({
         type: CART_SUCCESS,
@@ -98,12 +79,9 @@ export function fetchCart(dispatch, token, fetching = true) {
     });
 }
 
-export function getUserData(token) {
+export function getUserData() {
   return (dispatch) => {
     dispatch({ type: CART_CONTENT_REQUEST });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
     return dispatch({
       type: CART_CONTENT_SUCCESS,
       payload: {
@@ -163,11 +141,7 @@ export function getUserData(token) {
       },
       },
     });
-    return axios({
-      method: 'get',
-      url: '/carts/3',
-      headers,
-    })
+    return userApi.get('/carts/3')
       .then((response) => {
         dispatch({
           type: CART_CONTENT_SUCCESS,
@@ -192,25 +166,17 @@ export function saveUserData(data) {
   };
 }
 
-export function add(data, token = '') {
+export function add(data) {
   return (dispatch) => {
     dispatch({ type: ADD_TO_CART_REQUEST });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
-    return axios({
-      method: 'post',
-      url: '/cart_content/',
-      data,
-      headers,
-    })
+    return userApi.post('/cart_content/', data)
       .then((response) => {
         dispatch({
           type: ADD_TO_CART_SUCCESS,
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, false)(dispatch), 50);
+        setTimeout(() => fetch(false)(dispatch), 50);
         dispatch({
           type: NOTIFICATION_SHOW,
           payload: {
@@ -242,18 +208,10 @@ export function add(data, token = '') {
   };
 }
 
-export function clear(token) {
+export function clear() {
   return (dispatch) => {
     dispatch({ type: CART_CLEAR_REQUEST });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
-    return axios({
-      method: 'delete',
-      url: '/cart_content/',
-      data: {},
-      headers,
-    })
+    return userApi.delete('/cart_content/', {})
       .then((response) => {
         dispatch({
           type: CART_CLEAR_SUCCESS,
@@ -269,25 +227,18 @@ export function clear(token) {
   };
 }
 
-export function change(id, data, token) {
+export function change(id, data) {
   return (dispatch) => {
     dispatch({ type: CART_CHANGE_REQUEST });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
-    return axios({
-      method: 'put',
-      url: `/cart_content/${id}/`,
-      data,
-      headers,
-    })
+
+    return userApi.put(`/cart_content/${id}/`, data)
       .then((response) => {
         dispatch({
           type: CART_CHANGE_SUCCESS,
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, false)(dispatch), 50);
+        setTimeout(() => fetch(false)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({
@@ -298,25 +249,17 @@ export function change(id, data, token) {
   };
 }
 
-export function remove(id, token) {
+export function remove(id) {
   return (dispatch) => {
     dispatch({ type: CART_REMOVE_REQUEST });
-    if (token) {
-      headers.Authorization = `Basic ${base64.encode(`${token}:`)}`;
-    }
-    return axios({
-      method: 'delete',
-      url: `/cart_content/${id}/`,
-      data: {},
-      headers,
-    })
+    return userApi.delete(`/cart_content/${id}/`, {})
       .then((response) => {
         dispatch({
           type: CART_REMOVE_SUCCESS,
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(token, false)(dispatch), 50);
+        setTimeout(() => fetch(false)(dispatch), 50);
       })
       .catch((error) => {
         dispatch({

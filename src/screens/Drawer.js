@@ -15,7 +15,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import uniqueId from 'lodash/uniqueId';
 import i18n from '../utils/i18n';
 
-import * as config from '../config';
+import config from '../config';
 import * as authActions from '../actions/authActions';
 import * as pagesActions from '../actions/pagesActions';
 
@@ -117,7 +117,7 @@ class Drawer extends Component {
   }
 
   handleOpenPage = (page) => {
-    const url = `${config.config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
+    const url = `${config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
     Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         Linking.openURL(url);
@@ -129,7 +129,7 @@ class Drawer extends Component {
 
   renderLogo = () => (
     <Image
-      source={{ uri: config.config.logoUrl }}
+      source={{ uri: config.logoUrl }}
       style={styles.logo}
     />
   );

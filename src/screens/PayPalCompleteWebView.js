@@ -13,7 +13,7 @@ import qs from 'shitty-qs';
 import * as authActions from '../actions/authActions';
 
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
-import * as config from '../config';
+import config from '../config';
 // import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
@@ -62,7 +62,7 @@ class PayPalCompleteWebView extends Component {
           startInLoadingState
           userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
           source={{
-            uri: `${config.config.siteUrl}profiles-update/`,
+            uri: `${config.siteUrl}profiles-update/`,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />

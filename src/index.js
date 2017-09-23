@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Dimensions } from 'react-native';
+import { Dimensions, AsyncStorage } from 'react-native';
+import { persistStore } from 'redux-persist';
 import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -22,7 +23,11 @@ EStyleSheet.build({
 class App extends Component {
   constructor(props) {
     super(props);
-    this.startApp();
+    // run app after store persist.
+    persistStore(store, {
+      blacklist: ['nav', 'products'],
+      storage: AsyncStorage
+    }, () => this.startApp());
   }
 
   startApp = () => {

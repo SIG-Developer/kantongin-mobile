@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -9,6 +8,7 @@ import {
 
   AUTH_LOGOUT,
 } from '../constants';
+import userApi from '../services/userApi';
 import i18n from '../utils/i18n';
 import * as cartActions from './cartActions';
 
@@ -16,9 +16,9 @@ export function login(data) {
   return (dispatch) => {
     dispatch({ type: AUTH_LOGIN_REQUEST });
 
-    return axios.post('/auth_tokens', data)
+    return userApi.post('/auth_tokens', data)
       .then((response) => {
-        cartActions.fetchCart(dispatch, data.token, false);
+        cartActions.fetchCart(dispatch, false);
         dispatch({
           type: AUTH_LOGIN_SUCCESS,
           payload: response.data,

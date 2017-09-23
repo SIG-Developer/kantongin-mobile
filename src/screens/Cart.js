@@ -147,9 +147,9 @@ class Cart extends Component {
 
   componentDidMount() {
     const { navigator } = this.props;
-    const { cartActions, auth } = this.props;
+    const { cartActions } = this.props;
 
-    cartActions.fetch(auth.token);
+    cartActions.fetch();
 
     navigator.setTitle({
       title: i18n.gettext('Cart').toUpperCase(),
@@ -218,10 +218,10 @@ class Cart extends Component {
   }
 
   handleRefresh() {
-    const { cartActions, auth } = this.props;
+    const { cartActions } = this.props;
     this.setState(
       { refreshing: true },
-      () => cartActions.fetch(auth.token),
+      () => cartActions.fetch(),
     );
   }
 
@@ -254,8 +254,8 @@ class Cart extends Component {
   }
 
   handleRemoveProduct = (product) => {
-    const { cartActions, auth } = this.props;
-    cartActions.remove(product.cartId, auth.token);
+    const { cartActions } = this.props;
+    cartActions.remove(product.cartId);
   };
 
   renderProductItem = (item) => {
@@ -301,7 +301,7 @@ class Cart extends Component {
               onChange={(val) => {
                 const debounceFunc = debounce(() => {
                   this.props.cartActions.changeAmount(item.cartId, val);
-                  this.props.cartActions.change(item.cartId, item, this.props.auth.token);
+                  this.props.cartActions.change(item.cartId, item);
                 }, 1000, false);
                 debounceFunc();
               }}

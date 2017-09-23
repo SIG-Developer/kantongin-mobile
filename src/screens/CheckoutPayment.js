@@ -152,7 +152,7 @@ class CheckoutStepThree extends Component {
         amount: p.amount,
       };
     });
-    ordersActions.create(orderInfo, auth.token, (orderId) => {
+    ordersActions.create(orderInfo, (orderId) => {
       cartActions.clear(auth.token);
       navigator.push({
         screen: 'CheckoutComplete',
@@ -181,9 +181,9 @@ class CheckoutStepThree extends Component {
         amount: p.amount,
       };
     });
-    ordersActions.create(orderInfo, auth.token, (orderId) => {
+    ordersActions.create(orderInfo, (orderId) => {
       console.log(orderId);
-      paymentsActions.paypalSettlements(auth.token, orderId.order_id, false);
+      paymentsActions.paypalSettlements(orderId.order_id, false);
       // navigator.push({
       //   screen: 'PayPalCompleteWebView',
       //   backButtonTitle: '',
