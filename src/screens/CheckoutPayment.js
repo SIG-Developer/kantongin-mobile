@@ -14,6 +14,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 // Import actions.
 import * as ordersActions from '../actions/ordersActions';
 import * as cartActions from '../actions/cartActions';
+import * as paymentsActions from '../actions/paymentsActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -22,6 +23,7 @@ import FormBlock from '../components/FormBlock';
 import PaymentPhoneForm from '../components/PaymentPhoneForm';
 import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
 import PaymentCheckForm from '../components/PaymentCheckForm';
+import PaymentPaypalForm from '../components/PaymentPaypalForm';
 import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
@@ -67,6 +69,11 @@ const styles = EStyleSheet.create({
   }
 });
 
+const PAYMENT_CREDIT_CARD = 'Credit card';
+const PAYMENT_PHONE = 'Phone';
+const PAYMENT_CHECK = 'Check';
+const PAYMENT_PAYPAL_EXPRESS = 'PayPal Express Checkout';
+
 class CheckoutStepThree extends Component {
   static propTypes = {
     cart: PropTypes.shape({
@@ -109,12 +116,23 @@ class CheckoutStepThree extends Component {
     this.setState({
       items,
       selectedItem,
-      selectedIndex: 1,
       total: this.props.total,
     });
   }
 
   handlePlaceOrder() {
+    const { selectedItem } = this.state;
+    if (!selectedItem) {
+      return null;
+    }
+
+    if (selectedItem.payment === PAYMENT_PAYPAL_EXPRESS) {
+      return this.placePayPalOrder();
+    }
+    return this.placeOrderAndComplete();
+  }
+
+  placeOrderAndComplete() {
     const { cart, auth, shipping_id, ordersActions, navigator, cartActions } = this.props;
     const values = this.paymentFormRef.getValue();
     if (!values) {
@@ -123,7 +141,7 @@ class CheckoutStepThree extends Component {
     const orderInfo = {
       products: {},
       shipping_id,
-      payment_id: this.state.selectedIndex,
+      payment_id: this.state.selectedItem.payment_id,
       user_data: cart.user_data,
       ...values,
     };
@@ -148,6 +166,36 @@ class CheckoutStepThree extends Component {
     return null;
   }
 
+  placePayPalOrder() {
+    const { cart, auth, shipping_id, ordersActions, navigator, paymentsActions } = this.props;
+    const orderInfo = {
+      products: {},
+      shipping_id,
+      payment_id: this.state.selectedItem.payment_id,
+      user_data: cart.user_data,
+    };
+    Object.keys(cart.products).map((key) => {
+      const p = cart.products[key];
+      orderInfo.products[p.product_id] = {
+        product_id: p.product_id,
+        amount: p.amount,
+      };
+    });
+    ordersActions.create(orderInfo, auth.token, (orderId) => {
+      console.log(orderId);
+      paymentsActions.paypalSettlements(auth.token, orderId.order_id, false);
+      // navigator.push({
+      //   screen: 'PayPalCompleteWebView',
+      //   backButtonTitle: '',
+      //   backButtonHidden: true,
+      //   passProps: {
+      //     orderId: orderId.order_id,
+      //   }
+      // });
+    });
+    return null;
+  }
+
   renderItem = (item, index) => {
     // FIXME compare by name.
     const isSelected = item.payment === this.state.selectedItem.payment;
@@ -157,7 +205,6 @@ class CheckoutStepThree extends Component {
         onPress={() => {
           this.setState({
             selectedItem: item,
-            selectedIndex: (index + 1),
           }, () => {
             this.listView.scrollToOffset({ x: 0, y: 0, animated: true });
           });
@@ -179,31 +226,47 @@ class CheckoutStepThree extends Component {
     if (!selectedItem) {
       return null;
     }
-    let form = (
-      <PaymentPhoneForm
-        onInit={(ref) => {
-          this.paymentFormRef = ref;
-        }}
-      />
-    );
+    let form = null;
     // FIXME: HARDCOD
-    if (selectedItem.payment === 'Credit card') {
-      form = (
-        <PaymentCreditCardForm
-          onInit={(ref) => {
-            this.paymentFormRef = ref;
-          }}
-        />
-      );
-    } else if (selectedItem.payment === 'Check') {
-      form = (
-        <PaymentCheckForm
-          onInit={(ref) => {
-            this.paymentFormRef = ref;
-          }}
-        />
-      );
+    switch (selectedItem.payment) {
+      case PAYMENT_CREDIT_CARD:
+        form = (
+          <PaymentCreditCardForm
+            onInit={(ref) => {
+              this.paymentFormRef = ref;
+            }}
+          />
+        );
+        break;
+      case PAYMENT_CHECK:
+        form = (
+          <PaymentCheckForm
+            onInit={(ref) => {
+              this.paymentFormRef = ref;
+            }}
+          />
+        );
+        break;
+      case PAYMENT_PAYPAL_EXPRESS:
+        form = (
+          <PaymentPaypalForm
+            onInit={(ref) => {
+              this.paymentFormRef = ref;
+            }}
+          />
+        );
+        break;
+      default:
+        form = (
+          <PaymentPhoneForm
+            onInit={(ref) => {
+              this.paymentFormRef = ref;
+            }}
+          />
+        );
+        break;
     }
+
     return (
       <View>
         <CheckoutSteps step={3} />
@@ -249,5 +312,6 @@ export default connect(state => ({
 dispatch => ({
   ordersActions: bindActionCreators(ordersActions, dispatch),
   cartActions: bindActionCreators(cartActions, dispatch),
+  paymentsActions: bindActionCreators(paymentsActions, dispatch),
 })
 )(CheckoutStepThree);

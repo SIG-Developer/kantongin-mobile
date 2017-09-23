@@ -29,6 +29,7 @@ const initialState = {
 };
 
 let newProducts = [];
+let newState = null;
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -56,9 +57,13 @@ export default function (state = initialState, action) {
       };
 
     case CART_SUCCESS:
+      newState = action.payload;
+      Object.keys(newState.payments).forEach((key) => {
+        newState.payments[key].payment_id = key;
+      });
       return {
         ...state,
-        ...action.payload,
+        ...newState,
         fetching: false,
       };
 
