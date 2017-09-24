@@ -153,6 +153,7 @@ class ProductDetail extends Component {
     }),
     auth: PropTypes.shape({
       token: PropTypes.string,
+      logged: PropTypes.bool,
     }),
     cart: PropTypes.shape({
       fetching: PropTypes.boolean,
@@ -179,7 +180,7 @@ class ProductDetail extends Component {
       productsActions.fetch(navProps.pid);
     });
 
-    let rightButtons = [
+    const rightButtons = [
       {
         id: 'cart',
         component: 'CartBtn',
@@ -276,6 +277,14 @@ class ProductDetail extends Component {
   handleAddToCart() {
     const productOptions = {};
     const { product, selectedOptions } = this.state;
+
+    if (!this.props.auth.logged) {
+      this.props.navigator.showModal({
+        screen: 'Login',
+      });
+      return;
+    }
+
     // Convert product options to the option_id: variant_id array.
     Object.keys(selectedOptions).forEach((k) => {
       productOptions[k] = selectedOptions[k];
