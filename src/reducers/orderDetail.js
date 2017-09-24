@@ -3,9 +3,9 @@ import {
   FETCH_ORDER_DETAIL_FAIL,
   FETCH_ORDER_DETAIL_SUCCESS,
 
-  ORDER_CREATE_REQUEST,
-  ORDER_CREATE_SUCCESS,
-  ORDER_CREATE_FAIL,
+  PAYPAL_SETTLEMENTS_REQUEST,
+  PAYPAL_SETTLEMENTS_SUCCESS,
+  PAYPAL_SETTLEMENTS_FAIL,
 } from '../constants';
 
 const initialState = {
@@ -15,14 +15,14 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_ORDER_DETAIL_REQUEST:
-    case ORDER_CREATE_REQUEST:
+    case PAYPAL_SETTLEMENTS_REQUEST:
       return {
         ...state,
         fetching: true,
       };
 
     case FETCH_ORDER_DETAIL_SUCCESS:
-    case ORDER_CREATE_SUCCESS:
+    case PAYPAL_SETTLEMENTS_SUCCESS:
       return {
         ...state,
         fetching: false,
@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_ORDER_DETAIL_FAIL:
-    case ORDER_CREATE_FAIL:
+    case PAYPAL_SETTLEMENTS_FAIL:
       return {
         ...state,
         fetching: false,

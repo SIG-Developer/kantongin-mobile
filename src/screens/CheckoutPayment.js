@@ -81,7 +81,9 @@ class CheckoutStepThree extends Component {
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
-    orderDetail: PropTypes.shape({}),
+    orderDetail: PropTypes.shape({
+      fetching: PropTypes.bool,
+    }),
     cartActions: PropTypes.shape({
       clear: PropTypes.func,
     }),
@@ -102,6 +104,7 @@ class CheckoutStepThree extends Component {
     super(props);
 
     this.state = {
+      fetching: false,
       selectedItem: null,
       disablePlaceOrder: true,
       total: 0,
@@ -120,6 +123,14 @@ class CheckoutStepThree extends Component {
       selectedItem,
       total: this.props.total,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    setTimeout(() => {
+      this.setState({
+        fetching: nextProps.orderDetail.fetching,
+      });
+    }, 300);
   }
 
   handlePlaceOrder() {
@@ -185,7 +196,6 @@ class CheckoutStepThree extends Component {
       };
       return orderInfo;
     });
-    console.log(orderInfo, this.props, this.state);
     ordersActions.create(orderInfo, (orderId) => {
       paymentsActions.paypalSettlements(orderId.order_id, false, (data) => {
         navigator.push({
@@ -289,9 +299,9 @@ class CheckoutStepThree extends Component {
   }
 
   renderSpinner = () => {
-    const { orderDetail } = this.props;
+    const { fetching } = this.state;
     return (
-      <Spinner visible={orderDetail.fetching} />
+      <Spinner visible={fetching} />
     );
   };
 

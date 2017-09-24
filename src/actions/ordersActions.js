@@ -10,9 +10,12 @@ import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAIL,
+
+  NOTIFICATION_SHOW,
 } from '../constants';
 
 import userApi from '../services/userApi';
+import i18n from '../utils/i18n';
 
 export function create(data, cb = null) {
   return (dispatch) => {
@@ -28,6 +31,14 @@ export function create(data, cb = null) {
         }
       })
       .catch((error) => {
+        dispatch({
+          type: NOTIFICATION_SHOW,
+          payload: {
+            type: 'error',
+            title: i18n.gettext('Error'),
+            text: i18n.gettext('Something went wrong. Please try again later.'),
+          },
+        });
         dispatch({
           type: ORDER_CREATE_FAIL,
           error,

@@ -5,6 +5,7 @@ import {
   AUTH_RESET_STATE,
 
   AUTH_REGESTRATION_SUCCESS,
+  NOTIFICATION_SHOW,
 
   AUTH_LOGOUT,
 } from '../constants';
@@ -33,7 +34,7 @@ export function login(data) {
   };
 }
 
-export function registration(token, navigator) {
+export function registration(token) {
   return (dispatch) => {
     dispatch({
       type: AUTH_REGESTRATION_SUCCESS,
@@ -42,15 +43,15 @@ export function registration(token, navigator) {
         ttl: null,
       }
     });
-    navigator.showInAppNotification({
-      screen: 'Notification',
-      passProps: {
+    dispatch({
+      type: NOTIFICATION_SHOW,
+      payload: {
         type: 'success',
         title: i18n.gettext('Registration'),
-        text: i18n.gettext('Registration complete.')
-      }
+        text: i18n.gettext('Registration complete.'),
+        closeLastModal: true,
+      },
     });
-    navigator.dismissModal();
   };
 }
 
