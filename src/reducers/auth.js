@@ -20,12 +20,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //     rehydrated: true,
-    //   };
-
     case AUTH_LOGIN_REQUEST:
       return {
         ...state,

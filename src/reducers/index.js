@@ -5,6 +5,7 @@ import auth from './auth';
 import pages from './pages';
 import search from './search';
 import orders from './orders';
+import layouts from './layouts';
 import products from './products';
 import categories from './categories';
 import orderDetail from './orderDetail';
@@ -17,6 +18,7 @@ export default combineReducers({
   pages,
   search,
   orders,
+  layouts,
   products,
   categories,
   orderDetail,

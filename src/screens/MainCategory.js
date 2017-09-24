@@ -13,6 +13,7 @@ import { PRODUCT_NUM_COLUMNS } from '../utils';
 // Import actions.
 import * as notificationsActions from '../actions/notificationsActions';
 import * as categoriesActions from '../actions/categoriesActions';
+import * as layoutsActions from '../actions/layoutsActions';
 
 // Components
 import CategoryListView from '../components/CategoryListView';
@@ -49,6 +50,9 @@ class MainCategory extends Component {
       items: PropTypes.array,
       tree: PropTypes.array,
     }),
+    layoutsActions: PropTypes.shape({
+      fetchBlocks: PropTypes.func,
+    }),
     categoriesActions: PropTypes.shape({
       fetch: PropTypes.func,
     })
@@ -71,8 +75,9 @@ class MainCategory extends Component {
   }
 
   componentDidMount() {
-    const { navigator, categoriesActions } = this.props;
+    const { navigator, categoriesActions, layoutsActions } = this.props;
     categoriesActions.fetch();
+    layoutsActions.fetchBlocks(3, 'index.index');
     // FIXME: Set title
     navigator.setTitle({
       title: 'CS-Cart'.toUpperCase(),
@@ -195,6 +200,7 @@ export default connect(state => ({
   categories: state.categories,
 }),
 dispatch => ({
+  layoutsActions: bindActionCreators(layoutsActions, dispatch),
   categoriesActions: bindActionCreators(categoriesActions, dispatch),
   notificationsActions: bindActionCreators(notificationsActions, dispatch),
 })
