@@ -29,7 +29,7 @@ export function fetchAll() {
   };
 }
 
-export function paypalSettlements(orderId, replay) {
+export function paypalSettlements(orderId, replay, cb = null) {
   return (dispatch) => {
     dispatch({ type: PAYPAL_SETTLEMENTS_REQUEST });
     const data = {
@@ -42,6 +42,10 @@ export function paypalSettlements(orderId, replay) {
           type: PAYPAL_SETTLEMENTS_SUCCESS,
           payload: response.data,
         });
+
+        if (cb) {
+          cb(response.data);
+        }
       })
       .catch((error) => {
         dispatch({

@@ -24,6 +24,7 @@ import PaymentPhoneForm from '../components/PaymentPhoneForm';
 import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
 import PaymentCheckForm from '../components/PaymentCheckForm';
 import PaymentPaypalForm from '../components/PaymentPaypalForm';
+import Spinner from '../components/Spinner';
 import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
@@ -80,11 +81,12 @@ class CheckoutStepThree extends Component {
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
-    auth: PropTypes.shape({
-      token: PropTypes.string,
-    }),
+    orderDetail: PropTypes.shape({}),
     cartActions: PropTypes.shape({
       clear: PropTypes.func,
+    }),
+    paymentsActions: PropTypes.shape({
+      paypalSettlements: PropTypes.func,
     }),
     ordersActions: PropTypes.shape({
       create: PropTypes.func,
@@ -133,7 +135,7 @@ class CheckoutStepThree extends Component {
   }
 
   placeOrderAndComplete() {
-    const { cart, auth, shipping_id, ordersActions, navigator, cartActions } = this.props;
+    const { cart, shipping_id, ordersActions, navigator, cartActions } = this.props;
     const values = this.paymentFormRef.getValue();
     if (!values) {
       return null;
@@ -151,9 +153,10 @@ class CheckoutStepThree extends Component {
         product_id: p.product_id,
         amount: p.amount,
       };
+      return orderInfo;
     });
     ordersActions.create(orderInfo, (orderId) => {
-      cartActions.clear(auth.token);
+      cartActions.clear();
       navigator.push({
         screen: 'CheckoutComplete',
         backButtonTitle: '',
@@ -167,7 +170,7 @@ class CheckoutStepThree extends Component {
   }
 
   placePayPalOrder() {
-    const { cart, auth, shipping_id, ordersActions, navigator, paymentsActions } = this.props;
+    const { cart, shipping_id, ordersActions, navigator, paymentsActions } = this.props;
     const orderInfo = {
       products: {},
       shipping_id,
@@ -180,23 +183,26 @@ class CheckoutStepThree extends Component {
         product_id: p.product_id,
         amount: p.amount,
       };
+      return orderInfo;
     });
+    console.log(orderInfo, this.props, this.state);
     ordersActions.create(orderInfo, (orderId) => {
-      console.log(orderId);
-      paymentsActions.paypalSettlements(orderId.order_id, false);
-      // navigator.push({
-      //   screen: 'PayPalCompleteWebView',
-      //   backButtonTitle: '',
-      //   backButtonHidden: true,
-      //   passProps: {
-      //     orderId: orderId.order_id,
-      //   }
-      // });
+      paymentsActions.paypalSettlements(orderId.order_id, false, (data) => {
+        navigator.push({
+          screen: 'PayPalCompleteWebView',
+          backButtonTitle: '',
+          // backButtonHidden: true,
+          passProps: {
+            orderId: orderId.order_id,
+            ...data.data,
+          },
+        });
+      });
     });
     return null;
   }
 
-  renderItem = (item, index) => {
+  renderItem = (item) => {
     // FIXME compare by name.
     const isSelected = item.payment === this.state.selectedItem.payment;
     return (
@@ -282,6 +288,13 @@ class CheckoutStepThree extends Component {
     );
   }
 
+  renderSpinner = () => {
+    const { orderDetail } = this.props;
+    return (
+      <Spinner visible={orderDetail.fetching} />
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -300,6 +313,7 @@ class CheckoutStepThree extends Component {
           isBtnDisabled={false}
           onBtnPress={() => this.handlePlaceOrder()}
         />
+        {this.renderSpinner()}
       </View>
     );
   }
@@ -308,6 +322,7 @@ class CheckoutStepThree extends Component {
 export default connect(state => ({
   cart: state.cart,
   auth: state.auth,
+  orderDetail: state.orderDetail,
 }),
 dispatch => ({
   ordersActions: bindActionCreators(ordersActions, dispatch),

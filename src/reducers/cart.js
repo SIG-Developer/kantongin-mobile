@@ -16,8 +16,6 @@ import {
 
   CHANGE_AMOUNT,
   AUTH_LOGOUT,
-
-  ORDER_CREATE_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -108,7 +106,6 @@ export default function (state = initialState, action) {
         }
       };
 
-    case ORDER_CREATE_SUCCESS:
     case AUTH_LOGOUT:
       return initialState;
 

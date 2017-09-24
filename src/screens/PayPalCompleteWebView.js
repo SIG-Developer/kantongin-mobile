@@ -7,14 +7,9 @@ import {
   WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import qs from 'shitty-qs';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
-
-import { registerDrawerDeepLinks } from '../utils/deepLinks';
-import config from '../config';
-// import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -25,7 +20,11 @@ const styles = EStyleSheet.create({
 
 class PayPalCompleteWebView extends Component {
   static propTypes = {
+    return_url: PropTypes.string,
+    payment_url: PropTypes.string,
+    orderId: PropTypes.number,
     navigator: PropTypes.shape({
+      push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     })
   };
@@ -33,22 +32,21 @@ class PayPalCompleteWebView extends Component {
     const { navigator } = this.props;
     // FIXME: Set title
     navigator.setTitle({
-      title: 'Profile'.toUpperCase(),
+      title: 'PayPal'.toUpperCase(),
     });
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    const { navigator } = this.props;
-    registerDrawerDeepLinks(event, navigator);
   }
 
   onNavigationStateChange = (e) => {
-    let url = e.url;
-    let response = {};
-    response = qs(url);
-    if (response.token != undefined) {
-      console.log('ok', url);
+    const url = e.url;
+    if (url === this.props.return_url) {
+      this.props.navigator.push({
+        screen: 'CheckoutComplete',
+        backButtonTitle: '',
+        backButtonHidden: true,
+        passProps: {
+          orderId: this.props.orderId,
+        }
+      });
     }
   }
 
@@ -62,7 +60,7 @@ class PayPalCompleteWebView extends Component {
           startInLoadingState
           userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
           source={{
-            uri: `${config.siteUrl}profiles-update/`,
+            uri: this.props.payment_url,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />
