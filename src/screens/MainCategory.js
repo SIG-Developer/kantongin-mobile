@@ -22,6 +22,7 @@ import Spinner from '../components/Spinner';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
+import theme from '../theme';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -52,6 +53,14 @@ class MainCategory extends Component {
       fetch: PropTypes.func,
     })
   };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  }
 
   constructor(props) {
     super(props);

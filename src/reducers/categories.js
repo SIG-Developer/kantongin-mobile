@@ -22,12 +22,12 @@ function getCategoriesTree(categories, pid = 0) {
       result.push(found);
     }
   }
+  result.sort((a, b) => a.position - b.position);
   return result;
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-
     case FETCH_CATEGORIES_REQUEST:
       return {
         ...state,

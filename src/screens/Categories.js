@@ -209,6 +209,7 @@ class Categories extends Component {
         />)}
         onRefresh={() => this.handleRefresh()}
         refreshing={this.state.refreshing}
+        onEndReachedThreshold={-1}
         onEndReached={() => this.handleLoadMore()}
       />
     );

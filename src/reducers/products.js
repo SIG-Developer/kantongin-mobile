@@ -27,10 +27,15 @@ export default function (state = initialState, action) {
     case FETCH_PRODUCTS_SUCCESS:
       items = { ...state.items };
       params = { ...action.payload.params };
-      if (items[params.cid] && action.payload.params.page !== 1) {
-        items[params.cid] = [...items[params.cid], ...action.payload.products];
+      if (items[params.cid] && action.payload.params.page != 1) {
+        items[params.cid] = [
+          ...items[params.cid],
+          ...action.payload.products
+        ];
       } else {
-        items[params.cid] = [...action.payload.products];
+        items[params.cid] = [
+          ...action.payload.products,
+        ];
       }
       return {
         params,

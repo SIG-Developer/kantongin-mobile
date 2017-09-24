@@ -89,7 +89,7 @@ export function search(params = {}) {
 export function fetchByCategory(categoryId, page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return userApi.get(`/categories/${categoryId}/products?items_per_page=100&page=${page}&subcats=Y`)
+    return userApi.get(`/categories/${categoryId}/products?items_per_page=10&page=${page}&subcats=Y`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,
