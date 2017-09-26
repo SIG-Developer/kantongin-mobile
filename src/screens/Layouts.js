@@ -153,6 +153,14 @@ class Layouts extends Component {
         return (
           <BannerBlock
             items={items}
+            onPress={(banner) => {
+              navigator.handleDeepLink({
+                link: banner.url,
+                payload: {
+                  ...banner,
+                }
+              });
+            }}
             key={index}
           />
         );
@@ -164,6 +172,7 @@ class Layouts extends Component {
             onPress={(product) => {
               navigator.push({
                 screen: 'ProductDetail',
+                backButtonTitle: '',
                 passProps: {
                   pid: product.product_id,
                 }

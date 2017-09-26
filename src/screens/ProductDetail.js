@@ -131,6 +131,8 @@ const styles = EStyleSheet.create({
   }
 });
 
+const searchImage = require('../assets/icons/search.png');
+
 class ProductDetail extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
@@ -139,10 +141,8 @@ class ProductDetail extends Component {
       showInAppNotification: PropTypes.func,
       showModal: PropTypes.func,
     }),
-    navProps: PropTypes.shape({
-      pid: PropTypes.string,
-      hideSearch: PropTypes.bool,
-    }),
+    pid: PropTypes.string,
+    hideSearch: PropTypes.bool,
     productDetail: PropTypes.shape({
     }),
     productsActions: PropTypes.shape({
@@ -175,9 +175,9 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    const { productsActions, navProps, navigator } = this.props;
+    const { productsActions, pid, hideSearch, navigator } = this.props;
     InteractionManager.runAfterInteractions(() => {
-      productsActions.fetch(navProps.pid);
+      productsActions.fetch(pid);
     });
 
     const rightButtons = [
@@ -187,12 +187,12 @@ class ProductDetail extends Component {
       },
       {
         id: 'search',
-        icon: require('../assets/icons/search.png'),
+        icon: searchImage,
       },
     ];
 
     // Remove search button.
-    if (navProps.hideSearch) {
+    if (hideSearch) {
       rightButtons.pop();
     }
 

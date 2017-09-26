@@ -17,6 +17,7 @@ const styles = EStyleSheet.create({
 export default class ProductBlocks extends Component {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.object),
+    onPress: PropTypes.func,
   }
 
   static defaultProps = {

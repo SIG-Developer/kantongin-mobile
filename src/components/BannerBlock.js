@@ -20,6 +20,7 @@ const styles = EStyleSheet.create({
 export default class BannerBlocks extends Component {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.object),
+    onPress: PropTypes.func,
   }
 
   static defaultProps = {
@@ -31,7 +32,7 @@ export default class BannerBlocks extends Component {
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => alert(item.href)}
+        onPress={() => this.props.onPress(item)}
       >
         <Image source={{ uri: imageUri }} style={styles.img} />
       </TouchableOpacity>

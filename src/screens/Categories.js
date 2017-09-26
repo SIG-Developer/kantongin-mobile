@@ -197,9 +197,7 @@ class Categories extends Component {
             screen: 'ProductDetail',
             backButtonTitle: '',
             passProps: {
-              navProps: {
-                pid: product.product_id,
-              }
+              pid: product.product_id,
             }
           })}
         />)}
