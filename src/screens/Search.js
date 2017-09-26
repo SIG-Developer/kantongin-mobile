@@ -66,6 +66,8 @@ const styles = EStyleSheet.create({
   }
 });
 
+const timesImage = require('../assets/icons/times.png');
+
 class Search extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
@@ -88,9 +90,6 @@ class Search extends Component {
     this.state = {
       products: [],
     };
-  }
-
-  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
@@ -130,7 +129,7 @@ class Search extends Component {
             onPress={() => navigator.dismissModal()}
           >
             <Image
-              source={require('../assets/icons/times.png')}
+              source={timesImage}
               style={styles.btnCloseImg}
             />
           </TouchableOpacity>

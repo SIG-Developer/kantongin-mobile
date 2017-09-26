@@ -33,6 +33,8 @@ const styles = EStyleSheet.create({
   }
 });
 
+const timesImage = require('../assets/icons/times.png');
+
 export default class Gallery extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
@@ -77,7 +79,7 @@ export default class Gallery extends Component {
         >
           <Image
             style={styles.closeBtn}
-            source={require('../assets/icons/times.png')}
+            source={timesImage}
           />
         </TouchableOpacity>
       </View>

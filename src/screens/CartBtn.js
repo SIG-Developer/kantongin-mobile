@@ -34,6 +34,8 @@ const styles = EStyleSheet.create({
   }
 });
 
+const shoppingCartImage = require('../assets/icons/shopping-cart.png');
+
 class CartBtn extends Component {
   static propTypes = {
     cart: PropTypes.shape({
@@ -74,7 +76,7 @@ class CartBtn extends Component {
         }}
       >
         <Image
-          source={require('../assets/icons/shopping-cart.png')}
+          source={shoppingCartImage}
           style={styles.btn}
         />
         {this.renderBadge()}

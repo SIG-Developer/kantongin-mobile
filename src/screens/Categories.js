@@ -42,19 +42,35 @@ const styles = EStyleSheet.create({
   }
 });
 
+const searchImage = require('../assets/icons/search.png');
+
 class Categories extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
-    navProps: PropTypes.shape({}),
+    category: PropTypes.shape({}),
     products: PropTypes.shape({
       items: PropTypes.object,
     }),
     productsActions: PropTypes.shape({
       fetchByCategory: PropTypes.func,
     })
+  };
+
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        id: 'cart',
+        component: 'CartBtn',
+      },
+      {
+        id: 'search',
+        title: i18n.gettext('Search'),
+        icon: searchImage,
+      },
+    ]
   };
 
   constructor(props) {
@@ -72,13 +88,12 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    const { productsActions, products, navProps, navigator } = this.props;
-    const category = navProps.category;
+    const { productsActions, products, category, navigator } = this.props;
     this.activeCategoryId = category.category_id;
     const categoryProducts = products.items[this.activeCategoryId];
     const newState = {};
-    if (category.children.length) {
-      newState.subCategories = category.children;
+    if ('subcategories' in category && category.subcategories.length) {
+      newState.subCategories = category.subcategories;
     }
     if (categoryProducts) {
       newState.refreshing = false;
@@ -95,22 +110,6 @@ class Categories extends Component {
     navigator.setTitle({
       title: category.category.toUpperCase(),
     });
-
-    setTimeout(() => {
-      navigator.setButtons({
-        rightButtons: [
-          {
-            id: 'cart',
-            component: 'CartBtn',
-          },
-          {
-            id: 'search',
-            title: i18n.gettext('Search'),
-            icon: require('../assets/icons/search.png'),
-          },
-        ],
-      });
-    }, 360);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -161,9 +160,7 @@ class Categories extends Component {
         screen: 'Categories',
         backButtonTitle: '',
         passProps: {
-          navProps: {
-            category: item,
-          }
+          category: item,
         },
       })}
     />));

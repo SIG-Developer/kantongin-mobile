@@ -8,18 +8,29 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+// Constants
+import {
+  BLOCK_BANNERS,
+  BLOCK_CATEGORIES,
+  BLOCK_PRODUCTS,
+} from '../constants';
+
 // Import actions.
 import * as notificationsActions from '../actions/notificationsActions';
-import * as categoriesActions from '../actions/categoriesActions';
 import * as layoutsActions from '../actions/layoutsActions';
 
 // Components
 import Spinner from '../components/Spinner';
-import LayoutBlocks from '../components/LayoutBlocks';
+import BannerBlock from '../components/BannerBlock';
+import ProductBlock from '../components/ProductBlock';
+import CategoryBlock from '../components/CategoryBlock';
 
 // links
-import theme from '../theme';
+import { registerDrawerDeepLinks } from '../utils/deepLinks';
+import i18n from '../utils/i18n';
+import { toArray } from '../utils';
 import config from '../config';
+import theme from '../theme';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -31,13 +42,24 @@ const styles = EStyleSheet.create({
   },
 });
 
+const barsImage = require('../assets/icons/bars.png');
+const searchImage = require('../assets/icons/search.png');
+
 class Layouts extends Component {
   static propTypes = {
     layoutsActions: PropTypes.shape({
       fetchBlocks: PropTypes.func,
       fetchOrCreate: PropTypes.func,
     }),
-    navigator: PropTypes.shape({}),
+    notifications: PropTypes.shape({
+      items: PropTypes.arrayOf(PropTypes.object),
+    }),
+    notificationsActions: PropTypes.shape({
+      hide: PropTypes.func,
+    }),
+    navigator: PropTypes.shape({
+      setOnNavigatorEvent: PropTypes.func,
+    }),
     layouts: PropTypes.shape({}),
   };
 
@@ -66,7 +88,7 @@ class Layouts extends Component {
       leftButtons: [
         {
           id: 'sideMenu',
-          icon: require('../assets/icons/bars.png'),
+          icon: barsImage,
         },
       ],
       rightButtons: [
@@ -76,7 +98,7 @@ class Layouts extends Component {
         },
         {
           id: 'search',
-          icon: require('../assets/icons/search.png'),
+          icon: searchImage,
         },
       ],
     });
@@ -85,17 +107,92 @@ class Layouts extends Component {
     } else {
       this.props.layoutsActions.fetchOrCreate();
     }
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  renderBlocks() {
-    const { layouts } = this.props;
-    return (
-      <LayoutBlocks
-        blocks={layouts.blocks}
-        location={'index.index'}
-        navigation={this.props.navigator}
-      />
-    );
+  componentWillReceiveProps(nextProps) {
+    const { navigator } = nextProps;
+    if (nextProps.notifications.items.length) {
+      const notify = nextProps.notifications.items[nextProps.notifications.items.length - 1];
+      if (notify.closeLastModal) {
+        navigator.dismissModal();
+      }
+      navigator.showInAppNotification({
+        screen: 'Notification',
+        passProps: {
+          dismissWithSwipe: true,
+          title: notify.title,
+          type: notify.type,
+          text: notify.text,
+        },
+      });
+      this.props.notificationsActions.hide(notify.id);
+    }
+  }
+
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    registerDrawerDeepLinks(event, navigator);
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'sideMenu') {
+        navigator.toggleDrawer({ side: 'left' });
+      } else if (event.id === 'search') {
+        navigator.showModal({
+          screen: 'Search',
+          title: i18n.gettext('Search'),
+        });
+      }
+    }
+  }
+
+  renderBlock = (block, index) => {
+    const { navigator } = this.props;
+    const items = toArray(block.content.items);
+    switch (block.type) {
+      case BLOCK_BANNERS:
+        return (
+          <BannerBlock
+            items={items}
+            key={index}
+          />
+        );
+
+      case BLOCK_PRODUCTS:
+        return (
+          <ProductBlock
+            items={items}
+            onPress={(product) => {
+              navigator.push({
+                screen: 'ProductDetail',
+                passProps: {
+                  pid: product.product_id,
+                }
+              });
+            }}
+            key={index}
+          />
+        );
+
+      case BLOCK_CATEGORIES:
+        return (
+          <CategoryBlock
+            items={items}
+            onPress={(category) => {
+              navigator.push({
+                screen: 'Categories',
+                backButtonTitle: '',
+                passProps: {
+                  category,
+                }
+              });
+            }}
+            key={index}
+          />
+        );
+
+      default:
+        return null;
+    }
   }
 
   renderSpinner = () => (
@@ -104,10 +201,11 @@ class Layouts extends Component {
 
   render() {
     const { layouts } = this.props;
+    const blocksList = layouts.blocks.map((block, index) => this.renderBlock(block, index));
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          {layouts.fetching ? this.renderSpinner() : this.renderBlocks()}
+          {layouts.fetching ? this.renderSpinner() : blocksList}
         </ScrollView>
       </View>
     );
@@ -116,12 +214,10 @@ class Layouts extends Component {
 
 export default connect(state => ({
   notifications: state.notifications,
-  categories: state.categories,
   layouts: state.layouts,
 }),
 dispatch => ({
   layoutsActions: bindActionCreators(layoutsActions, dispatch),
-  categoriesActions: bindActionCreators(categoriesActions, dispatch),
   notificationsActions: bindActionCreators(notificationsActions, dispatch),
 })
 )(Layouts);

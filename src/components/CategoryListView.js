@@ -46,7 +46,7 @@ const styles = EStyleSheet.create({
 class CategoryListView extends Component {
   render() {
     const item = this.props.category;
-    const index = this.props.index;
+    const index = this.props.index || 0;
     let imageUri = null;
     if ('main_pair' in item) {
       imageUri = item.main_pair.detailed.http_image_path;

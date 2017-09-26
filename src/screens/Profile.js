@@ -44,7 +44,7 @@ class Profile extends Component {
   }
 
   onNavigationStateChange = (e) => {
-    let url = e.url;
+    const url = e.url;
     let response = {};
     response = qs(url);
     if (response.token != undefined) {

@@ -27,6 +27,10 @@ export function fetch(page = 1) {
   };
 }
 
+export function getCategories() {
+  
+}
+
 export function nextCategory(parentId) {
   return (dispatch) => {
     dispatch({
