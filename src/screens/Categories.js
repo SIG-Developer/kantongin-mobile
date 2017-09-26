@@ -13,7 +13,6 @@ import { PRODUCT_NUM_COLUMNS } from '../utils';
 import i18n from '../utils/i18n';
 
 // Import actions.
-import * as categoriesActions from '../actions/categoriesActions';
 import * as productsActions from '../actions/productsActions';
 
 // Components
@@ -227,11 +226,9 @@ class Categories extends Component {
 }
 
 export default connect(state => ({
-  categories: state.categories,
   products: state.products,
 }),
 dispatch => ({
   productsActions: bindActionCreators(productsActions, dispatch),
-  categoriesActions: bindActionCreators(categoriesActions, dispatch),
 })
 )(Categories);

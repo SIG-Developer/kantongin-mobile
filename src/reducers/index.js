@@ -7,7 +7,6 @@ import search from './search';
 import orders from './orders';
 import layouts from './layouts';
 import products from './products';
-import categories from './categories';
 import orderDetail from './orderDetail';
 import notifications from './notifications';
 import productDetail from './productDetail';
@@ -20,7 +19,6 @@ export default combineReducers({
   orders,
   layouts,
   products,
-  categories,
   orderDetail,
   notifications,
   productDetail,
