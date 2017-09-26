@@ -33,7 +33,7 @@ class App extends Component {
   startApp = () => {
     Navigation.startSingleScreenApp({
       screen: {
-        screen: 'MainCategory',
+        screen: 'Layouts',
         navigatorStyle: {
           navBarBackgroundColor: theme.$navBarBackgroundColor,
           navBarButtonColor: theme.$navBarButtonColor,

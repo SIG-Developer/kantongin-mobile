@@ -12,4 +12,6 @@ export default {
   siteUrl: 'http://82.202.226.53/',
   // SITE LOGO
   logoUrl: 'http://82.202.226.53/images/logos/1/cart.png',
+  // SHOP NAME
+  shopName: 'CS-Cart',
 };

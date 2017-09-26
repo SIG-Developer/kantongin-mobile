@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
+import { get } from 'lodash';
 
 const styles = EStyleSheet.create({
   container: {},
@@ -26,12 +27,13 @@ export default class BannerBlocks extends Component {
   }
 
   renderImage = (item, index) => {
+    const imageUri = get(item, 'main_pair.icon.http_image_path');
     return (
       <TouchableOpacity
         key={index}
         onPress={() => alert(item.href)}
       >
-        <Image source={{ uri: item.http_image_path }} style={styles.img} />
+        <Image source={{ uri: imageUri }} style={styles.img} />
       </TouchableOpacity>
     );
   }

@@ -8,6 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 // Blocks
 import BannerBlock from './BannerBlock';
 import ProductBlock from './ProductBlock';
+import { toArray } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -19,6 +20,7 @@ export default class LayoutBlocks extends Component {
   static propTypes = {
     blocks: PropTypes.arrayOf(PropTypes.object),
     location: PropTypes.string,
+    navigation: PropTypes.shape({}),
   }
 
   static defaultProps = {
@@ -43,12 +45,12 @@ export default class LayoutBlocks extends Component {
 
   renderBlock = (block, index) => {
     const { navigation } = this.props;
-
+    let items = toArray(block.content.items);
     switch (block.type) {
       case 'banners':
         return (
           <BannerBlock
-            items={block.items}
+            items={items}
             key={index}
           />
         );
@@ -56,7 +58,7 @@ export default class LayoutBlocks extends Component {
       case 'products':
         return (
           <ProductBlock
-            items={block.items}
+            items={items}
             onPress={(product) => {
               navigation.navigate('ProductDetail', {
                 pid: product.product_id,
