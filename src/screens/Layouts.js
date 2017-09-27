@@ -48,8 +48,7 @@ const searchImage = require('../assets/icons/search.png');
 class Layouts extends Component {
   static propTypes = {
     layoutsActions: PropTypes.shape({
-      fetchBlocks: PropTypes.func,
-      createLayout: PropTypes.func,
+      fetch: PropTypes.func,
     }),
     notifications: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
