@@ -208,8 +208,27 @@ class Drawer extends Component {
     );
   };
 
+  renderBadge = (badge, type = null) => {
+    if (badge === 0) {
+      return null;
+    }
+    let badgeStyle = styles.itemBadgeRed;
+    let badgeTextStyle = styles.itemBadgeRedText;
+    if (type === 'gray') {
+      badgeStyle = styles.itemBadgeGray;
+      badgeTextStyle = styles.itemBadgeGrayText;
+    }
+    return (
+      <View style={badgeStyle}>
+        <Text style={badgeTextStyle}>
+          {badge}
+        </Text>
+      </View>
+    );
+  }
+
   render() {
-    const { navigator, pages } = this.props;
+    const { navigator, pages, auth } = this.props;
     const pagesList = pages.items
       .map(p => this.renderItem(p.page, () => this.handleOpenPage(p)));
     return (
@@ -218,42 +237,81 @@ class Drawer extends Component {
         {this.renderSignInBtn()}
         {this.renderSearchBar()}
         <View style={styles.group}>
-          {this.renderItem(i18n.gettext('Home'), () => {
-            navigator.handleDeepLink({
-              link: 'home/',
-              payload: {},
-            });
-            navigator.toggleDrawer({
-              side: 'left',
-            });
-          })}
-          {this.renderItem(i18n.gettext('Cart'), () => {
-            navigator.showModal({
-              screen: 'Cart',
-            });
-            navigator.toggleDrawer({
-              side: 'left',
-            });
-          }, this.props.cart.amount)}
-          {this.renderItem(i18n.gettext('My Profile'), () => {
-            navigator.handleDeepLink({
-              link: 'profile/',
-              payload: {},
-            });
-            navigator.toggleDrawer({
-              side: 'left',
-            });
-          })}
-          {this.renderItem(i18n.gettext('Orders'), () => {
-            navigator.handleDeepLink({
-              link: 'orders/',
-              payload: {},
-            });
-            navigator.toggleDrawer({
-              side: 'left',
-            });
-          })}
+          <TouchableOpacity
+            style={styles.itemBtn}
+            onPress={() => {
+              navigator.handleDeepLink({
+                link: 'home/',
+                payload: {},
+              });
+              navigator.toggleDrawer({
+                side: 'left',
+              });
+            }}
+          >
+            <Text style={styles.itemBtnText}>
+              {i18n.gettext('Home')}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.itemBtn}
+            onPress={() => {
+              navigator.showModal({
+                screen: 'Cart',
+              });
+              navigator.toggleDrawer({
+                side: 'left',
+              });
+            }}
+          >
+            <View>
+              <Text style={styles.itemBtnText}>
+                {i18n.gettext('Cart')}
+              </Text>
+              {this.renderBadge(this.props.cart.amount)}
+            </View>
+          </TouchableOpacity>
+
+          {auth.logged &&
+            <TouchableOpacity
+              style={styles.itemBtn}
+              onPress={() => {
+                navigator.handleDeepLink({
+                  link: 'profile/',
+                  payload: {},
+                });
+                navigator.toggleDrawer({
+                  side: 'left',
+                });
+              }}
+            >
+              <Text style={styles.itemBtnText}>
+                {i18n.gettext('My Profile')}
+              </Text>
+            </TouchableOpacity>
+          }
+
+          {auth.logged &&
+            <TouchableOpacity
+              style={styles.itemBtn}
+              onPress={() => {
+                navigator.handleDeepLink({
+                  link: 'orders/',
+                  payload: {},
+                });
+                navigator.toggleDrawer({
+                  side: 'left',
+                });
+              }}
+            >
+              <Text style={styles.itemBtnText}>
+                {i18n.gettext('Orders')}
+              </Text>
+            </TouchableOpacity>
+          }
         </View>
+
         <View style={styles.group}>
           {pagesList}
         </View>
