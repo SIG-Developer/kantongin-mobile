@@ -1,6 +1,6 @@
 import { compose, applyMiddleware, createStore } from 'redux';
 import { autoRehydrate } from 'redux-persist';
-// import { AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -24,6 +24,6 @@ const store = createStore(
   ),
 );
 
-// AsyncStorage.clear();
+AsyncStorage.clear();
 
 export default store;

@@ -49,7 +49,7 @@ class Layouts extends Component {
   static propTypes = {
     layoutsActions: PropTypes.shape({
       fetchBlocks: PropTypes.func,
-      fetchOrCreate: PropTypes.func,
+      createLayout: PropTypes.func,
     }),
     notifications: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
@@ -74,6 +74,7 @@ class Layouts extends Component {
   constructor(props) {
     super(props);
     console.disableYellowBox = true;
+    this.isFetchBlocksSend = false;
     this.state = {
       items: [],
     };
@@ -102,11 +103,7 @@ class Layouts extends Component {
         },
       ],
     });
-    if (layouts.layoutId) {
-      this.props.layoutsActions.fetchBlocks(layouts.layoutId, 'index.index');
-    } else {
-      this.props.layoutsActions.fetchOrCreate();
-    }
+    this.props.layoutsActions.fetch(layouts.layoutId, 'index.index');
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -204,17 +201,16 @@ class Layouts extends Component {
     }
   }
 
-  renderSpinner = () => (
-    <Spinner visible mode="content" />
-  );
-
   render() {
     const { layouts } = this.props;
     const blocksList = layouts.blocks.map((block, index) => this.renderBlock(block, index));
+    if (layouts.fetching) {
+      return (<Spinner visible mode="content" />);
+    }
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          {layouts.fetching ? this.renderSpinner() : blocksList}
+          {blocksList}
         </ScrollView>
       </View>
     );
