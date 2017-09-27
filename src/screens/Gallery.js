@@ -55,9 +55,8 @@ export default class Gallery extends Component {
     }
     const items = images.map((href, index) => {
       return (
-        <View style={styles.slide}>
+        <View style={styles.slide} key={index}>
           <Image
-            key={index}
             style={styles.img}
             source={{ uri: href }}
           />
