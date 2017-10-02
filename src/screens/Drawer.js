@@ -92,6 +92,7 @@ class Drawer extends Component {
       resetTo: PropTypes.func,
       showModal: PropTypes.func,
       toggleDrawer: PropTypes.func,
+      handleDeepLink: PropTypes.func,
       dismissModal: PropTypes.func,
       showInAppNotification: PropTypes.func,
     }),
@@ -144,8 +145,12 @@ class Drawer extends Component {
         <TouchableOpacity
           style={[styles.signInBtn, styles.signOutBtn]}
           onPress={() => {
-            this.props.navigator.toggleDrawer({});
             this.props.authActions.logout();
+            this.props.navigator.handleDeepLink({
+              link: 'home/',
+              payload: {},
+            });
+            this.props.navigator.toggleDrawer({});
           }}
         >
           <Text style={styles.signInBtnText}>
