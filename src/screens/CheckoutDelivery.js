@@ -249,6 +249,7 @@ class Checkout extends Component {
           }),
           billingValues: {
             ...value,
+            b_state: (bState[value.b_state] !== undefined) ? value.b_state : '',
           },
         });
       } else {
@@ -258,7 +259,6 @@ class Checkout extends Component {
           }),
           billingValues: {
             ...value,
-            b_state: '',
           }
         });
       }
@@ -272,6 +272,7 @@ class Checkout extends Component {
           }),
           shippingValues: {
             ...value,
+            s_state: (sState[value.s_state] !== undefined) ? value.s_state : '',
           },
         });
       } else {
@@ -281,7 +282,6 @@ class Checkout extends Component {
           }),
           shippingValues: {
             ...value,
-            s_state: '',
           }
         });
       }

@@ -21,6 +21,9 @@ import CartFooter from '../components/CartFooter';
 import i18n from '../utils/i18n';
 import { stripTags, formatPrice } from '../utils';
 
+const uncheckIcon = require('../assets/icons/check-circle-o.png');
+const checkIcon = require('../assets/icons/circle-o.png');
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -160,8 +163,8 @@ class CheckoutShipping extends Component {
       >
         <View style={styles.shippingItemTitleWrap}>
           {isSelected ?
-            <Image source={require('../assets/icons/check-circle-o.png')} style={styles.uncheckIcon} /> :
-            <Image source={require('../assets/icons/circle-o.png')} style={styles.checkIcon} />
+            <Image source={uncheckIcon} style={styles.uncheckIcon} /> :
+            <Image source={checkIcon} style={styles.checkIcon} />
           }
           <Text style={styles.shippingItemText}>
             {item.shipping} {item.delivery_time}
@@ -189,7 +192,6 @@ class CheckoutShipping extends Component {
   };
 
   render() {
-    const { cart } = this.props;
     return (
       <View style={styles.container}>
         <SectionList
