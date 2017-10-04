@@ -38,7 +38,7 @@ class PayPalCompleteWebView extends Component {
 
   onNavigationStateChange = (e) => {
     const url = e.url;
-    if (url === this.props.return_url) {
+    if (url.startsWith(this.props.return_url)) {
       this.props.navigator.push({
         screen: 'CheckoutComplete',
         backButtonTitle: '',
