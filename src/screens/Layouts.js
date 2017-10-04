@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import {
   View,
   ScrollView,
-  Linking,
-  Alert,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -209,12 +207,8 @@ class Layouts extends Component {
             items={items}
             onPress={(page) => {
               const url = `${config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
-              Linking.canOpenURL(url).then((supported) => {
-                if (supported) {
-                  Linking.openURL(url);
-                } else {
-                  Alert.alert(`Don't know how to open URI: ${url}`);
-                }
+              navigator.handleDeepLink({
+                link: url,
               });
             }}
             key={index}
