@@ -69,10 +69,7 @@ class Registration extends Component {
     let response = {};
     response = qs(url);
     if (response.token != undefined) {
-      this.props.authActions.registration(
-        response.token,
-        this.props.navigator,
-      );
+      this.props.authActions.registration(response.token);
     }
   }
 

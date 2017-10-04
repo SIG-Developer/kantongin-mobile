@@ -15,15 +15,13 @@ export function hide(id) {
   };
 }
 
-export function show(text, type = 'error', closeLastModal) {
+export function show(params = { type: 'success', title: '', text: '', closeLastModal: false, }) {
   return (dispatch) => {
     setTimeout(() => {
       dispatch({
         type: NOTIFICATION_SHOW,
         payload: {
-          type,
-          text,
-          closeLastModal,
+          ...params,
         },
       });
     }, 100);

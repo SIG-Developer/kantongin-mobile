@@ -7,19 +7,18 @@ import {
   WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import qs from 'shitty-qs';
 
 // Import actions.
-import * as authActions from '../actions/authActions';
+import * as notificationsActions from '../actions/notificationsActions';
 
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import config from '../config';
-// import i18n from '../utils/i18n';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '$screenBackgroundColor',
   },
 });
 
@@ -27,15 +26,23 @@ class Profile extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       setOnNavigatorEvent: PropTypes.func,
+      pop: PropTypes.func,
+    }),
+    auth: PropTypes.shape({
+      token: PropTypes.string,
+    }),
+    notificationsActions: PropTypes.shape({
+      show: PropTypes.func,
     })
   };
+
   componentDidMount() {
     const { navigator } = this.props;
     // FIXME: Set title
     navigator.setTitle({
-      title: 'Profile'.toUpperCase(),
+      title: i18n.gettext('Profile').toUpperCase(),
     });
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -45,15 +52,21 @@ class Profile extends Component {
 
   onNavigationStateChange = (e) => {
     const url = e.url;
-    let response = {};
-    response = qs(url);
-    if (response.token != undefined) {
-      console.log('ok', url);
+    if (url === `${this.redirectUrl}&selected_section=general`) {
+      this.props.notificationsActions.show({
+        type: 'success',
+        title: i18n.gettext('Information'),
+        text: i18n.gettext('The profile data has been updated successfully.'),
+        closeLastModal: false,
+      });
+      this.props.navigator.pop();
     }
   }
 
   render() {
     const { auth } = this.props;
+    this.redirectUrl = `${config.siteUrl}index.php?dispatch=profiles.update`;
+    const url = `${config.siteUrl}index.php?dispatch=auth.token_login&token=${auth.token}&redirect_url=${this.redirectUrl}`;
     return (
       <View style={styles.container}>
         <WebView
@@ -63,7 +76,7 @@ class Profile extends Component {
           startInLoadingState
           userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
           source={{
-            uri: `${config.siteUrl}profiles-update/?token=${auth.token}`,
+            uri: url,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />
@@ -76,6 +89,6 @@ export default connect(state => ({
   auth: state.auth,
 }),
 dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
+  notificationsActions: bindActionCreators(notificationsActions, dispatch),
 })
 )(Profile);
