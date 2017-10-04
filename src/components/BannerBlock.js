@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Text,
+  View,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -9,16 +11,26 @@ import Swiper from 'react-native-swiper';
 import { get } from 'lodash';
 
 const styles = EStyleSheet.create({
-  container: {},
+  container: {
+    marginTop: 5,
+  },
   img: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'contain'
+  },
+  blockHeader: {
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    color: '$darkColor',
+    marginLeft: 14,
+    marginRight: 14,
   }
 });
 
 export default class BannerBlocks extends Component {
   static propTypes = {
+    name: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),
     onPress: PropTypes.func,
   }
@@ -40,16 +52,19 @@ export default class BannerBlocks extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, name } = this.props;
     const itemsList = items.map((item, index) => this.renderImage(item, index));
     return (
-      <Swiper
-        horizontal
-        height={200}
-        style={styles.container}
-      >
-        {itemsList}
-      </Swiper>
+      <View style={styles.container}>
+        <Text style={styles.blockHeader}>{name}</Text>
+        <Swiper
+          horizontal
+          height={200}
+          style={styles.container}
+        >
+          {itemsList}
+        </Swiper>
+      </View>
     );
   }
 }

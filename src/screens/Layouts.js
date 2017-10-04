@@ -148,6 +148,7 @@ class Layouts extends Component {
       case BLOCK_BANNERS:
         return (
           <BannerBlock
+            name={block.name}
             items={items}
             onPress={(banner) => {
               navigator.handleDeepLink({
@@ -164,6 +165,7 @@ class Layouts extends Component {
       case BLOCK_PRODUCTS:
         return (
           <ProductBlock
+            name={block.name}
             items={items}
             onPress={(product) => {
               navigator.push({
@@ -181,6 +183,7 @@ class Layouts extends Component {
       case BLOCK_CATEGORIES:
         return (
           <CategoryBlock
+            name={block.name}
             items={items}
             onPress={(category) => {
               navigator.push({
