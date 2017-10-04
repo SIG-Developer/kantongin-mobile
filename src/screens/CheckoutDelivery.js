@@ -194,16 +194,12 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    const { navigator, auth } = this.props;
+    const { navigator, cart } = this.props;
 
     navigator.setTitle({
       title: i18n.gettext('Checkout').toUpperCase(),
     });
-    this.props.cartActions.getUserData(auth.token);
-  }
 
-  componentWillReceiveProps(nextProps) {
-    const { cart } = nextProps;
     this.setState({
       billingValues: {
         b_firstname: cart.user_data.b_firstname,
