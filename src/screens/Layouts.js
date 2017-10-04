@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import {
   View,
   ScrollView,
+  Linking,
+  Alert,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -13,6 +15,7 @@ import {
   BLOCK_BANNERS,
   BLOCK_CATEGORIES,
   BLOCK_PRODUCTS,
+  BLOCK_PAGES,
 } from '../constants';
 
 // Import actions.
@@ -22,6 +25,7 @@ import * as layoutsActions from '../actions/layoutsActions';
 // Components
 import Spinner from '../components/Spinner';
 import BannerBlock from '../components/BannerBlock';
+import PageBlock from '../components/PageBlock';
 import ProductBlock from '../components/ProductBlock';
 import CategoryBlock from '../components/CategoryBlock';
 
@@ -191,6 +195,25 @@ class Layouts extends Component {
                 backButtonTitle: '',
                 passProps: {
                   category,
+                }
+              });
+            }}
+            key={index}
+          />
+        );
+
+      case BLOCK_PAGES:
+        return (
+          <PageBlock
+            name={block.name}
+            items={items}
+            onPress={(page) => {
+              const url = `${config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
+              Linking.canOpenURL(url).then((supported) => {
+                if (supported) {
+                  Linking.openURL(url);
+                } else {
+                  Alert.alert(`Don't know how to open URI: ${url}`);
                 }
               });
             }}

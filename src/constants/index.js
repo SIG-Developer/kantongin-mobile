@@ -109,3 +109,4 @@ export const FETCH_LAYOUTS_ID_FAIL = 'FETCH_LAYOUTS_ID_FAIL';
 export const BLOCK_CATEGORIES = 'categories';
 export const BLOCK_BANNERS = 'banners';
 export const BLOCK_PRODUCTS = 'products';
+export const BLOCK_PAGES = 'pages';
