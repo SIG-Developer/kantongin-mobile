@@ -74,7 +74,7 @@ class Layouts extends Component {
 
   constructor(props) {
     super(props);
-    console.disableYellowBox = true;
+    // console.disableYellowBox = true;
     this.isFetchBlocksSend = false;
     this.state = {
       items: [],
