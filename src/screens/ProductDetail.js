@@ -184,6 +184,7 @@ class ProductDetail extends Component {
       {
         id: 'cart',
         component: 'CartBtn',
+        passProps: {},
       },
       {
         id: 'search',

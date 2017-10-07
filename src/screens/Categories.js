@@ -63,6 +63,7 @@ class Categories extends Component {
       {
         id: 'cart',
         component: 'CartBtn',
+        passProps: {},
       },
       {
         id: 'search',

@@ -97,6 +97,7 @@ class Layouts extends Component {
         {
           id: 'cart',
           component: 'CartBtn',
+          passProps: {},
         },
         {
           id: 'search',
