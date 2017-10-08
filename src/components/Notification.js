@@ -4,6 +4,7 @@ import {
   View,
   Text,
   Dimensions,
+  Platform,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -12,7 +13,7 @@ const { width } = Dimensions.get('window');
 const styles = EStyleSheet.create({
   container: {
     width,
-    minHeight: 80,
+    minHeight: (Platform.OS === 'ios') ? 80 : 60,
     backgroundColor: '#D9534F',
     paddingTop: 30,
     paddingLeft: 14,

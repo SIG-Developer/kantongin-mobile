@@ -10,7 +10,6 @@ import {
   FlatList,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Swipeout from 'react-native-swipeout';
 import debounce from 'lodash/debounce';
 
@@ -333,7 +332,7 @@ class Cart extends Component {
     return (
       <View style={styles.emptyListContainer}>
         <View style={styles.emptyListIconWrapper}>
-          <Icon name="shopping-cart" style={styles.emptyListIcon} />
+          
         </View>
         <Text style={styles.emptyListHeader}>
           {i18n.gettext('Your shopping cart is empty.')}

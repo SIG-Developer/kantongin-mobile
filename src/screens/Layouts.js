@@ -97,7 +97,7 @@ class Layouts extends Component {
       rightButtons: [
         {
           id: 'cart',
-          collapsingToolBarComponent: 'CartBtn',
+          component: 'CartBtn',
           passProps: {},
         },
         {

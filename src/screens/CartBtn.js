@@ -10,7 +10,11 @@ import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
-  container: {},
+  container: {
+    minWidth: 50,
+    minHeight: '100%',
+    marginTop: 10,
+  },
   btn: {
     height: 28,
     width: 28,

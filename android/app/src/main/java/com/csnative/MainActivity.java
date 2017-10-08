@@ -13,7 +13,7 @@ public class MainActivity extends SplashActivity {
         LinearLayout view = new LinearLayout(this);
 
         view.setGravity(Gravity.CENTER);
-        view.setBackgroundColor(Color.parseColor("#fff"));
+        view.setBackgroundColor(Color.parseColor("#ffffff"));
 
         ImageView imageView = new ImageView(this);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
