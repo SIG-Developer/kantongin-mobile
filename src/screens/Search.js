@@ -24,6 +24,7 @@ import Spinner from '../components/Spinner';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '$screenBackgroundColor',
   },
   topSearch: {
     backgroundColor: '#FAFAFA',

@@ -70,6 +70,7 @@ class Layouts extends Component {
     navBarButtonFontSize: theme.$navBarButtonFontSize,
     navBarTextColor: theme.$navBarTextColor,
     screenBackgroundColor: theme.$screenBackgroundColor,
+    navBarTextFontBold: false, 
   }
 
   constructor(props) {
@@ -96,7 +97,7 @@ class Layouts extends Component {
       rightButtons: [
         {
           id: 'cart',
-          component: 'CartBtn',
+          collapsingToolBarComponent: 'CartBtn',
           passProps: {},
         },
         {
