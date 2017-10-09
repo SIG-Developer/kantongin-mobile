@@ -40,8 +40,6 @@ const styles = EStyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF',
   },
-  contentContainer: {
-  },
 });
 
 const barsImage = require('../assets/icons/bars.png');
@@ -70,16 +68,13 @@ class Layouts extends Component {
     navBarButtonFontSize: theme.$navBarButtonFontSize,
     navBarTextColor: theme.$navBarTextColor,
     screenBackgroundColor: theme.$screenBackgroundColor,
-    navBarTextFontBold: false, 
+    navBarTextFontBold: false,
   }
 
   constructor(props) {
     super(props);
     // console.disableYellowBox = true;
     this.isFetchBlocksSend = false;
-    this.state = {
-      items: [],
-    };
   }
 
   componentDidMount() {
