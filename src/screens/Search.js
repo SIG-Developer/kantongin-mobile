@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   FlatList,
+  Platform,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
@@ -25,12 +26,13 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '$screenBackgroundColor',
+    // backgroundColor: 'red',
   },
   topSearch: {
     backgroundColor: '#FAFAFA',
-    height: 80,
+    height: (Platform.OS === 'ios') ? 80 : 60,
     padding: 14,
-    paddingTop: 30,
+    paddingTop: (Platform.OS === 'ios') ? 30 : 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
@@ -45,6 +47,12 @@ const styles = EStyleSheet.create({
     fontSize: '0.9rem',
     borderWidth: 1,
     borderColor: '#EBEBEB',
+  },
+  inputAndroid: {
+    height: 44,
+    paddingLeft: 10,
+    paddingRight: 10,
+    flex: 2,
   },
   btnClose: {
     padding: 10,
@@ -67,7 +75,7 @@ const styles = EStyleSheet.create({
   }
 });
 
-const timesImage = require('../assets/icons/times.png');
+const closeIcon = require('../assets/icons/close.png');
 
 class Search extends Component {
   static propTypes = {
@@ -97,7 +105,6 @@ class Search extends Component {
     const { search } = nextProps;
     this.setState({
       products: search.items,
-      fetching: search.fetching,
     });
   }
 
@@ -130,17 +137,17 @@ class Search extends Component {
             onPress={() => navigator.dismissModal()}
           >
             <Image
-              source={timesImage}
+              source={closeIcon}
               style={styles.btnCloseImg}
             />
           </TouchableOpacity>
           <TextInput
             autoFocus
             autoCorrect={false}
-            autoCapitalize={'none'}
+            autoCapitalize="none"
             onChangeText={debounce(t => this.handleInputChange(t), 600)}
-            style={styles.input}
-            clearButtonMode={'while-editing'}
+            style={(Platform.os === 'ios') ? styles.input : styles.inputAndroid}
+            clearButtonMode="while-editing"
             placeholder={i18n.gettext('Search')}
           />
         </View>

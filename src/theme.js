@@ -1,5 +1,6 @@
 
 export default {
+  $statusBarColor: '#c1c1c1',
   $navBarBackgroundColor: '#FAFAFA',
   $navBarButtonColor: '#989898',
   $navBarButtonFontSize: 10,

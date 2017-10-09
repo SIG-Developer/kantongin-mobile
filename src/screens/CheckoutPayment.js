@@ -71,9 +71,11 @@ const styles = EStyleSheet.create({
 });
 
 const PAYMENT_CREDIT_CARD = 'Credit card';
-const PAYMENT_PHONE = 'Phone';
 const PAYMENT_CHECK = 'Check';
 const PAYMENT_PAYPAL_EXPRESS = 'PayPal Express Checkout';
+
+const checkIcon = require('../assets/icons/radio_button_checked.png');
+const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
 
 class CheckoutStepThree extends Component {
   static propTypes = {
@@ -106,7 +108,6 @@ class CheckoutStepThree extends Component {
     this.state = {
       fetching: false,
       selectedItem: null,
-      disablePlaceOrder: true,
       total: 0,
       items: [],
     };
@@ -146,7 +147,9 @@ class CheckoutStepThree extends Component {
   }
 
   placeOrderAndComplete() {
-    const { cart, shipping_id, ordersActions, navigator, cartActions } = this.props;
+    const {
+      cart, shipping_id, ordersActions, navigator, cartActions
+    } = this.props;
     const values = this.paymentFormRef.getValue();
     if (!values) {
       return null;
@@ -181,7 +184,9 @@ class CheckoutStepThree extends Component {
   }
 
   placePayPalOrder() {
-    const { cart, shipping_id, ordersActions, navigator, paymentsActions } = this.props;
+    const {
+      cart, shipping_id, ordersActions, navigator, paymentsActions
+    } = this.props;
     const orderInfo = {
       products: {},
       shipping_id,
@@ -227,8 +232,8 @@ class CheckoutStepThree extends Component {
         }}
       >
         {isSelected ?
-          <Image source={require('../assets/icons/check-circle-o.png')} style={styles.uncheckIcon} /> :
-          <Image source={require('../assets/icons/circle-o.png')} style={styles.checkIcon} />
+          <Image source={checkIcon} style={styles.checkIcon} /> :
+          <Image source={uncheckIcon} style={styles.uncheckIcon} />
         }
         <Text style={styles.paymentItemText}>
           {item.description}
@@ -309,7 +314,7 @@ class CheckoutStepThree extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          ref={ref => this.listView = ref}
+          ref={(ref) => { this.listView = ref; }}
           contentContainerStyle={styles.contentContainer}
           ListHeaderComponent={() => this.renderHeader()}
           data={this.state.items}

@@ -21,8 +21,8 @@ import CartFooter from '../components/CartFooter';
 import i18n from '../utils/i18n';
 import { stripTags, formatPrice } from '../utils';
 
-const uncheckIcon = require('../assets/icons/check-circle-o.png');
-const checkIcon = require('../assets/icons/circle-o.png');
+const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
+const checkIcon = require('../assets/icons/radio_button_checked.png');
 
 const styles = EStyleSheet.create({
   container: {
@@ -96,7 +96,6 @@ class CheckoutShipping extends Component {
       selectedItem: {
         rate: 0,
       },
-      fetching: false,
     };
   }
 
@@ -104,7 +103,6 @@ class CheckoutShipping extends Component {
     const { cart } = this.props;
     this.setState({
       items: this.normalizeData(cart.product_groups),
-      fetching: false,
       total: this.props.total,
     });
   }
@@ -163,8 +161,8 @@ class CheckoutShipping extends Component {
       >
         <View style={styles.shippingItemTitleWrap}>
           {isSelected ?
-            <Image source={uncheckIcon} style={styles.uncheckIcon} /> :
-            <Image source={checkIcon} style={styles.checkIcon} />
+            <Image source={checkIcon} style={styles.checkIcon} /> :
+            <Image source={uncheckIcon} style={styles.uncheckIcon} />
           }
           <Text style={styles.shippingItemText}>
             {item.shipping} {item.delivery_time}

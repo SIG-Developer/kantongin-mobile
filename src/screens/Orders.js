@@ -96,7 +96,7 @@ class Orders extends Component {
       leftButtons: [
         {
           id: 'sideMenu',
-          icon: require('../assets/icons/bars.png'),
+          icon: require('../assets/icons/menu.png'),
         },
       ],
       rightButtons: [

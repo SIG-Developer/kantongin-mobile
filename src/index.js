@@ -40,7 +40,11 @@ class App extends Component {
           navBarButtonFontSize: theme.$navBarButtonFontSize,
           navBarTextColor: theme.$navBarTextColor,
           screenBackgroundColor: theme.$screenBackgroundColor,
-        }
+        },
+      },
+      appStyle: {
+        orientation: 'portrait',
+        statusBarColor: theme.$statusBarColor,
       },
       drawer: {
         left: {

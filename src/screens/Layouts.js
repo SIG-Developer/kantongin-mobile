@@ -42,7 +42,7 @@ const styles = EStyleSheet.create({
   },
 });
 
-const barsImage = require('../assets/icons/bars.png');
+const menuImage = require('../assets/icons/menu.png');
 const searchImage = require('../assets/icons/search.png');
 
 class Layouts extends Component {
@@ -60,6 +60,26 @@ class Layouts extends Component {
       setOnNavigatorEvent: PropTypes.func,
     }),
     layouts: PropTypes.shape({}),
+  };
+
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        id: 'sideMenu',
+        icon: menuImage,
+      },
+    ],
+    rightButtons: [
+      {
+        id: 'cart',
+        component: 'CartBtn',
+        passProps: {},
+      },
+      {
+        id: 'search',
+        icon: searchImage,
+      },
+    ],
   };
 
   static navigatorStyle = {
@@ -81,25 +101,6 @@ class Layouts extends Component {
     const { navigator, layouts } = this.props;
     navigator.setTitle({
       title: config.shopName.toUpperCase(),
-    });
-    navigator.setButtons({
-      leftButtons: [
-        {
-          id: 'sideMenu',
-          icon: barsImage,
-        },
-      ],
-      rightButtons: [
-        {
-          id: 'cart',
-          component: 'CartBtn',
-          passProps: {},
-        },
-        {
-          id: 'search',
-          icon: searchImage,
-        },
-      ],
     });
     this.props.layoutsActions.fetch(layouts.layoutId, 'index.index');
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));

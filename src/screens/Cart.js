@@ -129,8 +129,13 @@ class Cart extends Component {
   };
 
   static navigatorStyle = {
+    // navBarBackgroundColor: theme.$navBarBackgroundColor,
+    // navBarButtonColor: theme.$navBarButtonColor,
     navBarBackgroundColor: theme.$navBarBackgroundColor,
     navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -158,13 +163,13 @@ class Cart extends Component {
       leftButtons: [
         {
           id: 'close',
-          icon: require('../assets/icons/times.png'),
+          icon: require('../assets/icons/close.png'),
         },
       ],
       rightButtons: [
         {
           id: 'clearCart',
-          icon: require('../assets/icons/trash.png'),
+          icon: require('../assets/icons/delete.png'),
         },
       ],
     });

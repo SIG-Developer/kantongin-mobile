@@ -20,6 +20,9 @@ import CategoryListView from '../components/CategoryListView';
 import ProductListView from '../components/ProductListView';
 import Spinner from '../components/Spinner';
 
+// theme
+import theme from '../theme';
+
 // Styles
 const styles = EStyleSheet.create({
   container: {
@@ -72,6 +75,17 @@ class Categories extends Component {
       },
     ]
   };
+
+  static navigatorStyle = {
+    // navBarBackgroundColor: theme.$navBarBackgroundColor,
+    // navBarButtonColor: theme.$navBarButtonColor,
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
 
   constructor(props) {
     super(props);

@@ -33,6 +33,7 @@ import i18n from '../utils/i18n';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '$screenBackgroundColor',
   },
   slide: {
     flex: 1,

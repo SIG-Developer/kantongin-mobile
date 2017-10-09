@@ -92,7 +92,7 @@ const styles = EStyleSheet.create({
   }
 });
 
-const checkCircleOIcon = require('../assets/icons/check-circle-o.png');
+const uncheckIcon = require('../assets/icons/check.png');
 
 export default class extends Component {
   static propTypes = {
@@ -139,7 +139,7 @@ export default class extends Component {
       stepsList.push(
         <View style={styles.stepContainer} key={i}>
           <View style={styles.stepContent}>
-            <Image source={checkCircleOIcon} style={styles.checkIcon} />
+            <Image source={uncheckIcon} style={styles.checkIcon} />
           </View>
           {this.renderArrow()}
         </View>

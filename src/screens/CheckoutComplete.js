@@ -124,7 +124,7 @@ class CheckoutComplete extends Component {
       leftButtons: [
         {
           id: 'close',
-          icon: require('../assets/icons/times.png'),
+          icon: require('../assets/icons/close.png'),
         },
       ],
     });

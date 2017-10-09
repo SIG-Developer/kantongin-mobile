@@ -5,19 +5,23 @@ import {
   TouchableOpacity,
   Image,
   Text,
+  Platform,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
   container: {
-    minWidth: 50,
+    minWidth: 30,
+  },
+  containerAndroid: {
+    minWidth: 40,
     minHeight: '100%',
     marginTop: 10,
   },
   btn: {
-    height: 28,
-    width: 28,
+    height: 20,
+    width: 20,
     padding: 15,
     opacity: 0.4,
     position: 'relative',
@@ -26,6 +30,17 @@ const styles = EStyleSheet.create({
     position: 'absolute',
     top: -6,
     right: -10,
+    minWidth: 20,
+    height: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FD542A'
+  },
+  badgeAndroid: {
+    position: 'absolute',
+    top: 0,
+    right: 3,
     minWidth: 20,
     height: 20,
     borderRadius: 15,
@@ -55,7 +70,7 @@ class CartBtn extends Component {
 
     return (
       <TouchableOpacity
-        style={styles.badge}
+        style={(Platform.OS === 'ios') ? styles.badge : styles.badgeAndroid}
         onPress={() => {
           Navigation.showModal({
             screen: 'Cart',
@@ -72,7 +87,7 @@ class CartBtn extends Component {
   render() {
     return (
       <TouchableOpacity
-        style={styles.container}
+        style={(Platform.OS === 'ios') ? styles.container : styles.containerAndroid}
         onPress={() => {
           Navigation.showModal({
             screen: 'Cart',
