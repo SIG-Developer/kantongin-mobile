@@ -12,7 +12,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
   container: {
-    minWidth: 30,
+    minWidth: 20,
   },
   containerAndroid: {
     minWidth: 40,
@@ -20,10 +20,9 @@ const styles = EStyleSheet.create({
     marginTop: 10,
   },
   btn: {
-    height: 20,
-    width: 20,
-    padding: 15,
+    padding: 10,
     opacity: 0.4,
+    marginTop: 2,
     position: 'relative',
   },
   badge: {
@@ -40,9 +39,9 @@ const styles = EStyleSheet.create({
   badgeAndroid: {
     position: 'absolute',
     top: 0,
-    right: 3,
-    minWidth: 20,
-    height: 20,
+    right: 7,
+    minWidth: 18,
+    height: 18,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',

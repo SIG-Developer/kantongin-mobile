@@ -22,6 +22,9 @@ import * as cartActions from '../actions/cartActions';
 import i18n from '../utils/i18n';
 import { getCountries, getStates, formatPrice } from '../utils';
 
+// theme
+import theme from '../theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -170,18 +173,21 @@ class Checkout extends Component {
       pop: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
-    auth: PropTypes.shape(),
     cart: PropTypes.shape(),
-    cartActions: PropTypes.shape({
-      getUserData: PropTypes.func,
-    }),
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
     super(props);
     this.isFirstLoad = true;
     this.state = {
-      fetching: false,
       billingFormFields: t.struct({
         ...billingFields,
       }),

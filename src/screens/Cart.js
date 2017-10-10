@@ -108,6 +108,10 @@ const styles = EStyleSheet.create({
   }
 });
 
+const closeIcon = require('../assets/icons/close.png');
+const deleteIcon = require('../assets/icons/delete.png');
+const cartEmptyImage = require('../assets/empty_cart.png');
+
 class Cart extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
@@ -163,13 +167,13 @@ class Cart extends Component {
       leftButtons: [
         {
           id: 'close',
-          icon: require('../assets/icons/close.png'),
+          icon: closeIcon,
         },
       ],
       rightButtons: [
         {
           id: 'clearCart',
-          icon: require('../assets/icons/delete.png'),
+          icon: deleteIcon,
         },
       ],
     });
@@ -337,7 +341,7 @@ class Cart extends Component {
     return (
       <View style={styles.emptyListContainer}>
         <View style={styles.emptyListIconWrapper}>
-          
+          <Image source={cartEmptyImage} style={{ height: 120, width: 120, }} />
         </View>
         <Text style={styles.emptyListHeader}>
           {i18n.gettext('Your shopping cart is empty.')}

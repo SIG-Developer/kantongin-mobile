@@ -28,18 +28,20 @@ import Spinner from '../components/Spinner';
 import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
+// theme
+import theme from '../theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAFAFA',
   },
-  contentContainer: {
-    padding: 14,
+  paymentItemWrapper: {
+    paddingLeft: 14,
+    paddingRight: 14,
   },
   paymentItem: {
     padding: 14,
-    marginLeft: -14,
-    marginRight: -14,
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: '#F1F1F1',
@@ -67,7 +69,10 @@ const styles = EStyleSheet.create({
     height: 20,
     opacity: 0.2,
     marginRight: 6,
-  }
+  },
+  stepsWrapper: {
+    padding: 14,
+  },
 });
 
 const PAYMENT_CREDIT_CARD = 'Credit card';
@@ -100,6 +105,14 @@ class CheckoutStepThree extends Component {
       push: PropTypes.func,
     }),
     total: PropTypes.number,
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -290,15 +303,19 @@ class CheckoutStepThree extends Component {
 
     return (
       <View>
-        <CheckoutSteps step={3} />
-        <FormBlock
-          title={selectedItem.payment}
-        >
-          {form}
-          <Text style={styles.paymentItemDesc}>
-            {stripTags(selectedItem.instructions)}
-          </Text>
-        </FormBlock>
+        <View style={styles.stepsWrapper}>
+          <CheckoutSteps step={3} />
+        </View>
+        <View style={styles.paymentItemWrapper}>
+          <FormBlock
+            title={selectedItem.payment}
+          >
+            {form}
+            <Text style={styles.paymentItemDesc}>
+              {stripTags(selectedItem.instructions)}
+            </Text>
+          </FormBlock>
+        </View>
       </View>
     );
   }

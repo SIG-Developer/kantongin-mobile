@@ -30,6 +30,9 @@ import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
 
+// theme
+import theme from '../theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -161,6 +164,14 @@ class ProductDetail extends Component {
     }),
   }
 
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   constructor(props) {
     super(props);
 
@@ -176,7 +187,9 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    const { productsActions, pid, hideSearch, navigator } = this.props;
+    const {
+      productsActions, pid, hideSearch, navigator
+    } = this.props;
     InteractionManager.runAfterInteractions(() => {
       productsActions.fetch(pid);
     });

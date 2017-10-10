@@ -19,6 +19,9 @@ import Button from '../components/Button';
 import CheckoutSteps from '../components/CheckoutSteps';
 import i18n from '../utils/i18n';
 
+// theme
+import theme from '../theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -69,6 +72,14 @@ class CheckoutAuth extends Component {
       error: PropTypes.string,
       fetching: PropTypes.bool,
     }),
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   componentDidMount() {

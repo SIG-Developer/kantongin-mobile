@@ -21,6 +21,9 @@ import CartFooter from '../components/CartFooter';
 import i18n from '../utils/i18n';
 import { stripTags, formatPrice } from '../utils';
 
+// theme
+import theme from '../theme';
+
 const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
 const checkIcon = require('../assets/icons/radio_button_checked.png');
 
@@ -30,12 +33,9 @@ const styles = EStyleSheet.create({
     backgroundColor: '#FAFAFA',
   },
   contentContainer: {
-    padding: 14,
   },
   shippingItem: {
     padding: 14,
-    marginLeft: -14,
-    marginRight: -14,
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: '#F1F1F1',
@@ -74,8 +74,12 @@ const styles = EStyleSheet.create({
     width: 20,
     height: 20,
     opacity: 0.5,
-  }
+  },
+  stepsWrapper: {
+    padding: 14,
+  },
 });
+
 
 class CheckoutShipping extends Component {
   static propTypes = {
@@ -84,6 +88,14 @@ class CheckoutShipping extends Component {
       push: PropTypes.func,
     }),
     total: PropTypes.number,
+  };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -178,6 +190,12 @@ class CheckoutShipping extends Component {
     );
   };
 
+  renderSteps = () => (
+    <View style={styles.stepsWrapper}>
+      <CheckoutSteps step={2} />
+    </View>
+  );
+
   renderHeader = (section) => {
     if (this.state.items.length === 1) {
       return null;
@@ -197,7 +215,7 @@ class CheckoutShipping extends Component {
           sections={this.state.items}
           keyExtractor={item => +item.shipping_id}
           numColumns={1}
-          ListHeaderComponent={() => <CheckoutSteps step={2} />}
+          ListHeaderComponent={() => this.renderSteps()}
           renderSectionHeader={({ section }) => this.renderHeader(section)}
           renderItem={({ item }) => this.renderItem(item)}
         />
