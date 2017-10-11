@@ -163,10 +163,8 @@ class Search extends Component {
                 screen: 'ProductDetail',
                 backButtonTitle: '',
                 passProps: {
-                  navProps: {
-                    pid: product.product_id,
-                    hideSearch: true,
-                  }
+                  pid: product.product_id,
+                  hideSearch: true,
                 }
               })}
             />)}
