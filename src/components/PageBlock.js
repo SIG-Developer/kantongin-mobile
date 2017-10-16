@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Swiper from 'react-native-swiper';
-import { get } from 'lodash';
 
 const styles = EStyleSheet.create({
   container: {
@@ -45,19 +43,17 @@ export default class BannerBlocks extends Component {
     items: []
   }
 
-  renderItem = (item, index) => {
-    return (
-      <TouchableOpacity
-        key={index}
-        style={styles.btn}
-        onPress={() => this.props.onPress(item)}
-      >
-        <Text style={styles.btnText}>
-          {item.page}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
+  renderItem = (item, index) => (
+    <TouchableOpacity
+      key={index}
+      style={styles.btn}
+      onPress={() => this.props.onPress(item)}
+    >
+      <Text style={styles.btnText}>
+        {item.page}
+      </Text>
+    </TouchableOpacity>
+  );
 
   render() {
     const { items, name } = this.props;

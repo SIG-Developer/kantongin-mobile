@@ -204,9 +204,13 @@ class Layouts extends Component {
             name={block.name}
             items={items}
             onPress={(page) => {
-              const url = `${config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
-              navigator.handleDeepLink({
-                link: url,
+              navigator.push({
+                screen: 'Page',
+                title: page.page,
+                backButtonTitle: '',
+                passProps: {
+                  uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`,
+                },
               });
             }}
             key={index}

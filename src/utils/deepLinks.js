@@ -38,13 +38,12 @@ export const registerDrawerDeepLinks = (e, navigator) => {
     } else if (parts[0] === 'http:') {
       Linking.canOpenURL(e.link).then((supported) => {
         if (!supported) {
-          Alert.alert(
+          return Alert.alert(
             i18n.gettext('Can\'t handle url'),
             ''
           );
-        } else {
-          return Linking.openURL(e.link);
         }
+        return Linking.openURL(e.link);
       });
     }
   }

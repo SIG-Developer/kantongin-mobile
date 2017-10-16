@@ -1,6 +1,7 @@
 import { Navigation } from 'react-native-navigation';
 
 import Cart from './screens/Cart';
+import Page from './screens/Page';
 import Login from './screens/Login';
 import Drawer from './screens/Drawer';
 import Orders from './screens/Orders';
@@ -22,6 +23,7 @@ import PayPalCompleteWebView from './screens/PayPalCompleteWebView';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
+  Navigation.registerComponent('Page', () => Page, store, Provider);
   Navigation.registerComponent('Cart', () => Cart, store, Provider);
   Navigation.registerComponent('Login', () => Login, store, Provider);
   Navigation.registerComponent('Drawer', () => Drawer, store, Provider);
