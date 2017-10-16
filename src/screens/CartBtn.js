@@ -20,7 +20,7 @@ const styles = EStyleSheet.create({
     marginTop: 10,
   },
   btn: {
-    padding: 10,
+    padding: 14,
     opacity: 0.4,
     marginTop: 2,
     position: 'relative',

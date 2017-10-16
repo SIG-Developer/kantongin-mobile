@@ -15,7 +15,7 @@ registerScreens(store, Provider);
 // Calcuate styles
 const { width } = Dimensions.get('window');
 EStyleSheet.build({
-  rem: width > 340 ? 18 : 16,
+  $rem: width > 340 ? 18 : 16,
   // $outline: 1,
   ...theme,
 });
