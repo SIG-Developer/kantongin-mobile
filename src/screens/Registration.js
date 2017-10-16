@@ -13,7 +13,7 @@ import qs from 'shitty-qs';
 import * as authActions from '../actions/authActions';
 
 // theme
-import theme from '../theme';
+import theme from '../config/theme';
 
 // Components
 import Spinner from '../components/Spinner';

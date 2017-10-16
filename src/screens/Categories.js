@@ -21,7 +21,7 @@ import ProductListView from '../components/ProductListView';
 import Spinner from '../components/Spinner';
 
 // theme
-import theme from '../theme';
+import theme from '../config/theme';
 
 // Styles
 const styles = EStyleSheet.create({

@@ -23,7 +23,7 @@ import i18n from '../utils/i18n';
 import { getCountries, getStates, formatPrice } from '../utils';
 
 // theme
-import theme from '../theme';
+import theme from '../config/theme';
 
 const styles = EStyleSheet.create({
   container: {

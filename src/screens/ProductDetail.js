@@ -31,7 +31,7 @@ import Spinner from '../components/Spinner';
 import i18n from '../utils/i18n';
 
 // theme
-import theme from '../theme';
+import theme from '../config/theme';
 
 const styles = EStyleSheet.create({
   container: {

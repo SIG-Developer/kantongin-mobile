@@ -32,7 +32,7 @@ import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
 import { toArray } from '../utils';
 import config from '../config';
-import theme from '../theme';
+import theme from '../config/theme';
 
 // Styles
 const styles = EStyleSheet.create({

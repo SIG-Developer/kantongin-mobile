@@ -11,7 +11,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Styles
-import theme from '../theme';
+import theme from '../config/theme';
 
 // Import actions.
 import * as authActions from '../actions/authActions';

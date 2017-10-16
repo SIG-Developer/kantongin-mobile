@@ -22,7 +22,7 @@ import i18n from '../utils/i18n';
 import { stripTags, formatPrice } from '../utils';
 
 // theme
-import theme from '../theme';
+import theme from '../config/theme';
 
 const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
 const checkIcon = require('../assets/icons/radio_button_checked.png');

@@ -22,7 +22,7 @@ import QtyOption from '../components/QtyOption';
 import CartFooter from '../components/CartFooter';
 
 // theme
-import theme from '../theme';
+import theme from '../config/theme';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
