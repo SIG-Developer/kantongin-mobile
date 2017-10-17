@@ -20,7 +20,7 @@ const styles = EStyleSheet.create({
     marginTop: 10,
   },
   btn: {
-    padding: 14,
+    padding: (Platform.OS === 'ios') ? 14 : 11,
     opacity: 0.4,
     marginTop: 2,
     position: 'relative',
