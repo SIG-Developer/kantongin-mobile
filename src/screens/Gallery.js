@@ -16,6 +16,7 @@ const styles = EStyleSheet.create({
   img: {
     width: '94%',
     height: 400,
+    resizeMode: 'contain',
   },
   slide: {
     flex: 1,
