@@ -26,4 +26,7 @@ export default {
   $headerBgColor: '#FAFAFA',
   $headerTitleColor: '#242424',
   $headerTintColor: '#242424',
+
+  // SITE LOGO
+  $logoUrl: 'http://82.202.226.53/images/logos/1/cart.png',
 };

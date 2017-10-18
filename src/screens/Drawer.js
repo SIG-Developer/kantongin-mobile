@@ -16,6 +16,7 @@ import uniqueId from 'lodash/uniqueId';
 import i18n from '../utils/i18n';
 
 import config from '../config';
+import theme from '../config/theme';
 import * as authActions from '../actions/authActions';
 import * as pagesActions from '../actions/pagesActions';
 
@@ -130,7 +131,7 @@ class Drawer extends Component {
 
   renderLogo = () => (
     <Image
-      source={{ uri: config.logoUrl }}
+      source={{ uri: theme.$logoUrl }}
       style={styles.logo}
     />
   );

@@ -1,5 +1,5 @@
 <resources>
-    <color name="primaryDark">#FF6008</color>
+    <color name="primaryDark">#080808</color>
     <color name="primary">#989898</color>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
