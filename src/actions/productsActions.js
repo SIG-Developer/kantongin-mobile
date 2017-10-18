@@ -41,8 +41,7 @@ export function fetchOptions(pid) {
 export function fetch(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_ONE_PRODUCT_REQUEST });
-
-    return userApi.get(`/products/${pid}`)
+    return userApi.get(`/sra_products/${pid}`)
       .then((response) => {
         dispatch({
           type: FETCH_ONE_PRODUCT_SUCCESS,
@@ -66,7 +65,7 @@ export function search(params = {}) {
   return (dispatch) => {
     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
 
-    return userApi.get('/products', {
+    return userApi.get('/sra_products', {
       params: {
         ...params,
       }
@@ -89,7 +88,7 @@ export function search(params = {}) {
 export function fetchByCategory(categoryId, page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return userApi.get(`/categories/${categoryId}/products?items_per_page=10&page=${page}&subcats=Y`)
+    return userApi.get(`/categories/${categoryId}/sra_products?items_per_page=10&page=${page}&subcats=Y`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,

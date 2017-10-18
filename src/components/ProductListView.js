@@ -46,6 +46,7 @@ const styles = EStyleSheet.create({
 class ProductListView extends Component {
   render() {
     const item = this.props.product.item;
+    const price = item.price_formatted ? item.price_formatted.price : item.price;
     const imageUri = get(item, 'main_pair.detailed.http_image_path');
     return (
       <TouchableOpacity
@@ -67,7 +68,7 @@ class ProductListView extends Component {
             numberOfLines={1}
             style={styles.productPrice}
           >
-            ${parseFloat(item.price).toFixed(2)}
+            {price}
           </Text>
         </View>
       </TouchableOpacity>
