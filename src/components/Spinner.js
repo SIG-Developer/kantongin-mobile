@@ -35,7 +35,6 @@ class Spinner extends Component {
 
   static defaultProps = {
     mode: 'modal',
-    visible: false,
   };
 
   constructor(props) {
@@ -56,14 +55,15 @@ class Spinner extends Component {
 
   renderAsModal = () => (
     <Modal
-      animationType={'fade'}
+      animationType="fade"
       transparent
       visible={this.state.visible}
+      onRequestClose={() => {}}
     >
       <View style={styles.container}>
         <ActivityIndicator
-          color={'white'}
-          size={'large'}
+          color="white"
+          size="large"
           style={styles.indicator}
         />
       </View>
