@@ -11,6 +11,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 // Import actions.
 import * as notificationsActions from '../actions/notificationsActions';
 
+// theme
+import theme from '../config/theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -23,9 +26,16 @@ class Page extends Component {
     uri: PropTypes.string,
   };
 
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   render() {
     const { uri } = this.props;
-    console.log(uri);
     return (
       <View style={styles.container}>
         <WebView
