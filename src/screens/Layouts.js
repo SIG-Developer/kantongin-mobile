@@ -93,7 +93,7 @@ class Layouts extends Component {
 
   constructor(props) {
     super(props);
-    // console.disableYellowBox = true;
+    console.disableYellowBox = true;
     this.isFetchBlocksSend = false;
   }
 
@@ -115,6 +115,7 @@ class Layouts extends Component {
       }
       navigator.showInAppNotification({
         screen: 'Notification',
+        autoDismissTimerSec: 1,
         passProps: {
           dismissWithSwipe: true,
           title: notify.title,

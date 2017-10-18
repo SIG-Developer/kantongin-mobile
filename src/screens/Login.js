@@ -66,6 +66,7 @@ const options = {
     },
   }
 };
+const closeIcon = require('../assets/icons/close.png');
 
 class Login extends Component {
   static propTypes = {
@@ -90,6 +91,9 @@ class Login extends Component {
   static navigatorStyle = {
     navBarBackgroundColor: theme.$navBarBackgroundColor,
     navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -104,7 +108,7 @@ class Login extends Component {
       leftButtons: [
         {
           id: 'close',
-          icon: require('../assets/icons/close.png'),
+          icon: closeIcon,
         },
       ],
     });
@@ -117,8 +121,8 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.logged && !nextProps.auth.fetching) {
-      setTimeout(() => this.props.navigator.dismissModal(), 1000);
+    if (nextProps.auth.logged) {
+      this.props.navigator.dismissModal();
     }
     if (nextProps.auth.error && !nextProps.auth.fetching) {
       this.props.navigator.showInAppNotification({
@@ -154,7 +158,7 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <Form
-          ref={'form'}
+          ref="form"
           type={FormFields}
           options={options}
         />
@@ -184,10 +188,11 @@ class Login extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-}),
-dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch),
+  })
 )(Login);
