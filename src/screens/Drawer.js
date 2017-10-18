@@ -151,7 +151,11 @@ class Drawer extends Component {
               link: 'home/',
               payload: {},
             });
-            this.props.navigator.toggleDrawer({});
+            this.props.navigator.toggleDrawer({
+              side: 'left',
+              animated: true,
+              to: 'close'
+            });
           }}
         >
           <Text style={styles.signInBtnText}>
