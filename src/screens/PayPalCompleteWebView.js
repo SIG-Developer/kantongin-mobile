@@ -11,6 +11,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 // Import actions.
 import * as authActions from '../actions/authActions';
 
+// theme
+import theme from '../config/theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -28,6 +31,15 @@ class PayPalCompleteWebView extends Component {
       setOnNavigatorEvent: PropTypes.func,
     })
   };
+
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   componentDidMount() {
     const { navigator } = this.props;
     // FIXME: Set title
@@ -36,8 +48,7 @@ class PayPalCompleteWebView extends Component {
     });
   }
 
-  onNavigationStateChange = (e) => {
-    const url = e.url;
+  onNavigationStateChange = ({ url }) => {
     if (url.startsWith(this.props.return_url)) {
       this.props.navigator.push({
         screen: 'CheckoutComplete',
@@ -58,7 +69,7 @@ class PayPalCompleteWebView extends Component {
           javaScriptEnabled
           scalesPageToFit
           startInLoadingState
-          userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
+          userAgent="Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36"
           source={{
             uri: this.props.payment_url,
           }}
@@ -69,10 +80,11 @@ class PayPalCompleteWebView extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-}),
-dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch),
+  })
 )(PayPalCompleteWebView);
