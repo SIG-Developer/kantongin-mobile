@@ -230,11 +230,12 @@ class CheckoutShipping extends Component {
   }
 }
 
-export default connect(state => ({
-  cart: state.cart,
-  shippings: state.shippings,
-}),
-dispatch => ({
-  shippingActions: bindActionCreators(shippingActions, dispatch),
-})
+export default connect(
+  state => ({
+    cart: state.cart,
+    shippings: state.shippings,
+  }),
+  dispatch => ({
+    shippingActions: bindActionCreators(shippingActions, dispatch),
+  })
 )(CheckoutShipping);

@@ -211,11 +211,9 @@ class ProductDetail extends Component {
       rightButtons.pop();
     }
 
-    setTimeout(() => {
-      navigator.setButtons({
-        rightButtons,
-      });
-    }, 360);
+    navigator.setButtons({
+      rightButtons,
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -514,8 +512,8 @@ class ProductDetail extends Component {
       <View style={styles.blockContainer}>
         <ScrollableTabView
           tabBarUnderlineStyle={{ backgroundColor: '#FD542A' }}
-          tabBarActiveTextColor={'#FD542A'}
-          tabBarInactiveTextColor={'#212121'}
+          tabBarActiveTextColor="#FD542A"
+          tabBarInactiveTextColor="#212121"
           tabBarTextStyle={{ fontSize: 16 }}
         >
           <View tabLabel="Features">
@@ -561,7 +559,7 @@ class ProductDetail extends Component {
       <View style={styles.container}>
         <KeyboardAvoidingView
           contentContainerStyle={{ marginBottom: 96 }}
-          behavior={'position'}
+          behavior="position"
         >
           <ScrollView>
             {this.renderImage()}
@@ -581,13 +579,14 @@ class ProductDetail extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-  cart: state.cart,
-  productDetail: state.productDetail,
-}),
-dispatch => ({
-  productsActions: bindActionCreators(productsActions, dispatch),
-  cartActions: bindActionCreators(cartActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+    cart: state.cart,
+    productDetail: state.productDetail,
+  }),
+  dispatch => ({
+    productsActions: bindActionCreators(productsActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch),
+  })
 )(ProductDetail);

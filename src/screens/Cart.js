@@ -26,7 +26,6 @@ import theme from '../config/theme';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
-import { formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
 // Styles
@@ -133,8 +132,6 @@ class Cart extends Component {
   };
 
   static navigatorStyle = {
-    // navBarBackgroundColor: theme.$navBarBackgroundColor,
-    // navBarButtonColor: theme.$navBarButtonColor,
     navBarBackgroundColor: theme.$navBarBackgroundColor,
     navBarButtonColor: theme.$navBarButtonColor,
     navBarButtonFontSize: theme.$navBarButtonFontSize,
@@ -299,7 +296,7 @@ class Cart extends Component {
               {item.product}
             </Text>
             <Text style={styles.productItemPrice}>
-              {item.amount} x ${item.price}
+              {item.amount} x {item.price_formatted.price}
             </Text>
           </View>
           <View style={styles.qtyContainer}>
@@ -310,7 +307,7 @@ class Cart extends Component {
                 const debounceFunc = debounce(() => {
                   this.props.cartActions.changeAmount(item.cartId, val);
                   this.props.cartActions.change(item.cartId, item);
-                }, 1000, false);
+                }, 1000, { leading: true, trailing: false });
                 debounceFunc();
               }}
             />
@@ -327,7 +324,7 @@ class Cart extends Component {
     }
     return (
       <CartFooter
-        totalPrice={formatPrice(cart.subtotal)}
+        totalPrice={cart.subtotal_formatted.price}
         btnText={i18n.gettext('Checkout').toUpperCase()}
         onBtnPress={() => this.handlePlaceOrder()}
       />

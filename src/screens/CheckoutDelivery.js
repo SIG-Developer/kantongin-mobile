@@ -20,7 +20,7 @@ import * as authActions from '../actions/authActions';
 import * as cartActions from '../actions/cartActions';
 
 import i18n from '../utils/i18n';
-import { getCountries, getStates, formatPrice } from '../utils';
+import { getCountries, getStates } from '../utils';
 
 // theme
 import theme from '../config/theme';
@@ -324,7 +324,7 @@ class Checkout extends Component {
             title={i18n.gettext('Billing address')}
           >
             <Form
-              ref={'checkoutBilling'}
+              ref="checkoutBilling"
               type={this.state.billingFormFields}
               value={this.state.billingValues}
               onChange={values => this.handleChange(values, 'billing')}
@@ -347,7 +347,7 @@ class Checkout extends Component {
             }
           >
             <Form
-              ref={'checkoutShipping'}
+              ref="checkoutShipping"
               type={this.state.shippingFormFields}
               value={this.state.shippingValues}
               onChange={values => this.handleChange(values, 'shipping')}
@@ -357,7 +357,7 @@ class Checkout extends Component {
 
         </ScrollView>
         <CartFooter
-          totalPrice={formatPrice(cart.subtotal)}
+          totalPrice={cart.subtotal_formatted.price}
           btnText={i18n.gettext('Next').toUpperCase()}
           onBtnPress={() => this.handleNextPress()}
         />
@@ -366,12 +366,13 @@ class Checkout extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-  cart: state.cart,
-}),
-dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
-  cartActions: bindActionCreators(cartActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+    cart: state.cart,
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch),
+  })
 )(Checkout);

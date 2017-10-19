@@ -99,7 +99,9 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    const { productsActions, products, category, navigator } = this.props;
+    const {
+      productsActions, products, category, navigator
+    } = this.props;
     this.activeCategoryId = category.category_id;
     const categoryProducts = products.items[this.activeCategoryId];
     const newState = {};
@@ -235,10 +237,11 @@ class Categories extends Component {
   }
 }
 
-export default connect(state => ({
-  products: state.products,
-}),
-dispatch => ({
-  productsActions: bindActionCreators(productsActions, dispatch),
-})
+export default connect(
+  state => ({
+    products: state.products,
+  }),
+  dispatch => ({
+    productsActions: bindActionCreators(productsActions, dispatch),
+  })
 )(Categories);
