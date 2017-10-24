@@ -1,7 +1,7 @@
 export default {
-  username: 'admin@example.com', // admin@example.com
+  username: 'admin@example.com',
   // API KEY
-  apiKey: '95380b2e1X91hn7n969U93gU9701F1f3', // '93nF793e3PWaW4UW301r1c82y78e2c2U',
+  apiKey: 'OrY0GX6bJ6kCQT4G5E727m071u858DL2',
   // API URL
   baseUrl: 'http://82.202.226.53/api/4.0/',
   // SITE URL
