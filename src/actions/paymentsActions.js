@@ -6,9 +6,12 @@ import {
   PAYPAL_SETTLEMENTS_REQUEST,
   PAYPAL_SETTLEMENTS_SUCCESS,
   PAYPAL_SETTLEMENTS_FAIL,
+
+  NOTIFICATION_SHOW,
 } from '../constants';
 
 import userApi from '../services/userApi';
+import i18n from '../utils/i18n';
 
 export function fetchAll() {
   return (dispatch) => {
@@ -48,6 +51,14 @@ export function paypalSettlements(orderId, replay, cb = null) {
         }
       })
       .catch((error) => {
+        dispatch({
+          type: NOTIFICATION_SHOW,
+          payload: {
+            type: 'error',
+            title: i18n.gettext('Error'),
+            text: i18n.gettext('Something went wrong. Please try again later.'),
+          },
+        });
         dispatch({
           type: PAYPAL_SETTLEMENTS_FAIL,
           error,

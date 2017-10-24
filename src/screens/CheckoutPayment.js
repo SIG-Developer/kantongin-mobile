@@ -75,9 +75,10 @@ const styles = EStyleSheet.create({
   },
 });
 
-const PAYMENT_CREDIT_CARD = 'Credit card';
-const PAYMENT_CHECK = 'Check';
-const PAYMENT_PAYPAL_EXPRESS = 'PayPal Express Checkout';
+const PAYMENT_CREDIT_CARD = 'views/orders/components/payments/cc.tpl';
+const PAYMENT_CHECK = 'views/orders/components/payments/check.tpl';
+const PAYMENT_PAYPAL_EXPRESS = 'addons/paypal/views/orders/components/payments/paypal_express.tpl';
+const PAYMENT_PHONE = 'views/orders/components/payments/phone.tpl';
 
 const checkIcon = require('../assets/icons/radio_button_checked.png');
 const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
@@ -153,7 +154,7 @@ class CheckoutStepThree extends Component {
       return null;
     }
 
-    if (selectedItem.payment === PAYMENT_PAYPAL_EXPRESS) {
+    if (selectedItem.template === PAYMENT_PAYPAL_EXPRESS) {
       return this.placePayPalOrder();
     }
     return this.placeOrderAndComplete();
@@ -262,7 +263,7 @@ class CheckoutStepThree extends Component {
     }
     let form = null;
     // FIXME: HARDCOD
-    switch (selectedItem.payment) {
+    switch (selectedItem.template) {
       case PAYMENT_CREDIT_CARD:
         form = (
           <PaymentCreditCardForm
@@ -290,7 +291,7 @@ class CheckoutStepThree extends Component {
           />
         );
         break;
-      default:
+      case PAYMENT_PHONE:
         form = (
           <PaymentPhoneForm
             onInit={(ref) => {
@@ -298,6 +299,9 @@ class CheckoutStepThree extends Component {
             }}
           />
         );
+        break;
+
+      default:
         break;
     }
 
