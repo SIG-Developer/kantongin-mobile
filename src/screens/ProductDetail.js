@@ -79,6 +79,7 @@ const styles = EStyleSheet.create({
     backgroundColor: '$grayColor',
     paddingTop: 14,
     paddingBottom: 0,
+    minHeight: 150,
   },
   blockContainerLast: {
     marginBottom: 20,
@@ -524,12 +525,13 @@ class ProductDetail extends Component {
 
   renderTabs() {
     return (
-      <View style={styles.blockContainer}>
+      <View style={[styles.blockContainer]}>
         <ScrollableTabView
           tabBarUnderlineStyle={{ backgroundColor: '#FD542A' }}
           tabBarActiveTextColor="#FD542A"
           tabBarInactiveTextColor="#212121"
           tabBarTextStyle={{ fontSize: 16 }}
+          prerenderingSiblingsNumber={10}
         >
           <View tabLabel="Features">
             {this.renderFeatures()}
