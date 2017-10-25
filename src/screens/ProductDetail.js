@@ -26,6 +26,7 @@ import * as productsActions from '../actions/productsActions';
 import SelectOption from '../components/SelectOption';
 import InputOption from '../components/InputOption';
 import QtyOption from '../components/QtyOption';
+import SwitchOption from '../components/SwitchOption';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
@@ -242,6 +243,11 @@ class ProductDetail extends Component {
           }
         } else if (option.option_type === 'I') {
           defaultOptions[option.option_id] = '';
+        } else if (option.option_type === 'C') {
+          const variants = Object.keys(option.variants).map(k => option.variants[k]);
+          if (selectedOptions[option.option_id] === undefined && variants.length) {
+            defaultOptions[option.option_id] = variants[1]; // Default no
+          }
         }
       });
       this.setState({
@@ -292,10 +298,9 @@ class ProductDetail extends Component {
     const { product, selectedOptions } = this.state;
 
     if (!this.props.auth.logged) {
-      this.props.navigator.showModal({
+      return this.props.navigator.showModal({
         screen: 'Login',
       });
-      return;
     }
 
     // Convert product options to the option_id: variant_id array.
@@ -313,7 +318,7 @@ class ProductDetail extends Component {
         product_options: productOptions,
       },
     };
-    this.props.cartActions.add({ products });
+    return this.props.cartActions.add({ products });
   }
 
   handleOptionChange(name, val) {
@@ -415,6 +420,16 @@ class ProductDetail extends Component {
       case 'S':
         return (
           <SelectOption
+            option={option}
+            value={defaultValue}
+            key={item.option_id}
+            onChange={val => this.handleOptionChange(option.option_id, val)}
+          />
+        );
+
+      case 'C':
+        return (
+          <SwitchOption
             option={option}
             value={defaultValue}
             key={item.option_id}

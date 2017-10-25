@@ -26,9 +26,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         ...action.payload.product,
-        fetching: false,
       };
-
 
     case FETCH_PRODUCT_OPTIONS_REQUEST:
       return {

@@ -88,9 +88,9 @@ export default class extends Component {
             multiline
             value={value}
             style={styles.input}
-            autoCapitalize={'none'}
-            keyboardAppearance={'dark'}
-            clearButtonMode={'while-editing'}
+            autoCapitalize="none"
+            keyboardAppearance="dark"
+            clearButtonMode="while-editing"
             onChangeText={text => this.handleChange(text)}
           />
         </View>
