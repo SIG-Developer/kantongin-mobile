@@ -10,6 +10,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
 import * as authActions from '../actions/authActions';
+import * as cartActions from '../actions/cartActions';
 
 // theme
 import theme from '../config/theme';
@@ -26,6 +27,9 @@ class PayPalCompleteWebView extends Component {
     return_url: PropTypes.string,
     payment_url: PropTypes.string,
     orderId: PropTypes.number,
+    cartActions: PropTypes.shape({
+      clear: PropTypes.func,
+    }),
     navigator: PropTypes.shape({
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
@@ -50,6 +54,7 @@ class PayPalCompleteWebView extends Component {
 
   onNavigationStateChange = ({ url }) => {
     if (url.startsWith(this.props.return_url)) {
+      this.props.cartActions.clear();
       this.props.navigator.push({
         screen: 'CheckoutComplete',
         backButtonTitle: '',
@@ -86,5 +91,6 @@ export default connect(
   }),
   dispatch => ({
     authActions: bindActionCreators(authActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch),
   })
 )(PayPalCompleteWebView);

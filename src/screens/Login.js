@@ -122,7 +122,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.logged) {
-      this.props.navigator.dismissModal();
+      setTimeout(() => this.props.navigator.dismissModal(), 1500);
     }
     if (nextProps.auth.error && !nextProps.auth.fetching) {
       this.props.navigator.showInAppNotification({

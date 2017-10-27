@@ -18,7 +18,6 @@ import FormBlock from '../components/FormBlock';
 import FormBlockField from '../components/FormBlockField';
 import Spinner from '../components/Spinner';
 
-import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
@@ -83,6 +82,8 @@ const styles = EStyleSheet.create({
   },
 });
 
+const closeIcon = require('../assets/icons/close.png');
+
 class CheckoutComplete extends Component {
   static propTypes = {
     ordersActions: PropTypes.shape({
@@ -124,7 +125,7 @@ class CheckoutComplete extends Component {
       leftButtons: [
         {
           id: 'close',
-          icon: require('../assets/icons/close.png'),
+          icon: closeIcon,
         },
       ],
     });
@@ -147,7 +148,7 @@ class CheckoutComplete extends Component {
     }
   }
 
-  renderProduct = (item) => {
+  renderProduct = (item, index) => {
     let productImage = null;
     if ('http_image_path' in item.main_pair.detailed) {
       productImage = (<Image
@@ -156,7 +157,7 @@ class CheckoutComplete extends Component {
       />);
     }
     return (
-      <View style={styles.productItem}>
+      <View style={styles.productItem} key={index}>
         {productImage}
         <View style={styles.productItemDetail}>
           <Text
@@ -185,7 +186,7 @@ class CheckoutComplete extends Component {
 
     const productsList = orderDetail.product_groups.map((group) => {
       const products = Object.keys(group.products).map(k => group.products[k]);
-      return products.map(p => this.renderProduct(p));
+      return products.map((p, i) => this.renderProduct(p, i));
     });
 
     const date = new Date(orderDetail.timestamp * 1000);
@@ -307,12 +308,13 @@ class CheckoutComplete extends Component {
   }
 }
 
-export default connect(state => ({
-  cart: state.cart,
-  auth: state.auth,
-  orderDetail: state.orderDetail,
-}),
-dispatch => ({
-  ordersActions: bindActionCreators(ordersActions, dispatch),
-})
+export default connect(
+  state => ({
+    cart: state.cart,
+    auth: state.auth,
+    orderDetail: state.orderDetail,
+  }),
+  dispatch => ({
+    ordersActions: bindActionCreators(ordersActions, dispatch),
+  })
 )(CheckoutComplete);
