@@ -105,7 +105,7 @@ const styles = EStyleSheet.create({
   },
   addToCartBtnText: {
     textAlign: 'center',
-    color: '#fff',
+    color: '$primaryColorText',
     fontSize: '1rem',
   },
   addToCartBtnTextSmall: {

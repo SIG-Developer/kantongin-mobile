@@ -14,17 +14,17 @@ const styles = EStyleSheet.create({
   container: {
     width,
     minHeight: (Platform.OS === 'ios') ? 80 : 60,
-    backgroundColor: '#D9534F',
+    backgroundColor: '$dangerColor',
     paddingTop: (Platform.OS === 'ios') ? 30 : 12,
     paddingBottom: (Platform.OS === 'ios') ? 4 : 8,
     paddingLeft: 14,
     paddingRight: 14,
   },
   containerSuccess: {
-    backgroundColor: '#7DCFB6',
+    backgroundColor: '$successColor',
   },
   containerInfo: {
-    backgroundColor: '#FCEADE',
+    backgroundColor: '$infoColor',
   },
   containerWarning: {},
   titleText: {

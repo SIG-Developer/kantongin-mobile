@@ -5,6 +5,7 @@
 * [Публикация приложения ios](../master/docs/deploy_ios.md)
 * [Публикация приложения android](../master/docs/deploy_android.md)
 * [Архитектура приложение и назначение папок](../master/docs/architecture.md)
+* [Настройки дизайна](../master/docs/design_settings.md)
 
 ### Полезные ссылки
 * [React native](https://facebook.github.io/react-native/)

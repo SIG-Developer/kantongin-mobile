@@ -39,7 +39,7 @@ const styles = EStyleSheet.create({
     backgroundColor: 'transparent',
     fontSize: '1rem',
     fontWeight: 'bold',
-    color: '#fff',
+    color: '$secondaryColorText',
   }
 });
 

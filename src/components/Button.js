@@ -27,7 +27,7 @@ const styles = EStyleSheet.create({
   },
   primaryText: {
     textAlign: 'center',
-    color: '#fff',
+    color: '$primaryColorText',
     fontSize: '1rem',
   }
 });
