@@ -50,7 +50,6 @@ export function create(data, cb = null) {
 export function fetchOne(id) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDER_DETAIL_REQUEST });
-
     return userApi.get(`/orders/${id}`)
       .then((response) => {
         dispatch({

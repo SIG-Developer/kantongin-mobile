@@ -7,6 +7,7 @@ import {
   Text,
   FlatList,
   InteractionManager,
+  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -54,6 +55,10 @@ const styles = EStyleSheet.create({
   }
 });
 
+const menuIcon = require('../assets/icons/menu.png');
+const cartIcon = require('../assets/icons/shopping-cart.png');
+const searchIcon = require('../assets/icons/search.png');
+
 class Orders extends Component {
   static propTypes = {
     ordersActions: PropTypes.shape({
@@ -63,13 +68,11 @@ class Orders extends Component {
       fetching: PropTypes.bool,
       items: PropTypes.arrayOf(PropTypes.object),
     }),
-    auth: PropTypes.shape({
-      logged: PropTypes.bool,
-      fetching: PropTypes.bool,
-    }),
     navigator: PropTypes.shape({
       setTitle: PropTypes.func,
       setButtons: PropTypes.func,
+      push: PropTypes.func,
+      setOnNavigatorEvent: PropTypes.func,
     }),
   };
 
@@ -96,17 +99,17 @@ class Orders extends Component {
       leftButtons: [
         {
           id: 'sideMenu',
-          icon: require('../assets/icons/menu.png'),
+          icon: menuIcon,
         },
       ],
       rightButtons: [
         {
           id: 'cart',
-          icon: require('../assets/icons/shopping-cart.png'),
+          icon: cartIcon,
         },
         {
           id: 'search',
-          icon: require('../assets/icons/search.png'),
+          icon: searchIcon,
         },
       ],
     });
@@ -200,24 +203,34 @@ class Orders extends Component {
   renderItem = (item) => {
     const status = this.getOrderStatus(item.status);
     return (
-      <View style={styles.orderItem}>
-        <View style={styles.orderItemCustomer}>
-          <Text style={styles.orderItemCustomerText}>
-            #{item.order_id} {item.firstname} {item.lastname}
-          </Text>
-          <Text style={styles.orderItemEmail}>
-            {item.email}
-          </Text>
+      <TouchableOpacity
+        onPress={() => this.props.navigator.push({
+          screen: 'OrderDetail',
+          backButtonTitle: '',
+          passProps: {
+            orderId: item.order_id,
+          },
+        })}
+      >
+        <View style={styles.orderItem}>
+          <View style={styles.orderItemCustomer}>
+            <Text style={styles.orderItemCustomerText}>
+              #{item.order_id} {item.firstname} {item.lastname}
+            </Text>
+            <Text style={styles.orderItemEmail}>
+              {item.email}
+            </Text>
+          </View>
+          <View style={styles.orderItemStatus}>
+            <Text style={[styles.orderItemStatusText, status.style]}>
+              {status.text}
+            </Text>
+            <Text style={styles.orderItemTotal}>
+              {item.total}
+            </Text>
+          </View>
         </View>
-        <View style={styles.orderItemStatus}>
-          <Text style={[styles.orderItemStatusText, status.style]}>
-            {status.text}
-          </Text>
-          <Text style={styles.orderItemTotal}>
-            {item.total}
-          </Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
