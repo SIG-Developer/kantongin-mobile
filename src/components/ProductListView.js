@@ -43,42 +43,41 @@ const styles = EStyleSheet.create({
   },
 });
 
-class ProductListView extends Component {
-  render() {
-    const item = this.props.product.item;
-    const price = item.price_formatted ? item.price_formatted.price : item.price;
-    const imageUri = get(item, 'main_pair.detailed.http_image_path');
-    return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => this.props.onPress(item)}
-      >
-        {imageUri && <Image
-          style={styles.productImage}
-          source={{ uri: imageUri }}
-        />}
-        <View style={styles.description}>
-          <Text
-            numberOfLines={1}
-            style={styles.productName}
-          >
-            {item.product}
-          </Text>
-          <Text
-            numberOfLines={1}
-            style={styles.productPrice}
-          >
-            {price}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-}
+
+const ProductListView = ({ onPress, product }) => {
+  const { item } = product;
+  const price = item.price_formatted ? item.price_formatted.price : item.price;
+  const imageUri = get(item, 'main_pair.detailed.http_image_path');
+  return (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onPress(item)}
+    >
+      {imageUri && <Image
+        style={styles.productImage}
+        source={{ uri: imageUri }}
+      />}
+      <View style={styles.description}>
+        <Text
+          numberOfLines={1}
+          style={styles.productName}
+        >
+          {item.product}
+        </Text>
+        <Text
+          numberOfLines={1}
+          style={styles.productPrice}
+        >
+          {price}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 ProductListView.propTypes = {
   product: PropTypes.shape({
-    item: PropTypes.objetc,
+    item: PropTypes.object,
   }),
   onPress: PropTypes.func,
 };
