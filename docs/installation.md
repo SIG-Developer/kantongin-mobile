@@ -19,7 +19,7 @@ Google APIs Intel x86 Atom_64 System Image,
   export PATH=$PATH:$ANDROID_HOME/platform-tools
 5. Создать signing key запустить в shell
 keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000 и положить ключь в корень ~/
-6. Клонировать репо и настроить пути и ключи до сервера в файле src/config/development.js
+6. Клонировать репо и настроить пути и ключи до сервера в файле src/config/index.js
 7. Установить зависимости cd ./project && npm install
 8. Установить npm install react-native-cli -g
 9. Для сборки релиза запустить cd android && ./gradlew assembleRelease
