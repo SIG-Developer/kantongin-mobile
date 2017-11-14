@@ -1,5 +1,6 @@
 import { Linking, Alert } from 'react-native';
 import i18n from './i18n';
+import config from '../config';
 
 export const registerDrawerDeepLinks = (e, navigator) => {
   if (e.type === 'DeepLink') {
@@ -20,6 +21,14 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         screen: 'Profile',
         backButtonTitle: '',
         animated: false,
+      });
+    } else if (parts[0] === 'page') {
+      navigator.push({
+        screen: 'Page',
+        backButtonTitle: '',
+        passProps: {
+          uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${parts[1]}`,
+        }
       });
     } else if (parts[0] === 'orders') {
       navigator.resetTo({
