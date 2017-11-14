@@ -1,17 +1,11 @@
-import development from './development';
-
-const config = {
-  username: 'ascherbachenko@cs-cart.com',
+export default {
+  username: 'admin@example.com',
   // API KEY
-  apiKey: '',
+  apiKey: 'OrY0GX6bJ6kCQT4G5E727m071u858DL2',
   // API URL
-  baseUrl: 'http://mobile.demo.cs-cart.com/api/4.0/',
+  baseUrl: 'http://82.202.226.53/api/4.0/',
   // SITE URL
-  siteUrl: 'http://mobile.demo.cs-cart.com/',
+  siteUrl: 'http://82.202.226.53/',
   // SHOP NAME
-  shopName: 'CS-Cart Mobile',
-
-  ...development,
+  shopName: 'CS-Cart',
 };
-
-export default config;
