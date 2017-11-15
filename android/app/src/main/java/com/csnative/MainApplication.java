@@ -1,4 +1,4 @@
-package com.csnative;
+package com.simtech.csnative_test;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
