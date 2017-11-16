@@ -11,6 +11,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 // Import actions.
 import * as notificationsActions from '../actions/notificationsActions';
 
+// theme
+import theme from '../config/theme';
+
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import config from '../config';
 import i18n from '../utils/i18n';
@@ -36,6 +39,14 @@ class Profile extends Component {
     })
   };
 
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   componentDidMount() {
     const { navigator } = this.props;
     // FIXME: Set title
@@ -51,7 +62,7 @@ class Profile extends Component {
   }
 
   onNavigationStateChange = (e) => {
-    const url = e.url;
+    const { url } = e;
     if (url === `${this.redirectUrl}&selected_section=general`) {
       this.props.notificationsActions.show({
         type: 'success',

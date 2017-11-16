@@ -46,6 +46,14 @@ class Registration extends Component {
     }),
   };
 
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   constructor(props) {
     super(props);
 
@@ -65,7 +73,7 @@ class Registration extends Component {
   }
 
   onNavigationStateChange(e) {
-    const url = e.url;
+    const { url } = e;
     let response = {};
     response = qs(url);
     if (response.token != undefined) {
@@ -78,11 +86,8 @@ class Registration extends Component {
     return (
       <View style={styles.container}>
         <WebView
-          automaticallyAdjustContentInsets={false}
-          javaScriptEnabled
           scalesPageToFit
           startInLoadingState
-          userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
           source={{
             uri: `${config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`,
           }}
