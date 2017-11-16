@@ -1,4 +1,4 @@
-package com.simtech.csnative_test;
+package com.csnative;
 
 import android.view.Gravity;
 import android.graphics.Color;
