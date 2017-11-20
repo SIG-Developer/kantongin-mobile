@@ -44,10 +44,13 @@ export default class BannerBlocks extends Component {
     const imageUri = get(item, 'main_pair.icon.http_image_path');
     const banner = { ...item };
     const parsedUrl = qs.parse(item.url);
+
     if ('product_id' in parsedUrl) {
       banner.url = `product/${parsedUrl.product_id}`;
     } else if ('page_id' in parsedUrl) {
       banner.url = `page/${parsedUrl.page_id}`;
+    } else if ('category_id' in parsedUrl) {
+      banner.url = `category/${parsedUrl.category_id}`;
     }
 
     return (
@@ -68,7 +71,7 @@ export default class BannerBlocks extends Component {
         <Text style={styles.blockHeader}>{name}</Text>
         <Swiper
           horizontal
-          height={200}
+          height={240}
           style={styles.container}
         >
           {itemsList}

@@ -5,7 +5,8 @@ import config from '../config';
 export const registerDrawerDeepLinks = (e, navigator) => {
   if (e.type === 'DeepLink') {
     const parts = e.link.split('/');
-    const payload = e.payload;
+    const { payload } = e;
+
     if (parts[0] === 'home') {
       navigator.resetTo({
         screen: 'Layouts',
@@ -42,6 +43,14 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         passProps: {
           pid: parts[1],
           payload,
+        }
+      });
+    } else if (parts[0] === 'category') {
+      navigator.push({
+        screen: 'Categories',
+        backButtonTitle: '',
+        passProps: {
+          cid: parts[1],
         }
       });
     } else if (parts[0] === 'http:') {

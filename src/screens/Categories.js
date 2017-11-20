@@ -11,6 +11,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
 import i18n from '../utils/i18n';
+import { BLOCK_CATEGORIES } from '../constants';
 
 // Import actions.
 import * as productsActions from '../actions/productsActions';
@@ -22,6 +23,7 @@ import Spinner from '../components/Spinner';
 
 // theme
 import theme from '../config/theme';
+
 
 // Styles
 const styles = EStyleSheet.create({
@@ -52,9 +54,13 @@ class Categories extends Component {
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
+    cid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     category: PropTypes.shape({}),
     products: PropTypes.shape({
       items: PropTypes.object,
+    }),
+    layouts: PropTypes.shape({
+      blocks: PropTypes.arrayOf(PropTypes.shape({})),
     }),
     productsActions: PropTypes.shape({
       fetchByCategory: PropTypes.func,
@@ -100,14 +106,24 @@ class Categories extends Component {
 
   componentDidMount() {
     const {
-      productsActions, products, category, navigator
+      productsActions, products, navigator, cid,
     } = this.props;
+
+    let category = { ...this.props.category };
+
+    if (cid) {
+      const categories = this.props.layouts.blocks.find(b => b.type === BLOCK_CATEGORIES);
+      const items = Object.keys(categories.content.items).map(k => categories.content.items[k]);
+      category = this.findCategoryById(items);
+    }
     this.activeCategoryId = category.category_id;
     const categoryProducts = products.items[this.activeCategoryId];
     const newState = {};
+
     if ('subcategories' in category && category.subcategories.length) {
       newState.subCategories = category.subcategories;
     }
+
     if (categoryProducts) {
       newState.refreshing = false;
       newState.products = categoryProducts;
@@ -147,6 +163,20 @@ class Categories extends Component {
         });
       }
     }
+  }
+
+  findCategoryById(items) {
+    const flatten = [];
+    const makeFlat = (list) => {
+      list.forEach((i) => {
+        flatten.push(i);
+        if ('subcategories' in i) {
+          makeFlat(i.subcategories);
+        }
+      });
+    };
+    makeFlat(items);
+    return flatten.find(i => i.category_id == this.props.cid) || null;
   }
 
   handleLoadMore() {
@@ -240,6 +270,7 @@ class Categories extends Component {
 export default connect(
   state => ({
     products: state.products,
+    layouts: state.layouts,
   }),
   dispatch => ({
     productsActions: bindActionCreators(productsActions, dispatch),
