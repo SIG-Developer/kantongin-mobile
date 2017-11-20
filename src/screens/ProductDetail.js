@@ -174,6 +174,20 @@ class ProductDetail extends Component {
     screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        id: 'cart',
+        component: 'CartBtn',
+        passProps: {},
+      },
+      {
+        id: 'search',
+        icon: searchImage,
+      },
+    ],
+  };
+
   constructor(props) {
     super(props);
 
@@ -194,27 +208,6 @@ class ProductDetail extends Component {
     } = this.props;
     InteractionManager.runAfterInteractions(() => {
       productsActions.fetch(pid);
-    });
-
-    const rightButtons = [
-      {
-        id: 'cart',
-        component: 'CartBtn',
-        passProps: {},
-      },
-      {
-        id: 'search',
-        icon: searchImage,
-      },
-    ];
-
-    // Remove search button.
-    if (hideSearch) {
-      rightButtons.pop();
-    }
-
-    navigator.setButtons({
-      rightButtons,
     });
   }
 
@@ -267,9 +260,13 @@ class ProductDetail extends Component {
   }
 
   onNavigatorEvent(event) {
-    const { navigator } = this.props;
+    const { navigator, hideSearch } = this.props;
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'search') {
+        if (hideSearch) {
+          navigator.pop();
+          return;
+        }
         navigator.showModal({
           screen: 'Search',
           animated: false,
