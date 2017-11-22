@@ -17,8 +17,12 @@ const AxiosInstance = axios.create({
   },
 });
 
-AxiosInstance.interceptors.request.use((config) => {
+AxiosInstance.interceptors.request.use((conf) => {
   const state = store.getState();
+  const config = { ...conf };
+  if (state.layouts.layoutId) {
+    config.params.s_layouts = state.layouts.layoutId;
+  }
   if (state.auth.token) {
     config.headers.common.Authorization = `Basic ${base64.encode(state.auth.token)}:`;
   }
