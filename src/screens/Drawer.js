@@ -6,8 +6,6 @@ import {
   Text,
   View,
   Image,
-  Alert,
-  Linking,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
@@ -15,7 +13,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import uniqueId from 'lodash/uniqueId';
 import i18n from '../utils/i18n';
 
-import config from '../config';
 import theme from '../config/theme';
 import * as authActions from '../actions/authActions';
 import * as pagesActions from '../actions/pagesActions';
@@ -119,13 +116,14 @@ class Drawer extends Component {
   }
 
   handleOpenPage = (page) => {
-    const url = `${config.siteUrl}index.php?dispatch=pages.view&page_id=${page.page_id}`;
-    Linking.canOpenURL(url).then((supported) => {
-      if (supported) {
-        Linking.openURL(url);
-      } else {
-        Alert.alert(`Don't know how to open URI: ${url}`);
-      }
+    this.props.navigator.handleDeepLink({
+      link: `page/${page.page_id}`,
+      payload: {
+        title: page.page,
+      },
+    });
+    this.props.navigator.toggleDrawer({
+      side: 'left',
     });
   }
 

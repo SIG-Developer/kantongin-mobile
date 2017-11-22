@@ -29,7 +29,8 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         backButtonTitle: '',
         passProps: {
           uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${parts[1]}`,
-        }
+        },
+        ...payload,
       });
     } else if (parts[0] === 'orders') {
       navigator.resetTo({
