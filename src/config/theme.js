@@ -15,16 +15,21 @@ export default {
   $primaryColorText: '#fff',
   $secondaryColor: '#47C9AF',
   $secondaryColorText: '#fff',
-  
+
   $successColor: '#7DCFB6',
   $infoColor: '#FCEADE',
   $dangerColor: '#D9534F',
-  
+
   $darkColor: '#242424',
   $grayColor: '#EEEEEE',
   $lightColor: '#242424',
 
   $borderRadius: 6,
+
+  $categoriesBackgroundColor: '#FAFAFA',
+  $categoryBlockBackgroundColor: '#FFF',
+  $categoryBlockTextColor: '#000',
+  $categoryBorderRadius: 1,
 
   // $headerBgColor: '#FAFAFA',
   // $headerTitleColor: '#242424',

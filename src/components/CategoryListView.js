@@ -10,61 +10,67 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
   container: {
-    width: '50%',
+    width: '33.33333%',
+    padding: 5,
   },
   wrapper: {
-    backgroundColor: '$secondaryColor',
-    height: 100,
+    height: 150,
     position: 'relative',
-    marginTop: 10,
-    marginLeft: 10,
-    borderRadius: '$borderRadius',
-  },
-  wrapperRight: {
-    marginRight: 10,
+    marginTop: 5,
+    backgroundColor: '$categoryBlockBackgroundColor',
+    // borderBottomWidth: 1,
+    // borderRightWidth: 1,
+    // borderColor: '#dadada',
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    borderRadius: '$categoryBorderRadius',
   },
   categoryImage: {
     height: 100,
-    resizeMode: 'cover'
+    width: '100%',
+    resizeMode: 'cover',
   },
-  withImage: {
-    backgroundColor: 'transparent',
+  categoryTitleWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   categoryTitle: {
-    position: 'absolute',
-    top: 36,
-    right: 0,
-    left: 0,
     textAlign: 'center',
-    backgroundColor: 'transparent',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    color: '$secondaryColorText',
+    fontSize: '0.8rem',
+    paddingLeft: 4,
+    paddingRight: 4,
+    backgroundColor: '$categoryBlockBackgroundColor',
+    color: '$categoryBlockTextColor',
   }
 });
 
-class CategoryListView extends Component {
-  render() {
-    const item = this.props.category;
-    const index = this.props.index || 0;
-    let imageUri = null;
-    if ('main_pair' in item) {
-      imageUri = item.main_pair.detailed.http_image_path;
-    }
-    const oddStyle = index % 2 ? styles.wrapperRight : null;
-    return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => this.props.onPress(item)}
-      >
-        <View style={[styles.wrapper, oddStyle, imageUri && styles.withImage]}>
-          {imageUri && <Image source={{ uri: imageUri }} style={styles.categoryImage} />}
-          <Text numberOfLines={2} style={styles.categoryTitle}>{item.category}</Text>
-        </View>
-      </TouchableOpacity>
-    );
+const CategoryListView = ({ category, onPress }) => {
+  let imageUri = 'http://via.placeholder.com/140x140';
+  if ('main_pair' in category) {
+    imageUri = category.main_pair.detailed.http_image_path;
   }
-}
+  return (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onPress(category)}
+    >
+      <View style={styles.wrapper}>
+        {imageUri && <Image source={{ uri: imageUri }} style={styles.categoryImage} />}
+        <View style={styles.categoryTitleWrapper}>
+          <Text numberOfLines={2} style={styles.categoryTitle}>{category.category}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+CategoryListView.defaultProps = {
+  index: 0,
+};
 
 CategoryListView.propTypes = {
   category: PropTypes.shape({

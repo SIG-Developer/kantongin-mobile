@@ -35,6 +35,10 @@ const styles = EStyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
+    backgroundColor: '$categoriesBackgroundColor',
+    padding: 5,
+    paddingTop: 5,
+    paddingBottom: 10,
   },
   header: {
     fontWeight: 'bold',
@@ -195,18 +199,18 @@ class Categories extends Component {
 
   renderHeader() {
     const { navigator } = this.props;
-    const subCategoriesList = this.state.subCategories.map((item, index) => (<CategoryListView
-      key={index}
-      category={item}
-      index={index}
-      onPress={() => navigator.push({
-        screen: 'Categories',
-        backButtonTitle: '',
-        passProps: {
-          category: item,
-        },
-      })}
-    />));
+    const subCategoriesList = this.state.subCategories.map((item, index) => (
+      <CategoryListView
+        key={index}
+        category={item}
+        onPress={() => navigator.push({
+          screen: 'Categories',
+          backButtonTitle: '',
+          passProps: {
+            category: item,
+          },
+        })}
+      />));
     const productHeader = (
       <Text style={styles.header}>
         {i18n.gettext('Products')}

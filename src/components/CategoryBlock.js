@@ -10,8 +10,11 @@ const styles = EStyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 10,
-    marginBottom: 10,
+    padding: 5,
+    paddingTop: 5,
+    paddingBottom: 10,
+    marginBottom: 5,
+    backgroundColor: '$categoriesBackgroundColor',
   },
 });
 
@@ -28,7 +31,6 @@ export default class CategoriesBlocks extends Component {
   renderCategory = (item, index) => (
     <CategoryListView
       category={item}
-      index={index}
       onPress={() => this.props.onPress(item)}
       key={index}
     />
