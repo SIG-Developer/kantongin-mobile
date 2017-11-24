@@ -18,13 +18,10 @@ const styles = EStyleSheet.create({
     position: 'relative',
     marginTop: 5,
     backgroundColor: '$categoryBlockBackgroundColor',
-    // borderBottomWidth: 1,
-    // borderRightWidth: 1,
-    // borderColor: '#dadada',
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderColor: '#dadada',
+    overflow: 'hidden',
     borderRadius: '$categoryBorderRadius',
   },
   categoryImage: {
@@ -45,11 +42,27 @@ const styles = EStyleSheet.create({
     paddingRight: 4,
     backgroundColor: '$categoryBlockBackgroundColor',
     color: '$categoryBlockTextColor',
-  }
+  },
+  noImage: {
+    backgroundColor: '#ececec',
+    height: 100,
+    width: '100%',
+    // flex: 1,
+    // flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyImage: {
+    width: 40,
+    height: 40,
+    opacity: 0.2,
+  },
 });
 
+const emptyImage = require('../assets/icons/shopping_bag.png');
+
 const CategoryListView = ({ category, onPress }) => {
-  let imageUri = 'http://via.placeholder.com/140x140';
+  let imageUri = null;
   if ('main_pair' in category) {
     imageUri = category.main_pair.detailed.http_image_path;
   }
@@ -59,7 +72,13 @@ const CategoryListView = ({ category, onPress }) => {
       onPress={() => onPress(category)}
     >
       <View style={styles.wrapper}>
-        {imageUri && <Image source={{ uri: imageUri }} style={styles.categoryImage} />}
+        {imageUri ?
+          <Image source={{ uri: imageUri }} style={styles.categoryImage} />
+          :
+          <View style={styles.noImage}>
+            <Image source={emptyImage} style={styles.emptyImage} />
+          </View>
+        }
         <View style={styles.categoryTitleWrapper}>
           <Text numberOfLines={2} style={styles.categoryTitle}>{category.category}</Text>
         </View>
@@ -68,15 +87,10 @@ const CategoryListView = ({ category, onPress }) => {
   );
 };
 
-CategoryListView.defaultProps = {
-  index: 0,
-};
-
 CategoryListView.propTypes = {
   category: PropTypes.shape({
     item: PropTypes.objetc,
   }),
-  index: PropTypes.number,
   onPress: PropTypes.func,
 };
 

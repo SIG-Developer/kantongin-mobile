@@ -17,7 +17,7 @@ import { BLOCK_CATEGORIES } from '../constants';
 import * as productsActions from '../actions/productsActions';
 
 // Components
-import CategoryListView from '../components/CategoryListView';
+import CategoryBlock from '../components/CategoryBlock';
 import ProductListView from '../components/ProductListView';
 import Spinner from '../components/Spinner';
 
@@ -30,22 +30,11 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
   },
-  subCategoriesContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    backgroundColor: '$categoriesBackgroundColor',
-    padding: 5,
-    paddingTop: 5,
-    paddingBottom: 10,
-  },
   header: {
     fontWeight: 'bold',
-    color: 'black',
-    fontSize: '1.6rem',
-    paddingTop: 20,
+    fontSize: '1.3rem',
     paddingLeft: 10,
+    paddingTop: 20,
     paddingBottom: 20,
   }
 });
@@ -199,18 +188,6 @@ class Categories extends Component {
 
   renderHeader() {
     const { navigator } = this.props;
-    const subCategoriesList = this.state.subCategories.map((item, index) => (
-      <CategoryListView
-        key={index}
-        category={item}
-        onPress={() => navigator.push({
-          screen: 'Categories',
-          backButtonTitle: '',
-          passProps: {
-            category: item,
-          },
-        })}
-      />));
     const productHeader = (
       <Text style={styles.header}>
         {i18n.gettext('Products')}
@@ -219,9 +196,18 @@ class Categories extends Component {
     );
     return (
       <View>
-        <View style={styles.subCategoriesContainer}>
-          {subCategoriesList}
-        </View>
+        <CategoryBlock
+          items={this.state.subCategories}
+          onPress={(category) => {
+            navigator.push({
+              screen: 'Categories',
+              backButtonTitle: '',
+              passProps: {
+                category,
+              }
+            });
+          }}
+        />
         {this.state.subCategories.length !== 0 && productHeader}
       </View>
     );

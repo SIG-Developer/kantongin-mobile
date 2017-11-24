@@ -24,12 +24,13 @@ export default {
   $grayColor: '#EEEEEE',
   $lightColor: '#242424',
 
-  $borderRadius: 6,
+  $borderRadius: 8,
 
   $categoriesBackgroundColor: '#FAFAFA',
+  $categoriesHeaderColor: '#000',
   $categoryBlockBackgroundColor: '#FFF',
   $categoryBlockTextColor: '#000',
-  $categoryBorderRadius: 1,
+  $categoryBorderRadius: 6,
 
   // $headerBgColor: '#FAFAFA',
   // $headerTitleColor: '#242424',
