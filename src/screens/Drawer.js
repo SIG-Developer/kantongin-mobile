@@ -8,7 +8,6 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import uniqueId from 'lodash/uniqueId';
@@ -324,7 +323,6 @@ class Drawer extends Component {
         <View style={styles.group}>
           {pagesList}
         </View>
-        <WebView />
       </ScrollView>
     );
   }
