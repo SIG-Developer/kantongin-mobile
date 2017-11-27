@@ -203,9 +203,7 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    const {
-      productsActions, pid, hideSearch, navigator
-    } = this.props;
+    const { productsActions, pid, } = this.props;
     InteractionManager.runAfterInteractions(() => {
       productsActions.fetch(pid);
     });
@@ -280,9 +278,10 @@ class ProductDetail extends Component {
     const { productDetail } = this.props;
     let newPrice = 0;
     newPrice += +productDetail.price;
-    Object.keys(selectedOptions).map((key) => {
+    Object.keys(selectedOptions).forEach((key) => {
       newPrice += +selectedOptions[key].modifier;
     });
+    newPrice *= this.state.amount;
     this.setState({
       product: {
         ...product,
@@ -312,7 +311,7 @@ class ProductDetail extends Component {
     const products = {
       [this.state.product.product_id]: {
         product_id: product.product_id,
-        amount: 1,
+        amount: this.state.amount,
         product_options: productOptions,
       },
     };
@@ -453,7 +452,7 @@ class ProductDetail extends Component {
             onChange={(val) => {
               this.setState({
                 amount: val,
-              });
+              }, () => this.calculatePrice());
             }}
           />
         </View>
