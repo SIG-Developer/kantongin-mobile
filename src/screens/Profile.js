@@ -85,7 +85,7 @@ class Profile extends Component {
           javaScriptEnabled
           scalesPageToFit
           startInLoadingState
-          userAgent={'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'}
+          userAgent="Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36"
           source={{
             uri: url,
           }}
@@ -96,10 +96,11 @@ class Profile extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-}),
-dispatch => ({
-  notificationsActions: bindActionCreators(notificationsActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+  }),
+  dispatch => ({
+    notificationsActions: bindActionCreators(notificationsActions, dispatch),
+  })
 )(Profile);

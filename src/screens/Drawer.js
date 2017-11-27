@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  WebView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import uniqueId from 'lodash/uniqueId';
@@ -323,18 +324,20 @@ class Drawer extends Component {
         <View style={styles.group}>
           {pagesList}
         </View>
+        <WebView />
       </ScrollView>
     );
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-  cart: state.cart,
-  pages: state.pages,
-}),
-dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
-  pagesActions: bindActionCreators(pagesActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+    cart: state.cart,
+    pages: state.pages,
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch),
+    pagesActions: bindActionCreators(pagesActions, dispatch),
+  })
 )(Drawer);

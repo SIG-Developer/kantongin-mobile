@@ -83,13 +83,17 @@ class Registration extends Component {
 
   render() {
     const { auth } = this.props;
+    let url = `${config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`;
+    if (!auth.logged) {
+      url = `${config.siteUrl}index.php?dispatch=auth.logout&redirect_url=index.php?dispatch=profiles.add.get_auth_token`;
+    }
     return (
       <View style={styles.container}>
         <WebView
           scalesPageToFit
           startInLoadingState
           source={{
-            uri: `${config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`,
+            uri: url,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />
@@ -99,10 +103,11 @@ class Registration extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-}),
-dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch),
+  })
 )(Registration);
