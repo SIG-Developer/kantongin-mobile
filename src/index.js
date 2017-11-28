@@ -52,7 +52,7 @@ class App extends Component {
         },
         style: {
           drawerShadow: 'NO',
-          leftDrawerWidth: 80,
+          leftDrawerWidth: 84,
           contentOverlayColor: theme.$contentOverlayColor,
         },
       },

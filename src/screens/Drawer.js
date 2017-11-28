@@ -21,12 +21,35 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '$drawerBgColor',
+  },
+  scroll: {
+    flex: 1,
+  },
+  header: {
     paddingTop: 30,
+    backgroundColor: '#4152AE',
+    height: '10rem',
+    position: 'relative',
+  },
+  headerUserName: {
+    position: 'absolute',
+    left: 14,
+    bottom: 14,
+  },
+  headerUserNameText: {
+    color: '#fff',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
+  headerUserMailText: {
+    fontSize: '0.8rem',
+    color: '#fff',
   },
   logo: {
-    height: 30,
+    height: 40,
+    width: 200,
+    marginLeft: 14,
     resizeMode: 'contain',
-    marginBottom: 20,
   },
   signInBtn: {
     backgroundColor: '#47C9AF',
@@ -45,6 +68,16 @@ const styles = EStyleSheet.create({
   },
   itemBtnText: {
     fontSize: '0.9rem',
+    paddingTop: 3,
+  },
+  itemBtnWrapper: {
+    flexDirection: 'row',
+  },
+  itemBtnIcon: {
+    height: 24,
+    width: 24,
+    marginRight: 10,
+    opacity: 0.8,
   },
   group: {
     marginTop: 40,
@@ -80,9 +113,24 @@ const styles = EStyleSheet.create({
     color: 'black',
   },
   signOutBtn: {
-    backgroundColor: 'gray',
+    position: 'absolute',
+    right: 5,
+    top: 24,
+    backgroundColor: 'transparent',
+    padding: 14,
   },
+  signOutBtnIcon: {
+    height: 24,
+    width: 24,
+    tintColor: '#fff',
+  }
 });
+
+const homeIcon = require('../assets/icons/home.png');
+const shoppingCartIcon = require('../assets/icons/shopping-cart.png');
+const profileIcon = require('../assets/icons/profile.png');
+const ordersIcon = require('../assets/icons/receipt.png');
+const logoutIcon = require('../assets/icons/exit.png');
 
 class Drawer extends Component {
   static propTypes = {
@@ -127,57 +175,66 @@ class Drawer extends Component {
     });
   }
 
-  renderLogo = () => (
-    <Image
-      source={{ uri: theme.$logoUrl }}
-      style={styles.logo}
-    />
-  );
-
-  renderSearchBar = () => (
-    <View style={styles.search} />
-  );
-
-  renderSignInBtn = () => {
-    if (this.props.auth.logged) {
+  renderHeader() {
+    const { cart, auth } = this.props;
+    if (auth.logged) {
       return (
+        <View style={styles.header}>
+          <Image
+            source={{ uri: theme.$logoUrl }}
+            style={styles.logo}
+          />
+          <TouchableOpacity
+            style={styles.signOutBtn}
+            onPress={() => {
+              this.props.authActions.logout();
+              this.props.navigator.handleDeepLink({
+                link: 'home/',
+                payload: {},
+              });
+              this.props.navigator.toggleDrawer({
+                side: 'left',
+                animated: true,
+                to: 'close'
+              });
+            }}
+          >
+            <Image source={logoutIcon} style={styles.signOutBtnIcon} />
+          </TouchableOpacity>
+          <View style={styles.headerUserName}>
+            <Text style={styles.headerUserNameText}>
+              {cart.user_data.b_firstname} {cart.user_data.b_lastname}
+            </Text>
+            <Text style={styles.headerUserMailText}>
+              {cart.user_data.email}
+            </Text>
+          </View>
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.header}>
+        <Image
+          source={{ uri: theme.$logoUrl }}
+          style={styles.logo}
+        />
         <TouchableOpacity
-          style={[styles.signInBtn, styles.signOutBtn]}
+          style={styles.signInBtn}
           onPress={() => {
-            this.props.authActions.logout();
-            this.props.navigator.handleDeepLink({
-              link: 'home/',
-              payload: {},
-            });
             this.props.navigator.toggleDrawer({
               side: 'left',
-              animated: true,
-              to: 'close'
+            });
+            this.props.navigator.showModal({
+              screen: 'Login',
             });
           }}
         >
           <Text style={styles.signInBtnText}>
-            {i18n.gettext('Logout')}
+            {i18n.gettext('Sign in')}
           </Text>
         </TouchableOpacity>
-      );
-    }
-    return (
-      <TouchableOpacity
-        style={styles.signInBtn}
-        onPress={() => {
-          this.props.navigator.toggleDrawer({
-            side: 'left',
-          });
-          this.props.navigator.showModal({
-            screen: 'Login',
-          });
-        }}
-      >
-        <Text style={styles.signInBtnText}>
-          {i18n.gettext('Sign in')}
-        </Text>
-      </TouchableOpacity>
+      </View>
     );
   }
 
@@ -240,53 +297,15 @@ class Drawer extends Component {
     const pagesList = pages.items
       .map(p => this.renderItem(p.page, () => this.handleOpenPage(p)));
     return (
-      <ScrollView style={styles.container}>
-        {this.renderLogo()}
-        {this.renderSignInBtn()}
-        {this.renderSearchBar()}
-        <View style={styles.group}>
-          <TouchableOpacity
-            style={styles.itemBtn}
-            onPress={() => {
-              navigator.handleDeepLink({
-                link: 'home/',
-                payload: {},
-              });
-              navigator.toggleDrawer({
-                side: 'left',
-              });
-            }}
-          >
-            <Text style={styles.itemBtnText}>
-              {i18n.gettext('Home')}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.itemBtn}
-            onPress={() => {
-              navigator.showModal({
-                screen: 'Cart',
-              });
-              navigator.toggleDrawer({
-                side: 'left',
-              });
-            }}
-          >
-            <View>
-              <Text style={styles.itemBtnText}>
-                {i18n.gettext('Cart')}
-              </Text>
-              {this.renderBadge(this.props.cart.amount)}
-            </View>
-          </TouchableOpacity>
-
-          {auth.logged &&
+      <View style={styles.container}>
+        {this.renderHeader()}
+        <ScrollView style={styles.scroll}>
+          <View style={styles.group}>
             <TouchableOpacity
               style={styles.itemBtn}
               onPress={() => {
                 navigator.handleDeepLink({
-                  link: 'profile/',
+                  link: 'home/',
                   payload: {},
                 });
                 navigator.toggleDrawer({
@@ -294,36 +313,84 @@ class Drawer extends Component {
                 });
               }}
             >
-              <Text style={styles.itemBtnText}>
-                {i18n.gettext('My Profile')}
-              </Text>
+              <View style={styles.itemBtnWrapper}>
+                <Image source={homeIcon} style={styles.itemBtnIcon} />
+                <Text style={styles.itemBtnText}>
+                  {i18n.gettext('Home')}
+                </Text>
+              </View>
             </TouchableOpacity>
-          }
 
-          {auth.logged &&
             <TouchableOpacity
               style={styles.itemBtn}
               onPress={() => {
-                navigator.handleDeepLink({
-                  link: 'orders/',
-                  payload: {},
+                navigator.showModal({
+                  screen: 'Cart',
                 });
                 navigator.toggleDrawer({
                   side: 'left',
                 });
               }}
             >
-              <Text style={styles.itemBtnText}>
-                {i18n.gettext('Orders')}
-              </Text>
+              <View style={styles.itemBtnWrapper}>
+                <Image source={shoppingCartIcon} style={styles.itemBtnIcon} />
+                <Text style={styles.itemBtnText}>
+                  {i18n.gettext('Cart')}
+                </Text>
+                {this.renderBadge(this.props.cart.amount)}
+              </View>
             </TouchableOpacity>
-          }
-        </View>
 
-        <View style={styles.group}>
-          {pagesList}
-        </View>
-      </ScrollView>
+            {auth.logged &&
+              <TouchableOpacity
+                style={styles.itemBtn}
+                onPress={() => {
+                  navigator.handleDeepLink({
+                    link: 'profile/',
+                    payload: {},
+                  });
+                  navigator.toggleDrawer({
+                    side: 'left',
+                  });
+                }}
+              >
+                <View style={styles.itemBtnWrapper}>
+                  <Image source={profileIcon} style={styles.itemBtnIcon} />
+                  <Text style={styles.itemBtnText}>
+                    {i18n.gettext('My Profile')}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            }
+
+            {auth.logged &&
+              <TouchableOpacity
+                style={styles.itemBtn}
+                onPress={() => {
+                  navigator.handleDeepLink({
+                    link: 'orders/',
+                    payload: {},
+                  });
+                  navigator.toggleDrawer({
+                    side: 'left',
+                  });
+                }}
+              >
+                <View style={styles.itemBtnWrapper}>
+                  <Image source={ordersIcon} style={styles.itemBtnIcon} />
+                  <Text style={styles.itemBtnText}>
+                    {i18n.gettext('Orders')}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            }
+          </View>
+
+          <View style={styles.group}>
+            {pagesList}
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
