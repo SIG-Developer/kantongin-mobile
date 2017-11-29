@@ -33,8 +33,8 @@ const styles = EStyleSheet.create({
   },
   headerUserName: {
     position: 'absolute',
-    left: 14,
-    bottom: 14,
+    left: 20,
+    bottom: 20,
   },
   headerUserNameText: {
     color: '#fff',
@@ -48,27 +48,36 @@ const styles = EStyleSheet.create({
   logo: {
     height: 40,
     width: 200,
-    marginLeft: 14,
+    marginLeft: 20,
+    marginTop: 14,
     resizeMode: 'contain',
   },
+  logoLogin: {
+    marginTop: 20,
+  },
   signInBtn: {
-    backgroundColor: '#47C9AF',
+    backgroundColor: 'transparent',
     padding: 12,
+    position: 'absolute',
+    bottom: 14,
+    left: 14,
   },
   signInBtnText: {
-    textAlign: 'center',
+    textAlign: 'left',
     color: '#fff',
-    fontSize: '0.9rem',
+    fontSize: '1rem',
   },
   itemBtn: {
     padding: 10,
     paddingLeft: 20,
-    borderBottomWidth: 1,
-    borderColor: '#F2F2F2',
+  },
+  mainMenu: {
+    marginTop: 14,
   },
   itemBtnText: {
     fontSize: '0.9rem',
     paddingTop: 3,
+    fontWeight: 'bold',
   },
   itemBtnWrapper: {
     flexDirection: 'row',
@@ -76,11 +85,9 @@ const styles = EStyleSheet.create({
   itemBtnIcon: {
     height: 24,
     width: 24,
-    marginRight: 10,
+    marginRight: 20,
     opacity: 0.8,
-  },
-  group: {
-    marginTop: 40,
+    tintColor: '#888888',
   },
   itemBadgeRed: {
     position: 'absolute',
@@ -115,7 +122,7 @@ const styles = EStyleSheet.create({
   signOutBtn: {
     position: 'absolute',
     right: 5,
-    top: 24,
+    top: 36,
     backgroundColor: 'transparent',
     padding: 14,
   },
@@ -123,6 +130,12 @@ const styles = EStyleSheet.create({
     height: 24,
     width: 24,
     tintColor: '#fff',
+  },
+  devider: {
+    borderBottomWidth: 1,
+    borderColor: '#F2F2F2',
+    marginTop: 14,
+    marginBottom: 14,
   }
 });
 
@@ -217,7 +230,7 @@ class Drawer extends Component {
       <View style={styles.header}>
         <Image
           source={{ uri: theme.$logoUrl }}
-          style={styles.logo}
+          style={[styles.logo, styles.logoLogin]}
         />
         <TouchableOpacity
           style={styles.signInBtn}
@@ -231,7 +244,7 @@ class Drawer extends Component {
           }}
         >
           <Text style={styles.signInBtnText}>
-            {i18n.gettext('Sign in')}
+            {i18n.gettext('Login | Registration')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -300,7 +313,7 @@ class Drawer extends Component {
       <View style={styles.container}>
         {this.renderHeader()}
         <ScrollView style={styles.scroll}>
-          <View style={styles.group}>
+          <View style={styles.mainMenu}>
             <TouchableOpacity
               style={styles.itemBtn}
               onPress={() => {
@@ -385,8 +398,8 @@ class Drawer extends Component {
               </TouchableOpacity>
             }
           </View>
-
-          <View style={styles.group}>
+          <View style={styles.devider} />
+          <View style={styles.pagesMenu}>
             {pagesList}
           </View>
         </ScrollView>
