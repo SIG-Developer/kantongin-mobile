@@ -1,11 +1,11 @@
 export default {
-  username: 'ascherbachenko@cs-cart.com',
+  username: 'admin@example.com',
   // API KEY
-  apiKey: '',
+  apiKey: 'OrY0GX6bJ6kCQT4G5E727m071u858DL2', //'NPY3MPbF1OdQ6963g1KjbYF5tcX3298L',
   // API URL
-  baseUrl: 'http://mobile.demo.cs-cart.com/api/4.0/',
+  baseUrl: 'http://82.202.226.53/api/4.0/',
   // SITE URL
-  siteUrl: 'http://mobile.demo.cs-cart.com/',
+  siteUrl: 'http://82.202.226.53/',
   // SHOP NAME
   shopName: 'CS-Cart Mobile',
 };

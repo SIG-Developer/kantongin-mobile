@@ -27,9 +27,11 @@ const styles = EStyleSheet.create({
   },
   header: {
     paddingTop: 30,
-    backgroundColor: '#4152AE',
+    backgroundColor: '$drawerHeaderBackgroundColor',
     height: '10rem',
     position: 'relative',
+    borderBottomWidth: 1,
+    borderColor: '$drawerHeaderBorderColor'
   },
   headerUserName: {
     position: 'absolute',
@@ -37,13 +39,13 @@ const styles = EStyleSheet.create({
     bottom: 20,
   },
   headerUserNameText: {
-    color: '#fff',
+    color: '$drawerHeaderTextColor',
     fontSize: '1rem',
     fontWeight: 'bold',
   },
   headerUserMailText: {
     fontSize: '0.8rem',
-    color: '#fff',
+    color: '$drawerHeaderTextColor',
   },
   logo: {
     height: 40,
@@ -64,7 +66,7 @@ const styles = EStyleSheet.create({
   },
   signInBtnText: {
     textAlign: 'left',
-    color: '#fff',
+    color: '$drawerHeaderTextColor',
     fontSize: '1rem',
   },
   itemBtn: {
@@ -87,7 +89,7 @@ const styles = EStyleSheet.create({
     width: 24,
     marginRight: 20,
     opacity: 0.8,
-    tintColor: '#888888',
+    tintColor: '$drawerHeaderButtonColor',
   },
   itemBadgeRed: {
     position: 'absolute',
@@ -98,7 +100,7 @@ const styles = EStyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FD542A'
+    backgroundColor: '$drawerPrimaryBadgeColor',
   },
   itemBadgeRedText: {
     color: '#fff',
@@ -114,7 +116,7 @@ const styles = EStyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'gray'
+    backgroundColor: '$drawerSecondaryBadgeColor',
   },
   itemBadgeGrayText: {
     color: 'black',
@@ -129,11 +131,11 @@ const styles = EStyleSheet.create({
   signOutBtnIcon: {
     height: 24,
     width: 24,
-    tintColor: '#fff',
+    tintColor: 'gray',
   },
   devider: {
     borderBottomWidth: 1,
-    borderColor: '#F2F2F2',
+    borderColor: '$drawerHeaderBackgroundColor',
     marginTop: 14,
     marginBottom: 14,
   }
