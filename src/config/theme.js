@@ -32,6 +32,13 @@ export default {
   $categoryBlockTextColor: '#000',
   $categoryBorderRadius: 6,
 
+  $drawerHeaderBackgroundColor: '#F2F2F2',
+  $drawerHeaderBorderColor: '#D6D6D6',
+  $drawerHeaderTextColor: '#7C7C7C',
+  $drawerHeaderButtonColor: '#888888',
+  $drawerPrimaryBadgeColor: '#FD542A',
+  $drawerSecondaryBadgeColor: '#808080',
+
   // $headerBgColor: '#FAFAFA',
   // $headerTitleColor: '#242424',
   // $headerTintColor: '#242424',
