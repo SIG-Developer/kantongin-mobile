@@ -29,6 +29,9 @@
         "WebSocket": false,
         "FormData": false,
         "XMLHttpRequest": false,
-        "requestAnimationFrame": false
+        "requestAnimationFrame": false,
+        "describe": false,
+        "it": false,
+        "expect": false
     }
 }

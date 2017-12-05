@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "build-android": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.android.js --bundle-output iOS/main.jsbundle --platform 'android' --assets-dest ./  --dev false --reset-cache",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "axios": "0.17.1",
@@ -47,6 +48,11 @@
     "react-test-renderer": "16.1.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "verbose": true,
+    "setupFiles": ["<rootDir>/__tests__/mocks/global.js"],
+    "testMatch": [
+      "**/__tests__/**/*.spec.js?(x)"
+    ]
   }
 }

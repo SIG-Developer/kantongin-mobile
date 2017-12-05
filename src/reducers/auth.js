@@ -1,4 +1,3 @@
-import { REHYDRATE } from 'redux-persist/constants';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -49,8 +48,6 @@ export default function (state = initialState, action) {
       };
 
     case AUTH_RESET_STATE:
-      return initialState;
-
     case AUTH_LOGOUT:
       return initialState;
 
