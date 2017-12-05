@@ -116,7 +116,7 @@ export default function (state = initialState, action) {
         ...state,
         products: newProducts,
       };
-    
+
     default:
       return state;
   }
