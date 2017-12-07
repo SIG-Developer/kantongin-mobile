@@ -41,7 +41,7 @@ export function fetch(fetching = true) {
         fetching,
       }
     });
-    return userApi.get('/cart_content/?calculate_shipping=A')
+    return userApi.get('/sra_cart_content/?calculate_shipping=A')
       .then((response) => {
         dispatch({
           type: CART_SUCCESS,
@@ -64,7 +64,7 @@ export function fetchCart(dispatch, fetching = true) {
       fetching,
     }
   });
-  return userApi.get('/cart_content/?calculate_shipping=A')
+  return userApi.get('/sra_cart_content/?calculate_shipping=A')
     .then((response) => {
       dispatch({
         type: CART_SUCCESS,
@@ -91,7 +91,7 @@ export function saveUserData(data) {
 export function add(data) {
   return (dispatch) => {
     dispatch({ type: ADD_TO_CART_REQUEST });
-    return userApi.post('/cart_content/', data)
+    return userApi.post('/sra_cart_content/', data)
       .then((response) => {
         dispatch({
           type: ADD_TO_CART_SUCCESS,
@@ -133,7 +133,7 @@ export function add(data) {
 export function clear() {
   return (dispatch) => {
     dispatch({ type: CART_CLEAR_REQUEST });
-    return userApi.delete('/cart_content/', {})
+    return userApi.delete('/sra_cart_content/', {})
       .then((response) => {
         dispatch({
           type: CART_CLEAR_SUCCESS,
@@ -153,7 +153,7 @@ export function change(id, data) {
   return (dispatch) => {
     dispatch({ type: CART_CHANGE_REQUEST });
 
-    return userApi.put(`/cart_content/${id}/`, data)
+    return userApi.put(`/sra_cart_content/${id}/`, data)
       .then((response) => {
         dispatch({
           type: CART_CHANGE_SUCCESS,
@@ -174,7 +174,7 @@ export function change(id, data) {
 export function remove(id) {
   return (dispatch) => {
     dispatch({ type: CART_REMOVE_REQUEST });
-    return userApi.delete(`/cart_content/${id}/`, {})
+    return userApi.delete(`/sra_cart_content/${id}/`, {})
       .then((response) => {
         dispatch({
           type: CART_REMOVE_SUCCESS,
