@@ -18,6 +18,13 @@ const styles = EStyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 20,
   },
+  containerSimple: {
+    padding: 0,
+    borderWidth: 0,
+    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+    marginBottom: 0,
+  },
   header: {
     marginBottom: 14,
     fontWeight: 'bold',
@@ -38,6 +45,7 @@ export default class FormBlock extends Component {
     ]),
     buttonText: PropTypes.string,
     title: PropTypes.string,
+    noContainerStyle: PropTypes.bool,
     simpleView: PropTypes.shape(),
   }
 
@@ -90,7 +98,7 @@ export default class FormBlock extends Component {
   render() {
     return (
       <View
-        style={styles.container}
+        style={[styles.container, this.props.noContainerStyle && styles.containerSimple]}
       >
         {this.renderTitle()}
         {this.renderContent()}

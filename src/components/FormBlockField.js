@@ -9,15 +9,18 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const styles = EStyleSheet.create({
   container: {
     flexDirection: 'row',
+    width: '100%',
+    marginBottom: 4,
   },
   title: {
     fontWeight: 'bold',
     paddingRight: 4,
     fontSize: '0.9rem',
   },
-  gray: {
+  text: {
     color: '#7C7C7C',
     fontSize: '0.9rem',
+    flex: 1,
   },
 });
 
@@ -38,7 +41,10 @@ export default class extends PureComponent {
         <Text style={styles.title}>
           {this.props.title}
         </Text>
-        <Text style={styles.gray}>
+        <Text
+          style={styles.text}
+          numberOfLines={4}
+        >
           {this.props.children}
         </Text>
       </View>

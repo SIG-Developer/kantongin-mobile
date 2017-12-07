@@ -47,8 +47,6 @@ const styles = EStyleSheet.create({
     backgroundColor: '#ececec',
     height: 100,
     width: '100%',
-    // flex: 1,
-    // flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

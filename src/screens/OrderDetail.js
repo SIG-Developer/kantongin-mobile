@@ -34,6 +34,9 @@ const styles = EStyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
+  formBlockWraper: {
+    marginTop: 14,
+  },
   subHeader: {
     fontSize: '0.8rem',
     color: '#7C7C7C',
@@ -53,7 +56,7 @@ const styles = EStyleSheet.create({
     marginBottom: 10,
   },
   productsWrapper: {
-    marginTop: 30,
+    marginTop: 14,
   },
   productItem: {
     backgroundColor: '#fff',
@@ -113,7 +116,6 @@ class OrderDetail extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props, 'asdasdasd');
     this.props.ordersActions.fetchOne(this.props.orderId);
     this.props.navigator.setTitle({
       title: i18n.gettext('Order Detail').toUpperCase(),
@@ -154,6 +156,102 @@ class OrderDetail extends Component {
     );
   }
 
+  renderBilling() {
+    const { orderDetail } = this.props;
+    return (
+      <FormBlock
+        title={i18n.gettext('Billing address')}
+        buttonText={i18n.gettext('Show all').toUpperCase()}
+        noContainerStyle
+        simpleView={
+          <View>
+            <FormBlockField title={i18n.gettext('First name:')}>
+              {orderDetail.s_firstname}
+            </FormBlockField>
+            <FormBlockField title={i18n.gettext('Last name:')}>
+              {orderDetail.s_lastname}
+            </FormBlockField>
+          </View>
+        }
+      >
+        <View>
+          <FormBlockField title={i18n.gettext('First name:')}>
+            {orderDetail.b_firstname}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Last name:')}>
+            {orderDetail.b_lastname}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('E-mail:')}>
+            {orderDetail.email}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Phone:')}>
+            {orderDetail.phone}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Address:')}>
+            {orderDetail.b_address} {orderDetail.b_address2}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('City:')}>
+            {orderDetail.b_city}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Country:')}>
+            {orderDetail.b_country}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('State:')}>
+            {orderDetail.b_state}
+          </FormBlockField>
+        </View>
+      </FormBlock>
+    );
+  }
+
+  renderShipping() {
+    const { orderDetail } = this.props;
+    return (
+      <FormBlock
+        title={i18n.gettext('Shipping address')}
+        buttonText={i18n.gettext('Show all').toUpperCase()}
+        noContainerStyle
+        simpleView={
+          <View>
+            <FormBlockField title={i18n.gettext('First name:')}>
+              {orderDetail.s_firstname}
+            </FormBlockField>
+            <FormBlockField title={i18n.gettext('Last name:')}>
+              {orderDetail.s_lastname}
+            </FormBlockField>
+          </View>
+        }
+      >
+        <View>
+          <FormBlockField title={i18n.gettext('First name:')}>
+            {orderDetail.s_firstname}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Last name:')}>
+            {orderDetail.s_lastname}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('E-mail:')}>
+            {orderDetail.email}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Phone:')}>
+            {orderDetail.phone}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Address:')}>
+            {orderDetail.s_address} {orderDetail.s_address2}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('City:')}>
+            {orderDetail.s_city}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('Country:')}>
+            {orderDetail.s_country}
+          </FormBlockField>
+          <FormBlockField title={i18n.gettext('State:')}>
+            {orderDetail.s_state}
+          </FormBlockField>
+        </View>
+      </FormBlock>
+    );
+  }
+
   render() {
     const { orderDetail } = this.props;
     if (this.state.fetching) {
@@ -169,6 +267,9 @@ class OrderDetail extends Component {
       return products.map((p, i) => this.renderProduct(p, i));
     });
 
+    const shippingMethodsList = orderDetail.shipping
+      .map((s, index) => <Text key={index}>{s.shipping}</Text>);
+
     const date = new Date(orderDetail.timestamp * 1000);
     return (
       <View style={styles.container}>
@@ -177,109 +278,50 @@ class OrderDetail extends Component {
             {i18n.gettext('Order')} #{orderDetail.order_id}
           </Text>
           <Text style={styles.subHeader}>
-            {i18n.gettext('Placed on')} {format(parseInt(orderDetail.timestamp), 'MM/DD/YYYY')}
+            {i18n.gettext('Placed on')} {format(date, 'MM/DD/YYYY')}
           </Text>
+
           <FormBlock>
-            <View style={styles.flexWrap}>
-              <Text style={styles.header}>
-                {i18n.gettext('order').toUpperCase()} #{orderDetail.order_id}
-              </Text>
-              <Text style={styles.date}>
-                {`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`}
-              </Text>
-            </View>
-
-            <View style={styles.productsContainer}>
-              <Text style={styles.header}>
-                {i18n.gettext('Products information').toUpperCase()}
-              </Text>
-              <View style={styles.productsWrapper}>
-                {productsList}
-              </View>
+            <Text style={styles.header}>
+              {i18n.gettext('Products information').toUpperCase()}
+            </Text>
+            <View style={styles.productsWrapper}>
+              {productsList}
             </View>
           </FormBlock>
 
-          <FormBlock
-            title={i18n.gettext('Billing address')}
-            buttonText={i18n.gettext('Show all').toUpperCase()}
-            simpleView={
-              <View>
-                <FormBlockField title={i18n.gettext('First name:')}>
-                  {orderDetail.s_firstname}
-                </FormBlockField>
-                <FormBlockField title={i18n.gettext('Last name:')}>
-                  {orderDetail.s_lastname}
-                </FormBlockField>
-              </View>
-            }
-          >
-            <View>
-              <FormBlockField title={i18n.gettext('First name:')}>
-                {orderDetail.b_firstname}
+          <FormBlock>
+            <Text style={styles.header}>
+              {i18n.gettext('Summary').toUpperCase()}
+            </Text>
+            <View style={styles.formBlockWraper}>
+              <FormBlockField title={i18n.gettext('Payment method:')}>
+                {orderDetail.payment_method.processor}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Last name:')}>
-                {orderDetail.b_lastname}
+              <FormBlockField title={i18n.gettext('Shipping method:')}>
+                {shippingMethodsList}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('E-mail:')}>
-                {orderDetail.email}
+              <FormBlockField title={i18n.gettext('Subtotal:')}>
+                {orderDetail.subtotal}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Phone:')}>
-                {orderDetail.phone}
+              <FormBlockField title={i18n.gettext('Shipping cost:')}>
+                {orderDetail.shipping_cost}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Address:')}>
-                {orderDetail.b_address} {orderDetail.b_address2}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('City:')}>
-                {orderDetail.b_city}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('Country:')}>
-                {orderDetail.b_country}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('State:')}>
-                {orderDetail.b_state}
+              <FormBlockField title={i18n.gettext('Total:')}>
+                {orderDetail.total}
               </FormBlockField>
             </View>
           </FormBlock>
 
-          <FormBlock
-            title={i18n.gettext('Shipping address')}
-            buttonText={i18n.gettext('Show all').toUpperCase()}
-            simpleView={
-              <View>
-                <FormBlockField title={i18n.gettext('First name:')}>
-                  {orderDetail.s_firstname}
-                </FormBlockField>
-                <FormBlockField title={i18n.gettext('Last name:')}>
-                  {orderDetail.s_lastname}
-                </FormBlockField>
-              </View>
-            }
-          >
-            <View>
-              <FormBlockField title={i18n.gettext('First name:')}>
-                {orderDetail.s_firstname}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('Last name:')}>
-                {orderDetail.s_lastname}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('E-mail:')}>
-                {orderDetail.email}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('Phone:')}>
-                {orderDetail.phone}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('Address:')}>
-                {orderDetail.s_address} {orderDetail.s_address2}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('City:')}>
-                {orderDetail.s_city}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('Country:')}>
-                {orderDetail.s_country}
-              </FormBlockField>
-              <FormBlockField title={i18n.gettext('State:')}>
-                {orderDetail.s_state}
-              </FormBlockField>
+          <FormBlock>
+            <Text style={styles.header}>
+              {i18n.gettext('Products information').toUpperCase()}
+            </Text>
+            <View style={styles.formBlockWraper}>
+              {this.renderBilling()}
+            </View>
+            <View style={styles.formBlockWraper}>
+              {this.renderShipping()}
             </View>
           </FormBlock>
         </ScrollView>

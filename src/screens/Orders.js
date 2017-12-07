@@ -20,6 +20,8 @@ import * as ordersActions from '../actions/ordersActions';
 
 // Components
 import Spinner from '../components/Spinner';
+import EmptyList from '../components/EmptyList';
+
 import i18n from '../utils/i18n';
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 
@@ -95,6 +97,7 @@ class Orders extends Component {
     props.navigator.setTitle({
       title: i18n.gettext('Orders').toUpperCase(),
     });
+
     props.navigator.setButtons({
       leftButtons: [
         {
@@ -243,6 +246,7 @@ class Orders extends Component {
       <FlatList
         keyExtractor={(item, index) => index}
         data={orders}
+        ListEmptyComponent={<EmptyList />}
         renderItem={({ item }) => this.renderItem(item)}
       />
     );
@@ -259,20 +263,15 @@ class Orders extends Component {
   }
 }
 
-Orders.navigationOptions = () => {
-  return {
-    title: 'Orders'.toUpperCase(),
-  };
-};
-
-export default connect(state => ({
-  nav: state.nav,
-  auth: state.auth,
-  flash: state.flash,
-  orders: state.orders,
-}),
-dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch),
-  ordersActions: bindActionCreators(ordersActions, dispatch),
-})
+export default connect(
+  state => ({
+    nav: state.nav,
+    auth: state.auth,
+    flash: state.flash,
+    orders: state.orders,
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch),
+    ordersActions: bindActionCreators(ordersActions, dispatch),
+  })
 )(Orders);
