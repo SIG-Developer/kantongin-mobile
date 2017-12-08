@@ -8,4 +8,6 @@ export default {
   siteUrl: 'http://mobile.demo.cs-cart.com/',
   // SHOP NAME
   shopName: 'CS-Cart Mobile',
+  // SHOP DEFAULT LAYOUT ID
+  layoutId: 3, // Default www.mobile.demo.cs-cart.com layout id
 };
