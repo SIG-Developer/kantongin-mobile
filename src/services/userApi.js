@@ -14,19 +14,17 @@ const AxiosInstance = axios.create({
   params: {
     sl,
     items_per_page: 0,
+    s_layouts: config.layoutId,
   },
 });
 
 AxiosInstance.interceptors.request.use((conf) => {
   const state = store.getState();
-  const config = { ...conf };
-  if (state.layouts.layoutId) {
-    config.params.s_layouts = state.layouts.layoutId;
-  }
+  const newConf = { ...conf };
   if (state.auth.token) {
-    config.headers.common.Authorization = `Basic ${base64.encode(state.auth.token)}:`;
+    newConf.headers.common.Authorization = `Basic ${base64.encode(state.auth.token)}:`;
   }
-  return config;
+  return newConf;
 });
 
 export default AxiosInstance;

@@ -2,17 +2,11 @@ import {
   FETCH_LAYOUTS_BLOCKS_REQUEST,
   FETCH_LAYOUTS_BLOCKS_SUCCESS,
   FETCH_LAYOUTS_BLOCKS_FAIL,
-
-  FETCH_LAYOUTS_ID_SUCCESS,
-  LAYOUTS_CREATE_SUCCESS,
-  LAYOUTS_CREATE_REQUEST,
-  FETCH_LAYOUTS_ID_REQUEST,
 } from '../constants';
 
 const initialState = {
   blocks: [],
-  location: '',
-  layoutId: null,
+  byLocation: {},
   fetching: false,
 };
 
@@ -43,23 +37,7 @@ export default function (state = initialState, action) {
     case FETCH_LAYOUTS_BLOCKS_FAIL:
       return {
         ...state,
-        layoutId: null,
         fetching: false,
-      };
-
-    case FETCH_LAYOUTS_ID_REQUEST:
-    case LAYOUTS_CREATE_REQUEST:
-      return {
-        ...state,
-        fetching: true,
-      };
-
-    case FETCH_LAYOUTS_ID_SUCCESS:
-    case LAYOUTS_CREATE_SUCCESS:
-      return {
-        ...state,
-        fetching: false,
-        layoutId: action.payload.layout_id,
       };
 
     default:

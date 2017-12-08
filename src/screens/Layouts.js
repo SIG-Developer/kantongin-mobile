@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import has from 'lodash/has';
 
 // Constants
 import {
@@ -98,11 +99,11 @@ class Layouts extends Component {
   }
 
   componentDidMount() {
-    const { navigator, layouts } = this.props;
+    const { navigator } = this.props;
     navigator.setTitle({
       title: config.shopName.toUpperCase(),
     });
-    this.props.layoutsActions.fetch(layouts.layoutId, 'index.index');
+    this.props.layoutsActions.fetch(config.layoutId, 'index.index');
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -144,6 +145,9 @@ class Layouts extends Component {
 
   renderBlock = (block, index) => {
     const { navigator } = this.props;
+    if (!has(block, 'content.items')) {
+      return null;
+    }
     const items = toArray(block.content.items);
     switch (block.type) {
       case BLOCK_BANNERS:
