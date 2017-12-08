@@ -6,7 +6,6 @@ import {
 
 const initialState = {
   blocks: [],
-  byLocation: {},
   fetching: false,
 };
 
