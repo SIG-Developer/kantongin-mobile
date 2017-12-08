@@ -30,8 +30,10 @@
         "FormData": false,
         "XMLHttpRequest": false,
         "requestAnimationFrame": false,
+        "jest": false,
         "describe": false,
         "it": false,
-        "expect": false
+        "expect": false,
+        "afterEach": false
     }
 }
