@@ -83,7 +83,7 @@ class Registration extends Component {
 
   render() {
     const { auth } = this.props;
-    let url = `${config.siteUrl}index.php?dispatch=profiles.add.get_auth_token`;
+    let url = `${config.siteUrl}index.php?dispatch=profiles.add.get_auth_token&s_layout=${config.layoutId}`;
     if (!auth.logged) {
       url = `${config.siteUrl}index.php?dispatch=auth.logout&redirect_url=index.php?dispatch=profiles.add.get_auth_token`;
     }

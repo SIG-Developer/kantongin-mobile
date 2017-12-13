@@ -28,7 +28,7 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         screen: 'Page',
         backButtonTitle: '',
         passProps: {
-          uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${parts[1]}`,
+          uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${parts[1]}&s_layout=${config.layoutId}`,
         },
         ...payload,
       });

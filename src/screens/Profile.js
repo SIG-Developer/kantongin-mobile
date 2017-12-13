@@ -77,7 +77,7 @@ class Profile extends Component {
   render() {
     const { auth } = this.props;
     this.redirectUrl = `${config.siteUrl}index.php?dispatch=profiles.update`;
-    const url = `${config.siteUrl}index.php?dispatch=auth.token_login&token=${auth.token}&redirect_url=${this.redirectUrl}`;
+    const url = `${config.siteUrl}index.php?dispatch=auth.token_login&token=${auth.token}&redirect_url=${this.redirectUrl}&s_layout=${config.layoutId}`;
     return (
       <View style={styles.container}>
         <WebView
