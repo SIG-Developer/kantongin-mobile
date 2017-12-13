@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Dimensions, AsyncStorage } from 'react-native';
+import { Dimensions, AsyncStorage, Platform } from 'react-native';
 import { persistStore } from 'redux-persist';
 import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -52,7 +52,7 @@ class App extends Component {
         },
         style: {
           drawerShadow: 'NO',
-          leftDrawerWidth: 84,
+          leftDrawerWidth: Platform.OS === 'IOS' ? 84 : 100,
           contentOverlayColor: theme.$contentOverlayColor,
         },
       },
