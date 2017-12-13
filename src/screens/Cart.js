@@ -20,6 +20,7 @@ import * as cartActions from '../actions/cartActions';
 import Spinner from '../components/Spinner';
 import QtyOption from '../components/QtyOption';
 import CartFooter from '../components/CartFooter';
+import Icon from '../components/Icon';
 
 // theme
 import theme from '../config/theme';
@@ -27,6 +28,11 @@ import theme from '../config/theme';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
+
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -107,10 +113,6 @@ const styles = EStyleSheet.create({
   }
 });
 
-const closeIcon = require('../assets/icons/close.png');
-const deleteIcon = require('../assets/icons/delete.png');
-const cartEmptyImage = require('../assets/empty_cart.png');
-
 class Cart extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
@@ -150,30 +152,33 @@ class Cart extends Component {
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { navigator } = this.props;
-    const { cartActions } = this.props;
-
-    cartActions.fetch();
+    iconsLoaded.then(() => {
+      navigator.setButtons({
+        leftButtons: [
+          {
+            id: 'close',
+            icon: iconsMap.close,
+          },
+        ],
+        rightButtons: [
+          {
+            id: 'clearCart',
+            icon: iconsMap.delete,
+          },
+        ],
+      });
+    });
 
     navigator.setTitle({
       title: i18n.gettext('Cart').toUpperCase(),
     });
+  }
 
-    navigator.setButtons({
-      leftButtons: [
-        {
-          id: 'close',
-          icon: closeIcon,
-        },
-      ],
-      rightButtons: [
-        {
-          id: 'clearCart',
-          icon: deleteIcon,
-        },
-      ],
-    });
+  componentDidMount() {
+    const { cartActions } = this.props;
+    cartActions.fetch();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -338,7 +343,7 @@ class Cart extends Component {
     return (
       <View style={styles.emptyListContainer}>
         <View style={styles.emptyListIconWrapper}>
-          <Image source={cartEmptyImage} style={{ height: 120, width: 120, }} />
+          <Icon name="add-shopping-cart" style={styles.emptyListIcon} />
         </View>
         <Text style={styles.emptyListHeader}>
           {i18n.gettext('Your shopping cart is empty.')}
@@ -390,11 +395,12 @@ class Cart extends Component {
   }
 }
 
-export default connect(state => ({
-  auth: state.auth,
-  cart: state.cart,
-}),
-dispatch => ({
-  cartActions: bindActionCreators(cartActions, dispatch),
-})
+export default connect(
+  state => ({
+    auth: state.auth,
+    cart: state.cart,
+  }),
+  dispatch => ({
+    cartActions: bindActionCreators(cartActions, dispatch),
+  })
 )(Cart);

@@ -25,6 +25,11 @@ import EmptyList from '../components/EmptyList';
 import i18n from '../utils/i18n';
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -56,10 +61,6 @@ const styles = EStyleSheet.create({
     textAlign: 'right',
   }
 });
-
-const menuIcon = require('../assets/icons/menu.png');
-const cartIcon = require('../assets/icons/shopping-cart.png');
-const searchIcon = require('../assets/icons/search.png');
 
 class Orders extends Component {
   static propTypes = {
@@ -98,26 +99,31 @@ class Orders extends Component {
       title: i18n.gettext('Orders').toUpperCase(),
     });
 
-    props.navigator.setButtons({
-      leftButtons: [
-        {
-          id: 'sideMenu',
-          icon: menuIcon,
-        },
-      ],
-      rightButtons: [
-        {
-          id: 'cart',
-          icon: cartIcon,
-        },
-        {
-          id: 'search',
-          icon: searchIcon,
-        },
-      ],
-    });
-
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentWillMount() {
+    iconsLoaded.then(() => {
+      this.props.navigator.setButtons({
+        leftButtons: [
+          {
+            id: 'sideMenu',
+            icon: iconsMap.menu,
+          },
+        ],
+        rightButtons: [
+          {
+            id: 'cart',
+            component: 'CartBtn',
+            passProps: {},
+          },
+          {
+            id: 'search',
+            icon: iconsMap.search,
+          },
+        ],
+      });
+    });
   }
 
   componentDidMount() {

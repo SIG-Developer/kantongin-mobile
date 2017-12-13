@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
-  Image,
   FlatList,
   Platform,
   TextInput,
@@ -18,8 +17,10 @@ import debounce from 'lodash/debounce';
 import * as productsActions from '../actions/productsActions';
 import i18n from '../utils/i18n';
 
+// Components
 import ProductListView from '../components/ProductListView';
 import Spinner from '../components/Spinner';
+import Icon from '../components/Icon';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -74,8 +75,6 @@ const styles = EStyleSheet.create({
     color: '#989898',
   }
 });
-
-const closeIcon = require('../assets/icons/close.png');
 
 class Search extends Component {
   static propTypes = {
@@ -136,10 +135,7 @@ class Search extends Component {
             style={styles.btnClose}
             onPress={() => navigator.dismissModal()}
           >
-            <Image
-              source={closeIcon}
-              style={styles.btnCloseImg}
-            />
+            <Icon name="close" style={styles.btnCloseImg} />
           </TouchableOpacity>
           <TextInput
             autoFocus
@@ -175,10 +171,11 @@ class Search extends Component {
   }
 }
 
-export default connect(state => ({
-  search: state.search,
-}),
-dispatch => ({
-  productsActions: bindActionCreators(productsActions, dispatch),
-})
+export default connect(
+  state => ({
+    search: state.search,
+  }),
+  dispatch => ({
+    productsActions: bindActionCreators(productsActions, dispatch),
+  })
 )(Search);

@@ -20,6 +20,11 @@ import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
 
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -82,8 +87,6 @@ const styles = EStyleSheet.create({
   },
 });
 
-const closeIcon = require('../assets/icons/close.png');
-
 class CheckoutComplete extends Component {
   static propTypes = {
     ordersActions: PropTypes.shape({
@@ -116,19 +119,24 @@ class CheckoutComplete extends Component {
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentDidMount() {
-    this.props.ordersActions.fetchOne(this.props.orderId);
+  componentWillMount() {
     this.props.navigator.setTitle({
       title: i18n.gettext('Checkout complete').toUpperCase(),
     });
-    this.props.navigator.setButtons({
-      leftButtons: [
-        {
-          id: 'close',
-          icon: closeIcon,
-        },
-      ],
+    iconsLoaded.then(() => {
+      this.props.navigator.setButtons({
+        leftButtons: [
+          {
+            id: 'close',
+            icon: iconsMap.close,
+          },
+        ],
+      });
     });
+  }
+
+  componentDidMount() {
+    this.props.ordersActions.fetchOne(this.props.orderId);
   }
 
   componentWillReceiveProps(nextProps) {

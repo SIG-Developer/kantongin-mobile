@@ -8,6 +8,11 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 
+// Components
+import Icon from '../components/Icon';
+
+import theme from '../config/theme';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -26,15 +31,13 @@ const styles = EStyleSheet.create({
   },
   closeBtnContainer: {
     position: 'absolute',
-    top: 30,
+    top: 14,
     right: 14,
   },
   closeBtn: {
-    opacity: 0.6,
+    color: theme.$navBarButtonColor,
   }
 });
-
-const closeIcon = require('../assets/icons/close.png');
 
 export default class Gallery extends Component {
   static propTypes = {
@@ -77,9 +80,9 @@ export default class Gallery extends Component {
           style={styles.closeBtnContainer}
           onPress={() => this.props.navigator.dismissModal({ animationType: 'fade' })}
         >
-          <Image
+          <Icon
+            name="close"
             style={styles.closeBtn}
-            source={closeIcon}
           />
         </TouchableOpacity>
       </View>

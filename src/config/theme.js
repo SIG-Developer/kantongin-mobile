@@ -31,6 +31,7 @@ export default {
   $categoryBlockBackgroundColor: '#FFF',
   $categoryBlockTextColor: '#000',
   $categoryBorderRadius: 6,
+  $categoryEmptyImage: '#989898',
 
   $drawerHeaderBackgroundColor: '#F2F2F2',
   $drawerHeaderBorderColor: '#D6D6D6',

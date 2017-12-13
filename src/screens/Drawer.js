@@ -13,6 +13,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import uniqueId from 'lodash/uniqueId';
 import i18n from '../utils/i18n';
 
+// Components
+import Icon from '../components/Icon';
+
 import theme from '../config/theme';
 import * as authActions from '../actions/authActions';
 import * as pagesActions from '../actions/pagesActions';
@@ -85,11 +88,9 @@ const styles = EStyleSheet.create({
     flexDirection: 'row',
   },
   itemBtnIcon: {
-    height: 24,
-    width: 24,
+    fontSize: 28,
     marginRight: 20,
-    opacity: 0.8,
-    tintColor: '$drawerHeaderButtonColor',
+    color: '$drawerHeaderButtonColor',
   },
   itemBadgeRed: {
     position: 'absolute',
@@ -129,9 +130,8 @@ const styles = EStyleSheet.create({
     padding: 14,
   },
   signOutBtnIcon: {
-    height: 24,
-    width: 24,
-    tintColor: 'gray',
+    fontSize: 28,
+    color: '$navBarButtonColor',
   },
   devider: {
     borderBottomWidth: 1,
@@ -140,12 +140,6 @@ const styles = EStyleSheet.create({
     marginBottom: 14,
   }
 });
-
-const homeIcon = require('../assets/icons/home.png');
-const shoppingCartIcon = require('../assets/icons/shopping-cart.png');
-const profileIcon = require('../assets/icons/profile.png');
-const ordersIcon = require('../assets/icons/receipt.png');
-const logoutIcon = require('../assets/icons/exit.png');
 
 class Drawer extends Component {
   static propTypes = {
@@ -214,7 +208,7 @@ class Drawer extends Component {
               });
             }}
           >
-            <Image source={logoutIcon} style={styles.signOutBtnIcon} />
+            <Icon name="exit-to-app" style={styles.signOutBtnIcon} />
           </TouchableOpacity>
           <View style={styles.headerUserName}>
             <Text style={styles.headerUserNameText}>
@@ -329,7 +323,7 @@ class Drawer extends Component {
               }}
             >
               <View style={styles.itemBtnWrapper}>
-                <Image source={homeIcon} style={styles.itemBtnIcon} />
+                <Icon name="home" style={styles.itemBtnIcon} />
                 <Text style={styles.itemBtnText}>
                   {i18n.gettext('Home')}
                 </Text>
@@ -348,7 +342,7 @@ class Drawer extends Component {
               }}
             >
               <View style={styles.itemBtnWrapper}>
-                <Image source={shoppingCartIcon} style={styles.itemBtnIcon} />
+                <Icon name="shopping-cart" style={styles.itemBtnIcon} />
                 <Text style={styles.itemBtnText}>
                   {i18n.gettext('Cart')}
                 </Text>
@@ -370,7 +364,7 @@ class Drawer extends Component {
                 }}
               >
                 <View style={styles.itemBtnWrapper}>
-                  <Image source={profileIcon} style={styles.itemBtnIcon} />
+                  <Icon name="person" style={styles.itemBtnIcon} />
                   <Text style={styles.itemBtnText}>
                     {i18n.gettext('My Profile')}
                   </Text>
@@ -392,7 +386,7 @@ class Drawer extends Component {
                 }}
               >
                 <View style={styles.itemBtnWrapper}>
-                  <Image source={ordersIcon} style={styles.itemBtnIcon} />
+                  <Icon name="receipt" style={styles.itemBtnIcon} />
                   <Text style={styles.itemBtnText}>
                     {i18n.gettext('Orders')}
                   </Text>

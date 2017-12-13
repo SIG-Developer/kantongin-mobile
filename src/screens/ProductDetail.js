@@ -34,6 +34,11 @@ import i18n from '../utils/i18n';
 // theme
 import theme from '../config/theme';
 
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -137,8 +142,6 @@ const styles = EStyleSheet.create({
   }
 });
 
-const searchImage = require('../assets/icons/search.png');
-
 class ProductDetail extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
@@ -146,6 +149,7 @@ class ProductDetail extends Component {
       setOnNavigatorEvent: PropTypes.func,
       showInAppNotification: PropTypes.func,
       showModal: PropTypes.func,
+      setButtons: PropTypes.func,
     }),
     pid: PropTypes.string,
     hideSearch: PropTypes.bool,
@@ -174,20 +178,6 @@ class ProductDetail extends Component {
     screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
-  static navigatorButtons = {
-    rightButtons: [
-      {
-        id: 'cart',
-        component: 'CartBtn',
-        passProps: {},
-      },
-      {
-        id: 'search',
-        icon: searchImage,
-      },
-    ],
-  };
-
   constructor(props) {
     super(props);
 
@@ -200,6 +190,24 @@ class ProductDetail extends Component {
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentWillMount() {
+    iconsLoaded.then(() => {
+      this.props.navigator.setButtons({
+        rightButtons: [
+          {
+            id: 'cart',
+            component: 'CartBtn',
+            passProps: {},
+          },
+          {
+            id: 'search',
+            icon: iconsMap.search,
+          },
+        ],
+      });
+    });
   }
 
   componentDidMount() {
@@ -549,9 +557,7 @@ class ProductDetail extends Component {
           onPress={() => this.handleAddToCart()}
         >
           <Text style={styles.addToCartBtnText}>
-            {i18n.gettext('Add to cart')} <Text style={styles.addToCartBtnTextSmall}>
-              ({formatPrice(product.price)})
-            </Text>
+            {i18n.gettext('Add to cart')} <Text style={styles.addToCartBtnTextSmall}>({formatPrice(product.price)})</Text>
           </Text>
         </TouchableOpacity>
       </View>

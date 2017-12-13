@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+
+// Components
+import Icon from '../components/Icon';
 
 const styles = EStyleSheet.create({
   container: {
@@ -51,13 +54,10 @@ const styles = EStyleSheet.create({
     justifyContent: 'center',
   },
   emptyImage: {
-    width: 40,
-    height: 40,
-    opacity: 0.2,
+    color: '$categoryEmptyImage',
+    fontSize: '3rem',
   },
 });
-
-const emptyImage = require('../assets/icons/shopping_bag.png');
 
 const CategoryListView = ({ category, onPress }) => {
   let imageUri = null;
@@ -74,7 +74,7 @@ const CategoryListView = ({ category, onPress }) => {
           <Image source={{ uri: imageUri }} style={styles.categoryImage} />
           :
           <View style={styles.noImage}>
-            <Image source={emptyImage} style={styles.emptyImage} />
+            <Icon name="shopping-basket" style={styles.emptyImage} />
           </View>
         }
         <View style={styles.categoryTitleWrapper}>

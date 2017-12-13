@@ -35,6 +35,11 @@ import { toArray } from '../utils';
 import config from '../config';
 import theme from '../config/theme';
 
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
+
 // Styles
 const styles = EStyleSheet.create({
   container: {
@@ -42,9 +47,6 @@ const styles = EStyleSheet.create({
     backgroundColor: '#FFF',
   },
 });
-
-const menuImage = require('../assets/icons/menu.png');
-const searchImage = require('../assets/icons/search.png');
 
 class Layouts extends Component {
   static propTypes = {
@@ -59,28 +61,9 @@ class Layouts extends Component {
     }),
     navigator: PropTypes.shape({
       setOnNavigatorEvent: PropTypes.func,
+      setButtons: PropTypes.func,
     }),
     layouts: PropTypes.shape({}),
-  };
-
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        id: 'sideMenu',
-        icon: menuImage,
-      },
-    ],
-    rightButtons: [
-      {
-        id: 'cart',
-        component: 'CartBtn',
-        passProps: {},
-      },
-      {
-        id: 'search',
-        icon: searchImage,
-      },
-    ],
   };
 
   static navigatorStyle = {
@@ -96,6 +79,30 @@ class Layouts extends Component {
     super(props);
     console.disableYellowBox = true;
     this.isFetchBlocksSend = false;
+  }
+
+  componentWillMount() {
+    iconsLoaded.then(() => {
+      this.props.navigator.setButtons({
+        leftButtons: [
+          {
+            id: 'sideMenu',
+            icon: iconsMap.menu,
+          },
+        ],
+        rightButtons: [
+          {
+            id: 'cart',
+            component: 'CartBtn',
+            passProps: {},
+          },
+          {
+            id: 'search',
+            icon: iconsMap.search,
+          },
+        ],
+      });
+    });
   }
 
   componentDidMount() {

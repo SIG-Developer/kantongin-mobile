@@ -20,6 +20,11 @@ import theme from '../config/theme';
 import Spinner from '../components/Spinner';
 import i18n from '../utils/i18n';
 
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -66,7 +71,6 @@ const options = {
     },
   }
 };
-const closeIcon = require('../assets/icons/close.png');
 
 class Login extends Component {
   static propTypes = {
@@ -102,21 +106,23 @@ class Login extends Component {
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { navigator } = this.props;
-    navigator.setButtons({
-      leftButtons: [
-        {
-          id: 'close',
-          icon: closeIcon,
-        },
-      ],
-    });
     navigator.setStyle({
       navBarRightButtonColor: '#FF6008',
     });
     navigator.setTitle({
       title: i18n.gettext('Login').toUpperCase(),
+    });
+    iconsLoaded.then(() => {
+      navigator.setButtons({
+        leftButtons: [
+          {
+            id: 'close',
+            icon: iconsMap.close,
+          },
+        ],
+      });
     });
   }
 

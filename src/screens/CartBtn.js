@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   TouchableOpacity,
-  Image,
   Text,
   Platform,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
+
+import Icon from '../components/Icon';
+import theme from '../config/theme';
 
 const styles = EStyleSheet.create({
   container: {
@@ -18,23 +20,23 @@ const styles = EStyleSheet.create({
     minWidth: 40,
     minHeight: '100%',
     marginTop: 10,
+    position: 'relative',
   },
   btn: {
-    padding: (Platform.OS === 'ios') ? 14 : 11,
-    opacity: 0.4,
-    marginTop: 2,
+    fontSize: 28,
     position: 'relative',
+    color: theme.$navBarButtonColor,
   },
   badge: {
     position: 'absolute',
-    top: -6,
+    top: 10,
     right: -10,
     minWidth: 20,
     height: 20,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FD542A'
+    backgroundColor: theme.$primaryColor,
   },
   badgeAndroid: {
     position: 'absolute',
@@ -51,8 +53,6 @@ const styles = EStyleSheet.create({
     color: '#fff',
   }
 });
-
-const shoppingCartImage = require('../assets/icons/shopping-cart.png');
 
 class CartBtn extends Component {
   static propTypes = {
@@ -93,10 +93,7 @@ class CartBtn extends Component {
           });
         }}
       >
-        <Image
-          source={shoppingCartImage}
-          style={styles.btn}
-        />
+        <Icon name="shopping-cart" style={styles.btn} />
         {this.renderBadge()}
       </TouchableOpacity>
     );

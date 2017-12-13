@@ -24,6 +24,10 @@ import Spinner from '../components/Spinner';
 // theme
 import theme from '../config/theme';
 
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -39,13 +43,12 @@ const styles = EStyleSheet.create({
   }
 });
 
-const searchImage = require('../assets/icons/search.png');
-
 class Categories extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
+      setButtons: PropTypes.func,
     }),
     cid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     category: PropTypes.shape({}),
@@ -58,21 +61,6 @@ class Categories extends Component {
     productsActions: PropTypes.shape({
       fetchByCategory: PropTypes.func,
     })
-  };
-
-  static navigatorButtons = {
-    rightButtons: [
-      {
-        id: 'cart',
-        component: 'CartBtn',
-        passProps: {},
-      },
-      {
-        id: 'search',
-        title: i18n.gettext('Search'),
-        icon: searchImage,
-      },
-    ]
   };
 
   static navigatorStyle = {
@@ -95,6 +83,25 @@ class Categories extends Component {
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentWillMount() {
+    iconsLoaded.then(() => {
+      this.props.navigator.setButtons({
+        rightButtons: [
+          {
+            id: 'cart',
+            component: 'CartBtn',
+            passProps: {},
+          },
+          {
+            id: 'search',
+            title: i18n.gettext('Search'),
+            icon: iconsMap.search,
+          },
+        ],
+      });
+    });
   }
 
   componentDidMount() {

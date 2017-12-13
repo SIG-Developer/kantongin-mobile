@@ -25,6 +25,7 @@ import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
 import PaymentCheckForm from '../components/PaymentCheckForm';
 import PaymentPaypalForm from '../components/PaymentPaypalForm';
 import Spinner from '../components/Spinner';
+import Icon from '../components/Icon';
 import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
@@ -60,14 +61,11 @@ const styles = EStyleSheet.create({
     marginTop: 10,
   },
   uncheckIcon: {
-    width: 20,
-    height: 20,
+    fontSize: 28,
     marginRight: 6,
   },
   checkIcon: {
-    width: 20,
-    height: 20,
-    opacity: 0.2,
+    fontSize: 28,
     marginRight: 6,
   },
   stepsWrapper: {
@@ -79,9 +77,6 @@ const PAYMENT_CREDIT_CARD = 'views/orders/components/payments/cc.tpl';
 const PAYMENT_CHECK = 'views/orders/components/payments/check.tpl';
 const PAYMENT_PAYPAL_EXPRESS = 'addons/paypal/views/orders/components/payments/paypal_express.tpl';
 const PAYMENT_PHONE = 'views/orders/components/payments/phone.tpl';
-
-const checkIcon = require('../assets/icons/radio_button_checked.png');
-const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
 
 class CheckoutStepThree extends Component {
   static propTypes = {
@@ -246,8 +241,8 @@ class CheckoutStepThree extends Component {
         }}
       >
         {isSelected ?
-          <Image source={checkIcon} style={styles.checkIcon} /> :
-          <Image source={uncheckIcon} style={styles.uncheckIcon} />
+          <Icon name="radio-button-checked" style={styles.checkIcon} /> :
+          <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
         }
         <Text style={styles.paymentItemText}>
           {item.description}

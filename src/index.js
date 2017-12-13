@@ -52,7 +52,7 @@ class App extends Component {
         },
         style: {
           drawerShadow: 'NO',
-          leftDrawerWidth: Platform.OS === 'IOS' ? 84 : 100,
+          leftDrawerWidth: Platform.OS === 'ios' ? 84 : 100,
           contentOverlayColor: theme.$contentOverlayColor,
         },
       },

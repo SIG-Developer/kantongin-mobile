@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  Image,
   Text,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import i18n from '../utils/i18n';
+
+// Component
+import Icon from '../components/Icon';
 
 const styles = EStyleSheet.create({
   container: {
@@ -92,8 +94,6 @@ const styles = EStyleSheet.create({
   }
 });
 
-const uncheckIcon = require('../assets/icons/check.png');
-
 export default class extends Component {
   static propTypes = {
     step: PropTypes.number,
@@ -139,7 +139,7 @@ export default class extends Component {
       stepsList.push(
         <View style={styles.stepContainer} key={i}>
           <View style={styles.stepContent}>
-            <Image source={uncheckIcon} style={styles.checkIcon} />
+            <Icon name="check" style={styles.checkIcon} />
           </View>
           {this.renderArrow()}
         </View>

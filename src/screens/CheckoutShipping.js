@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   SectionList,
 } from 'react-native';
@@ -17,15 +16,13 @@ import * as shippingActions from '../actions/shippingActions';
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
 import CartFooter from '../components/CartFooter';
+import Icon from '../components/Icon';
 
 import i18n from '../utils/i18n';
 import { stripTags, formatPrice } from '../utils';
 
 // theme
 import theme from '../config/theme';
-
-const uncheckIcon = require('../assets/icons/radio_button_unchecked.png');
-const checkIcon = require('../assets/icons/radio_button_checked.png');
 
 const styles = EStyleSheet.create({
   container: {
@@ -67,12 +64,10 @@ const styles = EStyleSheet.create({
     justifyContent: 'space-between',
   },
   uncheckIcon: {
-    width: 20,
-    height: 20,
+    fontSize: 28,
   },
   checkIcon: {
-    width: 20,
-    height: 20,
+    fontSize: 28,
     opacity: 0.5,
   },
   stepsWrapper: {
@@ -173,8 +168,8 @@ class CheckoutShipping extends Component {
       >
         <View style={styles.shippingItemTitleWrap}>
           {isSelected ?
-            <Image source={checkIcon} style={styles.checkIcon} /> :
-            <Image source={uncheckIcon} style={styles.uncheckIcon} />
+            <Icon name="radio-button-checked" style={styles.checkIcon} /> :
+            <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
           }
           <Text style={styles.shippingItemText}>
             {item.shipping} {item.delivery_time}
