@@ -10,13 +10,13 @@ import {
   NOTIFICATION_SHOW,
 } from '../constants';
 
-import userApi from '../services/userApi';
+import Api from '../services/api';
 import i18n from '../utils/i18n';
 
 export function fetchAll() {
   return (dispatch) => {
     dispatch({ type: BILLING_REQUEST });
-    return userApi.get('/payments')
+    return Api.get('/payments')
       .then((response) => {
         dispatch({
           type: BILLING_SUCCESS,
@@ -39,7 +39,7 @@ export function paypalSettlements(orderId, replay, cb = null) {
       order_id: orderId,
       replay,
     };
-    return userApi.post('/sra_settlements', data)
+    return Api.post('/sra_settlements', data)
       .then((response) => {
         dispatch({
           type: PAYPAL_SETTLEMENTS_SUCCESS,

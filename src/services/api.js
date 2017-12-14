@@ -22,6 +22,7 @@ AxiosInstance.interceptors.request.use((conf) => {
   const state = store.getState();
   const newConf = { ...conf };
   if (state.auth.token) {
+    newConf.headers.common['Storefront-Api-Access-Key'] = config.apiKey;
     newConf.headers.common.Authorization = `Basic ${base64.encode(state.auth.token)}:`;
   }
   return newConf;

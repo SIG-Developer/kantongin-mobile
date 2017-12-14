@@ -15,12 +15,12 @@ import {
   FETCH_PRODUCT_OPTIONS_FAIL,
   FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
-import userApi from '../services/userApi';
+import Api from '../services/api';
 
 export function fetchOptions(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCT_OPTIONS_REQUEST });
-    return userApi.get(`/options/?product_id=${pid}`)
+    return Api.get(`/options/?product_id=${pid}`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCT_OPTIONS_SUCCESS,
@@ -41,7 +41,7 @@ export function fetchOptions(pid) {
 export function fetch(pid) {
   return (dispatch) => {
     dispatch({ type: FETCH_ONE_PRODUCT_REQUEST });
-    return userApi.get(`/sra_products/${pid}`)
+    return Api.get(`/sra_products/${pid}`)
       .then((response) => {
         dispatch({
           type: FETCH_ONE_PRODUCT_SUCCESS,
@@ -65,7 +65,7 @@ export function search(params = {}) {
   return (dispatch) => {
     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
 
-    return userApi.get('/sra_products', {
+    return Api.get('/sra_products', {
       params: {
         ...params,
       }
@@ -88,7 +88,7 @@ export function search(params = {}) {
 export function fetchByCategory(categoryId, page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return userApi.get(`/categories/${categoryId}/sra_products?items_per_page=10&page=${page}&subcats=Y`)
+    return Api.get(`/categories/${categoryId}/sra_products?items_per_page=10&page=${page}&subcats=Y`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,

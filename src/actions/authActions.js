@@ -9,7 +9,7 @@ import {
 
   AUTH_LOGOUT,
 } from '../constants';
-import userApi from '../services/userApi';
+import Api from '../services/api';
 import i18n from '../utils/i18n';
 import * as cartActions from './cartActions';
 
@@ -17,7 +17,7 @@ export function login(data) {
   return (dispatch) => {
     dispatch({ type: AUTH_LOGIN_REQUEST });
 
-    return userApi.post('/auth_tokens', data)
+    return Api.post('/auth_tokens', data)
       .then((response) => {
         cartActions.fetchCart(dispatch, false);
         dispatch({

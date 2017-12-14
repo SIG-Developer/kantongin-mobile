@@ -14,13 +14,13 @@ import {
   NOTIFICATION_SHOW,
 } from '../constants';
 
-import userApi from '../services/userApi';
+import Api from '../services/api';
 import i18n from '../utils/i18n';
 
 export function create(data, cb = null) {
   return (dispatch) => {
     dispatch({ type: ORDER_CREATE_REQUEST });
-    return userApi.post('/orders/', data)
+    return Api.post('/orders/', data)
       .then((response) => {
         dispatch({
           type: ORDER_CREATE_SUCCESS,
@@ -50,7 +50,7 @@ export function create(data, cb = null) {
 export function fetchOne(id) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDER_DETAIL_REQUEST });
-    return userApi.get(`/orders/${id}`)
+    return Api.get(`/orders/${id}`)
       .then((response) => {
         dispatch({
           type: FETCH_ORDER_DETAIL_SUCCESS,
@@ -69,7 +69,7 @@ export function fetchOne(id) {
 export function fetch(page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDERS_REQUEST });
-    return userApi.get(`/orders?page=${page}`)
+    return Api.get(`/orders?page=${page}`)
       .then((response) => {
         dispatch({
           type: FETCH_ORDERS_SUCCESS,
