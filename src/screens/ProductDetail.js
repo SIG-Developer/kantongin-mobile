@@ -21,6 +21,7 @@ import { stripTags, formatPrice } from '../utils';
 // Import actions.
 import * as cartActions from '../actions/cartActions';
 import * as productsActions from '../actions/productsActions';
+import * as wishListActions from '../actions/wishListActions';
 
 // Components
 import SelectOption from '../components/SelectOption';
@@ -38,6 +39,7 @@ import {
   iconsMap,
   iconsLoaded,
 } from '../utils/navIcons';
+import Icon from '../components/Icon';
 
 const styles = EStyleSheet.create({
   container: {
@@ -104,17 +106,33 @@ const styles = EStyleSheet.create({
     fontSize: '0.9rem',
     fontWeight: 'bold',
   },
+  addToCartContainer: {
+    padding: 10,
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: '$grayColor',
+  },
   addToCartBtn: {
     backgroundColor: '$primaryColor',
-    padding: 14,
+    padding: 10,
+    flex: 1,
+    borderRadius: 2,
   },
   addToCartBtnText: {
     textAlign: 'center',
     color: '$primaryColorText',
     fontSize: '1rem',
   },
-  addToCartBtnTextSmall: {
-    fontSize: '0.7rem',
+  addToWishList: {
+    backgroundColor: '$addToWishListColor',
+    width: 60,
+    marginLeft: 12,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addToWishListIcon: {
+    color: '#fff',
   },
   outlineBtn: {
     borderWidth: 1,
@@ -151,6 +169,12 @@ class ProductDetail extends Component {
       showModal: PropTypes.func,
       setButtons: PropTypes.func,
     }),
+    wishListActions: PropTypes.shape({
+      add: PropTypes.func,
+    }),
+    wishList: PropTypes.shape({
+      items: PropTypes.array,
+    }),
     pid: PropTypes.string,
     hideSearch: PropTypes.bool,
     productDetail: PropTypes.shape({
@@ -186,6 +210,7 @@ class ProductDetail extends Component {
       fetching: true,
       amount: 1,
       selectedOptions: {},
+      hasInWishList: false,
       images: [],
     };
 
@@ -218,7 +243,7 @@ class ProductDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { productDetail, navigator } = nextProps;
+    const { productDetail, navigator, wishList } = nextProps;
     const { selectedOptions } = this.state;
     // FIXME
     const product = productDetail;
@@ -254,9 +279,14 @@ class ProductDetail extends Component {
         selectedOptions: defaultOptions,
       });
     }
+
+    const hasInWishList = wishList.items
+      .filter(item => item.product_id === productDetail.product_id).length;
+
     this.setState({
       images,
       product,
+      hasInWishList,
       fetching: productDetail.fetching,
     }, () => this.calculatePrice());
 
@@ -324,6 +354,15 @@ class ProductDetail extends Component {
       },
     };
     return this.props.cartActions.add({ products });
+  }
+
+  handleAddToWishList() {
+    if (this.state.hasInWishList) {
+      return this.props.navigator.showModal({
+        screen: 'WishList',
+      });
+    }
+    return this.props.wishListActions.add(this.props.productDetail);
   }
 
   handleOptionChange(name, val) {
@@ -549,7 +588,6 @@ class ProductDetail extends Component {
   }
 
   renderAddToCart() {
-    const { product } = this.state;
     return (
       <View style={styles.addToCartContainer}>
         <TouchableOpacity
@@ -557,8 +595,15 @@ class ProductDetail extends Component {
           onPress={() => this.handleAddToCart()}
         >
           <Text style={styles.addToCartBtnText}>
-            {i18n.gettext('Add to cart')} <Text style={styles.addToCartBtnTextSmall}>({formatPrice(product.price)})</Text>
+            {i18n.gettext('Add to cart').toUpperCase()}
           </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.addToWishList}
+          onPress={() => this.handleAddToWishList()}
+        >
+          <Icon name={this.state.hasInWishList ? 'favorite-border' : 'favorite'} size={24} style={styles.addToWishListIcon} />
         </TouchableOpacity>
       </View>
     );
@@ -577,7 +622,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          contentContainerStyle={{ marginBottom: 96 }}
+          contentContainerStyle={{ marginBottom: 122 }}
           behavior="position"
         >
           <ScrollView>
@@ -603,9 +648,11 @@ export default connect(
     auth: state.auth,
     cart: state.cart,
     productDetail: state.productDetail,
+    wishList: state.wishList,
   }),
   dispatch => ({
     productsActions: bindActionCreators(productsActions, dispatch),
     cartActions: bindActionCreators(cartActions, dispatch),
+    wishListActions: bindActionCreators(wishListActions, dispatch),
   })
 )(ProductDetail);

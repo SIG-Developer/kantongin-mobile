@@ -102,3 +102,7 @@ export const BLOCK_CATEGORIES = 'categories';
 export const BLOCK_BANNERS = 'banners';
 export const BLOCK_PRODUCTS = 'products';
 export const BLOCK_PAGES = 'pages';
+
+export const WISH_LIST_ADD = 'WISH_LIST_ADD';
+export const WISH_LIST_REMOVE = 'WISH_LIST_REMOVE';
+export const WISH_LIST_CLEAR = 'WISH_LIST_CLEAR';

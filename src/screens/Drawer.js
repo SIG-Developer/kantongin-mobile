@@ -154,6 +154,9 @@ class Drawer extends Component {
     cart: PropTypes.shape({
       amount: PropTypes.number,
     }),
+    wishList: PropTypes.shape({
+      items: PropTypes.array,
+    }),
     pages: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
     }),
@@ -350,6 +353,26 @@ class Drawer extends Component {
               </View>
             </TouchableOpacity>
 
+            <TouchableOpacity
+              style={styles.itemBtn}
+              onPress={() => {
+                navigator.showModal({
+                  screen: 'WishList',
+                });
+                navigator.toggleDrawer({
+                  side: 'left',
+                });
+              }}
+            >
+              <View style={styles.itemBtnWrapper}>
+                <Icon name="favorite" style={styles.itemBtnIcon} />
+                <Text style={styles.itemBtnText}>
+                  {i18n.gettext('Wish List')}
+                </Text>
+                {this.renderBadge(this.props.wishList.items.length)}
+              </View>
+            </TouchableOpacity>
+
             {auth.logged &&
               <TouchableOpacity
                 style={styles.itemBtn}
@@ -408,6 +431,7 @@ export default connect(
   state => ({
     auth: state.auth,
     cart: state.cart,
+    wishList: state.wishList,
     pages: state.pages,
   }),
   dispatch => ({

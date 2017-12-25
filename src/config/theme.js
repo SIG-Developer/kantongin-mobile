@@ -40,6 +40,8 @@ export default {
   $drawerPrimaryBadgeColor: '#FD542A',
   $drawerSecondaryBadgeColor: '#808080',
 
+  $addToWishListColor: '#989898',
+
   // $headerBgColor: '#FAFAFA',
   // $headerTitleColor: '#242424',
   // $headerTintColor: '#242424',

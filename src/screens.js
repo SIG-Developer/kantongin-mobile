@@ -10,6 +10,7 @@ import Gallery from './screens/Gallery';
 import Profile from './screens/Profile';
 import Layouts from './screens/Layouts';
 import CartBtn from './screens/CartBtn';
+import WishList from './screens/WishList';
 import Categories from './screens/Categories';
 import OrderDetail from './screens/OrderDetail';
 import CheckoutAuth from './screens/CheckoutAuth';
@@ -31,6 +32,7 @@ export default function registerScreens(store, Provider) {
   Navigation.registerComponent('Orders', () => Orders, store, Provider);
   Navigation.registerComponent('Search', () => Search, store, Provider);
   Navigation.registerComponent('CartBtn', () => CartBtn, store, Provider);
+  Navigation.registerComponent('WishList', () => WishList, store, Provider);
   Navigation.registerComponent('Layouts', () => Layouts, store, Provider);
   Navigation.registerComponent('Profile', () => Profile, store, Provider);
   Navigation.registerComponent('Gallery', () => Gallery, store, Provider);
