@@ -53,28 +53,6 @@ export function fetch(fetching = true) {
   };
 }
 
-export function fetchCart(dispatch, fetching = true) {
-  dispatch({
-    type: CART_REQUEST,
-    payload: {
-      fetching,
-    }
-  });
-  return Api.get('/sra_cart_content/?calculate_shipping=A')
-    .then((response) => {
-      dispatch({
-        type: CART_SUCCESS,
-        payload: response.data,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: CART_FAIL,
-        error,
-      });
-    });
-}
-
 export function saveUserData(data) {
   return (dispatch) => {
     dispatch({

@@ -12,6 +12,7 @@ import {
 import Api from '../services/api';
 import i18n from '../utils/i18n';
 import * as cartActions from './cartActions';
+import * as wishListActions from './wishListActions';
 
 export function login(data) {
   return (dispatch) => {
@@ -19,7 +20,8 @@ export function login(data) {
 
     return Api.post('/auth_tokens', data)
       .then((response) => {
-        cartActions.fetchCart(dispatch, false);
+        cartActions.fetch(false)(dispatch);
+        wishListActions.fetch(false)(dispatch);
         dispatch({
           type: AUTH_LOGIN_SUCCESS,
           payload: response.data,

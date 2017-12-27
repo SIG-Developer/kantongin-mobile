@@ -6,7 +6,9 @@ import {
   View,
   Text,
   Image,
+  Alert,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swipeout from 'react-native-swipeout';
@@ -34,9 +36,6 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAFAFA',
-  },
-  topBtn: {
-    padding: 10,
   },
   productItem: {
     marginTop: 15,
@@ -97,11 +96,6 @@ const styles = EStyleSheet.create({
     color: '#24282b',
     marginTop: '0.5rem',
   },
-  qtyContainer: {
-    position: 'absolute',
-    right: 14,
-    bottom: 0,
-  }
 });
 
 class WishList extends Component {
@@ -111,6 +105,12 @@ class WishList extends Component {
       dismissModal: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
+    wishListActions: PropTypes.shape({
+      fetch: PropTypes.func,
+      remove: PropTypes.func,
+      clear: PropTypes.func,
+    }),
+    wishList: PropTypes.shape({}),
   };
 
   static navigatorStyle = {
@@ -124,17 +124,30 @@ class WishList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      fetching: true,
+      refreshing: false,
+    };
+
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
     const { navigator } = this.props;
+
+    this.props.wishListActions.fetch();
     iconsLoaded.then(() => {
       navigator.setButtons({
         leftButtons: [
           {
             id: 'close',
             icon: iconsMap.close,
+          },
+        ],
+        rightButtons: [
+          {
+            id: 'clearWishList',
+            icon: iconsMap.delete,
           },
         ],
       });
@@ -145,6 +158,18 @@ class WishList extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { wishList } = nextProps;
+    if (wishList.fetching) {
+      return;
+    }
+
+    this.setState({
+      fetching: false,
+      refreshing: false,
+    });
+  }
+
   onNavigatorEvent(event) {
     // handle a deep link
     registerDrawerDeepLinks(event, this.props.navigator);
@@ -152,13 +177,37 @@ class WishList extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'close') {
         navigator.dismissModal();
+      } else if (event.id === 'clearWishList') {
+        Alert.alert(
+          i18n.gettext('Clear wish list?'),
+          '',
+          [
+            {
+              text: i18n.gettext('Cancel'),
+              onPress: () => {},
+              style: 'cancel'
+            },
+            {
+              text: i18n.gettext('Ok'),
+              onPress: () => this.props.wishListActions.clear(),
+            },
+          ],
+          { cancelable: true }
+        );
       }
     }
   }
 
+  handleRefresh() {
+    const { wishListActions } = this.props;
+    this.setState(
+      { refreshing: true },
+      () => wishListActions.fetch(),
+    );
+  }
+
   handleRemoveProduct = (product) => {
-    // const { cartActions } = this.props;
-    // cartActions.remove(product.cartId);
+    this.props.wishListActions.remove(product.cartId);
   };
 
   renderProductItem = (item) => {
@@ -184,7 +233,18 @@ class WishList extends Component {
         right={swipeoutBtns}
         backgroundColor={theme.$navBarBackgroundColor}
       >
-        <View style={styles.productItem}>
+        <TouchableOpacity
+          style={styles.productItem}
+          onPress={product => this.props.navigator.push({
+            screen: 'ProductDetail',
+            backButtonTitle: '',
+            passProps: {
+              pid: product.product_id,
+              hideSearch: true,
+              hideWishList: true,
+            }
+          })}
+        >
           {productImage}
           <View style={styles.productItemDetail}>
             <Text
@@ -197,7 +257,7 @@ class WishList extends Component {
               {item.amount} x {item.price_formatted.price}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </Swipeout>
     );
   }
@@ -209,13 +269,10 @@ class WishList extends Component {
     return (
       <View style={styles.emptyListContainer}>
         <View style={styles.emptyListIconWrapper}>
-          <Icon name="add-shopping-cart" style={styles.emptyListIcon} />
+          <Icon name="favorite" style={styles.emptyListIcon} />
         </View>
         <Text style={styles.emptyListHeader}>
-          {i18n.gettext('Your shopping cart is empty.')}
-        </Text>
-        <Text style={styles.emptyListDesc}>
-          {i18n.gettext('Looking for ideas?')}
+          {i18n.gettext('Your Wish Lists will love here.')}
         </Text>
       </View>
     );
@@ -229,6 +286,8 @@ class WishList extends Component {
           data={wishList.items}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => this.renderProductItem(item)}
+          onRefresh={() => this.handleRefresh()}
+          refreshing={this.state.refreshing}
           ListEmptyComponent={() => this.renderEmptyList()}
         />
       </View>

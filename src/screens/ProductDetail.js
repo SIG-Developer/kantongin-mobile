@@ -177,6 +177,7 @@ class ProductDetail extends Component {
     }),
     pid: PropTypes.string,
     hideSearch: PropTypes.bool,
+    hideWishList: PropTypes.bool,
     productDetail: PropTypes.shape({
     }),
     productsActions: PropTypes.shape({
@@ -218,20 +219,25 @@ class ProductDetail extends Component {
   }
 
   componentWillMount() {
+    const buttons = {
+      rightButtons: [
+        {
+          id: 'cart',
+          component: 'CartBtn',
+          passProps: {},
+        },
+        {
+          id: 'search',
+          icon: iconsMap.search,
+        },
+      ],
+    };
     iconsLoaded.then(() => {
-      this.props.navigator.setButtons({
-        rightButtons: [
-          {
-            id: 'cart',
-            component: 'CartBtn',
-            passProps: {},
-          },
-          {
-            id: 'search',
-            icon: iconsMap.search,
-          },
-        ],
-      });
+      const { hideSearch } = this.props;
+      if (hideSearch) {
+        buttons.rightButtons.splice(-1, 1);
+      }
+      this.props.navigator.setButtons(buttons);
     });
   }
 
@@ -357,12 +363,31 @@ class ProductDetail extends Component {
   }
 
   handleAddToWishList() {
+    const productOptions = {};
+    const { product, selectedOptions } = this.state;
+
     if (this.state.hasInWishList) {
       return this.props.navigator.showModal({
         screen: 'WishList',
       });
     }
-    return this.props.wishListActions.add(this.props.productDetail);
+
+    // Convert product options to the option_id: variant_id array.
+    Object.keys(selectedOptions).forEach((k) => {
+      productOptions[k] = selectedOptions[k];
+      if (selectedOptions[k].variant_id) {
+        productOptions[k] = selectedOptions[k].variant_id;
+      }
+    });
+
+    const products = {
+      [this.state.product.product_id]: {
+        product_id: product.product_id,
+        amount: this.state.amount,
+        product_options: productOptions,
+      },
+    };
+    return this.props.wishListActions.add({ products });
   }
 
   handleOptionChange(name, val) {
@@ -599,12 +624,14 @@ class ProductDetail extends Component {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.addToWishList}
-          onPress={() => this.handleAddToWishList()}
-        >
-          <Icon name={this.state.hasInWishList ? 'favorite-border' : 'favorite'} size={24} style={styles.addToWishListIcon} />
-        </TouchableOpacity>
+        {!this.props.hideWishList &&
+          <TouchableOpacity
+            style={styles.addToWishList}
+            onPress={() => this.handleAddToWishList()}
+          >
+            <Icon name={this.state.hasInWishList ? 'favorite-border' : 'favorite'} size={24} style={styles.addToWishListIcon} />
+          </TouchableOpacity>
+        }
       </View>
     );
   }
