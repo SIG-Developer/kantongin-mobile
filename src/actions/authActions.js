@@ -45,7 +45,7 @@ export function registration(token) {
         ttl: null,
       }
     });
-    cartActions.fetchCart(dispatch, false);
+    cartActions.fetch(false)(dispatch);
     dispatch({
       type: NOTIFICATION_SHOW,
       payload: {
