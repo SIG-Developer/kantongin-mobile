@@ -98,7 +98,7 @@ const styles = EStyleSheet.create({
   },
 });
 
-class WishList extends Component {
+export class WishList extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,

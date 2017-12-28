@@ -6,8 +6,9 @@ import * as layoutsActions from '../../src/actions/layoutsActions';
 import {
   FETCH_LAYOUTS_BLOCKS_REQUEST,
   FETCH_LAYOUTS_BLOCKS_SUCCESS,
-  FETCH_LAYOUTS_BLOCKS_FAIL,
 } from '../../src/constants';
+
+import config from '../../src/config';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -17,18 +18,18 @@ describe('async actions', () => {
     nock.cleanAll();
   });
 
-  const layoutId = 33;
+  const layoutId = 3;
   const location = 'index.index';
 
   it('creates FETCH_LAYOUTS_BLOCKS_REQUEST, FETCH_LAYOUTS_BLOCKS_SUCCESS', () => {
-    nock('http://localhost')
-      .get(`/sra_bm_layouts/${layoutId}/sra_bm_locations/${location}/sra_bm_blocks`)
-      .reply(200, {
-        users: [
-          { id: 1 },
-        ],
-      });
-
+    nock(config.baseUrl)
+      .get('/sra_bm_layouts/3/sra_bm_locations/index.index/sra_bm_blocks')
+      .query({
+        sl: 'en',
+        items_per_page: 0,
+        s_layouts: config.layoutId,
+      })
+      .reply(200, {});
     const expectedActions = [
       { type: FETCH_LAYOUTS_BLOCKS_REQUEST },
       {
@@ -39,7 +40,7 @@ describe('async actions', () => {
     const store = mockStore({ layouts: {} });
     return store.dispatch(layoutsActions.fetch(layoutId, location))
       .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
+        expect(store.getActions()).toMatchObject(expectedActions);
       });
   });
 });
