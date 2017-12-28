@@ -353,25 +353,27 @@ class Drawer extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.itemBtn}
-              onPress={() => {
-                navigator.showModal({
-                  screen: 'WishList',
-                });
-                navigator.toggleDrawer({
-                  side: 'left',
-                });
-              }}
-            >
-              <View style={styles.itemBtnWrapper}>
-                <Icon name="favorite" style={styles.itemBtnIcon} />
-                <Text style={styles.itemBtnText}>
-                  {i18n.gettext('Wish List')}
-                </Text>
-                {this.renderBadge(this.props.wishList.items.length)}
-              </View>
-            </TouchableOpacity>
+            {auth.logged &&
+              <TouchableOpacity
+                style={styles.itemBtn}
+                onPress={() => {
+                  navigator.showModal({
+                    screen: 'WishList',
+                  });
+                  navigator.toggleDrawer({
+                    side: 'left',
+                  });
+                }}
+              >
+                <View style={styles.itemBtnWrapper}>
+                  <Icon name="favorite" style={styles.itemBtnIcon} />
+                  <Text style={styles.itemBtnText}>
+                    {i18n.gettext('Wish List')}
+                  </Text>
+                  {this.renderBadge(this.props.wishList.items.length)}
+                </View>
+              </TouchableOpacity>
+            }
 
             {auth.logged &&
               <TouchableOpacity
