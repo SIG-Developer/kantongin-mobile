@@ -33,7 +33,7 @@ const styles = EStyleSheet.create({
   }
 });
 
-export default class ProductBlocks extends Component {
+export default class ProductBlock extends Component {
   static propTypes = {
     name: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),

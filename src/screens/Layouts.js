@@ -24,6 +24,7 @@ import * as layoutsActions from '../actions/layoutsActions';
 // Components
 import Spinner from '../components/Spinner';
 import BannerBlock from '../components/BannerBlock';
+import VendorBlock from '../components/VendorBlock';
 import PageBlock from '../components/PageBlock';
 import ProductBlock from '../components/ProductBlock';
 import CategoryBlock from '../components/CategoryBlock';
@@ -245,6 +246,9 @@ class Layouts extends Component {
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
+          <VendorBlock
+            name={i18n.gettext('Vendors')}
+          />
           {blocksList}
         </ScrollView>
       </View>
@@ -252,12 +256,13 @@ class Layouts extends Component {
   }
 }
 
-export default connect(state => ({
-  notifications: state.notifications,
-  layouts: state.layouts,
-}),
-dispatch => ({
-  layoutsActions: bindActionCreators(layoutsActions, dispatch),
-  notificationsActions: bindActionCreators(notificationsActions, dispatch),
-})
+export default connect(
+  state => ({
+    notifications: state.notifications,
+    layouts: state.layouts,
+  }),
+  dispatch => ({
+    layoutsActions: bindActionCreators(layoutsActions, dispatch),
+    notificationsActions: bindActionCreators(notificationsActions, dispatch),
+  })
 )(Layouts);
