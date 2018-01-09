@@ -23,7 +23,7 @@ const styles = EStyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: '1.3rem',
-    paddingLeft: 5,
+    paddingLeft: 10,
     paddingTop: 10,
     paddingBottom: 10,
     color: '$categoriesHeaderColor',

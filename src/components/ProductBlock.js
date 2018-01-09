@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
+import chunk from 'lodash/chunk';
+import uniqueId from 'lodash/uniqueId';
 import ProductListView from './ProductListView';
 
 const styles = EStyleSheet.create({
@@ -17,12 +19,17 @@ const styles = EStyleSheet.create({
     height: '100%',
     resizeMode: 'contain'
   },
-  blockHeader: {
+  header: {
     fontWeight: 'bold',
-    fontSize: '1rem',
-    color: '$darkColor',
-    marginLeft: 14,
-    marginRight: 14,
+    fontSize: '1.3rem',
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: '$categoriesHeaderColor',
+  },
+  chunk: {
+    flex: 1,
+    flexDirection: 'row',
   }
 });
 
@@ -37,20 +44,25 @@ export default class ProductBlocks extends Component {
     items: []
   }
 
-  renderProduct = (item, index) => (
-    <ProductListView
-      key={index}
-      product={{ item, }}
-      onPress={() => this.props.onPress(item)}
-    />
+  renderProduct = (items, index) => (
+    <View style={styles.chunk} key={index}>
+      {items.map((item, chunkIndex) => (
+        <ProductListView
+          key={chunkIndex}
+          product={{ item, }}
+          onPress={() => this.props.onPress(item)}
+        />
+      ))}
+    </View>
   );
 
   render() {
     const { items, name } = this.props;
-    const itemsList = items.map((item, index) => this.renderProduct(item, index));
+    const itemsList = chunk(items, 2).map((items, index) => this.renderProduct(items, index));
+
     return (
       <View style={styles.container}>
-        <Text style={styles.blockHeader}>{name}</Text>
+        <Text style={styles.header}>{name}</Text>
         <Swiper
           horizontal
           height={300}

@@ -14,18 +14,20 @@ import { get } from 'lodash';
 const styles = EStyleSheet.create({
   container: {
     marginTop: 5,
+    marginBottom: 20,
   },
   img: {
     width: '100%',
     height: '100%',
     resizeMode: 'contain'
   },
-  blockHeader: {
+  header: {
     fontWeight: 'bold',
-    fontSize: '1rem',
-    color: '$darkColor',
-    marginLeft: 14,
-    marginRight: 14,
+    fontSize: '1.3rem',
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: '$categoriesHeaderColor',
   }
 });
 
@@ -68,10 +70,10 @@ export default class BannerBlocks extends Component {
     const itemsList = items.map((item, index) => this.renderImage(item, index));
     return (
       <View style={styles.container}>
-        <Text style={styles.blockHeader}>{name}</Text>
+        <Text style={styles.header}>{name}</Text>
         <Swiper
           horizontal
-          height={240}
+          height={200}
           style={styles.container}
         >
           {itemsList}

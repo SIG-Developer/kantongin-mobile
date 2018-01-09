@@ -152,9 +152,11 @@ class Layouts extends Component {
 
   renderBlock = (block, index) => {
     const { navigator } = this.props;
+
     if (!has(block, 'content.items')) {
       return null;
     }
+
     const items = toArray(block.content.items);
     switch (block.type) {
       case BLOCK_BANNERS:
