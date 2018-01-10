@@ -21,7 +21,7 @@ export default {
   $dangerColor: '#D9534F',
 
   $darkColor: '#242424',
-  $grayColor: '#EEEEEE',
+  $grayColor: '#FAFAFA',
   $lightColor: '#242424',
 
   $borderRadius: 8,

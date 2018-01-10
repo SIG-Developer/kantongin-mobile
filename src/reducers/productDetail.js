@@ -6,11 +6,16 @@ import {
   FETCH_PRODUCT_OPTIONS_REQUEST,
   FETCH_PRODUCT_OPTIONS_FAIL,
   FETCH_PRODUCT_OPTIONS_SUCCESS,
+
+  FETCH_DISCUSSION_REQUEST,
+  FETCH_DISCUSSION_SUCCESS,
+  FETCH_DISCUSSION_FAIL,
 } from '../constants';
 
 const initialState = {
   fetching: true,
   options: [],
+  discussion: null,
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +51,24 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetching: false,
+      };
+
+    case FETCH_DISCUSSION_REQUEST:
+      return {
+        ...state,
+        discussion: null,
+      };
+
+    case FETCH_DISCUSSION_SUCCESS:
+      return {
+        ...state,
+        discussion: action.payload,
+      };
+
+    case FETCH_DISCUSSION_FAIL:
+      return {
+        ...state,
+        discussion: null,
       };
 
     default:

@@ -14,8 +14,34 @@ import {
   FETCH_PRODUCT_OPTIONS_REQUEST,
   FETCH_PRODUCT_OPTIONS_FAIL,
   FETCH_PRODUCT_OPTIONS_SUCCESS,
+
+  FETCH_DISCUSSION_REQUEST,
+  FETCH_DISCUSSION_SUCCESS,
+  FETCH_DISCUSSION_FAIL,
 } from '../constants';
 import Api from '../services/api';
+
+export function fetchDiscussion(pid) {
+  return (dispatch) => {
+    dispatch({
+      type: FETCH_DISCUSSION_REQUEST,
+    });
+    return Api.get(`/sra_discussion/?object_type=P&object_id=${pid}`)
+      .then((response) => {
+        console.log(response.data);
+        dispatch({
+          type: FETCH_DISCUSSION_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: FETCH_DISCUSSION_FAIL,
+          error,
+        });
+      });
+  };
+}
 
 export function fetchOptions(pid) {
   return (dispatch) => {
@@ -51,6 +77,8 @@ export function fetch(pid) {
         });
         // get options.
         setTimeout(() => fetchOptions(pid)(dispatch), 100);
+        // get discussion
+        setTimeout(() => fetchDiscussion(pid)(dispatch), 100);
       })
       .catch((error) => {
         dispatch({

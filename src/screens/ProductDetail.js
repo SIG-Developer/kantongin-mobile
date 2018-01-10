@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { has } from 'lodash';
 import { stripTags, formatPrice } from '../utils';
 
@@ -29,6 +28,8 @@ import InputOption from '../components/InputOption';
 import QtyOption from '../components/QtyOption';
 import SwitchOption from '../components/SwitchOption';
 import Spinner from '../components/Spinner';
+import Section from '../components/Section';
+import Rating from '../components/Rating';
 
 import i18n from '../utils/i18n';
 
@@ -82,30 +83,7 @@ const styles = EStyleSheet.create({
     marginTop: 10,
     color: 'gray'
   },
-  blockContainer: {
-    backgroundColor: '$grayColor',
-    paddingTop: 14,
-    paddingBottom: 0,
-    minHeight: 150,
-  },
-  blockContainerLast: {
-    marginBottom: 20,
-  },
-  blockWrapper: {
-    padding: 14,
-    backgroundColor: '#fff',
-  },
-  blockTitle: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F1',
-    paddingTop: 0,
-    paddingBottom: 10,
-    marginBottom: 10,
-  },
-  blockTitleText: {
-    fontSize: '0.9rem',
-    fontWeight: 'bold',
-  },
+
   addToCartContainer: {
     padding: 10,
     flexDirection: 'row',
@@ -443,6 +421,12 @@ class ProductDetail extends Component {
     );
   }
 
+  renderRating = () => (
+    <Rating
+      value={'3'}
+    />
+  );
+
   renderDesc() {
     const { product } = this.state;
     if (product.full_description) {
@@ -465,6 +449,10 @@ class ProductDetail extends Component {
         {formatPrice(product.price)}
       </Text>
     );
+  }
+
+  renderDiscussion() {
+    return null;
   }
 
   renderOptionItem = (item) => {
@@ -516,19 +504,17 @@ class ProductDetail extends Component {
       return null;
     }
     return (
-      <View style={[styles.blockContainer, styles.blockContainerLast]}>
-        <View style={styles.blockWrapper}>
-          {product.options.map(o => this.renderOptionItem(o))}
-          <QtyOption
-            value={this.state.amount}
-            onChange={(val) => {
-              this.setState({
-                amount: val,
-              }, () => this.calculatePrice());
-            }}
-          />
-        </View>
-      </View>
+      <Section>
+        {product.options.map(o => this.renderOptionItem(o))}
+        <QtyOption
+          value={this.state.amount}
+          onChange={(val) => {
+            this.setState({
+              amount: val,
+            }, () => this.calculatePrice());
+          }}
+        />
+      </Section>
     );
   }
 
@@ -552,22 +538,22 @@ class ProductDetail extends Component {
     const features = Object.keys(product.product_features).map(k => product.product_features[k]);
     if (features.length === 0) {
       return (
-        <View style={styles.blockWrapper}>
+        <Section>
           <Text> {i18n.gettext('There are no feautures.')} </Text>
-        </View>
+        </Section>
       );
     }
     return (
-      <View style={styles.blockWrapper}>
+      <Section title={i18n.gettext('Feautures')}>
         {features.map(f => this.renderFeautureItem(f))}
-      </View>
+      </Section>
     );
   }
 
   renderShare() {
     const { product } = this.state;
     return (
-      <View style={styles.blockWrapper}>
+      <Section>
         <TouchableOpacity
           style={styles.outlineBtn}
           onPress={() => {
@@ -587,28 +573,7 @@ class ProductDetail extends Component {
         >
           <Text style={styles.outlineBtnText}> {i18n.gettext('Share product')} </Text>
         </TouchableOpacity>
-      </View>
-    );
-  }
-
-  renderTabs() {
-    return (
-      <View style={[styles.blockContainer]}>
-        <ScrollableTabView
-          tabBarUnderlineStyle={{ backgroundColor: '#FD542A' }}
-          tabBarActiveTextColor="#FD542A"
-          tabBarInactiveTextColor="#212121"
-          tabBarTextStyle={{ fontSize: 16 }}
-          prerenderingSiblingsNumber={10}
-        >
-          <View tabLabel="Features">
-            {this.renderFeatures()}
-          </View>
-          <View tabLabel="Share">
-            {this.renderShare()}
-          </View>
-        </ScrollableTabView>
-      </View>
+      </Section>
     );
   }
 
@@ -656,11 +621,14 @@ class ProductDetail extends Component {
             {this.renderImage()}
             <View style={styles.descriptionBlock}>
               {this.renderName()}
+              {this.renderRating()}
               {this.renderPrice()}
               {this.renderDesc()}
             </View>
             {this.renderOptions()}
-            {this.renderTabs()}
+            {this.renderDiscussion()}
+            {this.renderFeatures()}
+            {this.renderShare()}
           </ScrollView>
           {this.renderAddToCart()}
         </KeyboardAvoidingView>
