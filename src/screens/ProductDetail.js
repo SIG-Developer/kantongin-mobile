@@ -83,7 +83,6 @@ const styles = EStyleSheet.create({
     marginTop: 10,
     color: 'gray'
   },
-
   addToCartContainer: {
     padding: 10,
     flexDirection: 'row',
@@ -99,7 +98,7 @@ const styles = EStyleSheet.create({
   addToCartBtnText: {
     textAlign: 'center',
     color: '$primaryColorText',
-    fontSize: '1rem',
+    fontSize: 16,
   },
   addToWishList: {
     backgroundColor: '$addToWishListColor',
@@ -150,10 +149,10 @@ class ProductDetail extends Component {
     wishListActions: PropTypes.shape({
       add: PropTypes.func,
     }),
-    wishList: PropTypes.shape({
-      items: PropTypes.array,
-    }),
-    pid: PropTypes.string,
+    pid: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     hideSearch: PropTypes.bool,
     hideWishList: PropTypes.bool,
     productDetail: PropTypes.shape({
@@ -189,7 +188,6 @@ class ProductDetail extends Component {
       fetching: true,
       amount: 1,
       selectedOptions: {},
-      hasInWishList: false,
       images: [],
     };
 
@@ -227,7 +225,7 @@ class ProductDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { productDetail, navigator, wishList } = nextProps;
+    const { productDetail, navigator } = nextProps;
     const { selectedOptions } = this.state;
     // FIXME
     const product = productDetail;
@@ -264,13 +262,9 @@ class ProductDetail extends Component {
       });
     }
 
-    const hasInWishList = wishList.items
-      .filter(item => item.product_id === productDetail.product_id).length;
-
     this.setState({
       images,
       product,
-      hasInWishList,
       fetching: productDetail.fetching,
     }, () => this.calculatePrice());
 
@@ -344,9 +338,9 @@ class ProductDetail extends Component {
     const productOptions = {};
     const { product, selectedOptions } = this.state;
 
-    if (this.state.hasInWishList) {
+    if (!this.props.auth.logged) {
       return this.props.navigator.showModal({
-        screen: 'WishList',
+        screen: 'Login',
       });
     }
 
@@ -594,7 +588,7 @@ class ProductDetail extends Component {
             style={styles.addToWishList}
             onPress={() => this.handleAddToWishList()}
           >
-            <Icon name={this.state.hasInWishList ? 'favorite-border' : 'favorite'} size={24} style={styles.addToWishListIcon} />
+            <Icon name="favorite" size={24} style={styles.addToWishListIcon} />
           </TouchableOpacity>
         }
       </View>

@@ -59,12 +59,12 @@ export function add(data) {
           payload: {
             type: 'success',
             title: i18n.gettext('Success'),
-            text: i18n.gettext('The product was added to your cart.'),
+            text: i18n.gettext('The product was added to your Wish list.'),
             closeLastModal: true,
           },
         });
         // Calculate cart
-        setTimeout(() => fetch(false)(dispatch), 50);
+        fetch(false)(dispatch);
       })
       .catch((error) => {
         dispatch({

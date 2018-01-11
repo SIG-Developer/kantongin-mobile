@@ -235,11 +235,11 @@ export class WishList extends Component {
       >
         <TouchableOpacity
           style={styles.productItem}
-          onPress={product => this.props.navigator.push({
+          onPress={() => this.props.navigator.push({
             screen: 'ProductDetail',
             backButtonTitle: '',
             passProps: {
-              pid: product.product_id,
+              pid: item.product_id,
               hideSearch: true,
               hideWishList: true,
             }
