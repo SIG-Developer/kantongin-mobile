@@ -23,6 +23,7 @@ import * as productsActions from '../actions/productsActions';
 import * as wishListActions from '../actions/wishListActions';
 
 // Components
+import DiscussionList from '../components/DiscussionList';
 import SelectOption from '../components/SelectOption';
 import InputOption from '../components/InputOption';
 import QtyOption from '../components/QtyOption';
@@ -30,6 +31,13 @@ import SwitchOption from '../components/SwitchOption';
 import Spinner from '../components/Spinner';
 import Section from '../components/Section';
 import Rating from '../components/Rating';
+
+import {
+  DISCUSSION_TYPE_D,
+  DISCUSSION_TYPE_C,
+  DISCUSSION_TYPE_R,
+  DISCUSSION_TYPE_B,
+} from '../constants';
 
 import i18n from '../utils/i18n';
 
@@ -134,6 +142,20 @@ const styles = EStyleSheet.create({
   },
   feautureNameText: {
     fontWeight: 'bold',
+  },
+  noPadding: {
+    padding: 0,
+    paddingTop: 6,
+    paddingBottom: 6,
+  },
+  sectionBtn: {
+    paddingLeft: 14,
+    paddingTop: 2,
+    paddingBottom: 6,
+  },
+  sectionBtnText: {
+    color: '$primaryColor',
+    fontSize: '0.9rem',
   }
 });
 
@@ -415,11 +437,18 @@ class ProductDetail extends Component {
     );
   }
 
-  renderRating = () => (
-    <Rating
-      value={'3'}
-    />
-  );
+  renderRating() {
+    const { productDetail } = this.props;
+    if (!productDetail.discussion) {
+      return null;
+    }
+    return (
+      <Rating
+        value={productDetail.discussion.average_rating}
+        count={productDetail.discussion.search.total_items}
+      />
+    );
+  }
 
   renderDesc() {
     const { product } = this.state;
@@ -446,7 +475,35 @@ class ProductDetail extends Component {
   }
 
   renderDiscussion() {
-    return null;
+    const { productDetail, navigator } = this.props;
+    if (!productDetail.discussion) {
+      return null;
+    }
+    const masMore = productDetail.discussion.search.total_items > 10;
+    return (
+      <Section
+        title={i18n.gettext('Reviews ({{count}})').replace('{{count}}', productDetail.discussion.search.total_items)}
+        wrapperStyle={styles.noPadding}
+      >
+        <DiscussionList
+          items={productDetail.discussion.posts}
+        />
+        {masMore &&
+          <TouchableOpacity
+            style={styles.sectionBtn}
+            onPress={() => {
+              navigator.showModal({
+                screen: 'Discussion',
+              });
+            }}
+          >
+            <Text style={styles.sectionBtnText}>
+              {i18n.gettext('View All')}
+            </Text>
+          </TouchableOpacity>
+        }
+      </Section>
+    );
   }
 
   renderOptionItem = (item) => {

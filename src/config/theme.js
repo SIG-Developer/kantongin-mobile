@@ -42,6 +42,9 @@ export default {
 
   $addToWishListColor: '#989898',
 
+  $ratingStarsColor: '#EAA944',
+  $discussionMessageColor: '#808080',
+
   // $headerBgColor: '#FAFAFA',
   // $headerTitleColor: '#242424',
   // $headerTintColor: '#242424',

@@ -26,13 +26,13 @@ const styles = EStyleSheet.create({
 });
 
 
-const Section = ({ children, title = '' }) => {
+const Section = ({ children, title = '', wrapperStyle }) => {
   return (
     <View
-      style={styles.container}
+      style={[styles.container]}
     >
       {title ? <Text style={styles.title}>{title}</Text> : null}
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, wrapperStyle]}>
         {children}
       </View>
     </View>
@@ -41,6 +41,7 @@ const Section = ({ children, title = '' }) => {
 
 Section.propTypes = {
   title: PropTypes.string,
+  wrapperStyle: PropTypes.number,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
