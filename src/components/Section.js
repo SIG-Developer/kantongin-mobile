@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -26,12 +28,21 @@ const styles = EStyleSheet.create({
 });
 
 
-const Section = ({ children, title = '', wrapperStyle }) => {
+const Section = ({ children, title = '', wrapperStyle, rightButtonText }) => {
   return (
     <View
       style={[styles.container]}
     >
-      {title ? <Text style={styles.title}>{title}</Text> : null}
+      {title ?
+        <Text style={styles.title}>{title}</Text>
+        :
+        null
+      }
+      {rightButtonText &&
+        <TouchableOpacity>
+          <Text>{rightButtonText}</Text>
+        </TouchableOpacity>
+      }
       <View style={[styles.wrapper, wrapperStyle]}>
         {children}
       </View>
@@ -42,6 +53,7 @@ const Section = ({ children, title = '', wrapperStyle }) => {
 Section.propTypes = {
   title: PropTypes.string,
   wrapperStyle: PropTypes.number,
+  rightButtonText: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

@@ -32,13 +32,6 @@ import Spinner from '../components/Spinner';
 import Section from '../components/Section';
 import Rating from '../components/Rating';
 
-import {
-  DISCUSSION_TYPE_D,
-  DISCUSSION_TYPE_C,
-  DISCUSSION_TYPE_R,
-  DISCUSSION_TYPE_B,
-} from '../constants';
-
 import i18n from '../utils/i18n';
 
 // theme
@@ -177,6 +170,9 @@ class ProductDetail extends Component {
     ]),
     hideSearch: PropTypes.bool,
     hideWishList: PropTypes.bool,
+    discussion: PropTypes.shape({
+      posts: PropTypes.arrayOf(PropTypes.shape({})),
+    }),
     productDetail: PropTypes.shape({
     }),
     productsActions: PropTypes.shape({
@@ -268,6 +264,7 @@ class ProductDetail extends Component {
         if (option.option_type === 'S') {
           const variants = Object.keys(option.variants).map(k => option.variants[k]);
           if (selectedOptions[option.option_id] === undefined && variants.length) {
+            // eslint-disable-next-line
             defaultOptions[option.option_id] = variants[0];
           }
         } else if (option.option_type === 'I') {
@@ -275,6 +272,7 @@ class ProductDetail extends Component {
         } else if (option.option_type === 'C') {
           const variants = Object.keys(option.variants).map(k => option.variants[k]);
           if (selectedOptions[option.option_id] === undefined && variants.length) {
+            // eslint-disable-next-line
             defaultOptions[option.option_id] = variants[1]; // Default no
           }
         }
@@ -438,14 +436,16 @@ class ProductDetail extends Component {
   }
 
   renderRating() {
-    const { productDetail } = this.props;
-    if (!productDetail.discussion) {
+    const { discussion } = this.props;
+
+    if (discussion.empty) {
       return null;
     }
+
     return (
       <Rating
-        value={productDetail.discussion.average_rating}
-        count={productDetail.discussion.search.total_items}
+        value={discussion.average_rating}
+        count={discussion.search.total_items}
       />
     );
   }
@@ -475,18 +475,27 @@ class ProductDetail extends Component {
   }
 
   renderDiscussion() {
-    const { productDetail, navigator } = this.props;
-    if (!productDetail.discussion) {
+    const { discussion, navigator } = this.props;
+
+    if (discussion.empty) {
       return null;
     }
-    const masMore = productDetail.discussion.search.total_items > 10;
+
+    const masMore = discussion.search.total_items > 10;
     return (
       <Section
-        title={i18n.gettext('Reviews ({{count}})').replace('{{count}}', productDetail.discussion.search.total_items)}
+        title={i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items)}
         wrapperStyle={styles.noPadding}
+        rightButtonText={i18n.gettext('Write a Review')}
+        onRightButtonPress={() => {
+          console.log('write');
+          this.props.navigator.showModal({
+            screen: 'WriteReview'
+          });
+        }}
       >
         <DiscussionList
-          items={productDetail.discussion.posts}
+          items={discussion.posts}
         />
         {masMore &&
           <TouchableOpacity
@@ -693,6 +702,7 @@ export default connect(
   state => ({
     auth: state.auth,
     cart: state.cart,
+    discussion: state.discussion,
     productDetail: state.productDetail,
     wishList: state.wishList,
   }),

@@ -29,7 +29,7 @@ const styles = EStyleSheet.create({
   },
   badge: {
     position: 'absolute',
-    top: 10,
+    top: 0,
     right: -10,
     minWidth: 20,
     height: 20,

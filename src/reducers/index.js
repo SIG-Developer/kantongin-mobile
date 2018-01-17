@@ -8,6 +8,7 @@ import orders from './orders';
 import layouts from './layouts';
 import wishList from './wishList';
 import products from './products';
+import discussion from './discussion';
 import orderDetail from './orderDetail';
 import notifications from './notifications';
 import productDetail from './productDetail';
@@ -21,6 +22,7 @@ export default combineReducers({
   layouts,
   wishList,
   products,
+  discussion,
   orderDetail,
   notifications,
   productDetail,

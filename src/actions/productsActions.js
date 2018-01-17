@@ -21,19 +21,20 @@ import {
 } from '../constants';
 import Api from '../services/api';
 
-export function fetchDiscussion(pid, params = {}) {
+export function fetchDiscussion(pid, params = { page: 1 }) {
   return (dispatch) => {
     dispatch({
       type: FETCH_DISCUSSION_REQUEST,
     });
 
-    const page = 1 || params.page;
-
-    return Api.get(`/sra_discussion/?object_type=P&object_id=${pid}&params[page]=${page}`)
+    return Api.get(`/sra_discussion/?object_type=P&object_id=${pid}&params[page]=${params.page}`)
       .then((response) => {
         dispatch({
           type: FETCH_DISCUSSION_SUCCESS,
-          payload: response.data,
+          payload: {
+            discussion: response.data,
+            page: params.page,
+          },
         });
       })
       .catch((error) => {
