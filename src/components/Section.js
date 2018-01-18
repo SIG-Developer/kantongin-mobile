@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -25,10 +24,19 @@ const styles = EStyleSheet.create({
     paddingLeft: 14,
     paddingBottom: 10,
   },
+  rightButton: {
+    position: 'absolute',
+    top: 20,
+    right: 14,
+  },
+  rightButtonText: {
+    color: '$primaryColor',
+    fontSize: '1rem',
+  },
 });
 
 
-const Section = ({ children, title = '', wrapperStyle, rightButtonText }) => {
+const Section = ({ children, title = '', wrapperStyle, rightButtonText, onRightButtonPress }) => {
   return (
     <View
       style={[styles.container]}
@@ -39,8 +47,15 @@ const Section = ({ children, title = '', wrapperStyle, rightButtonText }) => {
         null
       }
       {rightButtonText &&
-        <TouchableOpacity>
-          <Text>{rightButtonText}</Text>
+        <TouchableOpacity
+          onPress={() => onRightButtonPress()}
+          style={styles.rightButton}
+        >
+          <Text
+            style={styles.rightButtonText}
+          >
+            {rightButtonText}
+          </Text>
         </TouchableOpacity>
       }
       <View style={[styles.wrapper, wrapperStyle]}>
@@ -54,6 +69,7 @@ Section.propTypes = {
   title: PropTypes.string,
   wrapperStyle: PropTypes.number,
   rightButtonText: PropTypes.string,
+  onRightButtonPress: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

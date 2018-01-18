@@ -488,9 +488,8 @@ class ProductDetail extends Component {
         wrapperStyle={styles.noPadding}
         rightButtonText={i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
-          console.log('write');
-          this.props.navigator.showModal({
-            screen: 'WriteReview'
+          navigator.showModal({
+            screen: 'WriteReview',
           });
         }}
       >
