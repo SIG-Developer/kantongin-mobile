@@ -97,8 +97,11 @@ class Discussion extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'close') {
         navigator.dismissModal();
-      } else if (event.id === 'post') {
-        console.log('object');
+      } else if (event.id === 'newComment') {
+        navigator.push({
+          screen: 'WriteReview',
+          backButtonTitle: '',
+        });
       }
     }
   }

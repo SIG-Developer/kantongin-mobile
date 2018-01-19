@@ -490,6 +490,9 @@ class ProductDetail extends Component {
         onRightButtonPress={() => {
           navigator.showModal({
             screen: 'WriteReview',
+            passProps: {
+              type: 'modal',
+            }
           });
         }}
       >

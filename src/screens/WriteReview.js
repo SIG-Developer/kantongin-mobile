@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  ScrollView,
   View,
-  Text,
+  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import cloneDeep from 'lodash/cloneDeep';
@@ -16,6 +15,7 @@ import * as t from 'tcomb-form-native';
 import * as productsActions from '../actions/productsActions';
 
 import Button from '../components/Button';
+import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
 import {
   iconsMap,
@@ -55,19 +55,19 @@ function selectRatingTemplate(rating) {
   const currentRating = Math.round(rating.value || 0);
 
   for (let i = 1; i <= currentRating; i += 1) {
-    stars.push(
+    stars.push(// eslint-disable-line
       <TouchableOpacity key={`star_${i}`} onPress={() => rating.onChange(i)}>
         <Icon name="star" style={checkIcon} />
       </TouchableOpacity>
-    );
+    );// eslint-disable-line
   }
 
   for (let r = stars.length; r <= 4; r += 1) {
-    stars.push(
+    stars.push( // eslint-disable-line
       <TouchableOpacity key={`star_border_${r}`} onPress={() => rating.onChange(r + 1)}>
         <Icon name="star-border" style={checkIcon} />
       </TouchableOpacity>
-    );
+    ); // eslint-disable-line
   }
 
   return (
@@ -78,10 +78,14 @@ function selectRatingTemplate(rating) {
 }
 
 const Rating = t.enums({
-  M: 'Male',
-  F: 'Female'
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
 });
 
+// eslint-disable-next-line
 const Form = t.form.Form;
 const FormFields = t.struct({
   name: t.String,
@@ -112,11 +116,17 @@ class WriteReview extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
+      pop: PropTypes.func,
       dismissModal: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
+    type: PropTypes.string,
+    productsActions: PropTypes.shape({
+      postDiscussion: PropTypes.func,
+    }),
     discussion: PropTypes.shape({
       posts: PropTypes.arrayOf(PropTypes.shape({})),
+      isNewPostSent: PropTypes.bool,
     }),
   };
 
@@ -136,16 +146,18 @@ class WriteReview extends Component {
 
   componentWillMount() {
     const { navigator } = this.props;
-    iconsLoaded.then(() => {
-      navigator.setButtons({
-        leftButtons: [
-          {
-            id: 'close',
-            icon: iconsMap.close,
-          },
-        ],
+    if (this.props.type === 'modal') {
+      iconsLoaded.then(() => {
+        navigator.setButtons({
+          leftButtons: [
+            {
+              id: 'close',
+              icon: iconsMap.close,
+            },
+          ],
+        });
       });
-    });
+    }
 
     navigator.setTitle({
       title: i18n.gettext('Write a Review').toUpperCase(),
@@ -153,7 +165,14 @@ class WriteReview extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+    const { navigator } = this.props;
+    if (nextProps.discussion.isNewPostSent) {
+      if (nextProps.type === 'modal') {
+        setTimeout(() => navigator.dismissModal(), 1000);
+      } else {
+        navigator.pop();
+      }
+    }
   }
 
   onNavigatorEvent(event) {
@@ -165,17 +184,32 @@ class WriteReview extends Component {
     }
   }
 
+  handleSend() {
+    const { productsActions, discussion } = this.props;
+    const value = this.refs.form.getValue(); // eslint-disable-line
+    if (value) {
+      productsActions.postDiscussion({
+        thread_id: discussion.thread_id,
+        name: value.name,
+        rating_value: value.rating,
+        message: value.message,
+      });
+    }
+  }
+
   render() {
+    const { discussion } = this.props;
     return (
       <ScrollView style={styles.container}>
         <Form
-          ref="form"
+          ref="form" // eslint-disable-line
           type={FormFields}
           options={options}
         />
-        <Button type="primary">
+        <Button type="primary" onPress={() => this.handleSend()}>
           {i18n.gettext('Send review').toUpperCase()}
         </Button>
+        <Spinner visible={discussion.fetching} />
       </ScrollView>
     );
   }

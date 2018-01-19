@@ -18,8 +18,15 @@ import {
   FETCH_DISCUSSION_REQUEST,
   FETCH_DISCUSSION_SUCCESS,
   FETCH_DISCUSSION_FAIL,
+
+  POST_DISCUSSION_REQUEST,
+  POST_DISCUSSION_SUCCESS,
+  POST_DISCUSSION_FAIL,
+
+  NOTIFICATION_SHOW,
 } from '../constants';
 import Api from '../services/api';
+import i18n from '../utils/i18n';
 
 export function fetchDiscussion(pid, params = { page: 1 }) {
   return (dispatch) => {
@@ -40,6 +47,37 @@ export function fetchDiscussion(pid, params = { page: 1 }) {
       .catch((error) => {
         dispatch({
           type: FETCH_DISCUSSION_FAIL,
+          error,
+        });
+      });
+  };
+}
+
+export function postDiscussion(data) {
+  return (dispatch) => {
+    dispatch({
+      type: POST_DISCUSSION_REQUEST,
+    });
+
+    return Api.post('/sra_discussion', data)
+      .then(() => {
+        dispatch({
+          type: POST_DISCUSSION_SUCCESS,
+        });
+
+        dispatch({
+          type: NOTIFICATION_SHOW,
+          payload: {
+            type: 'success',
+            title: i18n.gettext('Thank you for your post.'),
+            text: i18n.gettext('Your post will be checked before it gets published.'),
+            closeLastModal: false,
+          },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: POST_DISCUSSION_FAIL,
           error,
         });
       });

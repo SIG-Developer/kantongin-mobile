@@ -2,9 +2,16 @@ import {
   FETCH_DISCUSSION_REQUEST,
   FETCH_DISCUSSION_SUCCESS,
   FETCH_DISCUSSION_FAIL,
+
+  POST_DISCUSSION_REQUEST,
+  POST_DISCUSSION_SUCCESS,
+  POST_DISCUSSION_FAIL,
 } from '../constants';
 
 const initialState = {
+  isNewPostSent: false,
+  fetching: false,
+
   empty: true,
   average_rating: 0,
   posts: [],
@@ -46,6 +53,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         empty: true,
+      };
+
+    case POST_DISCUSSION_REQUEST:
+    case POST_DISCUSSION_FAIL:
+      return {
+        ...state,
+        isNewPostSent: false,
+        fetching: true,
+      };
+
+    case POST_DISCUSSION_SUCCESS:
+      return {
+        ...state,
+        isNewPostSent: true,
+        fetching: false,
       };
 
     default:

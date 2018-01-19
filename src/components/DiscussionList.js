@@ -19,7 +19,7 @@ const styles = EStyleSheet.create({
   },
   msg: {
     color: '$discussionMessageColor',
-    marginTop: -6,
+    marginTop: 0,
     paddingBottom: 10,
   },
   itemContainer: {
@@ -73,7 +73,6 @@ export default class DiscussionList extends Component {
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => this.renderItem(item)}
           onEndReached={() => {
-            console.log('end', this.props);
             if (this.props.infinite) {
               this.props.onEndReached();
             }
