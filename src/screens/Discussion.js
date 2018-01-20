@@ -62,9 +62,9 @@ class Discussion extends Component {
   }
 
   componentWillMount() {
-    const { navigator } = this.props;
+    const { navigator, discussion } = this.props;
     iconsLoaded.then(() => {
-      navigator.setButtons({
+      const buttons = {
         leftButtons: [
           {
             id: 'close',
@@ -77,7 +77,13 @@ class Discussion extends Component {
             icon: iconsMap.comment,
           },
         ],
-      });
+      };
+      // Remove add comment btn.
+      if (discussion.disable_adding) {
+        buttons.rightButtons = [];
+      }
+
+      navigator.setButtons(buttons);
     });
 
     navigator.setTitle({
@@ -89,6 +95,8 @@ class Discussion extends Component {
     if (nextProps.discussion.posts.length !== this.state.items.length) {
       this.setState({
         items: nextProps.discussion.posts,
+      }, () => {
+        this.requestSent = false;
       });
     }
   }
@@ -109,11 +117,9 @@ class Discussion extends Component {
 
   handleLoadMore() {
     const { discussion, productDetail } = this.props;
-    const totalItems =
-      discussion.search.items_per_page * discussion.search.page;
-    const hasMore = totalItems == discussion.posts.length; // eslint-disable-line
+    const hasMore = discussion.search.total_items != discussion.posts.length; // eslint-disable-line
 
-    if (hasMore && !this.requestSent) {
+    if (hasMore && !this.requestSent && !discussion.fetching) {
       this.requestSent = true;
       this.props.productsActions.fetchDiscussion(
         productDetail.product_id,

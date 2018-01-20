@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
-  Image,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
@@ -350,14 +349,15 @@ class CheckoutStepThree extends Component {
   }
 }
 
-export default connect(state => ({
-  cart: state.cart,
-  auth: state.auth,
-  orderDetail: state.orderDetail,
-}),
-dispatch => ({
-  ordersActions: bindActionCreators(ordersActions, dispatch),
-  cartActions: bindActionCreators(cartActions, dispatch),
-  paymentsActions: bindActionCreators(paymentsActions, dispatch),
-})
+export default connect(
+  state => ({
+    cart: state.cart,
+    auth: state.auth,
+    orderDetail: state.orderDetail,
+  }),
+  dispatch => ({
+    ordersActions: bindActionCreators(ordersActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch),
+    paymentsActions: bindActionCreators(paymentsActions, dispatch),
+  })
 )(CheckoutStepThree);

@@ -492,7 +492,7 @@ class ProductDetail extends Component {
       <Section
         title={i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items)}
         wrapperStyle={styles.noPadding}
-        rightButtonText={i18n.gettext('Write a Review')}
+        rightButtonText={discussion.disable_adding ? '' : i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
           navigator.showModal({
             screen: 'WriteReview',

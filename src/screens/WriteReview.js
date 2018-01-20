@@ -25,6 +25,12 @@ import {
 import theme from '../config/theme';
 import i18n from '../utils/i18n';
 
+import {
+  DISCUSSION_COMMUNICATION,
+  DISCUSSION_COMMUNICATION_AND_RATING,
+  DISCUSSION_RATING,
+} from '../constants';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -76,41 +82,6 @@ function selectRatingTemplate(rating) {
     </View>
   );
 }
-
-const Rating = t.enums({
-  1: '1',
-  2: '2',
-  3: '3',
-  4: '4',
-  5: '5',
-});
-
-// eslint-disable-next-line
-const Form = t.form.Form;
-const FormFields = t.struct({
-  name: t.String,
-  rating: Rating,
-  message: t.String,
-});
-const options = {
-  disableOrder: true,
-  fields: {
-    name: {
-      label: i18n.gettext('Your name'),
-      clearButtonMode: 'while-editing',
-    },
-    rating: {
-      template: selectRatingTemplate,
-    },
-    message: {
-      numberOfLines: 4,
-      multiline: true,
-      stylesheet: inputStyle,
-      label: i18n.gettext('Your message'),
-      clearButtonMode: 'while-editing',
-    },
-  }
-};
 
 class WriteReview extends Component {
   static propTypes = {
@@ -203,6 +174,62 @@ class WriteReview extends Component {
 
   render() {
     const { discussion } = this.props;
+
+    const Rating = t.enums({
+      1: '1',
+      2: '2',
+      3: '3',
+      4: '4',
+      5: '5',
+    }, '1');
+
+    // eslint-disable-next-line
+    const Form = t.form.Form;
+    let FormFields = null;
+
+    switch (discussion.type) {
+      case DISCUSSION_COMMUNICATION:
+        FormFields = t.struct({
+          name: t.String,
+          message: t.String,
+        });
+        break;
+
+      case DISCUSSION_RATING:
+        FormFields = t.struct({
+          name: t.String,
+          rating: Rating,
+        });
+        break;
+
+      default:
+        FormFields = t.struct({
+          name: t.String,
+          rating: Rating,
+          message: t.String,
+        });
+        break;
+    }
+    const options = {
+      disableOrder: true,
+      fields: {
+        name: {
+          label: i18n.gettext('Your name'),
+          clearButtonMode: 'while-editing',
+        },
+        rating: {
+          template: selectRatingTemplate,
+        },
+        message: {
+          numberOfLines: 4,
+          multiline: true,
+          stylesheet: inputStyle,
+          label: i18n.gettext('Your message'),
+          clearButtonMode: 'while-editing',
+        },
+      }
+    };
+
     return (
       <ScrollView style={styles.container}>
         <Form

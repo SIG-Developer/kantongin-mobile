@@ -53,6 +53,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         empty: true,
+        fetching: false,
       };
 
     case POST_DISCUSSION_REQUEST:
