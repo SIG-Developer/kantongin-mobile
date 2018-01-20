@@ -121,6 +121,9 @@ class WriteReview extends Component {
       setOnNavigatorEvent: PropTypes.func,
     }),
     type: PropTypes.string,
+    productDetail: PropTypes.shape({
+      product_id: PropTypes.number,
+    }),
     productsActions: PropTypes.shape({
       postDiscussion: PropTypes.func,
     }),
@@ -185,7 +188,7 @@ class WriteReview extends Component {
   }
 
   handleSend() {
-    const { productsActions, discussion } = this.props;
+    const { productsActions, discussion, productDetail } = this.props;
     const value = this.refs.form.getValue(); // eslint-disable-line
     if (value) {
       productsActions.postDiscussion({
@@ -193,6 +196,7 @@ class WriteReview extends Component {
         name: value.name,
         rating_value: value.rating,
         message: value.message,
+        product_id: productDetail.product_id,
       });
     }
   }
@@ -218,6 +222,7 @@ class WriteReview extends Component {
 export default connect(
   state => ({
     discussion: state.discussion,
+    productDetail: state.productDetail,
   }),
   dispatch => ({
     productsActions: bindActionCreators(productsActions, dispatch),

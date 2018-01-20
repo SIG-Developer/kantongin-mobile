@@ -8,6 +8,12 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Rating from './Rating';
 
+import {
+  DISCUSSION_COMMUNICATION,
+  DISCUSSION_COMMUNICATION_AND_RATING,
+  DISCUSSION_RATING,
+} from '../constants';
+
 const styles = EStyleSheet.create({
   container: {
     marginTop: 5,
@@ -45,6 +51,7 @@ export default class DiscussionList extends Component {
     items: PropTypes.arrayOf(PropTypes.object),
     infinite: PropTypes.bool,
     onEndReached: PropTypes.func,
+    type: PropTypes.string,
   }
 
   static defaultProps = {
@@ -52,17 +59,25 @@ export default class DiscussionList extends Component {
     infinite: false,
   }
 
-  renderItem = item => (
-    <View style={styles.itemContainer}>
-      <View style={styles.itemWrapper}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Rating value={item.rating_value} containerStyle={styles.rating} />
+  renderItem(item) {
+    const { type } = this.props;
+    const showRating = (
+      type === DISCUSSION_RATING || type === DISCUSSION_COMMUNICATION_AND_RATING
+    );
+    const showMessage = (
+      type === DISCUSSION_COMMUNICATION_AND_RATING || type === DISCUSSION_COMMUNICATION
+    );
+
+    return (
+      <View style={styles.itemContainer}>
+        <View style={styles.itemWrapper}>
+          <Text style={styles.name}>{item.name}</Text>
+          {showRating && <Rating value={item.rating_value} containerStyle={styles.rating} />}
+        </View>
+        {showMessage && <Text style={styles.msg}>{item.message}</Text>}
       </View>
-      <Text style={styles.msg}>
-        {item.message}
-      </Text>
-    </View>
-  );
+    );
+  }
 
   render() {
     return (

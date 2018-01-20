@@ -31,17 +31,20 @@ import SwitchOption from '../components/SwitchOption';
 import Spinner from '../components/Spinner';
 import Section from '../components/Section';
 import Rating from '../components/Rating';
+import Icon from '../components/Icon';
 
 import i18n from '../utils/i18n';
-
-// theme
 import theme from '../config/theme';
-
 import {
   iconsMap,
   iconsLoaded,
 } from '../utils/navIcons';
-import Icon from '../components/Icon';
+
+import {
+  DISCUSSION_COMMUNICATION_AND_RATING,
+  DISCUSSION_RATING,
+  DISCUSSION_DISABLED,
+} from '../constants';
 
 const styles = EStyleSheet.create({
   container: {
@@ -438,7 +441,10 @@ class ProductDetail extends Component {
   renderRating() {
     const { discussion } = this.props;
 
-    if (discussion.empty) {
+    if (discussion.empty ||
+      (discussion.type !== DISCUSSION_RATING &&
+        discussion.type !== DISCUSSION_COMMUNICATION_AND_RATING)
+    ) {
       return null;
     }
 
@@ -477,7 +483,7 @@ class ProductDetail extends Component {
   renderDiscussion() {
     const { discussion, navigator } = this.props;
 
-    if (discussion.empty) {
+    if (discussion.empty || discussion.type === DISCUSSION_DISABLED) {
       return null;
     }
 
@@ -497,7 +503,8 @@ class ProductDetail extends Component {
         }}
       >
         <DiscussionList
-          items={discussion.posts}
+          items={discussion.posts.slice(0, 4)}
+          type={discussion.type}
         />
         {masMore &&
           <TouchableOpacity

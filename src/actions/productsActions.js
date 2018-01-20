@@ -74,6 +74,8 @@ export function postDiscussion(data) {
             closeLastModal: false,
           },
         });
+        // Reload discussion.
+        fetchDiscussion(data.product_id)(dispatch);
       })
       .catch((error) => {
         dispatch({

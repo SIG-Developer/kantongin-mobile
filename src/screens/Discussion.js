@@ -39,6 +39,7 @@ class Discussion extends Component {
     }),
     discussion: PropTypes.shape({
       posts: PropTypes.arrayOf(PropTypes.shape({})),
+      type: PropTypes.string,
     }),
   };
 
@@ -110,7 +111,7 @@ class Discussion extends Component {
     const { discussion, productDetail } = this.props;
     const totalItems =
       discussion.search.items_per_page * discussion.search.page;
-    const hasMore = totalItems == discussion.posts.length;
+    const hasMore = totalItems == discussion.posts.length; // eslint-disable-line
 
     if (hasMore && !this.requestSent) {
       this.requestSent = true;
@@ -127,8 +128,9 @@ class Discussion extends Component {
     return (
       <View style={styles.container}>
         <DiscussionList
-          items={this.state.items}
           infinite
+          type={this.props.discussion.type}
+          items={this.state.items}
           onEndReached={() => this.handleLoadMore()}
         />
       </View>
