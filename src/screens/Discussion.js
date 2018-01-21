@@ -86,6 +86,10 @@ class Discussion extends Component {
       navigator.setButtons(buttons);
     });
 
+    this.setState({
+      items: this.props.discussion.posts,
+    });
+
     navigator.setTitle({
       title: i18n.gettext('Comments & Reviews').toUpperCase(),
     });

@@ -29,6 +29,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         empty: true,
+        fetching: true,
+        isNewPostSent: false,
       };
 
     case FETCH_DISCUSSION_SUCCESS:
@@ -46,6 +48,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         ...newState,
+        fetching: false,
         empty: action.payload.discussion.average_rating == '',
       };
 
