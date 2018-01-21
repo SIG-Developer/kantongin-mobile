@@ -15,6 +15,7 @@ import {
   BLOCK_CATEGORIES,
   BLOCK_PRODUCTS,
   BLOCK_PAGES,
+  BLOCK_VENDORS,
 } from '../constants';
 
 // Import actions.
@@ -232,6 +233,22 @@ class Layouts extends Component {
           />
         );
 
+      case BLOCK_VENDORS:
+        return (
+          <VendorBlock
+            name={i18n.gettext('Vendors')}
+            items={block.content.items}
+            onPress={(vendor) => {
+              navigator.push({
+                screen: 'VendorDetail',
+                title: vendor,
+                backButtonTitle: '',
+              });
+            }}
+            key={index}
+          />
+        );
+
       default:
         return null;
     }
@@ -246,9 +263,6 @@ class Layouts extends Component {
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          <VendorBlock
-            name={i18n.gettext('Vendors')}
-          />
           {blocksList}
         </ScrollView>
       </View>

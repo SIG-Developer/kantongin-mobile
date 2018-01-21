@@ -102,6 +102,7 @@ export const BLOCK_CATEGORIES = 'categories';
 export const BLOCK_BANNERS = 'banners';
 export const BLOCK_PRODUCTS = 'products';
 export const BLOCK_PAGES = 'pages';
+export const BLOCK_VENDORS = 'vendors';
 
 export const WISH_LIST_FETCH_REQUEST = 'WISH_LIST_FETCH_REQUEST';
 export const WISH_LIST_FETCH_SUCCESS = 'WISH_LIST_FETCH_SUCCESS';

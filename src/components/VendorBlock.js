@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { toArray } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -42,12 +43,16 @@ const styles = EStyleSheet.create({
 export default class VendorBlock extends Component {
   static propTypes = {
     name: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.object),
+    items: PropTypes.shape({
+      companies: PropTypes.shape({}),
+    }),
     onPress: PropTypes.func,
   }
 
   static defaultProps = {
-    items: []
+    items: {
+      companies: {},
+    }
   }
 
   renderImage = (item, index) => {
@@ -64,19 +69,15 @@ export default class VendorBlock extends Component {
 
   render() {
     const { items, name } = this.props;
-
-    // if (!items.length) {
-    //   return null;
-    // }
     return (
       <View style={styles.container}>
         <Text style={styles.header}>{name}</Text>
         <FlatList
           style={styles.content}
           horizontal
-          data={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
+          data={toArray(items.companies)}
           keyExtractor={(item, index) => index}
-          renderItem={this.renderImage}
+          renderItem={({ item, index }) => this.renderImage(item, index)}
         />
       </View>
     );
