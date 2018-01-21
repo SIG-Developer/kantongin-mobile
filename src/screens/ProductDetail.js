@@ -21,6 +21,7 @@ import { stripTags, formatPrice } from '../utils';
 import * as cartActions from '../actions/cartActions';
 import * as productsActions from '../actions/productsActions';
 import * as wishListActions from '../actions/wishListActions';
+import * as vendorActions from '../actions/vendorActions';
 
 // Components
 import DiscussionList from '../components/DiscussionList';
@@ -35,6 +36,7 @@ import Icon from '../components/Icon';
 
 import i18n from '../utils/i18n';
 import theme from '../config/theme';
+import config from '../config';
 import {
   iconsMap,
   iconsLoaded,
@@ -44,6 +46,7 @@ import {
   DISCUSSION_COMMUNICATION_AND_RATING,
   DISCUSSION_RATING,
   DISCUSSION_DISABLED,
+  VERSION_MVE,
 } from '../constants';
 
 const styles = EStyleSheet.create({
@@ -116,12 +119,12 @@ const styles = EStyleSheet.create({
     color: '#fff',
   },
   simpleBtn: {
-    paddingTop: 4,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   simpleBtnText: {
     fontSize: '1rem',
+    paddingTop: 4,
   },
   simpleBtnIcon: {
     color: 'gray',
@@ -151,7 +154,29 @@ const styles = EStyleSheet.create({
   sectionBtnText: {
     color: '$primaryColor',
     fontSize: '0.9rem',
-  }
+  },
+  vendorWrapper: {
+    paddingLeft: 14,
+    paddingRight: 14,
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F1F1',
+  },
+  vendorName: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
+  vendorProductCount: {
+    fontSize: '0.7rem',
+    color: 'gray',
+    marginBottom: 13,
+  },
+  vendorDescription: {
+    color: 'gray',
+    fontSize: '0.9rem',
+  },
 });
 
 class ProductDetail extends Component {
@@ -190,6 +215,10 @@ class ProductDetail extends Component {
     cart: PropTypes.shape({
       fetching: PropTypes.boolean,
     }),
+    vendorActions: PropTypes.shape({
+      fetch: PropTypes.func,
+    }),
+    vendors: PropTypes.shape({}),
   }
 
   static navigatorStyle = {
@@ -205,6 +234,7 @@ class ProductDetail extends Component {
 
     this.state = {
       product: {},
+      vendor: {},
       fetching: true,
       amount: 1,
       selectedOptions: {},
@@ -245,7 +275,7 @@ class ProductDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { productDetail, navigator } = nextProps;
+    const { productDetail, navigator, vendors } = nextProps;
     const { selectedOptions } = this.state;
     // FIXME
     const product = productDetail;
@@ -284,10 +314,15 @@ class ProductDetail extends Component {
       });
     }
 
+    if (!vendors.items[product.company_id] && !vendors.fetching) {
+      this.props.vendorActions.fetch(product.company_id);
+    }
+
     this.setState({
       images,
       product,
       fetching: productDetail.fetching,
+      vendor: vendors.items[product.company_id],
     }, () => this.calculatePrice());
 
     navigator.setTitle({
@@ -618,6 +653,47 @@ class ProductDetail extends Component {
     );
   }
 
+  renderVendorInfo() {
+    if (config.version !== VERSION_MVE) {
+      return null;
+    }
+    const { navigator } = this.props;
+
+    return (
+      <Section
+        title={i18n.gettext('Vendor info')}
+        wrapperStyle={styles.noPadding}
+      >
+        <View style={styles.vendorWrapper}>
+          <Text style={styles.vendorName}>
+            {this.state.vendor.company}
+          </Text>
+          <Text style={styles.vendorProductCount}>
+            {i18n.gettext('134 items')}
+          </Text>
+          <Text style={styles.vendorDescription}>
+            {this.state.vendor.description}
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={styles.sectionBtn}
+          onPress={() => {
+            navigator.showModal({
+              screen: 'VendorDetail',
+              passProps: {
+                vendorId: this.state.vendor.company_id,
+              },
+            });
+          }}
+        >
+          <Text style={styles.sectionBtnText}>
+            {i18n.gettext('Go To Store')}
+          </Text>
+        </TouchableOpacity>
+      </Section>
+    );
+  }
+
   renderShare() {
     const { product } = this.state;
     return (
@@ -628,13 +704,9 @@ class ProductDetail extends Component {
             Share.share({
               message: product.full_description,
               title: product.product,
-              url: 'http://amelekesov.tk',
+              url: config.baseUrl,
             }, {
               dialogTitle: product.product,
-              excludedActivityTypes: [
-                'com.apple.UIKit.activity.PostToTwitter',
-                'com.apple.uikit.activity.mail'
-              ],
               tintColor: 'black'
             });
           }}
@@ -699,6 +771,7 @@ class ProductDetail extends Component {
             {this.renderOptions()}
             {this.renderDiscussion()}
             {this.renderFeatures()}
+            {this.renderVendorInfo()}
             {this.renderShare()}
           </ScrollView>
           {this.renderAddToCart()}
@@ -713,13 +786,15 @@ export default connect(
   state => ({
     auth: state.auth,
     cart: state.cart,
+    vendors: state.vendors,
+    wishList: state.wishList,
     discussion: state.discussion,
     productDetail: state.productDetail,
-    wishList: state.wishList,
   }),
   dispatch => ({
-    productsActions: bindActionCreators(productsActions, dispatch),
     cartActions: bindActionCreators(cartActions, dispatch),
+    vendorActions: bindActionCreators(vendorActions, dispatch),
+    productsActions: bindActionCreators(productsActions, dispatch),
     wishListActions: bindActionCreators(wishListActions, dispatch),
   })
 )(ProductDetail);

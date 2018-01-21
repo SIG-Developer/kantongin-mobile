@@ -6,6 +6,7 @@ import pages from './pages';
 import search from './search';
 import orders from './orders';
 import layouts from './layouts';
+import vendors from './vendors';
 import wishList from './wishList';
 import products from './products';
 import discussion from './discussion';
@@ -20,6 +21,7 @@ export default combineReducers({
   search,
   orders,
   layouts,
+  vendors,
   wishList,
   products,
   discussion,

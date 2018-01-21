@@ -24,6 +24,7 @@ import {
   POST_DISCUSSION_FAIL,
 
   NOTIFICATION_SHOW,
+  DISCUSSION_DISABLED,
 } from '../constants';
 import Api from '../services/api';
 import i18n from '../utils/i18n';
@@ -120,8 +121,11 @@ export function fetch(pid) {
         });
         // get options.
         setTimeout(() => fetchOptions(pid)(dispatch), 100);
-        // get discussion
-        setTimeout(() => fetchDiscussion(pid)(dispatch), 100);
+
+        // Load discussion if it is not disabled.
+        if (response.data.discussion_type !== DISCUSSION_DISABLED) {
+          setTimeout(() => fetchDiscussion(pid)(dispatch), 100);
+        }
       })
       .catch((error) => {
         dispatch({

@@ -15,6 +15,7 @@ import Discussion from './screens/Discussion';
 import Categories from './screens/Categories';
 import WriteReview from './screens/WriteReview';
 import OrderDetail from './screens/OrderDetail';
+import VendorDetail from './screens/VendorDetail';
 import CheckoutAuth from './screens/CheckoutAuth';
 import Registration from './screens/Registration';
 import ProductDetail from './screens/ProductDetail';
@@ -42,6 +43,7 @@ export default function registerScreens(store, Provider) {
   Navigation.registerComponent('Categories', () => Categories, store, Provider);
   Navigation.registerComponent('WriteReview', () => WriteReview, store, Provider);
   Navigation.registerComponent('OrderDetail', () => OrderDetail, store, Provider);
+  Navigation.registerComponent('VendorDetail', () => VendorDetail, store, Provider);
   Navigation.registerComponent('Registration', () => Registration, store, Provider);
   Navigation.registerComponent('CheckoutAuth', () => CheckoutAuth, store, Provider);
   Navigation.registerComponent('Notification', () => Notification, store, Provider);

@@ -11,5 +11,5 @@ export default {
   // SHOP DEFAULT LAYOUT ID
   layoutId: 3, // Default www.mobile.demo.cs-cart.com layout id
   // VERSION MVE OR ULT
-  version: 'mve',
+  version: 'MVE',
 };

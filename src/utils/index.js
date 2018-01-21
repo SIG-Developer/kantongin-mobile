@@ -1,6 +1,5 @@
 import DeviceInfo from 'react-native-device-info';
 import { Dimensions } from 'react-native';
-
 import countries from '../config/countries';
 
 // Calculate product image width and items count.
