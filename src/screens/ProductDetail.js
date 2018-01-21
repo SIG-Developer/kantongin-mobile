@@ -115,17 +115,16 @@ const styles = EStyleSheet.create({
   addToWishListIcon: {
     color: '#fff',
   },
-  outlineBtn: {
-    borderWidth: 1,
-    borderColor: '#FD542A',
-    borderRadius: 6,
+  simpleBtn: {
+    paddingTop: 4,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  outlineBtnText: {
-    color: '#FD542A',
-    padding: 16,
-    textAlign: 'center',
-    fontSize: '0.9rem',
-    backgroundColor: 'transparent',
+  simpleBtnText: {
+    fontSize: '1rem',
+  },
+  simpleBtnIcon: {
+    color: 'gray',
   },
   feautureGroup: {
     flexDirection: 'row',
@@ -624,7 +623,7 @@ class ProductDetail extends Component {
     return (
       <Section>
         <TouchableOpacity
-          style={styles.outlineBtn}
+          style={styles.simpleBtn}
           onPress={() => {
             Share.share({
               message: product.full_description,
@@ -640,7 +639,10 @@ class ProductDetail extends Component {
             });
           }}
         >
-          <Text style={styles.outlineBtnText}> {i18n.gettext('Share product')} </Text>
+          <Text style={styles.simpleBtnText}>
+            {i18n.gettext('Share product')}
+          </Text>
+          <Icon name="keyboard-arrow-right" style={styles.simpleBtnIcon} />
         </TouchableOpacity>
       </Section>
     );
