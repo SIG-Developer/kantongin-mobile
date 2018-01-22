@@ -234,7 +234,7 @@ class ProductDetail extends Component {
 
     this.state = {
       product: {},
-      vendor: {},
+      vendor: null,
       fetching: true,
       amount: 1,
       selectedOptions: {},
@@ -314,7 +314,10 @@ class ProductDetail extends Component {
       });
     }
 
-    if (!vendors.items[product.company_id] && !vendors.fetching) {
+    if (config.version === VERSION_MVE &&
+      !vendors.items[product.company_id] &&
+      !vendors.fetching && product.company_id
+    ) {
       this.props.vendorActions.fetch(product.company_id);
     }
 
@@ -322,7 +325,7 @@ class ProductDetail extends Component {
       images,
       product,
       fetching: productDetail.fetching,
-      vendor: vendors.items[product.company_id],
+      vendor: vendors.items[product.company_id] || null,
     }, () => this.calculatePrice());
 
     navigator.setTitle({
@@ -654,7 +657,7 @@ class ProductDetail extends Component {
   }
 
   renderVendorInfo() {
-    if (config.version !== VERSION_MVE) {
+    if (config.version !== VERSION_MVE || !this.state.vendor) {
       return null;
     }
     const { navigator } = this.props;
