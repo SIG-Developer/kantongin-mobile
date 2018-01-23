@@ -50,6 +50,15 @@ const styles = EStyleSheet.create({
     fontSize: '0.9rem',
     marginTop: 10,
   },
+  address: {
+    color: 'gray',
+    fontSize: '0.9rem',
+  },
+  logoWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export class VendorDetail extends Component {
@@ -60,7 +69,9 @@ export class VendorDetail extends Component {
       setOnNavigatorEvent: PropTypes.func,
     }),
     vendorId: PropTypes.string,
-    vendors: PropTypes.shape({}),
+    vendors: PropTypes.shape({
+      items: PropTypes.shape({}),
+    }),
     vendorActions: PropTypes.shape({
       fetch: PropTypes.func,
     }),
@@ -132,10 +143,12 @@ export class VendorDetail extends Component {
     const { vendor } = this.state;
     return (
       <Section>
-        <Image
-          source={{ uri: vendor.logo_url }}
-          style={styles.logo}
-        />
+        <View style={styles.logoWrapper}>
+          <Image
+            source={{ uri: vendor.logo_url }}
+            style={styles.logo}
+          />
+        </View>
       </Section>
     );
   }
@@ -156,11 +169,43 @@ export class VendorDetail extends Component {
     );
   }
 
+  renderContacts() {
+    const { vendor } = this.state;
+    return (
+      <Section title={i18n.gettext('Contact Information')}>
+        <View style={styles.vendorWrapper}>
+          <Text style={styles.vendorName}>
+            {vendor.company}
+          </Text>
+        </View>
+      </Section>
+    );
+  }
+
+  renderShipping() {
+    const { vendor } = this.state;
+    return (
+      <Section title={i18n.gettext('Shipping address')}>
+        <Text style={styles.address}>
+          {vendor.shipping_address.address},
+        </Text>
+        <Text style={styles.address}>
+          {vendor.shipping_address.state} {vendor.shipping_address.zipcode},
+        </Text>
+        <Text style={styles.address}>
+          {vendor.shipping_address.country}
+        </Text>
+      </Section>
+    );
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
         {this.renderLogo()}
         {this.renderDesc()}
+        {this.renderContacts()}
+        {this.renderShipping()}
       </ScrollView>
     );
   }
