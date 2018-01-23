@@ -276,42 +276,17 @@ class ProductDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { productDetail, navigator, vendors } = nextProps;
-    const { selectedOptions } = this.state;
-    // FIXME
     const product = productDetail;
+    const images = [];
+
     if (!product) {
       return;
     }
-    const images = [];
+
     // If we haven't images put main image.
     if (has(product, 'main_pair.detailed.image_path')) {
       images.push(product.main_pair.detailed.image_path);
       Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
-    }
-
-    // // Add default option values.
-    if ('options' in product) {
-      const defaultOptions = { ...selectedOptions };
-      product.options.forEach((option) => {
-        if (option.option_type === 'S') {
-          const variants = Object.keys(option.variants).map(k => option.variants[k]);
-          if (selectedOptions[option.option_id] === undefined && variants.length) {
-            // eslint-disable-next-line
-            defaultOptions[option.option_id] = variants[0];
-          }
-        } else if (option.option_type === 'I') {
-          defaultOptions[option.option_id] = '';
-        } else if (option.option_type === 'C') {
-          const variants = Object.keys(option.variants).map(k => option.variants[k]);
-          if (selectedOptions[option.option_id] === undefined && variants.length) {
-            // eslint-disable-next-line
-            defaultOptions[option.option_id] = variants[1]; // Default no
-          }
-        }
-      });
-      this.setState({
-        selectedOptions: defaultOptions,
-      });
     }
 
     if (config.version === VERSION_MVE &&
@@ -321,10 +296,16 @@ class ProductDetail extends Component {
       this.props.vendorActions.fetch(product.company_id);
     }
 
+    const defaultOptions = { ...this.state.selectedOptions };
+    product.options.forEach((option) => {
+      defaultOptions[option.option_id] = option.variants[option.value];
+    });
+
     this.setState({
       images,
       product,
       fetching: productDetail.fetching,
+      selectedOptions: defaultOptions,
       vendor: vendors.items[product.company_id] || null,
     }, () => this.calculatePrice());
 
@@ -567,7 +548,6 @@ class ProductDetail extends Component {
     // FIXME: Brainfuck code to convert object to array.
     option.variants = Object.keys(option.variants).map(k => option.variants[k]);
     const defaultValue = selectedOptions[option.option_id];
-
     switch (item.option_type) {
       case 'I':
       case 'T':

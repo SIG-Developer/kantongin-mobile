@@ -2,10 +2,6 @@ import {
   FETCH_ONE_PRODUCT_REQUEST,
   FETCH_ONE_PRODUCT_FAIL,
   FETCH_ONE_PRODUCT_SUCCESS,
-
-  FETCH_PRODUCT_OPTIONS_REQUEST,
-  FETCH_PRODUCT_OPTIONS_FAIL,
-  FETCH_PRODUCT_OPTIONS_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -20,29 +16,17 @@ export default function (state = initialState, action) {
         ...state,
         fetching: true,
         options: [],
-        discussion: [],
       };
 
     case FETCH_ONE_PRODUCT_SUCCESS:
       return {
         ...state,
         ...action.payload.product,
-      };
-
-    case FETCH_PRODUCT_OPTIONS_REQUEST:
-      return {
-        ...state,
-        fetching: true,
-      };
-
-    case FETCH_PRODUCT_OPTIONS_SUCCESS:
-      return {
-        ...state,
-        options: Object.keys(action.payload.options).map(k => action.payload.options[k]),
+        options: Object.keys(action.payload.product.product_options)
+          .map(k => action.payload.product.product_options[k]),
         fetching: false,
       };
 
-    case FETCH_PRODUCT_OPTIONS_FAIL:
     case FETCH_ONE_PRODUCT_FAIL:
       return {
         ...state,

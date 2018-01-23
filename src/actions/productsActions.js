@@ -119,9 +119,6 @@ export function fetch(pid) {
             product: response.data,
           },
         });
-        // get options.
-        setTimeout(() => fetchOptions(pid)(dispatch), 100);
-
         // Load discussion if it is not disabled.
         if (response.data.discussion_type !== DISCUSSION_DISABLED) {
           setTimeout(() => fetchDiscussion(pid)(dispatch), 100);
