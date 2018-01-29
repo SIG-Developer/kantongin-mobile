@@ -27,7 +27,6 @@ import i18n from '../utils/i18n';
 
 import {
   DISCUSSION_COMMUNICATION,
-  DISCUSSION_COMMUNICATION_AND_RATING,
   DISCUSSION_RATING,
 } from '../constants';
 
@@ -114,6 +113,7 @@ class WriteReview extends Component {
 
   constructor(props) {
     super(props);
+    this.isNewPostSent = false;
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -140,9 +140,11 @@ class WriteReview extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { navigator } = this.props;
-    if (nextProps.discussion.isNewPostSent) {
+    if (this.isNewPostSent) {
+      this.isNewPostSent = false;
       if (nextProps.type === 'modal') {
         setTimeout(() => navigator.dismissModal(), 1000);
+        navigator.dismissModal();
       } else {
         navigator.pop();
       }
@@ -160,10 +162,13 @@ class WriteReview extends Component {
 
   handleSend() {
     const { productsActions, discussion, productDetail } = this.props;
+    const activeDiscussion = discussion.items[`p_${productDetail.product_id}`];
     const value = this.refs.form.getValue(); // eslint-disable-line
+
     if (value) {
+      this.isNewPostSent = true;
       productsActions.postDiscussion({
-        thread_id: discussion.thread_id,
+        thread_id: activeDiscussion.thread_id,
         name: value.name,
         rating_value: value.rating,
         message: value.message,
@@ -173,8 +178,8 @@ class WriteReview extends Component {
   }
 
   render() {
-    const { discussion } = this.props;
-
+    const { discussion, productDetail } = this.props;
+    const activeDiscussion = discussion.items[`p_${productDetail.product_id}`];
     const Rating = t.enums({
       1: '1',
       2: '2',
@@ -187,7 +192,7 @@ class WriteReview extends Component {
     const Form = t.form.Form;
     let FormFields = null;
 
-    switch (discussion.type) {
+    switch (activeDiscussion.type) {
       case DISCUSSION_COMMUNICATION:
         FormFields = t.struct({
           name: t.String,

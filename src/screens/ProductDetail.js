@@ -233,12 +233,13 @@ class ProductDetail extends Component {
     super(props);
 
     this.state = {
+      amount: 1,
+      images: [],
       product: {},
+      discussion: {},
       vendor: null,
       fetching: true,
-      amount: 1,
       selectedOptions: {},
-      images: [],
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -275,7 +276,9 @@ class ProductDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { productDetail, navigator, vendors } = nextProps;
+    const {
+      productDetail, navigator, vendors, discussion,
+    } = nextProps;
     const product = productDetail;
     const images = [];
 
@@ -301,11 +304,25 @@ class ProductDetail extends Component {
       defaultOptions[option.option_id] = option.variants[option.value];
     });
 
+    // Get active discussion.
+    let activeDiscussion = discussion.items[`p_${product.product_id}`];
+    if (!activeDiscussion) {
+      activeDiscussion = {
+        average_rating: 0,
+        posts: [],
+        search: {
+          page: 1,
+          total_items: 0,
+        },
+      };
+    }
+
     this.setState({
       images,
       product,
-      fetching: productDetail.fetching,
+      discussion: activeDiscussion,
       selectedOptions: defaultOptions,
+      fetching: productDetail.fetching,
       vendor: vendors.items[product.company_id] || null,
     }, () => this.calculatePrice());
 
@@ -457,9 +474,9 @@ class ProductDetail extends Component {
   }
 
   renderRating() {
-    const { discussion } = this.props;
+    const { discussion } = this.state;
 
-    if (discussion.empty ||
+    if (discussion.average_rating === '' ||
       (discussion.type !== DISCUSSION_RATING &&
         discussion.type !== DISCUSSION_COMMUNICATION_AND_RATING)
     ) {
@@ -499,18 +516,25 @@ class ProductDetail extends Component {
   }
 
   renderDiscussion() {
-    const { discussion, navigator } = this.props;
+    const { navigator, auth } = this.props;
+    const { discussion } = this.state;
 
-    if (discussion.empty || discussion.type === DISCUSSION_DISABLED) {
+    if (discussion.average_rating === '' || discussion.type === DISCUSSION_DISABLED) {
       return null;
     }
 
     const masMore = discussion.search.total_items > 10;
+    let title = i18n.gettext('Reviews');
+    if (discussion.search.total_items != 0) { // eslint-disable-line
+      title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items);
+    }
+
     return (
       <Section
-        title={i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items)}
+        title={title}
         wrapperStyle={styles.noPadding}
-        rightButtonText={discussion.disable_adding ? '' : i18n.gettext('Write a Review')}
+        showRightButton={discussion.disable_adding || auth.logged}
+        rightButtonText={i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
           navigator.showModal({
             screen: 'WriteReview',

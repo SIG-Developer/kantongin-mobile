@@ -4,6 +4,7 @@ import {
   Text,
   View,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Rating from './Rating';
@@ -13,6 +14,7 @@ import {
   DISCUSSION_COMMUNICATION_AND_RATING,
   DISCUSSION_RATING,
 } from '../constants';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -35,6 +37,9 @@ const styles = EStyleSheet.create({
     paddingLeft: 14,
     paddingRight: 14,
   },
+  itemContainerNoBorder: {
+    borderBottomWidth: 0,
+  },
   itemWrapper: {
     flex: 1,
     justifyContent: 'space-between',
@@ -43,7 +48,15 @@ const styles = EStyleSheet.create({
   name: {
     fontWeight: '800',
     fontSize: '0.9rem',
-  }
+  },
+  empty: {},
+  emptyText: {
+    fontSize: '0.9rem',
+    color: 'gray',
+    paddingLeft: 14,
+    paddingBottom: 10,
+    paddingTop: 4,
+  },
 });
 
 export default class DiscussionList extends Component {
@@ -52,6 +65,7 @@ export default class DiscussionList extends Component {
     infinite: PropTypes.bool,
     onEndReached: PropTypes.func,
     type: PropTypes.string,
+    fetching: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -59,7 +73,7 @@ export default class DiscussionList extends Component {
     infinite: false,
   }
 
-  renderItem(item) {
+  renderItem(item, index) {
     const { type } = this.props;
     const showRating = (
       type === DISCUSSION_RATING || type === DISCUSSION_COMMUNICATION_AND_RATING
@@ -68,8 +82,10 @@ export default class DiscussionList extends Component {
       type === DISCUSSION_COMMUNICATION_AND_RATING || type === DISCUSSION_COMMUNICATION
     );
 
+    const noUnderlineStyle = this.props.items.length === index + 1;
+
     return (
-      <View style={styles.itemContainer}>
+      <View style={[styles.itemContainer, noUnderlineStyle && styles.itemContainerNoBorder]}>
         <View style={styles.itemWrapper}>
           <Text style={styles.name}>{item.name}</Text>
           {showRating && <Rating value={item.rating_value} containerStyle={styles.rating} />}
@@ -79,6 +95,24 @@ export default class DiscussionList extends Component {
     );
   }
 
+  renderFooter() {
+    if (!this.props.fetching) {
+      return null;
+    }
+
+    return (
+      <ActivityIndicator animating />
+    );
+  }
+
+  renderEmpty = () => (
+    <View style={styles.empty}>
+      <Text style={styles.emptyText}>
+        {i18n.gettext('No posts found')}
+      </Text>
+    </View>
+  );
+
   render() {
     return (
       <View style={styles.container}>
@@ -86,7 +120,9 @@ export default class DiscussionList extends Component {
           data={this.props.items}
           numColumns={1}
           keyExtractor={(item, index) => index}
-          renderItem={({ item }) => this.renderItem(item)}
+          renderItem={({ item, index }) => this.renderItem(item, index)}
+          ListFooterComponent={() => this.renderFooter()}
+          ListEmptyComponent={() => this.renderEmpty()}
           onEndReached={() => {
             if (this.props.infinite) {
               this.props.onEndReached();

@@ -29,19 +29,20 @@ import {
 import Api from '../services/api';
 import i18n from '../utils/i18n';
 
-export function fetchDiscussion(pid, params = { page: 1 }) {
+export function fetchDiscussion(id, params = { page: 1 }, type = 'P') {
   return (dispatch) => {
     dispatch({
       type: FETCH_DISCUSSION_REQUEST,
     });
 
-    return Api.get(`/sra_discussion/?object_type=P&object_id=${pid}&params[page]=${params.page}`)
+    return Api.get(`/sra_discussion/?object_type=${type}&object_id=${id}&params[page]=${params.page}`)
       .then((response) => {
         dispatch({
           type: FETCH_DISCUSSION_SUCCESS,
           payload: {
-            discussion: response.data,
             page: params.page,
+            id: `${type.toLowerCase()}_${id}`,
+            discussion: response.data,
           },
         });
       })

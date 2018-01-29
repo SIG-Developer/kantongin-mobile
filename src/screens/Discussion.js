@@ -38,8 +38,8 @@ class Discussion extends Component {
       fetchDiscussion: PropTypes.func,
     }),
     discussion: PropTypes.shape({
-      posts: PropTypes.arrayOf(PropTypes.shape({})),
-      type: PropTypes.string,
+      items: PropTypes.shape({}),
+      fetching: PropTypes.bool,
     }),
   };
 
@@ -56,13 +56,27 @@ class Discussion extends Component {
     this.requestSent = false;
 
     this.state = {
-      items: [],
+      discussion: {},
     };
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
-    const { navigator, discussion } = this.props;
+    const { navigator, discussion, productDetail } = this.props;
+    let activeDiscussion = discussion.items[`p_${productDetail.product_id}`];
+
+    if (!activeDiscussion) {
+      activeDiscussion = {
+        disable_adding: false,
+        average_rating: 0,
+        posts: [],
+        search: {
+          page: 1,
+          total_items: 0,
+        },
+      };
+    }
+
     iconsLoaded.then(() => {
       const buttons = {
         leftButtons: [
@@ -79,7 +93,7 @@ class Discussion extends Component {
         ],
       };
       // Remove add comment btn.
-      if (discussion.disable_adding) {
+      if (activeDiscussion.disable_adding) {
         buttons.rightButtons = [];
       }
 
@@ -87,7 +101,7 @@ class Discussion extends Component {
     });
 
     this.setState({
-      items: this.props.discussion.posts,
+      discussion: activeDiscussion,
     });
 
     navigator.setTitle({
@@ -96,13 +110,13 @@ class Discussion extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.discussion.posts.length !== this.state.items.length) {
-      this.setState({
-        items: nextProps.discussion.posts,
-      }, () => {
-        this.requestSent = false;
-      });
-    }
+    const { productDetail } = this.props;
+    const activeDiscussion = nextProps.discussion.items[`p_${productDetail.product_id}`];
+    this.setState({
+      discussion: activeDiscussion,
+    }, () => {
+      this.requestSent = false;
+    });
   }
 
   onNavigatorEvent(event) {
@@ -120,10 +134,11 @@ class Discussion extends Component {
   }
 
   handleLoadMore() {
-    const { discussion, productDetail } = this.props;
+    const { productDetail } = this.props;
+    const { discussion } = this.state;
     const hasMore = discussion.search.total_items != discussion.posts.length; // eslint-disable-line
 
-    if (hasMore && !this.requestSent && !discussion.fetching) {
+    if (hasMore && !this.requestSent && !this.props.discussion.fetching) {
       this.requestSent = true;
       this.props.productsActions.fetchDiscussion(
         productDetail.product_id,
@@ -135,12 +150,14 @@ class Discussion extends Component {
   }
 
   render() {
+    const { discussion } = this.state;
     return (
       <View style={styles.container}>
         <DiscussionList
           infinite
-          type={this.props.discussion.type}
-          items={this.state.items}
+          type={discussion.type}
+          items={discussion.posts}
+          fetching={this.props.discussion.fetching}
           onEndReached={() => this.handleLoadMore()}
         />
       </View>

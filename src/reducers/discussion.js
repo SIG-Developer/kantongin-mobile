@@ -11,17 +11,10 @@ import {
 const initialState = {
   isNewPostSent: false,
   fetching: false,
-
-  empty: true,
-  average_rating: 0,
-  posts: [],
-  search: {
-    page: 1,
-    total_items: 0,
-  }
+  items: {},
 };
 
-let newState = null;
+let items = {}; // eslint-disable-line
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -34,28 +27,28 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_DISCUSSION_SUCCESS:
-      newState = action.payload.discussion;
       if (action.payload.page !== 1) {
-        newState = {
-          ...state,
+        items[action.payload.id] = {
+          ...state.items[action.payload.id],
           ...action.payload.discussion,
           posts: [
-            ...state.posts,
+            ...state.items[action.payload.id].posts,
             ...action.payload.discussion.posts,
           ],
         };
+      } else {
+        items[action.payload.id] = action.payload.discussion;
       }
+
       return {
         ...state,
-        ...newState,
+        items,
         fetching: false,
-        empty: action.payload.discussion.average_rating == '',
       };
 
     case FETCH_DISCUSSION_FAIL:
       return {
         ...state,
-        empty: true,
         fetching: false,
       };
 
@@ -63,14 +56,14 @@ export default function (state = initialState, action) {
     case POST_DISCUSSION_FAIL:
       return {
         ...state,
-        isNewPostSent: false,
+        postSentFetching: true,
         fetching: true,
       };
 
     case POST_DISCUSSION_SUCCESS:
       return {
         ...state,
-        isNewPostSent: true,
+        postSentFetching: false,
         fetching: false,
       };
 
