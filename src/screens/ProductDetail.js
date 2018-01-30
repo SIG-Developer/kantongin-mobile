@@ -540,6 +540,7 @@ class ProductDetail extends Component {
             screen: 'WriteReview',
             passProps: {
               type: 'modal',
+              activeDiscussion: discussion,
             }
           });
         }}

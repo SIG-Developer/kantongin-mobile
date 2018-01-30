@@ -120,6 +120,7 @@ class Discussion extends Component {
   }
 
   onNavigatorEvent(event) {
+    const { discussion } = this.state;
     const { navigator } = this.props;
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'close') {
@@ -128,6 +129,9 @@ class Discussion extends Component {
         navigator.push({
           screen: 'WriteReview',
           backButtonTitle: '',
+          passProps: {
+            activeDiscussion: discussion,
+          },
         });
       }
     }

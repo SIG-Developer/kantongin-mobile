@@ -5,7 +5,7 @@ import {
 
 } from '../constants';
 import Api from '../services/api';
-import i18n from '../utils/i18n';
+// import i18n from '../utils/i18n';
 
 export function fetch(id) {
   return (dispatch) => {

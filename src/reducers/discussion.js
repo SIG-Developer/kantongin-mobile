@@ -21,7 +21,6 @@ export default function (state = initialState, action) {
     case FETCH_DISCUSSION_REQUEST:
       return {
         ...state,
-        empty: true,
         fetching: true,
         isNewPostSent: false,
       };

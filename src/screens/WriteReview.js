@@ -161,10 +161,9 @@ class WriteReview extends Component {
   }
 
   handleSend() {
-    const { productsActions, discussion, productDetail } = this.props;
-    const activeDiscussion = discussion.items[`p_${productDetail.product_id}`];
+    const { productsActions, productDetail, activeDiscussion } = this.props;
     const value = this.refs.form.getValue(); // eslint-disable-line
-
+    console.log(this.props, 'aaasdasdasd');
     if (value) {
       this.isNewPostSent = true;
       productsActions.postDiscussion({
@@ -178,8 +177,7 @@ class WriteReview extends Component {
   }
 
   render() {
-    const { discussion, productDetail } = this.props;
-    const activeDiscussion = discussion.items[`p_${productDetail.product_id}`];
+    const { discussion, activeDiscussion } = this.props;
     const Rating = t.enums({
       1: '1',
       2: '2',
