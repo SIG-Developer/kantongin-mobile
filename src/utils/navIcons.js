@@ -6,7 +6,7 @@ const preloadIcons = {
   search: [30, theme.$navBarButtonColor],
   close: [30, theme.$navBarButtonColor],
   delete: [30, theme.$navBarButtonColor],
-  comment: [30, theme.$navBarButtonColor],
+  create: [30, theme.$navBarButtonColor],
 };
 
 const iconsMap = {};

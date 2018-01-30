@@ -29,6 +29,8 @@ import SelectOption from '../components/SelectOption';
 import InputOption from '../components/InputOption';
 import QtyOption from '../components/QtyOption';
 import SwitchOption from '../components/SwitchOption';
+import SectionRow from '../components/SectionRow';
+import SectionButton from '../components/SectionButton';
 import Spinner from '../components/Spinner';
 import Section from '../components/Section';
 import Rating from '../components/Rating';
@@ -71,7 +73,9 @@ const styles = EStyleSheet.create({
     paddingLeft: 14,
     paddingRight: 14,
     borderTopWidth: 1,
-    borderTopColor: '#F1F1F1'
+    borderTopColor: '#F1F1F1',
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F1F1'
   },
   nameText: {
     fontSize: '1.2rem',
@@ -94,7 +98,7 @@ const styles = EStyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: '$grayColor',
+    borderColor: '#F0F0F0',
   },
   addToCartBtn: {
     backgroundColor: '$primaryColor',
@@ -118,29 +122,6 @@ const styles = EStyleSheet.create({
   addToWishListIcon: {
     color: '#fff',
   },
-  simpleBtn: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  simpleBtnText: {
-    fontSize: '1rem',
-    paddingTop: 4,
-  },
-  simpleBtnIcon: {
-    color: 'gray',
-  },
-  feautureGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'stretch',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F1',
-    paddingBottom: 8,
-    paddingTop: 8,
-  },
-  feautureNameText: {
-    fontWeight: 'bold',
-  },
   noPadding: {
     padding: 0,
     paddingTop: 6,
@@ -148,8 +129,10 @@ const styles = EStyleSheet.create({
   },
   sectionBtn: {
     paddingLeft: 14,
-    paddingTop: 2,
+    paddingTop: 12,
     paddingBottom: 6,
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0',
   },
   sectionBtnText: {
     color: '$primaryColor',
@@ -161,8 +144,6 @@ const styles = EStyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     marginBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F1',
   },
   vendorName: {
     fontSize: '1rem',
@@ -629,34 +610,23 @@ class ProductDetail extends Component {
     );
   }
 
-  renderFeautureItem = item => (
-    <View style={styles.feautureGroup} key={item.feature_id}>
-      <View style={styles.feautureName}>
-        <Text style={styles.feautureNameText}>
-          {item.description}
-        </Text>
-      </View>
-      <View style={styles.feautureValue}>
-        <Text style={styles.feautureValueText}>
-          {item.variant}
-        </Text>
-      </View>
-    </View>
-  );
-
   renderFeatures() {
     const { product } = this.state;
     const features = Object.keys(product.product_features).map(k => product.product_features[k]);
-    if (features.length === 0) {
-      return (
-        <Section>
-          <Text> {i18n.gettext('There are no feautures.')} </Text>
-        </Section>
-      );
-    }
     return (
       <Section title={i18n.gettext('Feautures')}>
-        {features.map(f => this.renderFeautureItem(f))}
+        {features.length ?
+          features.map((item, index) => (
+            <SectionRow
+              name={item.description}
+              value={item.variant}
+              last={(index + 1) === features.length}
+              key={index}
+            />
+          ))
+          :
+          <Text> {i18n.gettext('There are no feautures.')} </Text>
+        }
       </Section>
     );
   }
@@ -705,26 +675,19 @@ class ProductDetail extends Component {
   renderShare() {
     const { product } = this.state;
     return (
-      <Section>
-        <TouchableOpacity
-          style={styles.simpleBtn}
-          onPress={() => {
-            Share.share({
-              message: product.full_description,
-              title: product.product,
-              url: config.baseUrl,
-            }, {
-              dialogTitle: product.product,
-              tintColor: 'black'
-            });
-          }}
-        >
-          <Text style={styles.simpleBtnText}>
-            {i18n.gettext('Share product')}
-          </Text>
-          <Icon name="keyboard-arrow-right" style={styles.simpleBtnIcon} />
-        </TouchableOpacity>
-      </Section>
+      <SectionButton
+        text={i18n.gettext('Share product')}
+        onPress={() => {
+          Share.share({
+            message: product.full_description,
+            title: product.product,
+            url: config.baseUrl,
+          }, {
+            dialogTitle: product.product,
+            tintColor: 'black'
+          });
+        }}
+      />
     );
   }
 

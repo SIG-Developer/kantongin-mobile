@@ -88,7 +88,7 @@ class Discussion extends Component {
         rightButtons: [
           {
             id: 'newComment',
-            icon: iconsMap.comment,
+            icon: iconsMap.create,
           },
         ],
       };

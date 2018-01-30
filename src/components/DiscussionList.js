@@ -39,6 +39,7 @@ const styles = EStyleSheet.create({
   },
   itemContainerNoBorder: {
     borderBottomWidth: 0,
+    marginBottom: 0,
   },
   itemWrapper: {
     flex: 1,
@@ -81,7 +82,6 @@ export default class DiscussionList extends Component {
     const showMessage = (
       type === DISCUSSION_COMMUNICATION_AND_RATING || type === DISCUSSION_COMMUNICATION
     );
-
     const noUnderlineStyle = this.props.items.length === index + 1;
 
     return (
