@@ -44,7 +44,7 @@ const SectionRow = ({ name, value, last = false }) => (
 SectionRow.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  last: PropTypes.bool.isRequired,
+  last: PropTypes.bool,
 };
 
 export default SectionRow;

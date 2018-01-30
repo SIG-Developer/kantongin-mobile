@@ -7,17 +7,18 @@ import {
   Text,
   Image,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import uniqueId from 'lodash';
+
 // Import actions.
 import * as vendorActions from '../actions/vendorActions';
 import * as productsActions from '../actions/productsActions';
 
 // Components
-import Icon from '../components/Icon';
+import Rating from '../components/Rating';
 import Section from '../components/Section';
+import SectionRow from '../components/SectionRow';
+import SectionButton from '../components/SectionButton';
 import DiscussionList from '../components/DiscussionList';
 
 // theme
@@ -61,25 +62,6 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rowGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'stretch',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F1',
-    paddingBottom: 8,
-    paddingTop: 8,
-  },
-  rowNameText: {
-    fontWeight: 'bold',
-  },
-  vendorLink: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  vendorLinkText: {
-    fontSize: '0.9rem',
-  }
 });
 
 export class VendorDetail extends Component {
@@ -91,6 +73,7 @@ export class VendorDetail extends Component {
     }),
     discussion: PropTypes.shape({
       items: PropTypes.shape({}),
+      fetching: PropTypes.bool,
     }),
     vendorId: PropTypes.string,
     auth: PropTypes.shape({
@@ -118,6 +101,7 @@ export class VendorDetail extends Component {
   constructor(props) {
     super(props);
 
+    this.requestSent = true;
     this.state = {
       vendor: {},
       discussion: {
@@ -134,7 +118,9 @@ export class VendorDetail extends Component {
   }
 
   componentWillMount() {
-    const { navigator, vendorId, vendors } = this.props;
+    const {
+      navigator, vendorId, vendors
+    } = this.props;
 
     if (!vendors.items[vendorId] && !vendors.fetching) {
       this.props.vendorActions.fetch(vendorId);
@@ -167,8 +153,22 @@ export class VendorDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // Get active discussion.
+    let activeDiscussion = nextProps.discussion.items[`m_${this.state.vendor.company_id}`];
+    if (!activeDiscussion) {
+      activeDiscussion = {
+        average_rating: 0,
+        posts: [],
+        search: {
+          page: 1,
+          total_items: 0,
+        },
+      };
+    }
+
     this.setState({
       vendor: nextProps.vendors.items[nextProps.vendorId],
+      discussion: activeDiscussion,
     });
   }
 
@@ -180,6 +180,22 @@ export class VendorDetail extends Component {
       if (event.id === 'close') {
         navigator.dismissModal();
       }
+    }
+  }
+
+  handleLoadMore() {
+    const { discussion, vendor } = this.state;
+    const hasMore = discussion.search.total_items != discussion.posts.length; // eslint-disable-line
+
+    if (hasMore && !this.requestSent && !this.props.discussion.fetching) {
+      this.requestSent = true;
+      this.props.productsActions.fetchDiscussion(
+        vendor.company_id,
+        {
+          page: discussion.search.page + 1,
+        },
+        'M'
+      );
     }
   }
 
@@ -197,25 +213,29 @@ export class VendorDetail extends Component {
     );
   }
 
-  renderVendorProducts = () => (
-    <Section>
-      <TouchableOpacity style={styles.vendorLink}>
-        <Text style={styles.vendorLinkText}>
-          {i18n.gettext('View vendor products ({{items}} item(s))').replace('{{items}}', 22)}
-        </Text>
-        <Icon name="keyboard-arrow-right" style={styles.simpleBtnIcon} />
-      </TouchableOpacity>
-    </Section>
-  );
+  renderVendorProducts() {
+    return (
+      <SectionButton
+        text={i18n.gettext('View vendor products ({{items}} item(s))').replace('{{items}}', 22)}
+        onPress={() => {
+          this.props.navigator.dismissModal();
+        }}
+      />
+    );
+  }
 
   renderDesc() {
-    const { vendor } = this.state;
+    const { vendor, discussion } = this.state;
     return (
       <Section>
         <View style={styles.vendorWrapper}>
           <Text style={styles.vendorName}>
             {vendor.company}
           </Text>
+          <Rating
+            value={discussion.average_rating}
+            count={discussion.search.total_items}
+          />
           <Text style={styles.vendorDescription}>
             {vendor.description}
           </Text>
@@ -224,35 +244,27 @@ export class VendorDetail extends Component {
     );
   }
 
-  renderContactItem = (item, value) => {
-    if (!value) {
-      return null;
-    }
-
-    return (
-      <View style={styles.rowGroup} key={uniqueId(`value_${value}`)}>
-        <View style={styles.rowName}>
-          <Text style={styles.rowNameText}>
-            {item}
-          </Text>
-        </View>
-        <View style={styles.rowNameValue}>
-          <Text style={styles.rowNameValueText}>
-            {value}
-          </Text>
-        </View>
-      </View>
-    );
-  }
-
   renderContacts() {
     const { vendor } = this.state;
     return (
       <Section title={i18n.gettext('Contact Information')}>
-        {this.renderContactItem(i18n.gettext('E-mail'), vendor.contact_information.email)}
-        {this.renderContactItem(i18n.gettext('Phone'), vendor.contact_information.phone)}
-        {this.renderContactItem(i18n.gettext('Fax'), vendor.contact_information.fax)}
-        {this.renderContactItem(i18n.gettext('Website'), vendor.contact_information.url)}
+        <SectionRow
+          name={i18n.gettext('E-mail')}
+          value={vendor.contact_information.email}
+        />
+        <SectionRow
+          name={i18n.gettext('Phone')}
+          value={vendor.contact_information.phone}
+        />
+        <SectionRow
+          name={i18n.gettext('Fax')}
+          value={vendor.contact_information.fax}
+        />
+        <SectionRow
+          name={i18n.gettext('Website')}
+          value={vendor.contact_information.url}
+          last
+        />
       </Section>
     );
   }
@@ -275,26 +287,12 @@ export class VendorDetail extends Component {
   }
 
   renderDiscussion() {
-    const { vendor } = this.state;
-    const { auth, navigator, discussion } = this.props;
-    // Get active discussion.
-    let activeDiscussion = discussion.items[`m_${vendor.company_id}`];
-    if (!activeDiscussion) {
-      activeDiscussion = {
-        average_rating: 0,
-        posts: [],
-        search: {
-          page: 1,
-          total_items: 0,
-        },
-      };
-    }
-
-    console.log(activeDiscussion, 'eeee');
+    const { discussion } = this.state;
+    const { auth, navigator } = this.props;
 
     let title = i18n.gettext('Reviews');
-    if (activeDiscussion.search.total_items != 0) { // eslint-disable-line
-      title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', activeDiscussion.search.total_items);
+    if (discussion.search.total_items != 0) { // eslint-disable-line
+      title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items);
     }
     return (
       <Section
@@ -307,8 +305,7 @@ export class VendorDetail extends Component {
             screen: 'WriteReview',
             backButtonTitle: '',
             passProps: {
-              type: 'modal',
-              activeDiscussion,
+              activeDiscussion: discussion,
             }
           });
         }}
@@ -317,6 +314,8 @@ export class VendorDetail extends Component {
           infinite
           items={discussion.posts}
           type={discussion.type}
+          fetching={this.props.discussion.fetching}
+          onEndReached={() => this.handleLoadMore()}
         />
       </Section>
     );

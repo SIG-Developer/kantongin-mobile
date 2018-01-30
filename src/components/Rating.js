@@ -31,6 +31,10 @@ const Rating = ({ value, count, containerStyle }) => {
   const stars = [];
   const currentRating = Math.round(value);
 
+  if (value === '') {
+    return null;
+  }
+
   for (let i = 1; i <= currentRating; i += 1) {
     stars.push(<Icon key={`star_${i}`} name="star" style={styles.checkIcon} />);
   }
@@ -44,18 +48,22 @@ const Rating = ({ value, count, containerStyle }) => {
       style={[styles.container, containerStyle]}
     >
       {stars}
-      {count &&
-        <Text style={styles.countText}>
-          {i18n.gettext('{{count}} reviews').replace('{{count}}', count)}
-        </Text>
-      }
+      <Text style={styles.countText}>
+        {count ? i18n.gettext('{{count}} reviews').replace('{{count}}', count) : ''}
+      </Text>
     </View>
   );
 };
 
 Rating.propTypes = {
-  value: PropTypes.string,
-  count: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  count: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   containerStyle: PropTypes.number,
 };
 

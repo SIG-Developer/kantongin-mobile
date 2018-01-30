@@ -457,10 +457,8 @@ class ProductDetail extends Component {
   renderRating() {
     const { discussion } = this.state;
 
-    if (discussion.average_rating === '' ||
-      (discussion.type !== DISCUSSION_RATING &&
-        discussion.type !== DISCUSSION_COMMUNICATION_AND_RATING)
-    ) {
+    if (discussion.type !== DISCUSSION_RATING &&
+        discussion.type !== DISCUSSION_COMMUNICATION_AND_RATING) {
       return null;
     }
 

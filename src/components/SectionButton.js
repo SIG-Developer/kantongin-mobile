@@ -13,7 +13,6 @@ const styles = EStyleSheet.create({
   container: {
     backgroundColor: '$grayColor',
     paddingTop: 20,
-    paddingBottom: 10,
   },
   wrapper: {
     backgroundColor: '#fff',

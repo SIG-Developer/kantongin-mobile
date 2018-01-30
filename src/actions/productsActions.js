@@ -56,7 +56,6 @@ export function fetchDiscussion(id, params = { page: 1 }, type = 'P') {
 }
 
 export function postDiscussion(data) {
-  console.log(data, 'asads');
   return (dispatch) => {
     dispatch({
       type: POST_DISCUSSION_REQUEST,

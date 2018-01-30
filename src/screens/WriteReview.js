@@ -163,7 +163,6 @@ class WriteReview extends Component {
   handleSend() {
     const { productsActions, productDetail, activeDiscussion } = this.props;
     const value = this.refs.form.getValue(); // eslint-disable-line
-    console.log(this.props, 'aaasdasdasd');
     if (value) {
       this.isNewPostSent = true;
       productsActions.postDiscussion({
