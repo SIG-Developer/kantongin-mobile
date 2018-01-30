@@ -495,10 +495,14 @@ class ProductDetail extends Component {
   }
 
   renderDiscussion() {
-    const { navigator, auth } = this.props;
+    const { navigator, auth, productDetail } = this.props;
     const { discussion } = this.state;
 
-    if (discussion.average_rating === '' || discussion.type === DISCUSSION_DISABLED) {
+    if (
+      discussion.average_rating === '' ||
+      discussion.type === DISCUSSION_DISABLED ||
+      !productDetail.discussion_type
+    ) {
       return null;
     }
 
