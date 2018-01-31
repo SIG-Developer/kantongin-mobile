@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { toArray } from '../utils';
+import { get } from 'lodash';
+
+import Rating from './Rating';
 
 const styles = EStyleSheet.create({
   container: {
@@ -30,6 +32,11 @@ const styles = EStyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
   },
+  item: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   header: {
     fontWeight: 'bold',
     fontSize: '1.3rem',
@@ -44,25 +51,27 @@ export default class VendorBlock extends Component {
   static propTypes = {
     name: PropTypes.string,
     items: PropTypes.shape({
-      companies: PropTypes.shape({}),
+      companies: PropTypes.arrayOf(PropTypes.shape({})),
     }),
     onPress: PropTypes.func,
   }
 
   static defaultProps = {
     items: {
-      companies: {},
+      companies: [],
     }
   }
 
   renderImage = (item, index) => {
-    const imageUri = 'http://mobile.mve.demo.cs-cart.com/images/logos/1/cart_2.png';
+    const imageUri = get(item, 'logos.theme.image.http_image_path');
     return (
       <TouchableOpacity
         key={index}
         onPress={() => this.props.onPress()}
+        style={styles.item}
       >
         <Image source={{ uri: imageUri }} style={styles.img} />
+        {item.average_rating && <Rating value={item.average_rating} />}
       </TouchableOpacity>
     );
   }
@@ -75,7 +84,7 @@ export default class VendorBlock extends Component {
         <FlatList
           style={styles.content}
           horizontal
-          data={toArray(items.companies)}
+          data={items.companies}
           keyExtractor={(item, index) => index}
           renderItem={({ item, index }) => this.renderImage(item, index)}
         />

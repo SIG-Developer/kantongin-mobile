@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
       // FIXME: Brainfuck code convert object to array.
       newState = Object.keys(action.payload.blocks)
         .map((k) => {
-          action.payload.blocks[k].location = action.payload.location;
+          action.payload.blocks[k].location = action.payload.location; // eslint-disable-line
           return action.payload.blocks[k];
         })
         .sort((a, b) => a.order - b.order);
