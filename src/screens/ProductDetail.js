@@ -511,12 +511,11 @@ class ProductDetail extends Component {
     if (discussion.search.total_items != 0) { // eslint-disable-line
       title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items);
     }
-
     return (
       <Section
         title={title}
         wrapperStyle={styles.noPadding}
-        showRightButton={discussion.disable_adding || auth.logged}
+        showRightButton={!discussion.disable_adding && auth.logged}
         rightButtonText={i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
           navigator.showModal({

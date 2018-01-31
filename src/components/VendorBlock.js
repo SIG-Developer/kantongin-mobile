@@ -71,7 +71,7 @@ export default class VendorBlock extends Component {
         style={styles.item}
       >
         <Image source={{ uri: imageUri }} style={styles.img} />
-        {item.average_rating && <Rating value={item.average_rating} />}
+        <Rating value={item.average_rating} />
       </TouchableOpacity>
     );
   }

@@ -31,7 +31,7 @@ const Rating = ({ value, count, containerStyle }) => {
   const stars = [];
   const currentRating = Math.round(value);
 
-  if (value === '') {
+  if (!value || value === '0.00') {
     return null;
   }
 

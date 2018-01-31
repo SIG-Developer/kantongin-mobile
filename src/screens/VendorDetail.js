@@ -298,7 +298,7 @@ export class VendorDetail extends Component {
       <Section
         title={title}
         wrapperStyle={styles.noPadding}
-        showRightButton={discussion.disable_adding || auth.logged}
+        showRightButton={!discussion.disable_adding || auth.logged}
         rightButtonText={i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
           navigator.push({
