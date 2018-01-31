@@ -68,6 +68,15 @@ export function add(data) {
       })
       .catch((error) => {
         dispatch({
+          type: NOTIFICATION_SHOW,
+          payload: {
+            type: 'error',
+            title: i18n.gettext('Error'),
+            text: i18n.gettext('This product is already in the wish list.'),
+            closeLastModal: true,
+          },
+        });
+        dispatch({
           type: WISH_LIST_ADD_FAIL,
           error,
         });
