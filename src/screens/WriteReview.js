@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
+  Text,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
@@ -44,13 +45,20 @@ const styles = EStyleSheet.create({
 const inputStyle = cloneDeep(t.form.Form.stylesheet);
 // overriding the text color
 inputStyle.textbox.normal.height = 130;
+inputStyle.textbox.error.height = 130;
 
 function selectRatingTemplate(rating) {
   const containerStyle = {
-    flex: 1,
-    flexDirection: 'row',
     marginTop: 8,
     marginBottom: 20,
+  };
+  const wrapperStyle = {
+    flex: 1,
+    flexDirection: 'row',
+  };
+  const errorTextStyle = {
+    color: '#a94442',
+    fontSize: 16,
   };
   const checkIcon = {
     color: theme.$ratingStarsColor,
@@ -77,7 +85,14 @@ function selectRatingTemplate(rating) {
 
   return (
     <View style={containerStyle}>
-      {stars}
+      <View style={wrapperStyle}>
+        {stars}
+      </View>
+      {rating.hasError &&
+        <Text style={errorTextStyle}>
+          {i18n.gettext('The rating field is mandatory.')}
+        </Text>
+      }
     </View>
   );
 }
@@ -94,6 +109,7 @@ class WriteReview extends Component {
     productDetail: PropTypes.shape({
       product_id: PropTypes.number,
     }),
+    activeDiscussion: PropTypes.shape({}),
     productsActions: PropTypes.shape({
       postDiscussion: PropTypes.func,
     }),
