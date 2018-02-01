@@ -523,6 +523,8 @@ class ProductDetail extends Component {
             passProps: {
               type: 'modal',
               activeDiscussion: discussion,
+              discussionType: 'P',
+              discussionId: productDetail.product_id,
             }
           });
         }}

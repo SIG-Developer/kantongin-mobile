@@ -77,7 +77,7 @@ export function postDiscussion(data) {
           },
         });
         // Reload discussion.
-        fetchDiscussion(data.product_id)(dispatch);
+        fetchDiscussion(data.discussionId, { page: 1 }, data.discussionType)(dispatch);
       })
       .catch((error) => {
         dispatch({
