@@ -45,15 +45,11 @@ class Vendor extends Component {
       setOnNavigatorEvent: PropTypes.func,
       setButtons: PropTypes.func,
     }),
-    vendorCategories: PropTypes.shape({
-    }),
-    products: PropTypes.shape({
-      items: PropTypes.object,
-    }),
+    vendorCategories: PropTypes.shape({}),
     vendorActions: PropTypes.shape({
       categories: PropTypes.func,
     }),
-    cid: PropTypes.oneOfType([
+    companyId: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]),
@@ -75,7 +71,7 @@ class Vendor extends Component {
   }
 
   componentWillMount() {
-    this.props.vendorActions.categories(this.props.cid);
+    this.props.vendorActions.categories(this.props.companyId);
 
     iconsLoaded.then(() => {
       this.props.navigator.setButtons({
@@ -112,7 +108,7 @@ class Vendor extends Component {
   }
 
   renderHeader() {
-    const { navigator, vendorCategories } = this.props;
+    const { navigator, vendorCategories, companyId } = this.props;
     return (
       <View>
         <CategoryBlock
@@ -123,6 +119,7 @@ class Vendor extends Component {
               backButtonTitle: '',
               passProps: {
                 category,
+                companyId,
               }
             });
           }}

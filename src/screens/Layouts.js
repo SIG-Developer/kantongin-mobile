@@ -241,10 +241,10 @@ class Layouts extends Component {
             onPress={(vendor) => {
               navigator.push({
                 screen: 'Vendor',
-                title: i18n.gettext('Vendor'),
+                title: vendor.company,
                 backButtonTitle: '',
                 passProps: {
-                  cid: vendor.company_id,
+                  companyId: vendor.company_id,
                 },
               });
             }}

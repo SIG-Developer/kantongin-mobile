@@ -50,7 +50,6 @@ const styles = EStyleSheet.create({
     fontWeight: '800',
     fontSize: '0.9rem',
   },
-  empty: {},
   emptyText: {
     fontSize: '0.9rem',
     color: 'gray',

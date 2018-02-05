@@ -158,10 +158,11 @@ export function search(params = {}) {
   };
 }
 
-export function fetchByCategory(categoryId, page = 1) {
+export function fetchByCategory(categoryId, page = 1, companyId = false) {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    return Api.get(`/categories/${categoryId}/sra_products?items_per_page=10&page=${page}&subcats=Y`)
+    console.log(`/categories/${categoryId}/sra_products?items_per_page=10&page=${page}&subcats=Y${companyId ? `&company_id=${companyId}` : ''}`);
+    return Api.get(`/categories/${categoryId}/sra_products?items_per_page=10&page=${page}&subcats=Y${companyId ? `&company_id=${companyId}` : ''}`)
       .then((response) => {
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,

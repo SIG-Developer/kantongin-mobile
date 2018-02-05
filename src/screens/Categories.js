@@ -50,7 +50,8 @@ class Categories extends Component {
       setOnNavigatorEvent: PropTypes.func,
       setButtons: PropTypes.func,
     }),
-    cid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    categoryId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    companyId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     category: PropTypes.shape({}),
     products: PropTypes.shape({
       items: PropTypes.object,
@@ -106,12 +107,12 @@ class Categories extends Component {
 
   componentDidMount() {
     const {
-      productsActions, products, navigator, cid,
+      productsActions, products, navigator, categoryId,
     } = this.props;
 
     let category = { ...this.props.category };
 
-    if (cid) {
+    if (categoryId) {
       const categories = this.props.layouts.blocks.find(b => b.type === BLOCK_CATEGORIES);
       const items = Object.keys(categories.content.items).map(k => categories.content.items[k]);
       category = this.findCategoryById(items);
@@ -133,7 +134,7 @@ class Categories extends Component {
       this.setState({
         ...this.state,
         ...newState,
-      }, () => productsActions.fetchByCategory(this.activeCategoryId));
+      }, () => productsActions.fetchByCategory(this.activeCategoryId, 1, this.props.companyId));
     });
 
     navigator.setTitle({
@@ -176,13 +177,13 @@ class Categories extends Component {
       });
     };
     makeFlat(items);
-    return flatten.find(i => i.category_id == this.props.cid) || null;
+    return flatten.find(i => i.category_id == this.props.categoryId) || null;
   }
 
   handleLoadMore() {
     const { products, productsActions } = this.props;
     if (products.hasMore && !products.fetching && !this.isFirstLoad) {
-      productsActions.fetchByCategory(this.activeCategoryId, products.params.page + 1);
+      productsActions.fetchByCategory(this.activeCategoryId, products.params.page + 1, this.props.companyId);
     }
   }
 
@@ -190,11 +191,11 @@ class Categories extends Component {
     const { productsActions } = this.props;
     this.setState({
       refreshing: true,
-    }, () => productsActions.fetchByCategory(this.activeCategoryId, 1));
+    }, () => productsActions.fetchByCategory(this.activeCategoryId, 1, this.props.companyId));
   }
 
   renderHeader() {
-    const { navigator } = this.props;
+    const { navigator, companyId } = this.props;
     const productHeader = (
       <Text style={styles.header}>
         {i18n.gettext('Products')}
@@ -211,6 +212,7 @@ class Categories extends Component {
               backButtonTitle: '',
               passProps: {
                 category,
+                companyId,
               }
             });
           }}
