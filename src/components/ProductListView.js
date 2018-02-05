@@ -9,6 +9,7 @@ import {
 import { get } from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { PRODUCT_IMAGE_WIDTH } from '../utils';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -41,6 +42,20 @@ const styles = EStyleSheet.create({
     color: '#73626B',
     fontWeight: 'bold'
   },
+  listDiscountWrapper: {
+    backgroundColor: '$productDiscountColor',
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 4,
+    paddingRight: 4,
+    borderRadius: 2,
+  },
+  listDiscountText: {
+    color: '#fff',
+  },
 });
 
 
@@ -57,6 +72,13 @@ const ProductListView = ({ onPress, product }) => {
         style={styles.productImage}
         source={{ uri: imageUri }}
       />}
+      {item.list_discount_prc &&
+        <View style={styles.listDiscountWrapper}>
+          <Text style={styles.listDiscountText}>
+            {i18n.gettext('Save')} {item.list_discount_prc}%
+          </Text>
+        </View>
+      }
       <View style={styles.description}>
         <Text
           numberOfLines={1}
