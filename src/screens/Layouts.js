@@ -240,9 +240,12 @@ class Layouts extends Component {
             items={block.content.items}
             onPress={(vendor) => {
               navigator.push({
-                screen: 'VendorDetail',
-                title: vendor,
+                screen: 'Vendor',
+                title: i18n.gettext('Vendor'),
                 backButtonTitle: '',
+                passProps: {
+                  cid: vendor.company_id,
+                },
               });
             }}
             key={index}

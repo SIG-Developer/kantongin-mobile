@@ -62,6 +62,10 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  noPadding: {
+    padding: 0,
+    paddingTop: 6,
+  },
 });
 
 export class VendorDetail extends Component {
@@ -287,18 +291,19 @@ export class VendorDetail extends Component {
   }
 
   renderDiscussion() {
-    const { discussion } = this.state;
+    const { discussion, vendor } = this.state;
     const { auth, navigator } = this.props;
 
     let title = i18n.gettext('Reviews');
     if (discussion.search.total_items != 0) { // eslint-disable-line
       title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items);
     }
+
     return (
       <Section
         title={title}
         wrapperStyle={styles.noPadding}
-        showRightButton={!discussion.disable_adding || auth.logged}
+        showRightButton={!discussion.disable_adding && auth.logged}
         rightButtonText={i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
           navigator.push({
@@ -306,6 +311,8 @@ export class VendorDetail extends Component {
             backButtonTitle: '',
             passProps: {
               activeDiscussion: discussion,
+              discussionType: 'M',
+              discussionId: vendor.company_id,
             }
           });
         }}

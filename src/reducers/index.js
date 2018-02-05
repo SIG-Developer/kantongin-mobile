@@ -13,6 +13,7 @@ import discussion from './discussion';
 import orderDetail from './orderDetail';
 import notifications from './notifications';
 import productDetail from './productDetail';
+import vendorCategories from './vendorCategories';
 
 export default combineReducers({
   cart,
@@ -28,4 +29,5 @@ export default combineReducers({
   orderDetail,
   notifications,
   productDetail,
+  vendorCategories,
 });

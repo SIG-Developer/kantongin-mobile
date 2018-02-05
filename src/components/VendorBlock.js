@@ -67,7 +67,7 @@ export default class VendorBlock extends Component {
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => this.props.onPress()}
+        onPress={() => this.props.onPress(item)}
         style={styles.item}
       >
         <Image source={{ uri: imageUri }} style={styles.img} />
