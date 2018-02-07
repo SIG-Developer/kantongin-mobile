@@ -37,10 +37,10 @@ const styles = EStyleSheet.create({
 
 
 const Section = ({
-  children, title = '', wrapperStyle, showRightButton, rightButtonText, onRightButtonPress
+  children, title = '', wrapperStyle, containerStyle, showRightButton, rightButtonText, onRightButtonPress
 }) => (
   <View
-    style={[styles.container]}
+    style={[styles.container, containerStyle]}
   >
     {title ?
       <Text style={styles.title}>{title}</Text>
@@ -67,7 +67,8 @@ const Section = ({
 
 Section.propTypes = {
   title: PropTypes.string,
-  wrapperStyle: PropTypes.number,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.number]),
+  containerStyle: PropTypes.shape({}),
   showRightButton: PropTypes.bool,
   rightButtonText: PropTypes.string,
   onRightButtonPress: PropTypes.func,

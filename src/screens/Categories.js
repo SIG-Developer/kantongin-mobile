@@ -183,7 +183,11 @@ class Categories extends Component {
   handleLoadMore() {
     const { products, productsActions } = this.props;
     if (products.hasMore && !products.fetching && !this.isFirstLoad) {
-      productsActions.fetchByCategory(this.activeCategoryId, products.params.page + 1, this.props.companyId);
+      productsActions.fetchByCategory(
+        this.activeCategoryId,
+        products.params.page + 1,
+        this.props.companyId
+      );
     }
   }
 

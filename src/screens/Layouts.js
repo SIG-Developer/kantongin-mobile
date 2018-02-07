@@ -239,10 +239,9 @@ class Layouts extends Component {
             name={i18n.gettext('Vendors')}
             items={block.content.items}
             onPress={(vendor) => {
-              navigator.push({
+              navigator.showModal({
                 screen: 'Vendor',
                 title: vendor.company,
-                backButtonTitle: '',
                 passProps: {
                   companyId: vendor.company_id,
                 },
