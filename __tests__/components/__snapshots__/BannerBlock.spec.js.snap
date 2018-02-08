@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders <BannerBlock /> component correctly 1`] = `
+<View
+  style={undefined}
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={undefined}
+  >
+    Banner block
+  </Text>
+  <View
+    onLayout={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "flex": 1,
+          "position": "relative",
+        },
+        undefined,
+      ]
+    }
+  >
+    <RCTScrollView
+      automaticallyAdjustContentInsets={false}
+      autoplay={false}
+      autoplayDirection={true}
+      autoplayTimeout={2.5}
+      bounces={false}
+      contentContainerStyle={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+          },
+          undefined,
+        ]
+      }
+      contentOffset={
+        Object {
+          "x": 0,
+        }
+      }
+      disableNextButton={false}
+      height={200}
+      horizontal={true}
+      index={0}
+      loadMinimal={false}
+      loadMinimalSize={1}
+      loop={true}
+      onIndexChanged={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      pagingEnabled={true}
+      removeClippedSubviews={true}
+      scrollsToTop={false}
+      showsButtons={false}
+      showsHorizontalScrollIndicator={false}
+      showsPagination={true}
+      showsVerticalScrollIndicator={false}
+      style={undefined}
+    >
+      <View>
+        <View
+          style={
+            Array [
+              Object {
+                "height": 200,
+                "width": 750,
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            collapsable={undefined}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <Image
+              source={
+                Object {
+                  "uri": "",
+                }
+              }
+              style={undefined}
+            />
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

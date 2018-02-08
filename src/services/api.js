@@ -13,7 +13,7 @@ const AxiosInstance = axios.create({
   timeout: 15000,
   params: {
     sl,
-    items_per_page: 100,
+    items_per_page: 200,
     s_layouts: config.layoutId,
   },
 });
