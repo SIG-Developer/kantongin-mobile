@@ -221,6 +221,7 @@ class ProductDetail extends Component {
       vendor: null,
       fetching: true,
       selectedOptions: {},
+      canWriteComments: false,
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -258,7 +259,7 @@ class ProductDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      productDetail, navigator, vendors, discussion,
+      productDetail, navigator, vendors, discussion, auth,
     } = nextProps;
     const product = productDetail;
     const images = [];
@@ -290,6 +291,7 @@ class ProductDetail extends Component {
     if (!activeDiscussion) {
       activeDiscussion = {
         average_rating: 0,
+        disable_adding: true,
         posts: [],
         search: {
           page: 1,
@@ -305,6 +307,8 @@ class ProductDetail extends Component {
       selectedOptions: defaultOptions,
       fetching: productDetail.fetching,
       vendor: vendors.items[product.company_id] || null,
+      canWriteComments: (!activeDiscussion.disable_adding &&
+        productDetail.discussion_type !== DISCUSSION_DISABLED) && auth.logged,
     }, () => this.calculatePrice());
 
     navigator.setTitle({
@@ -495,8 +499,8 @@ class ProductDetail extends Component {
   }
 
   renderDiscussion() {
-    const { navigator, auth, productDetail } = this.props;
-    const { discussion } = this.state;
+    const { navigator, productDetail } = this.props;
+    const { discussion, canWriteComments } = this.state;
 
     if (
       discussion.average_rating === '' ||
@@ -515,7 +519,7 @@ class ProductDetail extends Component {
       <Section
         title={title}
         wrapperStyle={styles.noPadding}
-        showRightButton={!discussion.disable_adding && auth.logged}
+        showRightButton={canWriteComments}
         rightButtonText={i18n.gettext('Write a Review')}
         onRightButtonPress={() => {
           navigator.showModal({
