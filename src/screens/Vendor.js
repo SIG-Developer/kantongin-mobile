@@ -16,6 +16,7 @@ import { PRODUCT_NUM_COLUMNS } from '../utils';
 
 // Import actions.
 import * as vendorActions from '../actions/vendorActions';
+import * as productsActions from '../actions/productsActions';
 
 // Components
 import Spinner from '../components/Spinner';
@@ -84,6 +85,10 @@ class Vendor extends Component {
     vendorActions: PropTypes.shape({
       categories: PropTypes.func,
       products: PropTypes.func,
+      fetch: PropTypes.func,
+    }),
+    productsActions: PropTypes.shape({
+      fetchDiscussion: PropTypes.func,
     }),
     companyId: PropTypes.oneOfType([
       PropTypes.string,
@@ -105,20 +110,38 @@ class Vendor extends Component {
 
     this.state = {
       products: [],
+      vendor: {
+        logo_url: null,
+      },
+      discussion: {
+        search: {
+          page: 1,
+        }
+      },
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
-    const { vendors } = this.props;
+    const { vendors, companyId } = this.props;
 
-    this.setState({
-      vendor: vendors.items[this.props.companyId],
-    });
+    this.props.vendorActions.categories(companyId);
+    this.props.vendorActions.products(companyId);
 
-    this.props.vendorActions.categories(this.props.companyId);
-    this.props.vendorActions.products(this.props.companyId);
+    if (!vendors.items[companyId] && !vendors.fetching) {
+      this.props.vendorActions.fetch(companyId);
+    } else {
+      this.setState({
+        vendor: vendors.items[companyId],
+      }, () => {
+        this.props.productsActions.fetchDiscussion(
+          this.state.vendor.company_id,
+          { page: this.state.discussion.search.page },
+          'M'
+        );
+      });
+    }
 
     iconsLoaded.then(() => {
       this.props.navigator.setButtons({
@@ -145,13 +168,19 @@ class Vendor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { products } = nextProps;
-    const vendorProducts = products.items[this.props.companyId];
+    const { products, vendors, companyId } = nextProps;
+    const vendorProducts = products.items[companyId];
     if (vendorProducts) {
       this.setState({
         products: vendorProducts,
       }, () => {
         this.isFirstLoad = false;
+      });
+    }
+
+    if (vendors.items[companyId]) {
+      this.setState({
+        vendor: vendors.items[companyId],
       });
     }
   }
@@ -185,6 +214,11 @@ class Vendor extends Component {
       navigator, vendorCategories, companyId, products
     } = this.props;
     const { vendor } = this.state;
+
+    if (!vendor.logo_url) {
+      return null;
+    }
+
     return (
       <View>
         <Section containerStyle={{ paddingTop: 0 }} wrapperStyle={{ padding: 0 }}>
@@ -232,9 +266,9 @@ class Vendor extends Component {
   }
 
   render() {
-    const { navigator, vendorCategories } = this.props;
+    const { navigator, vendorCategories, vendors } = this.props;
 
-    if (vendorCategories.fetching) {
+    if (vendorCategories.fetching || vendors.fetching) {
       return (
         <Spinner visible mode="content" />
       );
@@ -272,5 +306,6 @@ export default connect(
   }),
   dispatch => ({
     vendorActions: bindActionCreators(vendorActions, dispatch),
+    productsActions: bindActionCreators(productsActions, dispatch),
   })
 )(Vendor);
