@@ -17,6 +17,7 @@ import i18n from '../utils/i18n';
 import Icon from '../components/Icon';
 
 import theme from '../config/theme';
+import config from '../config';
 import * as authActions from '../actions/authActions';
 import * as pagesActions from '../actions/pagesActions';
 
@@ -172,7 +173,7 @@ class Drawer extends Component {
   };
 
   componentDidMount() {
-    this.props.pagesActions.fetch();
+    this.props.pagesActions.fetch(config.layoutId);
   }
 
   handleOpenPage = (page) => {

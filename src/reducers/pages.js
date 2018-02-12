@@ -5,14 +5,11 @@ import {
 } from '../constants';
 
 const initialState = {
-  params: {},
   items: [],
   empty: true,
   fetching: true,
 };
-
-let newItems;
-let mainPage;
+let pages;
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -23,16 +20,20 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_PAGES_SUCCESS:
-      mainPage = action.payload.pages.find(i => i.page === 'MobileAppSideMenu');
-      newItems = [];
-      if (mainPage) {
-        newItems = action.payload.pages.filter(i => i.parent_id === mainPage.page_id);
-      }
+      // FIXME: Brainfuck code convert object to array.
+      pages = [];
+      Object.keys(action.payload).forEach((id) => {
+        if (action.payload[id].type === 'pages') {
+          pages = [
+            ...pages,
+            ...action.payload[id].content.items,
+          ];
+        }
+      });
       return {
         ...state,
-        items: newItems,
-        empty: !!newItems.length,
-        params: action.payload.params,
+        items: pages,
+        empty: !!pages.length,
         fetching: false,
       };
 

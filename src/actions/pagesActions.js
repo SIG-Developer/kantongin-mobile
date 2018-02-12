@@ -5,10 +5,10 @@ import {
 } from '../constants';
 import Api from '../services/api';
 
-export function fetch() {
+export function fetch(layoutId, location = 'sidebar.menu') {
   return (dispatch) => {
     dispatch({ type: FETCH_PAGES_REQUEST });
-    return Api.get('/pages?items_per_page=100&page_type=T&status=A&simple=true')
+    return Api.get(`/sra_bm_layouts/${layoutId}/sra_bm_locations/${location}/sra_bm_blocks`)
       .then((response) => {
         dispatch({
           type: FETCH_PAGES_SUCCESS,
