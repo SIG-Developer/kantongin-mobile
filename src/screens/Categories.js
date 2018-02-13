@@ -17,10 +17,10 @@ import { BLOCK_CATEGORIES } from '../constants';
 import * as productsActions from '../actions/productsActions';
 
 // Components
+import Spinner from '../components/Spinner';
+import VendorInfo from '../components/VendorInfo';
 import CategoryBlock from '../components/CategoryBlock';
 import ProductListView from '../components/ProductListView';
-import Spinner from '../components/Spinner';
-
 // theme
 import theme from '../config/theme';
 
@@ -53,6 +53,9 @@ class Categories extends Component {
     categoryId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     companyId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     category: PropTypes.shape({}),
+    vendors: PropTypes.shape({
+      items: PropTypes.object,
+    }),
     products: PropTypes.shape({
       items: PropTypes.object,
     }),
@@ -199,15 +202,38 @@ class Categories extends Component {
   }
 
   renderHeader() {
-    const { navigator, companyId } = this.props;
+    const {
+      navigator, companyId, products, vendors
+    } = this.props;
     const productHeader = (
       <Text style={styles.header}>
         {i18n.gettext('Products')}
         {i18n.gettext('')}
       </Text>
     );
+
+    let vendorHeader = null;
+    if (vendors.items[companyId] && !vendors.fetching) {
+      const vendor = vendors.items[companyId];
+      vendorHeader = (
+        <VendorInfo
+          onViewDetailPress={() => {
+            navigator.showModal({
+              screen: 'VendorDetail',
+              passProps: {
+                vendorId: companyId,
+              },
+            });
+          }}
+          logoUrl={vendor.logo_url}
+          productsCount={products.params.total_items}
+        />
+      );
+    }
+
     return (
       <View>
+        {vendorHeader}
         <CategoryBlock
           items={this.state.subCategories}
           onPress={(category) => {
@@ -274,6 +300,7 @@ export default connect(
   state => ({
     products: state.products,
     layouts: state.layouts,
+    vendors: state.vendors,
   }),
   dispatch => ({
     productsActions: bindActionCreators(productsActions, dispatch),

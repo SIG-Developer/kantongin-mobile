@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  Text,
   View,
-  Image,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -20,7 +17,7 @@ import * as productsActions from '../actions/productsActions';
 
 // Components
 import Spinner from '../components/Spinner';
-import Section from '../components/Section';
+import VendorInfo from '../components/VendorInfo';
 import CategoryBlock from '../components/CategoryBlock';
 import ProductListView from '../components/ProductListView';
 
@@ -36,40 +33,6 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    fontWeight: 'bold',
-    fontSize: '1.3rem',
-    paddingLeft: 10,
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  logoWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    height: 100,
-    width: '50%',
-    resizeMode: 'contain',
-  },
-  vendorWrapper: {
-    borderTopWidth: 1,
-    borderTopColor: '#F0F0F0',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingLeft: 14,
-    paddingRight: 14,
-    paddingTop: 12,
-    paddingBottom: 12,
-  },
-  vendorTotalItemsText: {
-    color: 'gray',
-  },
-  vendorDetailBtnText: {
-    color: '$primaryColor',
-    fontSize: '0.9rem',
-  }
 });
 
 class Vendor extends Component {
@@ -221,33 +184,18 @@ class Vendor extends Component {
 
     return (
       <View>
-        <Section containerStyle={{ paddingTop: 0 }} wrapperStyle={{ padding: 0 }}>
-          <View style={styles.logoWrapper}>
-            <Image
-              source={{ uri: vendor.logo_url }}
-              style={styles.logo}
-            />
-          </View>
-          <View style={styles.vendorWrapper}>
-            <Text style={styles.vendorTotalItemsText}>
-              {i18n.gettext('Products found: {{count}}').replace('{{count}}', products.params.total_items)}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigator.showModal({
-                  screen: 'VendorDetail',
-                  passProps: {
-                    vendorId: companyId,
-                  },
-                });
-              }}
-            >
-              <Text style={styles.vendorDetailBtnText}>
-                {i18n.gettext('View Detail')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </Section>
+        <VendorInfo
+          onViewDetailPress={() => {
+            navigator.showModal({
+              screen: 'VendorDetail',
+              passProps: {
+                vendorId: companyId,
+              },
+            });
+          }}
+          logoUrl={vendor.logo_url}
+          productsCount={products.params.total_items}
+        />
         <CategoryBlock
           items={vendorCategories.items}
           onPress={(category) => {
