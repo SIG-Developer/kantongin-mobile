@@ -501,10 +501,10 @@ class ProductDetail extends Component {
   renderDiscussion() {
     const { navigator, productDetail } = this.props;
     const { discussion, canWriteComments } = this.state;
-
     if (
       discussion.average_rating === '' ||
       discussion.type === DISCUSSION_DISABLED ||
+      productDetail.discussion_type === DISCUSSION_DISABLED ||
       !productDetail.discussion_type
     ) {
       return null;
