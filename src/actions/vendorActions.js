@@ -42,7 +42,7 @@ export function categories(cid) {
       type: FETCH_VENDOR_CATEGORIES_REQUEST,
     });
 
-    return Api.get(`/categories/?company_ids=${cid}`)
+    return Api.get(`/categories/?company_ids=${cid}&items_per_page=500`)
       .then((response) => {
         dispatch({
           type: FETCH_VENDOR_CATEGORIES_SUCCESS,

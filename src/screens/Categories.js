@@ -207,8 +207,7 @@ class Categories extends Component {
     } = this.props;
     const productHeader = (
       <Text style={styles.header}>
-        {i18n.gettext('Products')}
-        {i18n.gettext('')}
+        {companyId ? i18n.gettext('Vendor products') : i18n.gettext('Products')}
       </Text>
     );
 

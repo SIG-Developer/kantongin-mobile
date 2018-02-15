@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
+  Text,
   FlatList,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -33,6 +34,13 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
   },
+  header: {
+    fontWeight: 'bold',
+    fontSize: '1.3rem',
+    paddingLeft: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+  }
 });
 
 class Vendor extends Component {
@@ -182,6 +190,12 @@ class Vendor extends Component {
       return null;
     }
 
+    const productHeader = (
+      <Text style={styles.header}>
+        {i18n.gettext('Vendor products')}
+      </Text>
+    );
+
     return (
       <View>
         <VendorInfo
@@ -209,6 +223,7 @@ class Vendor extends Component {
             });
           }}
         />
+        {productHeader}
       </View>
     );
   }
