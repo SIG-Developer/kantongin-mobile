@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -25,7 +25,6 @@ const styles = EStyleSheet.create({
   productImage: {
     width: PRODUCT_IMAGE_WIDTH,
     height: PRODUCT_IMAGE_WIDTH,
-    resizeMode: 'contain',
   },
   description: {
     position: 'absolute',
@@ -58,50 +57,54 @@ const styles = EStyleSheet.create({
   },
 });
 
+class ProductListView extends PureComponent {
+  static propTypes = {
+    product: PropTypes.shape({
+      item: PropTypes.object,
+    }),
+    onPress: PropTypes.func,
+  };
 
-const ProductListView = ({ onPress, product }) => {
-  const { item } = product;
-  const price = item.price_formatted ? item.price_formatted.price : item.price;
-  const imageUri = get(item, 'main_pair.detailed.http_image_path');
-  return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => onPress(item)}
-    >
-      {imageUri && <Image
-        style={styles.productImage}
-        source={{ uri: imageUri }}
-      />}
-      {item.list_discount_prc &&
-        <View style={styles.listDiscountWrapper}>
-          <Text style={styles.listDiscountText}>
-            {i18n.gettext('Save')} {item.list_discount_prc}%
+  render() {
+    const { product, onPress } = this.props;
+    const { item } = product;
+    const price = item.price_formatted ? item.price_formatted.price : item.price;
+    const imageUri = get(item, 'main_pair.detailed.http_image_path');
+    return (
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => onPress(item)}
+      >
+        {imageUri && <Image
+          style={styles.productImage}
+          source={{ uri: imageUri }}
+          resizeMode="contain"
+          resizeMethod="resize"
+        />}
+        {item.list_discount_prc &&
+          <View style={styles.listDiscountWrapper}>
+            <Text style={styles.listDiscountText}>
+              {i18n.gettext('Save')} {item.list_discount_prc}%
+            </Text>
+          </View>
+        }
+        <View style={styles.description}>
+          <Text
+            numberOfLines={1}
+            style={styles.productName}
+          >
+            {item.product}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={styles.productPrice}
+          >
+            {price}
           </Text>
         </View>
-      }
-      <View style={styles.description}>
-        <Text
-          numberOfLines={1}
-          style={styles.productName}
-        >
-          {item.product}
-        </Text>
-        <Text
-          numberOfLines={1}
-          style={styles.productPrice}
-        >
-          {price}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
-ProductListView.propTypes = {
-  product: PropTypes.shape({
-    item: PropTypes.object,
-  }),
-  onPress: PropTypes.func,
-};
+      </TouchableOpacity>
+    );
+  }
+}
 
 export default ProductListView;

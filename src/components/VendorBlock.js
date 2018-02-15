@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { get } from 'lodash';
+import get from 'lodash/get';
+import uniqueId from 'lodash/uniqueId';
 
 import Rating from './Rating';
 
@@ -85,7 +86,7 @@ export default class VendorBlock extends Component {
           style={styles.content}
           horizontal
           data={items.companies}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => uniqueId(`company_${index}`)}
           renderItem={({ item, index }) => this.renderImage(item, index)}
         />
       </View>

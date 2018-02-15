@@ -242,6 +242,8 @@ class Vendor extends Component {
         <FlatList
           data={this.state.products}
           keyExtractor={item => +item.product_id}
+          removeClippedSubviews={true}
+          initialNumToRender={20}
           ListHeaderComponent={() => this.renderHeader()}
           numColumns={PRODUCT_NUM_COLUMNS}
           renderItem={item => (<ProductListView
