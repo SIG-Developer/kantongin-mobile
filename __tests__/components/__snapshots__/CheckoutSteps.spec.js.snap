@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders <CheckoutSteps /> component correctly 1`] = `
+<View
+  style={undefined}
+>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 30,
+            },
+            undefined,
+            Object {
+              "fontFamily": "Material Icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={undefined}
+        >
+          2
+        </Text>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      >
+        Delivery
+      </Text>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <View
+        style={
+          Array [
+            undefined,
+            undefined,
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={undefined}
+        >
+          3
+        </Text>
+      </View>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <View
+        style={
+          Array [
+            undefined,
+            undefined,
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={undefined}
+        >
+          4
+        </Text>
+      </View>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`renders <CheckoutSteps /> with props 1`] = `
+<View
+  style={undefined}
+>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 30,
+            },
+            undefined,
+            Object {
+              "fontFamily": "Material Icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 30,
+            },
+            undefined,
+            Object {
+              "fontFamily": "Material Icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={undefined}
+        >
+          3
+        </Text>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      >
+        Shipping
+      </Text>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+  <View
+    style={undefined}
+  >
+    <View
+      style={undefined}
+    >
+      <View
+        style={
+          Array [
+            undefined,
+            undefined,
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={undefined}
+        >
+          4
+        </Text>
+      </View>
+    </View>
+    <View
+      style={undefined}
+    >
+      <View
+        style={undefined}
+      />
+      <View
+        style={undefined}
+      />
+    </View>
+  </View>
+</View>
+`;

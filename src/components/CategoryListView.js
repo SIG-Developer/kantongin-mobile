@@ -86,9 +86,7 @@ const CategoryListView = ({ category, onPress }) => {
 };
 
 CategoryListView.propTypes = {
-  category: PropTypes.shape({
-    item: PropTypes.objetc,
-  }),
+  category: PropTypes.shape({}),
   onPress: PropTypes.func,
 };
 

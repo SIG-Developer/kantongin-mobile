@@ -118,7 +118,7 @@ export default class DiscussionList extends Component {
         <FlatList
           data={this.props.items}
           numColumns={1}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => `disucssion_${index}`}
           renderItem={({ item, index }) => this.renderItem(item, index)}
           ListFooterComponent={() => this.renderFooter()}
           ListEmptyComponent={() => this.renderEmpty()}
