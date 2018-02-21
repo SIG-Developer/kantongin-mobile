@@ -26,7 +26,7 @@ describe('async actions', () => {
       .get('/sra_bm_layouts/3/sra_bm_locations/index.index/sra_bm_blocks')
       .query({
         sl: 'en',
-        items_per_page: 0,
+        items_per_page: 50,
         s_layouts: config.layoutId,
       })
       .reply(200, {});

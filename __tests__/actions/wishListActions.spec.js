@@ -36,7 +36,7 @@ describe('async actions', () => {
       .get('/sra_wish_list')
       .query({
         sl: 'en',
-        items_per_page: 0,
+        items_per_page: 50,
         s_layouts: config.layoutId,
       })
       .reply(200, {
@@ -74,7 +74,7 @@ describe('async actions', () => {
       .post('/sra_wish_list')
       .query({
         sl: 'en',
-        items_per_page: 0,
+        items_per_page: 50,
         s_layouts: config.layoutId,
       })
       .reply(200, {
@@ -99,11 +99,17 @@ describe('async actions', () => {
       }, {
         payload: {
           closeLastModal: true,
-          text: 'The product was added to your cart.',
+          text: 'The product was added to your Wish list.',
           title: 'Success',
           type: 'success'
         },
         type: NOTIFICATION_SHOW,
+      },
+      {
+        payload: {
+          fetching: false
+        },
+        type: WISH_LIST_FETCH_REQUEST
       },
     ];
     const store = mockStore({ layouts: {} });
@@ -120,7 +126,7 @@ describe('async actions', () => {
       .delete(`/sra_wish_list/${cartID}`)
       .query({
         sl: 'en',
-        items_per_page: 0,
+        items_per_page: 50,
         s_layouts: config.layoutId,
       })
       .reply(200, {
@@ -154,7 +160,7 @@ describe('async actions', () => {
       .delete('/sra_wish_list/')
       .query({
         sl: 'en',
-        items_per_page: 0,
+        items_per_page: 50,
         s_layouts: config.layoutId,
       })
       .reply(200, {

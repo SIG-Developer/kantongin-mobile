@@ -284,7 +284,7 @@ export class WishList extends Component {
       <View style={styles.container}>
         <FlatList
           data={wishList.items}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => `wishlist_${index}`}
           renderItem={({ item }) => this.renderProductItem(item)}
           onRefresh={() => this.handleRefresh()}
           refreshing={this.state.refreshing}
