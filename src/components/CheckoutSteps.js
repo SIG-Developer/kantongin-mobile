@@ -86,7 +86,8 @@ const styles = EStyleSheet.create({
     color: '#fff',
     backgroundColor: 'transparent',
     textAlign: 'center',
-    fontSize: '0.8rem',
+    fontSize: 12,
+    marginTop: -1,
   },
   roundNumberGray: {
     backgroundColor: '#989898',
