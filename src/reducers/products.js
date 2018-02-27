@@ -27,7 +27,7 @@ export default function (state = initialState, action) {
     case FETCH_PRODUCTS_SUCCESS:
       items = { ...state.items };
       params = { ...action.payload.params };
-      if (items[params.cid] && action.payload.params.page != 1) {
+      if (items[params.cid] && action.payload.params.page != 1) { // eslint-disable-line
         items[params.cid] = [
           ...items[params.cid],
           ...action.payload.products
