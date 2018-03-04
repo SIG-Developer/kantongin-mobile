@@ -1,4 +1,4 @@
-package com.csnative;
+package com.simtech.multivendor;
 
 import android.view.Gravity;
 import android.graphics.Color;

@@ -1,4 +1,4 @@
-package com.csnative;
+package com.simtech.multivendor;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
