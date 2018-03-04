@@ -51,16 +51,12 @@ const styles = EStyleSheet.create({
 export default class VendorBlock extends Component {
   static propTypes = {
     name: PropTypes.string,
-    items: PropTypes.shape({
-      companies: PropTypes.arrayOf(PropTypes.shape({})),
-    }),
+    items: PropTypes.arrayOf(PropTypes.shape({})),
     onPress: PropTypes.func,
   }
 
   static defaultProps = {
-    items: {
-      companies: [],
-    }
+    items: [],
   }
 
   renderImage = (item, index) => {
@@ -85,7 +81,7 @@ export default class VendorBlock extends Component {
         <FlatList
           style={styles.content}
           horizontal
-          data={items.companies}
+          data={items}
           keyExtractor={(item, index) => uniqueId(`company_${index}`)}
           renderItem={({ item, index }) => this.renderImage(item, index)}
         />
