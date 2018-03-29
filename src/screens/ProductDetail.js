@@ -158,6 +158,10 @@ const styles = EStyleSheet.create({
     color: 'gray',
     fontSize: '0.9rem',
   },
+  rating: {
+    marginLeft: -10,
+    marginTop: -4
+  }
 });
 
 class ProductDetail extends Component {
@@ -468,6 +472,7 @@ class ProductDetail extends Component {
 
     return (
       <Rating
+        containerStyle={styles.rating}
         value={discussion.average_rating}
         count={discussion.search.total_items}
       />

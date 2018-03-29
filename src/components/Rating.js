@@ -13,8 +13,6 @@ const styles = EStyleSheet.create({
   container: {
     padding: 10,
     flexDirection: 'row',
-    marginLeft: -10,
-    marginTop: -4,
   },
   checkIcon: {
     color: '$ratingStarsColor',
@@ -48,9 +46,11 @@ const Rating = ({ value, count, containerStyle }) => {
       style={[styles.container, containerStyle]}
     >
       {stars}
-      <Text style={styles.countText}>
-        {count ? i18n.gettext('{{count}} reviews').replace('{{count}}', count) : ''}
-      </Text>
+      {count &&
+        <Text style={styles.countText}>
+          {count ? i18n.gettext('{{count}} reviews').replace('{{count}}', count) : ''}
+        </Text>
+      }
     </View>
   );
 };
@@ -64,7 +64,7 @@ Rating.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  containerStyle: PropTypes.number,
+  containerStyle: View.propTypes.style,
 };
 
 export default Rating;
