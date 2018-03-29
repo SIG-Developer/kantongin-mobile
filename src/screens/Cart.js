@@ -369,7 +369,7 @@ class Cart extends Component {
       <View style={styles.container}>
         <FlatList
           data={products}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => `${index}`}
           renderItem={({ item }) => this.renderProductItem(item)}
           onRefresh={() => this.handleRefresh()}
           refreshing={this.state.refreshing}
