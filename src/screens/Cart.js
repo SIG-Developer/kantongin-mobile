@@ -47,8 +47,10 @@ const styles = EStyleSheet.create({
     height: 20,
     fontSize: 20,
   },
+  productItemWrapper: {
+    marginBottom: 15,
+  },
   productItem: {
-    marginTop: 15,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#F1F1F1',
@@ -61,6 +63,7 @@ const styles = EStyleSheet.create({
   productItemImage: {
     width: 100,
     height: 100,
+    resizeMode: 'contain',
   },
   productItemDetail: {
     marginLeft: 14,
@@ -286,39 +289,41 @@ class Cart extends Component {
     ];
 
     return (
-      <Swipeout
-        autoClose
-        right={swipeoutBtns}
-        backgroundColor={theme.$navBarBackgroundColor}
-      >
-        <View style={styles.productItem}>
-          {productImage}
-          <View style={styles.productItemDetail}>
-            <Text
-              style={styles.productItemName}
-              numberOfLines={1}
-            >
-              {item.product}
-            </Text>
-            <Text style={styles.productItemPrice}>
-              {item.amount} x {item.price_formatted.price}
-            </Text>
+      <View style={styles.productItemWrapper}>
+        <Swipeout
+          autoClose
+          right={swipeoutBtns}
+          backgroundColor={theme.$navBarBackgroundColor}
+        >
+          <View style={styles.productItem}>
+            {productImage}
+            <View style={styles.productItemDetail}>
+              <Text
+                style={styles.productItemName}
+                numberOfLines={1}
+              >
+                {item.product}
+              </Text>
+              <Text style={styles.productItemPrice}>
+                {item.amount} x {item.price_formatted.price}
+              </Text>
+            </View>
+            <View style={styles.qtyContainer}>
+              <QtyOption
+                noTitle
+                value={item.amount}
+                onChange={(val) => {
+                  const debounceFunc = debounce(() => {
+                    this.props.cartActions.changeAmount(item.cartId, val);
+                    this.props.cartActions.change(item.cartId, item);
+                  }, 1000, { leading: true, trailing: false });
+                  debounceFunc();
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.qtyContainer}>
-            <QtyOption
-              noTitle
-              value={item.amount}
-              onChange={(val) => {
-                const debounceFunc = debounce(() => {
-                  this.props.cartActions.changeAmount(item.cartId, val);
-                  this.props.cartActions.change(item.cartId, item);
-                }, 1000, { leading: true, trailing: false });
-                debounceFunc();
-              }}
-            />
-          </View>
-        </View>
-      </Swipeout>
+        </Swipeout>
+      </View>
     );
   }
 
