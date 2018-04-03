@@ -6,7 +6,6 @@ export const registerDrawerDeepLinks = (e, navigator) => {
   if (e.type === 'DeepLink') {
     const parts = e.link.split('/');
     const { payload } = e;
-
     if (parts[0] === 'home') {
       navigator.resetTo({
         screen: 'Layouts',

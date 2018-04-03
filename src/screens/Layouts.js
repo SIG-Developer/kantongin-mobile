@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
+  Alert,
   View,
   ScrollView,
 } from 'react-native';
@@ -29,6 +30,7 @@ import VendorBlock from '../components/VendorBlock';
 import PageBlock from '../components/PageBlock';
 import ProductBlock from '../components/ProductBlock';
 import CategoryBlock from '../components/CategoryBlock';
+import PushNotificaitons from '../components/PushNotifications';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
@@ -114,6 +116,13 @@ class Layouts extends Component {
     });
     this.props.layoutsActions.fetch(config.layoutId, 'index.index');
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    PushNotificaitons.Init((token) => {
+      Alert.alert(
+        'Your device token',
+        token,
+      );
+    });
+    PushNotificaitons.AddPushListener(navigator);
   }
 
   componentWillReceiveProps(nextProps) {

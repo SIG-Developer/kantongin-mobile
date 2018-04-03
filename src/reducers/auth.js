@@ -15,6 +15,7 @@ const initialState = {
   fetching: false,
   error: null,
   errorStatus: null,
+  pushToken: '',
 };
 
 export default function (state = initialState, action) {

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "988490020687",
+    "firebase_url": "https://project--2420326948483273147.firebaseio.com",
+    "project_id": "project--2420326948483273147",
+    "storage_bucket": "project--2420326948483273147.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988490020687:android:76e0e91559c762bd",
+        "android_client_info": {
+          "package_name": "com.simtech.multivendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988490020687-k8nc424d2v1l4poqsh3erihjoqoc3cq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6GOxX4iOAeekB1v5pMc3u103q1SpCJB0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

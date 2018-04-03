@@ -1,5 +1,7 @@
 package com.simtech.multivendor;
 
+import com.evollu.react.fcm.FIRMessagingPackage;
+
 import android.app.Application;
 import android.support.annotation.Nullable;
 
@@ -32,6 +34,7 @@ public class MainApplication extends NavigationApplication {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
+      new FIRMessagingPackage(),
       new VectorIconsPackage(),
       new RNDeviceInfo()
     );
@@ -42,44 +45,3 @@ public class MainApplication extends NavigationApplication {
     return getPackages();
   }
 }
-
-//public class MainApplication extends NavigationApplication implements ReactApplication {
-//
-//  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-//    @Override
-//    public boolean getUseDeveloperSupport() {
-//      return BuildConfig.DEBUG;
-//    }
-//
-//    @Override
-//    protected List<ReactPackage> getPackages() {
-//      return Arrays.<ReactPackage>asList(
-//        // new MainReactPackage(),
-//        new VectorIconsPackage(),
-//        new RNDeviceInfo()
-//      );
-//    }
-//  };
-//
-//  @Override
-//  public ReactNativeHost getReactNativeHost() {
-//    return mReactNativeHost;
-//  }
-//
-//  @Override
-//  public boolean isDebug() {
-//    return false;
-//  }
-//
-//  @Nullable
-//  @Override
-//  public List<ReactPackage> createAdditionalReactPackages() {
-//    return null;
-//  }
-//
-//  @Override
-//  public void onCreate() {
-//    super.onCreate();
-//    SoLoader.init(this, /* native exopackage */ false);
-//  }
-//}
