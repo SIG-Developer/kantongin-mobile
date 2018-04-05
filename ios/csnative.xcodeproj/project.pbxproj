@@ -41,8 +41,8 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		74F494C99E444FEBA59A59B2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6577D8EB6947A59BA76A9E /* Octicons.ttf */; };
 		7876E4A2C92AF71CBF4884CD /* libPods-csnative-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBE367C14BC5568C037F6758 /* libPods-csnative-tvOSTests.a */; };
+		7D0A1A692076A1A900247B97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D0A1A682076A1A800247B97 /* GoogleService-Info.plist */; };
 		7D590FFF2075502500228682 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D590FFA2075501500228682 /* libRNDeviceInfo.a */; };
-		7D591038207551DE00228682 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D591037207551DE00228682 /* GoogleService-Info.plist */; };
 		7D89E7081FB386B10094E78D /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2356711FB38689008E53DE /* libReactNativeNavigation.a */; };
 		7DC5C81B20753C3200622251 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC5C81A20753C1600622251 /* libRNFIRMessaging.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -388,9 +388,9 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		797D42874A044357ACE1DD8B /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		7CC2BCA79FF25A62FA52BC7D /* Pods-csnative.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-csnative.release.xcconfig"; path = "Pods/Target Support Files/Pods-csnative/Pods-csnative.release.xcconfig"; sourceTree = "<group>"; };
+		7D0A1A682076A1A800247B97 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "csnative/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7D23566C1FB38689008E53DE /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		7D590FD02075501500228682 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
-		7D591037207551DE00228682 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7DC5C814207539D500622251 /* csnative.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = csnative.entitlements; path = csnative/csnative.entitlements; sourceTree = "<group>"; };
 		7DC5C81520753C1500622251 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -546,7 +546,7 @@
 		13B07FAE1A68108700A75B9A /* csnative */ = {
 			isa = PBXGroup;
 			children = (
-				7D591037207551DE00228682 /* GoogleService-Info.plist */,
+				7D0A1A682076A1A800247B97 /* GoogleService-Info.plist */,
 				7DC5C814207539D500622251 /* csnative.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1242,7 +1242,7 @@
 				3993112BDAC443A3A6848C8D /* EvilIcons.ttf in Resources */,
 				B9E075D17B574848B4E90447 /* FontAwesome.ttf in Resources */,
 				2E7613FA9764443F98E2493B /* Foundation.ttf in Resources */,
-				7D591038207551DE00228682 /* GoogleService-Info.plist in Resources */,
+				7D0A1A692076A1A900247B97 /* GoogleService-Info.plist in Resources */,
 				D2E6A4844AD84FF981C352CE /* Ionicons.ttf in Resources */,
 				92103E3123714AA3B956A6D1 /* MaterialCommunityIcons.ttf in Resources */,
 				C107864EBC1945C79988EE54 /* MaterialIcons.ttf in Resources */,

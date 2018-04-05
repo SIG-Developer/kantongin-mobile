@@ -18,17 +18,17 @@ function Init(cb) {
     badge: false,
     sound: true,
     alert: true
-  }).then((perms) => {
-    if (perms) {
-      FCM.getFCMToken().then((token) => {
-        const { auth } = store.getState();
-        setTimeout(() => cb(token), 2000);
-        if (auth.pushToken !== token) {
-          // send token to server;
-          console.log('send token to server', token);
-        }
-      });
-    }
+  }).then(() => {
+    FCM.getFCMToken().then((token) => {
+      const { auth } = store.getState();
+      setTimeout(() => cb(token), 2000);
+      if (auth.pushToken !== token) {
+        // send token to server;
+        console.log('send token to server', token);
+      }
+    });
+  }).catch((err) => {
+    console.log(err, 'no perms');
   });
 }
 
