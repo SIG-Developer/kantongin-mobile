@@ -12,4 +12,6 @@ export default {
   layoutId: 3, // Default www.mobile.demo.cs-cart.com layout id
   // VERSION MVE OR ULT
   version: 'MVE',
+  // Enable push notifications
+  pushNotifications: true,
 };
