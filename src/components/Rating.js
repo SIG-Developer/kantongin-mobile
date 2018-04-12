@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   View,
   Text,
+  ViewPropTypes,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -64,7 +65,7 @@ Rating.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  containerStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
 };
 
 export default Rating;
