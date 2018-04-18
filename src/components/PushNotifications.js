@@ -1,6 +1,9 @@
+import { Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import FCM, { FCMEvent } from 'react-native-fcm';
 
 import store from '../store';
+import * as authActions from '../actions/authActions';
 
 function AddPushListener(navigator) {
   FCM.on(FCMEvent.Notification, (notif) => {
@@ -15,7 +18,7 @@ function AddPushListener(navigator) {
 
 function Init(cb) {
   FCM.requestPermissions({
-    badge: false,
+    badge: true,
     sound: true,
     alert: true
   }).then(() => {
@@ -23,8 +26,12 @@ function Init(cb) {
       const { auth } = store.getState();
       setTimeout(() => cb(token), 2000);
       if (auth.pushToken !== token) {
-        // send token to server;
-        console.log('send token to server', token);
+        store.dispatch(authActions.deviceInfo({
+          token,
+          platform: Platform.OS,
+          locale: DeviceInfo.getDeviceLocale(),
+          device_id: DeviceInfo.getUniqueID(),
+        }));
       }
     });
   }).catch((err) => {

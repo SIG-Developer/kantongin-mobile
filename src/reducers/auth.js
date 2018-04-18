@@ -5,6 +5,9 @@ import {
   AUTH_RESET_STATE,
   AUTH_LOGOUT,
   AUTH_REGESTRATION_SUCCESS,
+
+  REGISTER_DEVICE_SUCCESS,
+  REGISTER_DEVICE_FAIL,
 } from '../constants';
 
 const initialState = {
@@ -15,7 +18,7 @@ const initialState = {
   fetching: false,
   error: null,
   errorStatus: null,
-  pushToken: '',
+  deviceToken: null,
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +49,12 @@ export default function (state = initialState, action) {
         fetching: false,
         error: action.payload.message,
         errorStatus: action.payload.status,
+      };
+
+    case REGISTER_DEVICE_SUCCESS:
+      return {
+        ...state,
+        deviceToken: action.payload.token,
       };
 
     case AUTH_RESET_STATE:

@@ -7,10 +7,15 @@ import {
   AUTH_REGESTRATION_SUCCESS,
   NOTIFICATION_SHOW,
 
+  REGISTER_DEVICE_REQUEST,
+  REGISTER_DEVICE_SUCCESS,
+  REGISTER_DEVICE_FAIL,
+
   AUTH_LOGOUT,
 } from '../constants';
 import Api from '../services/api';
 import i18n from '../utils/i18n';
+
 import * as cartActions from './cartActions';
 import * as wishListActions from './wishListActions';
 
@@ -31,6 +36,26 @@ export function login(data) {
         dispatch({
           type: AUTH_LOGIN_FAIL,
           payload: error.response.data,
+        });
+      });
+  };
+}
+
+export function deviceInfo(data) {
+  return (dispatch) => {
+    dispatch({ type: REGISTER_DEVICE_REQUEST });
+
+    return Api.post('/sra_notifications', data)
+      .then((response) => {
+        dispatch({
+          type: REGISTER_DEVICE_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: REGISTER_DEVICE_FAIL,
+          payload: error,
         });
       });
   };
