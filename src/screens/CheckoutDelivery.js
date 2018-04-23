@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
@@ -57,20 +58,24 @@ const BillingOptions = {
   fields: {
     b_firstname: {
       label: 'First name',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     b_lastname: {
       label: 'Last name',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     email: {
       label: 'E-mail',
       keyboardType: 'email-address',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     phone: {
       label: 'Phone',
       keyboardType: 'phone-pad',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     b_address: {
@@ -78,15 +83,18 @@ const BillingOptions = {
       multiline: true,
       numberOfLines: 4,
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     b_address_2: {
       label: 'Address 2',
       multiline: true,
       numberOfLines: 4,
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     b_city: {
       label: 'City',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     b_country: {
@@ -98,6 +106,7 @@ const BillingOptions = {
     b_zipcode: {
       label: 'Zip code',
       keyboardType: 'numeric',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
   }
@@ -120,20 +129,24 @@ const ShippingOptions = {
   fields: {
     s_firstname: {
       label: 'First name',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     s_lastname: {
       label: 'Last name',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     email: {
       label: 'E-mail',
       keyboardType: 'email-address',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     phone: {
       label: 'Phone',
       keyboardType: 'phone-pad',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     s_address: {
@@ -141,15 +154,18 @@ const ShippingOptions = {
       multiline: true,
       numberOfLines: 4,
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     s_address_2: {
       label: 'Address 2',
       multiline: true,
       numberOfLines: 4,
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     s_city: {
       label: 'City',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
     s_country: {
@@ -161,6 +177,7 @@ const ShippingOptions = {
     s_zipcode: {
       label: 'Zip code',
       keyboardType: 'numeric',
+      returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
   }
@@ -316,46 +333,51 @@ class Checkout extends Component {
     const { cart } = this.props;
     return (
       <View style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
+        <KeyboardAvoidingView
+          behavior="position"
+          enabled
         >
-          <CheckoutSteps step={1} />
-          <FormBlock
-            title={i18n.gettext('Billing address')}
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
           >
-            <Form
-              ref="checkoutBilling"
-              type={this.state.billingFormFields}
-              value={this.state.billingValues}
-              onChange={values => this.handleChange(values, 'billing')}
-              options={BillingOptions}
-            />
-          </FormBlock>
+            <CheckoutSteps step={1} />
+            <FormBlock
+              title={i18n.gettext('Billing address')}
+            >
+              <Form
+                ref="checkoutBilling"
+                type={this.state.billingFormFields}
+                value={this.state.billingValues}
+                onChange={values => this.handleChange(values, 'billing')}
+                options={BillingOptions}
+              />
+            </FormBlock>
 
-          <FormBlock
-            title={i18n.gettext('Shipping address')}
-            buttonText={i18n.gettext('Change address')}
-            simpleView={
-              <View>
-                <FormBlockField title={i18n.gettext('First name:')}>
-                  {this.state.shippingValues.s_firstname}
-                </FormBlockField>
-                <FormBlockField title={i18n.gettext('Last name:')}>
-                  {this.state.shippingValues.s_lastname}
-                </FormBlockField>
-              </View>
-            }
-          >
-            <Form
-              ref="checkoutShipping"
-              type={this.state.shippingFormFields}
-              value={this.state.shippingValues}
-              onChange={values => this.handleChange(values, 'shipping')}
-              options={ShippingOptions}
-            />
-          </FormBlock>
+            <FormBlock
+              title={i18n.gettext('Shipping address')}
+              buttonText={i18n.gettext('Change address')}
+              simpleView={
+                <View>
+                  <FormBlockField title={i18n.gettext('First name:')}>
+                    {this.state.shippingValues.s_firstname}
+                  </FormBlockField>
+                  <FormBlockField title={i18n.gettext('Last name:')}>
+                    {this.state.shippingValues.s_lastname}
+                  </FormBlockField>
+                </View>
+              }
+            >
+              <Form
+                ref="checkoutShipping"
+                type={this.state.shippingFormFields}
+                value={this.state.shippingValues}
+                onChange={values => this.handleChange(values, 'shipping')}
+                options={ShippingOptions}
+              />
+            </FormBlock>
 
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
         <CartFooter
           totalPrice={cart.subtotal_formatted.price}
           btnText={i18n.gettext('Next').toUpperCase()}
