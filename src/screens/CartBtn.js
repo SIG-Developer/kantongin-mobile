@@ -14,7 +14,8 @@ import theme from '../config/theme';
 
 const styles = EStyleSheet.create({
   container: {
-    minWidth: 20,
+    minWidth: 40,
+    marginRight: -2,
   },
   containerAndroid: {
     minWidth: 40,
@@ -30,7 +31,7 @@ const styles = EStyleSheet.create({
   badge: {
     position: 'absolute',
     top: 0,
-    right: -10,
+    right: 3,
     minWidth: 20,
     height: 20,
     borderRadius: 15,
@@ -41,7 +42,7 @@ const styles = EStyleSheet.create({
   badgeAndroid: {
     position: 'absolute',
     top: 0,
-    right: 7,
+    right: 3,
     minWidth: 18,
     height: 18,
     borderRadius: 15,
