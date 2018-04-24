@@ -7,6 +7,7 @@ import {
   Text,
   Share,
   Image,
+  Platform,
   ScrollView,
   TouchableOpacity,
   InteractionManager,
@@ -161,7 +162,10 @@ const styles = EStyleSheet.create({
   rating: {
     marginLeft: -10,
     marginTop: -4
-  }
+  },
+  keyboardAvoidingContainer: {
+    marginBottom: Platform.OS === 'ios' ? 122 : 132,
+  },
 });
 
 class ProductDetail extends Component {
@@ -740,7 +744,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          contentContainerStyle={{ marginBottom: 122 }}
+          contentContainerStyle={styles.keyboardAvoidingContainer}
           behavior="position"
         >
           <ScrollView>
