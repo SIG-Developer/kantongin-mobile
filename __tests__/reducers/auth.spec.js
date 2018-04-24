@@ -17,7 +17,7 @@ describe('Auth reducer', () => {
       logged: false,
       rehydrated: false,
       fetching: false,
-      pushToken: '',
+      deviceToken: null,
       error: null,
       errorStatus: null,
     };
