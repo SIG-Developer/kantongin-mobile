@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   ScrollView,
+  Platform,
   KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -33,7 +34,6 @@ const styles = EStyleSheet.create({
   },
   contentContainer: {
     padding: 14,
-    marginBottom: 130,
   },
 });
 
@@ -334,8 +334,9 @@ class Checkout extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          behavior="position"
-          enabled
+          behavior="padding"
+          style={{ marginBottom: 66 }}
+          enabled={Platform.OS === 'ios'}
         >
           <ScrollView
             contentContainerStyle={styles.contentContainer}
@@ -375,14 +376,13 @@ class Checkout extends Component {
                 options={ShippingOptions}
               />
             </FormBlock>
-
           </ScrollView>
+          <CartFooter
+            totalPrice={cart.subtotal_formatted.price}
+            btnText={i18n.gettext('Next').toUpperCase()}
+            onBtnPress={() => this.handleNextPress()}
+          />
         </KeyboardAvoidingView>
-        <CartFooter
-          totalPrice={cart.subtotal_formatted.price}
-          btnText={i18n.gettext('Next').toUpperCase()}
-          onBtnPress={() => this.handleNextPress()}
-        />
       </View>
     );
   }

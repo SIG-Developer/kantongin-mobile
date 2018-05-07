@@ -38,7 +38,6 @@ const styles = EStyleSheet.create({
     backgroundColor: '#FAFAFA',
   },
   productItem: {
-    marginTop: 15,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#F1F1F1',
@@ -55,6 +54,9 @@ const styles = EStyleSheet.create({
   productItemDetail: {
     marginLeft: 14,
     width: '70%',
+  },
+  productItemWrapper: {
+    marginBottom: 15,
   },
   productItemName: {
     fontSize: '0.9rem',
@@ -228,37 +230,39 @@ export class WishList extends Component {
     ];
 
     return (
-      <Swipeout
-        autoClose
-        right={swipeoutBtns}
-        backgroundColor={theme.$navBarBackgroundColor}
-      >
-        <TouchableOpacity
-          style={styles.productItem}
-          onPress={() => this.props.navigator.push({
-            screen: 'ProductDetail',
-            backButtonTitle: '',
-            passProps: {
-              pid: item.product_id,
-              hideSearch: true,
-              hideWishList: true,
-            }
-          })}
+      <View style={styles.productItemWrapper}>
+        <Swipeout
+          autoClose
+          right={swipeoutBtns}
+          backgroundColor={theme.$navBarBackgroundColor}
         >
-          {productImage}
-          <View style={styles.productItemDetail}>
-            <Text
-              style={styles.productItemName}
-              numberOfLines={1}
-            >
-              {item.product}
-            </Text>
-            <Text style={styles.productItemPrice}>
-              {item.amount} x {item.price_formatted.price}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </Swipeout>
+          <TouchableOpacity
+            style={styles.productItem}
+            onPress={() => this.props.navigator.push({
+              screen: 'ProductDetail',
+              backButtonTitle: '',
+              passProps: {
+                pid: item.product_id,
+                hideSearch: true,
+                hideWishList: true,
+              }
+            })}
+          >
+            {productImage}
+            <View style={styles.productItemDetail}>
+              <Text
+                style={styles.productItemName}
+                numberOfLines={1}
+              >
+                {item.product}
+              </Text>
+              <Text style={styles.productItemPrice}>
+                {item.amount} x {item.price_formatted.price}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </Swipeout>
+      </View>
     );
   }
 
