@@ -5,6 +5,8 @@ import base64 from 'base-64';
 import config from '../config';
 import store from '../store';
 
+import * as authActions from '../actions/authActions';
+
 const sl = DeviceInfo.getDeviceLocale().split('-')[0];
 
 // Config axios defaults.
@@ -28,5 +30,17 @@ AxiosInstance.interceptors.request.use((conf) => {
   }
   return newConf;
 });
+
+AxiosInstance.interceptors.response.use(config => config, (error) => {
+    const state = store.getState();
+
+    if (error.response.status === 401) {
+      store.dispatch(authActions.logout());
+    } else if (error.response.status === 408 || error.code === 'ECONNABORTED') {
+      console.log(`A time happend on url ${error.config.url}`)
+    }
+    return Promise.reject(error);
+  },
+);
 
 export default AxiosInstance;

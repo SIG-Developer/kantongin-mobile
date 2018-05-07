@@ -9,6 +9,7 @@ import Swiper from 'react-native-swiper';
 import chunk from 'lodash/chunk';
 import uniqueId from 'lodash/uniqueId';
 import ProductListView from './ProductListView';
+import { PRODUCT_NUM_COLUMNS } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -58,7 +59,7 @@ export default class ProductBlock extends Component {
 
   render() {
     const { items, name } = this.props;
-    const itemsList = chunk(items, 2).map((items, index) => this.renderProduct(items, index));
+    const itemsList = chunk(items, PRODUCT_NUM_COLUMNS).map((items, index) => this.renderProduct(items, index));
 
     return (
       <View style={styles.container}>
