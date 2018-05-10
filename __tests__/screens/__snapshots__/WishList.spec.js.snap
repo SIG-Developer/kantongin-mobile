@@ -62,101 +62,105 @@ exports[`renders <WishList /> component correctly 1`] = `
           style={null}
         >
           <View
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "#dbddde",
-                  "overflow": "hidden",
-                },
-                undefined,
-                Array [
-                  Object {
-                    "backgroundColor": "#FAFAFA",
-                  },
-                ],
-              ]
-            }
+            style={undefined}
           >
             <View
-              onLayout={[Function]}
-              onMoveShouldSetResponder={[Function]}
-              onMoveShouldSetResponderCapture={[Function]}
-              onResponderEnd={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderReject={[Function]}
-              onResponderRelease={[Function]}
-              onResponderStart={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onStartShouldSetResponderCapture={[Function]}
               style={
                 Array [
-                  Object {},
                   Object {
-                    "left": 0,
+                    "backgroundColor": "#dbddde",
+                    "overflow": "hidden",
                   },
+                  undefined,
+                  Array [
+                    Object {
+                      "backgroundColor": "#FAFAFA",
+                    },
+                  ],
                 ]
               }
             >
               <View
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
-                accessible={true}
-                collapsable={undefined}
-                hasTVPreferredFocus={undefined}
-                hitSlop={undefined}
-                isTVSelectable={true}
-                nativeID={undefined}
-                onLayout={undefined}
+                onLayout={[Function]}
+                onMoveShouldSetResponder={[Function]}
+                onMoveShouldSetResponderCapture={[Function]}
+                onResponderEnd={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
+                onResponderReject={[Function]}
                 onResponderRelease={[Function]}
+                onResponderStart={[Function]}
                 onResponderTerminate={[Function]}
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
+                onStartShouldSetResponderCapture={[Function]}
                 style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-                testID={undefined}
-                tvParallaxProperties={undefined}
-              >
-                <Image
-                  source={
+                  Array [
+                    Object {},
                     Object {
-                      "uri": "http://image.path",
+                      "left": 0,
+                    },
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
                     }
                   }
-                  style={undefined}
-                />
-                <View
-                  style={undefined}
+                  testID={undefined}
+                  tvParallaxProperties={undefined}
                 >
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    numberOfLines={1}
+                  <Image
+                    source={
+                      Object {
+                        "uri": "http://image.path",
+                      }
+                    }
                     style={undefined}
                   />
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
+                  <View
                     style={undefined}
                   >
-                     x 
-                    20$
-                  </Text>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      numberOfLines={1}
+                      style={undefined}
+                    />
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={undefined}
+                    >
+                       x 
+                      20$
+                    </Text>
+                  </View>
                 </View>
               </View>
+              <View />
+              <View />
             </View>
-            <View />
-            <View />
           </View>
         </View>
       </View>
