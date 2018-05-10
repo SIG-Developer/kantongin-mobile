@@ -64,10 +64,10 @@ const styles = EStyleSheet.create({
     justifyContent: 'space-between',
   },
   uncheckIcon: {
-    fontSize: 28,
+    fontSize: '1rem',
   },
   checkIcon: {
-    fontSize: 28,
+    fontSize: '1rem',
     opacity: 0.5,
   },
   stepsWrapper: {

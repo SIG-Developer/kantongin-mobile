@@ -39,19 +39,21 @@ const styles = EStyleSheet.create({
   paymentItemWrapper: {
     paddingLeft: 14,
     paddingRight: 14,
+    marginTop: 10,
   },
   paymentItem: {
-    padding: 14,
+    paddingLeft: 14,
+    paddingRight: 14,
+    paddingTop: 12,
+    paddingBottom: 12,
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: '#F1F1F1',
     backgroundColor: '#fff',
-    marginBottom: 6,
     flexDirection: 'row',
   },
   paymentItemText: {
     fontSize: '0.9rem',
-    paddingBottom: 6,
   },
   paymentItemDesc: {
     fontSize: '0.8rem',
@@ -60,11 +62,11 @@ const styles = EStyleSheet.create({
     marginTop: 10,
   },
   uncheckIcon: {
-    fontSize: 28,
+    fontSize: '1rem',
     marginRight: 6,
   },
   checkIcon: {
-    fontSize: 28,
+    fontSize: '1rem',
     marginRight: 6,
   },
   stepsWrapper: {
@@ -250,7 +252,15 @@ class CheckoutStepThree extends Component {
     );
   }
 
-  renderHeader() {
+  renderHeader = () => {
+    return (
+      <View style={styles.stepsWrapper}>
+        <CheckoutSteps step={3} />
+      </View>
+    );
+  }
+
+  renderFooter() {
     const { selectedItem } = this.state;
     if (!selectedItem) {
       return null;
@@ -300,20 +310,15 @@ class CheckoutStepThree extends Component {
     }
 
     return (
-      <View>
-        <View style={styles.stepsWrapper}>
-          <CheckoutSteps step={3} />
-        </View>
-        <View style={styles.paymentItemWrapper}>
-          <FormBlock
-            title={selectedItem.payment}
-          >
-            {form}
-            <Text style={styles.paymentItemDesc}>
-              {stripTags(selectedItem.instructions)}
-            </Text>
-          </FormBlock>
-        </View>
+      <View style={styles.paymentItemWrapper}>
+        <FormBlock
+          title={selectedItem.payment}
+        >
+          {form}
+          <Text style={styles.paymentItemDesc}>
+            {stripTags(selectedItem.instructions)}
+          </Text>
+        </FormBlock>
       </View>
     );
   }
@@ -332,6 +337,7 @@ class CheckoutStepThree extends Component {
           ref={(ref) => { this.listView = ref; }}
           contentContainerStyle={styles.contentContainer}
           ListHeaderComponent={() => this.renderHeader()}
+          ListFooterComponent={() => this.renderFooter()}
           data={this.state.items}
           keyExtractor={(item, index) => index}
           numColumns={1}
