@@ -20,6 +20,7 @@
     "react-native-device-info": "0.21.5",
     "react-native-extended-stylesheet": "0.8.1",
     "react-native-fcm": "^14.2.1",
+    "react-native-keyboard-aware-scroll-view": "^0.5.0",
     "react-native-navigation": "1.1.457",
     "react-native-splash-screen": "3.0.6",
     "react-native-swipeout": "2.3.3",

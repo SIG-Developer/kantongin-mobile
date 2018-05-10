@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  View,
-  ScrollView,
-  Platform,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // Import components
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -333,56 +329,50 @@ class Checkout extends Component {
     const { cart } = this.props;
     return (
       <View style={styles.container}>
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={{ marginBottom: 66 }}
-          enabled={Platform.OS === 'ios'}
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.contentContainer}
         >
-          <ScrollView
-            contentContainerStyle={styles.contentContainer}
+          <CheckoutSteps step={1} />
+          <FormBlock
+            title={i18n.gettext('Billing address')}
           >
-            <CheckoutSteps step={1} />
-            <FormBlock
-              title={i18n.gettext('Billing address')}
-            >
-              <Form
-                ref="checkoutBilling"
-                type={this.state.billingFormFields}
-                value={this.state.billingValues}
-                onChange={values => this.handleChange(values, 'billing')}
-                options={BillingOptions}
-              />
-            </FormBlock>
+            <Form
+              ref="checkoutBilling"
+              type={this.state.billingFormFields}
+              value={this.state.billingValues}
+              onChange={values => this.handleChange(values, 'billing')}
+              options={BillingOptions}
+            />
+          </FormBlock>
 
-            <FormBlock
-              title={i18n.gettext('Shipping address')}
-              buttonText={i18n.gettext('Change address')}
-              simpleView={
-                <View>
-                  <FormBlockField title={i18n.gettext('First name:')}>
-                    {this.state.shippingValues.s_firstname}
-                  </FormBlockField>
-                  <FormBlockField title={i18n.gettext('Last name:')}>
-                    {this.state.shippingValues.s_lastname}
-                  </FormBlockField>
-                </View>
-              }
-            >
-              <Form
-                ref="checkoutShipping"
-                type={this.state.shippingFormFields}
-                value={this.state.shippingValues}
-                onChange={values => this.handleChange(values, 'shipping')}
-                options={ShippingOptions}
-              />
-            </FormBlock>
-          </ScrollView>
-          <CartFooter
-            totalPrice={cart.subtotal_formatted.price}
-            btnText={i18n.gettext('Next').toUpperCase()}
-            onBtnPress={() => this.handleNextPress()}
-          />
-        </KeyboardAvoidingView>
+          <FormBlock
+            title={i18n.gettext('Shipping address')}
+            buttonText={i18n.gettext('Change address')}
+            simpleView={
+              <View>
+                <FormBlockField title={i18n.gettext('First name:')}>
+                  {this.state.shippingValues.s_firstname}
+                </FormBlockField>
+                <FormBlockField title={i18n.gettext('Last name:')}>
+                  {this.state.shippingValues.s_lastname}
+                </FormBlockField>
+              </View>
+            }
+          >
+            <Form
+              ref="checkoutShipping"
+              type={this.state.shippingFormFields}
+              value={this.state.shippingValues}
+              onChange={values => this.handleChange(values, 'shipping')}
+              options={ShippingOptions}
+            />
+          </FormBlock>
+        </KeyboardAwareScrollView>
+        <CartFooter
+          totalPrice={cart.subtotal_formatted.price}
+          btnText={i18n.gettext('Next').toUpperCase()}
+          onBtnPress={() => this.handleNextPress()}
+        />
       </View>
     );
   }
