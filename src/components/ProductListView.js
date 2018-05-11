@@ -14,7 +14,7 @@ import i18n from '../utils/i18n';
 const styles = EStyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: '#F1F1F1',
+    borderColor: '$productBorderColor',
     backgroundColor: '#fff',
     padding: 15,
     flexDirection: 'column',
