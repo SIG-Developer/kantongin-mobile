@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
 
@@ -30,19 +28,23 @@ const formOptions = {
     customerSignature: {
       label: i18n.gettext('Customer\'s signature'),
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     checkingAccountNumber: {
       label: i18n.gettext('Checking account number'),
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     bankRoutingNumber: {
       label: i18n.gettext('Bank routing number'),
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     comment: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       multiline: true,
+      returnKeyType: 'done',
       stylesheet: {
         ...Form.stylesheet,
         textbox: {

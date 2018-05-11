@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // Import components
 import CheckoutSteps from '../components/CheckoutSteps';

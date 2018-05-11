@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // Import actions.
 import * as ordersActions from '../actions/ordersActions';
@@ -333,16 +334,18 @@ class CheckoutStepThree extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <FlatList
-          ref={(ref) => { this.listView = ref; }}
-          contentContainerStyle={styles.contentContainer}
-          ListHeaderComponent={() => this.renderHeader()}
-          ListFooterComponent={() => this.renderFooter()}
-          data={this.state.items}
-          keyExtractor={(item, index) => index}
-          numColumns={1}
-          renderItem={({ item, index }) => this.renderItem(item, index)}
-        />
+        <KeyboardAwareScrollView>
+          <FlatList
+            ref={(ref) => { this.listView = ref; }}
+            contentContainerStyle={styles.contentContainer}
+            ListHeaderComponent={() => this.renderHeader()}
+            ListFooterComponent={() => this.renderFooter()}
+            data={this.state.items}
+            keyExtractor={(item, index) => index}
+            numColumns={1}
+            renderItem={({ item, index }) => this.renderItem(item, index)}
+          />
+        </KeyboardAwareScrollView>
         <CartFooter
           totalPrice={formatPrice(this.state.total)}
           btnText={i18n.gettext('Place order').toUpperCase()}

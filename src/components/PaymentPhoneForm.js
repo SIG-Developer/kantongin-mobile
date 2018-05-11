@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
 
@@ -28,11 +26,13 @@ const formOptions = {
     phone: {
       label: i18n.gettext('Phone'),
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
       keyboardType: 'phone-pad',
     },
     comment: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
       multiline: true,
       stylesheet: {
         ...Form.stylesheet,

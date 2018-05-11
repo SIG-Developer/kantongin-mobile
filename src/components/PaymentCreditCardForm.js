@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
 
@@ -33,30 +31,36 @@ const formOptions = {
       label: i18n.gettext('Card Number'),
       clearButtonMode: 'while-editing',
       keyboardType: 'phone-pad',
+      returnKeyType: 'done',
     },
     expiryMonth: {
       label: i18n.gettext('Valid thru (mm)'),
       clearButtonMode: 'while-editing',
       keyboardType: 'phone-pad',
+      returnKeyType: 'done',
     },
     expiryYear: {
       label: i18n.gettext('Valid thru (yy)'),
       clearButtonMode: 'while-editing',
       keyboardType: 'phone-pad',
+      returnKeyType: 'done',
     },
     cardholderName: {
       label: i18n.gettext('Cardholder\'s name'),
       clearButtonMode: 'while-editing',
+      returnKeyType: 'done',
     },
     cvv: {
       label: i18n.gettext('CVV/CVC'),
       clearButtonMode: 'while-editing',
       keyboardType: 'phone-pad',
+      returnKeyType: 'done',
     },
     comment: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       multiline: true,
+      returnKeyType: 'done',
       stylesheet: {
         ...Form.stylesheet,
         textbox: {
