@@ -31,6 +31,14 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         },
         ...payload,
       });
+    } else if (parts[0] === 'orders' && parts[1]) {
+      navigator.push({
+        screen: 'OrderDetail',
+        passProps: {
+          orderId: parts[1],
+        },
+        animated: false,
+      });
     } else if (parts[0] === 'orders') {
       navigator.resetTo({
         screen: 'Orders',
