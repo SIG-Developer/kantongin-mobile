@@ -35,7 +35,6 @@ function Init(cb) {
       }
     });
   }).catch((err) => {
-    setTimeout(() => cb(err), 2000);
     console.log(err, 'no perms');
   });
 }

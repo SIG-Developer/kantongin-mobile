@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -15,31 +17,10 @@ import {
 } from '../constants';
 import Api from '../services/api';
 import i18n from '../utils/i18n';
+import store from '../store';
 
 import * as cartActions from './cartActions';
 import * as wishListActions from './wishListActions';
-
-export function login(data) {
-  return (dispatch) => {
-    dispatch({ type: AUTH_LOGIN_REQUEST });
-
-    return Api.post('/auth_tokens', data)
-      .then((response) => {
-        cartActions.fetch(false)(dispatch);
-        wishListActions.fetch(false)(dispatch);
-        dispatch({
-          type: AUTH_LOGIN_SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: AUTH_LOGIN_FAIL,
-          payload: error.response.data,
-        });
-      });
-  };
-}
 
 export function deviceInfo(data) {
   return (dispatch) => {
@@ -56,6 +37,36 @@ export function deviceInfo(data) {
         dispatch({
           type: REGISTER_DEVICE_FAIL,
           payload: error,
+        });
+      });
+  };
+}
+
+export function login(data) {
+  return (dispatch) => {
+    dispatch({ type: AUTH_LOGIN_REQUEST });
+
+    return Api.post('/auth_tokens', data)
+      .then((response) => {
+        cartActions.fetch(false)(dispatch);
+        wishListActions.fetch(false)(dispatch);
+        dispatch({
+          type: AUTH_LOGIN_SUCCESS,
+          payload: response.data,
+        });
+
+        const { auth } = store.getState();
+        deviceInfo({
+          token: auth.deviceToken,
+          platform: Platform.OS,
+          locale: DeviceInfo.getDeviceLocale(),
+          device_id: DeviceInfo.getUniqueID(),
+        })(dispatch);
+      })
+      .catch((error) => {
+        dispatch({
+          type: AUTH_LOGIN_FAIL,
+          payload: error.response.data,
         });
       });
   };
