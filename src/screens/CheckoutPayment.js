@@ -98,7 +98,7 @@ class CheckoutStepThree extends Component {
     ordersActions: PropTypes.shape({
       create: PropTypes.func,
     }),
-    shipping_id: PropTypes.string,
+    shipping_id: PropTypes.shape(),
     navigator: PropTypes.shape({
       push: PropTypes.func,
     }),
@@ -341,7 +341,7 @@ class CheckoutStepThree extends Component {
             ListHeaderComponent={() => this.renderHeader()}
             ListFooterComponent={() => this.renderFooter()}
             data={this.state.items}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => `${index}`}
             numColumns={1}
             renderItem={({ item, index }) => this.renderItem(item, index)}
           />

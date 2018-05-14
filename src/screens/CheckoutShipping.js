@@ -6,9 +6,12 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SectionList,
+  ScrollView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+
+import values from 'lodash/values';
+import uniqueId from 'lodash/uniqueId';
 
 // Import actions.
 import * as shippingActions from '../actions/shippingActions';
@@ -98,11 +101,9 @@ class CheckoutShipping extends Component {
 
     this.state = {
       items: [],
+      shipping_id: {},
+      isNextDisabled: true,
       total: 0,
-      selectedId: null,
-      selectedItem: {
-        rate: 0,
-      },
     };
   }
 
@@ -115,26 +116,12 @@ class CheckoutShipping extends Component {
   }
 
   normalizeData = (blobData) => {
-    const items = [];
-    const itemsWithSections = {};
-    // Add section: [{item}] to the eventsWithSections.
-    blobData.map((currentItem) => {
-      const sectionName = currentItem.name;
-      if (!{}.hasOwnProperty.call(itemsWithSections, sectionName)) {
-        itemsWithSections[sectionName] = [];
-      }
-      const shippingsAsArray = Object
-        .keys(currentItem.shippings).map(k => currentItem.shippings[k]);
-      itemsWithSections[sectionName] = shippingsAsArray;
-      return itemsWithSections;
+    return blobData.map((currentItem) => {
+      const item = { ...currentItem };
+      item.shippings = values(item.shippings);
+      item.shippings = item.shippings.map(i => ({ ...i, isSelected: false, }));
+      return item;
     });
-    Object.keys(itemsWithSections).forEach((key) => {
-      items.push({
-        data: itemsWithSections[key],
-        title: key,
-      });
-    });
-    return items;
   }
 
   handleNextPress() {
@@ -145,41 +132,79 @@ class CheckoutShipping extends Component {
       backButtonTitle: '',
       passProps: {
         total: this.state.total,
-        shipping_id: this.state.selectedItem.shipping_id,
+        shipping_id: this.state.shipping_id,
       },
     });
   }
 
-  renderItem = (item) => {
-    const isSelected = (item.shipping_id && this.state.selectedId);
+  recalculateTotal() {
+    const { items } = this.state;
+    let newTotal = this.props.total;
+    items.map(company => company
+      .shippings.forEach((shipping) => {
+        if (shipping.isSelected) {
+          newTotal += shipping.rate;
+        }
+      }));
+    this.setState({
+      total: newTotal,
+    });
+  }
+
+  handleSelect(shipping, shippingIndex, itemIndex) {
+    if (shipping.isSelected) {
+      return;
+    }
+    // Check shipping
+    const newItems = [...this.state.items];
+    newItems[itemIndex].shippings = newItems[itemIndex].shippings
+      .map(s => ({ ...s, isSelected: false, }));
+    newItems[itemIndex].shippings[shippingIndex].isSelected = true;
+
+    // Get selected ids
+    const selectedIds = {
+      ...this.state.shipping_id,
+    };
+    Object
+      .keys(newItems[itemIndex].products)
+      .map((key) => {
+        selectedIds[key] = shipping.shipping_id;
+      });
+
+    let isNextDisabled = true;
+    if (newItems.filter(c => c.shippings
+      .filter(s => s.isSelected).length).length === newItems.length) {
+      isNextDisabled = false;
+    }
+
+    this.setState({
+      items: newItems,
+      shipping_id: selectedIds,
+      isNextDisabled,
+    }, () => this.recalculateTotal());
+  }
+
+  renderItem = (shipping, shippingIndex, itemIndex) => {
     return (
       <TouchableOpacity
+        key={uniqueId('item_')}
         style={[styles.shippingItem]}
-        onPress={() => {
-          if (isSelected) {
-            return;
-          }
-          this.setState({
-            selectedId: item.shipping_id,
-            selectedItem: item,
-            total: item.rate + this.state.total,
-          });
-        }}
+        onPress={() => this.handleSelect(shipping, shippingIndex, itemIndex)}
       >
         <View style={styles.shippingItemTitleWrap}>
-          {isSelected ?
+          {shipping.isSelected ?
             <Icon name="radio-button-checked" style={styles.checkIcon} /> :
             <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
           }
           <Text style={styles.shippingItemText}>
-            {item.shipping} {item.delivery_time}
+            {shipping.shipping} {shipping.delivery_time}
           </Text>
           <Text style={styles.shippingItemRate}>
-            {formatPrice(item.rate)}
+            {formatPrice(shipping.rate)}
           </Text>
         </View>
         <Text style={styles.shippingItemDesc}>
-          {stripTags(item.description)}
+          {stripTags(shipping.description)}
         </Text>
       </TouchableOpacity>
     );
@@ -191,33 +216,36 @@ class CheckoutShipping extends Component {
     </View>
   );
 
-  renderHeader = (section) => {
+  renderCompany = (title) => {
     if (this.state.items.length === 1) {
       return null;
     }
     return (
       <Text style={styles.shippingTitle}>
-        {section.title}
+        {title}
       </Text>
     );
   };
 
   render() {
+    const { items, isNextDisabled, total } = this.state;
     return (
       <View style={styles.container}>
-        <SectionList
-          contentContainerStyle={styles.contentContainer}
-          sections={this.state.items}
-          keyExtractor={item => +item.shipping_id}
-          numColumns={1}
-          ListHeaderComponent={() => this.renderSteps()}
-          renderSectionHeader={({ section }) => this.renderHeader(section)}
-          renderItem={({ item }) => this.renderItem(item)}
-        />
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          {this.renderSteps()}
+          {items.map((item, itemIndex) => (
+            <View key={item.company_id}>
+              {this.renderCompany(item.name)}
+              {item.shippings
+                .map((shipping, shippingIndex) => this
+                  .renderItem(shipping, shippingIndex, itemIndex))}
+            </View>
+          ))}
+        </ScrollView>
         <CartFooter
-          totalPrice={formatPrice(this.state.total)}
+          totalPrice={formatPrice(total)}
           btnText={i18n.gettext('Next').toUpperCase()}
-          isBtnDisabled={this.state.selectedId == null}
+          isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}
         />
       </View>
