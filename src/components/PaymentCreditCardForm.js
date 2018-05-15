@@ -60,6 +60,7 @@ const formOptions = {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       multiline: true,
+      blurOnSubmit: true,
       returnKeyType: 'done',
       stylesheet: {
         ...Form.stylesheet,

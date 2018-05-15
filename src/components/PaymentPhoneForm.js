@@ -34,6 +34,7 @@ const formOptions = {
       clearButtonMode: 'while-editing',
       returnKeyType: 'done',
       multiline: true,
+      blurOnSubmit: true,
       stylesheet: {
         ...Form.stylesheet,
         textbox: {
