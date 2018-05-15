@@ -27,7 +27,7 @@ export default {
   $borderRadius: 8,
 
   $productDiscountColor: '#EAA944',
-  $productBorderColor: '#F1F1F1',
+  $productBorderColor: '#FFF',
 
   $categoriesBackgroundColor: '#FAFAFA',
   $categoriesHeaderColor: '#000',
