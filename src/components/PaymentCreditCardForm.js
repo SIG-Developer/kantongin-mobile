@@ -30,19 +30,19 @@ const formOptions = {
     cardNumber: {
       label: i18n.gettext('Card Number'),
       clearButtonMode: 'while-editing',
-      keyboardType: 'phone-pad',
+      keyboardType: 'numeric',
       returnKeyType: 'done',
     },
     expiryMonth: {
       label: i18n.gettext('Valid thru (mm)'),
       clearButtonMode: 'while-editing',
-      keyboardType: 'phone-pad',
+      keyboardType: 'numeric',
       returnKeyType: 'done',
     },
     expiryYear: {
       label: i18n.gettext('Valid thru (yy)'),
       clearButtonMode: 'while-editing',
-      keyboardType: 'phone-pad',
+      keyboardType: 'numeric',
       returnKeyType: 'done',
     },
     cardholderName: {
@@ -50,10 +50,10 @@ const formOptions = {
       clearButtonMode: 'while-editing',
       returnKeyType: 'done',
     },
-    cvv: {
+    ccv: {
       label: i18n.gettext('CVV/CVC'),
       clearButtonMode: 'while-editing',
-      keyboardType: 'phone-pad',
+      keyboardType: 'numeric',
       returnKeyType: 'done',
     },
     comment: {
