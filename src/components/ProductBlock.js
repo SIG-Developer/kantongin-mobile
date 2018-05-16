@@ -59,7 +59,8 @@ export default class ProductBlock extends Component {
 
   render() {
     const { items, name } = this.props;
-    const itemsList = chunk(items, PRODUCT_NUM_COLUMNS).map((items, index) => this.renderProduct(items, index));
+    const itemsList = chunk(items, PRODUCT_NUM_COLUMNS)
+      .map((items, index) => this.renderProduct(items, index));
 
     return (
       <View style={styles.container}>

@@ -83,6 +83,7 @@ class Layouts extends Component {
     super(props);
     console.disableYellowBox = true;
     this.isFetchBlocksSend = false;
+    this.pushSubscription = null;
   }
 
   componentWillMount() {
@@ -118,13 +119,8 @@ class Layouts extends Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
 
     if (config.pushNotifications) {
-      PushNotificaitons.Init((token) => {
-        Alert.alert(
-          'Your device token',
-          token,
-        );
-      });
-      PushNotificaitons.AddPushListener(navigator);
+      PushNotificaitons.Init();
+      this.pushSubscription = PushNotificaitons.AddPushListener(navigator);
     }
   }
 
@@ -146,6 +142,12 @@ class Layouts extends Component {
         },
       });
       this.props.notificationsActions.hide(notify.id);
+    }
+  }
+
+  componentWillUnmount() {
+    if (config.pushNotifications && this.pushSubscription) {
+      this.pushSubscription.remove();
     }
   }
 
@@ -249,7 +251,7 @@ class Layouts extends Component {
         return (
           <VendorBlock
             name={i18n.gettext('Vendors')}
-            items={block.content.items}
+            items={items}
             onPress={(vendor) => {
               navigator.showModal({
                 screen: 'Vendor',

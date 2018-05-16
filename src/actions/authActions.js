@@ -55,13 +55,16 @@ export function login(data) {
           payload: response.data,
         });
 
-        const { auth } = store.getState();
-        deviceInfo({
-          token: auth.deviceToken,
-          platform: Platform.OS,
-          locale: DeviceInfo.getDeviceLocale(),
-          device_id: DeviceInfo.getUniqueID(),
-        })(dispatch);
+        // Delay send refresh token.
+        setTimeout(() => {
+          const { auth } = store.getState();
+          deviceInfo({
+            token: auth.deviceToken,
+            platform: Platform.OS,
+            locale: DeviceInfo.getDeviceLocale(),
+            device_id: DeviceInfo.getUniqueID(),
+          })(dispatch);
+        }, 1000);
       })
       .catch((error) => {
         dispatch({

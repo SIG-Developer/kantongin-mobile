@@ -6,7 +6,7 @@ import store from '../store';
 import * as authActions from '../actions/authActions';
 
 function AddPushListener(navigator) {
-  FCM.on(FCMEvent.Notification, (notif) => {
+  return FCM.on(FCMEvent.Notification, (notif) => {
     if (notif.targetScreen) {
       navigator.handleDeepLink({
         link: notif.targetScreen,
@@ -24,7 +24,11 @@ function Init(cb) {
   }).then(() => {
     FCM.getFCMToken().then((token) => {
       const { auth } = store.getState();
-      setTimeout(() => cb(token), 2000);
+
+      if (cb) {
+        setTimeout(() => cb(token), 2000);
+      }
+
       if (auth.pushToken !== token) {
         store.dispatch(authActions.deviceInfo({
           token,
