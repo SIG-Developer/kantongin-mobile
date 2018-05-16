@@ -218,9 +218,10 @@ export class VendorDetail extends Component {
   }
 
   renderVendorProducts() {
+    const { vendor } = this.state;
     return (
       <SectionButton
-        text={i18n.gettext('View vendor products ({{items}} item(s))').replace('{{items}}', 22)}
+        text={i18n.gettext('View vendor products (%1 item(s))', vendor.products_count)}
         onPress={() => {
           this.props.navigator.dismissModal();
         }}
@@ -296,7 +297,7 @@ export class VendorDetail extends Component {
 
     let title = i18n.gettext('Reviews');
     if (discussion.search.total_items != 0) { // eslint-disable-line
-      title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items);
+      title = i18n.gettext('Reviews (%1)', discussion.search.total_items);
     }
 
     return (

@@ -522,7 +522,7 @@ class ProductDetail extends Component {
     const masMore = discussion.search.total_items > 10;
     let title = i18n.gettext('Reviews');
     if (discussion.search.total_items != 0) { // eslint-disable-line
-      title = i18n.gettext('Reviews ({{count}})').replace('{{count}}', discussion.search.total_items);
+      title = i18n.gettext('Reviews (%1)', discussion.search.total_items);
     }
     return (
       <Section
@@ -652,7 +652,7 @@ class ProductDetail extends Component {
       return null;
     }
     const { navigator } = this.props;
-
+    const { vendor } = this.state;
     return (
       <Section
         title={i18n.gettext('Vendor info')}
@@ -663,7 +663,7 @@ class ProductDetail extends Component {
             {this.state.vendor.company}
           </Text>
           <Text style={styles.vendorProductCount}>
-            {i18n.gettext('134 items')}
+            {i18n.gettext('%1 item(s)', vendor.products_count)}
           </Text>
           <Text style={styles.vendorDescription}>
             {this.state.vendor.description}

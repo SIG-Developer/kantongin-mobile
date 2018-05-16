@@ -203,7 +203,7 @@ class Categories extends Component {
 
   renderHeader() {
     const {
-      navigator, companyId, products, vendors
+      navigator, companyId, vendors
     } = this.props;
     const productHeader = (
       <Text style={styles.header}>
@@ -225,7 +225,7 @@ class Categories extends Component {
             });
           }}
           logoUrl={vendor.logo_url}
-          productsCount={products.params.total_items}
+          productsCount={vendor.products_count}
         />
       );
     }

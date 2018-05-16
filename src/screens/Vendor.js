@@ -182,7 +182,7 @@ class Vendor extends Component {
 
   renderHeader() {
     const {
-      navigator, vendorCategories, companyId, products
+      navigator, vendorCategories, companyId
     } = this.props;
     const { vendor } = this.state;
 
@@ -208,7 +208,7 @@ class Vendor extends Component {
             });
           }}
           logoUrl={vendor.logo_url}
-          productsCount={products.params.total_items}
+          productsCount={vendor.products_count}
         />
         <CategoryBlock
           items={vendorCategories.items}
