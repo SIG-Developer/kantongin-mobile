@@ -217,18 +217,6 @@ export class VendorDetail extends Component {
     );
   }
 
-  renderVendorProducts() {
-    const { vendor } = this.state;
-    return (
-      <SectionButton
-        text={i18n.gettext('View vendor products (%1 item(s))', vendor.products_count)}
-        onPress={() => {
-          this.props.navigator.dismissModal();
-        }}
-      />
-    );
-  }
-
   renderDesc() {
     const { vendor, discussion } = this.state;
     return (
@@ -333,7 +321,6 @@ export class VendorDetail extends Component {
     return (
       <ScrollView style={styles.container}>
         {this.renderLogo()}
-        {this.renderVendorProducts()}
         {this.renderDesc()}
         {this.renderContacts()}
         {this.renderShipping()}

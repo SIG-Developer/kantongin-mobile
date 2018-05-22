@@ -159,6 +159,11 @@ const styles = EStyleSheet.create({
     color: 'gray',
     fontSize: '0.9rem',
   },
+  vendorInfoBtn: {
+    position: 'absolute',
+    top: 10,
+    right: '1rem',
+  },
   rating: {
     marginLeft: -10,
     marginTop: -4
@@ -668,14 +673,30 @@ class ProductDetail extends Component {
           <Text style={styles.vendorDescription}>
             {this.state.vendor.description}
           </Text>
+          <TouchableOpacity
+            style={styles.vendorInfoBtn}
+            onPress={() => {
+              navigator.showModal({
+                screen: 'VendorDetail',
+                passProps: {
+                  vendorId: vendor.company_id,
+                },
+              });
+            }}
+          >
+            <Text style={styles.sectionBtnText}>
+              {i18n.gettext('Vendor Info')}
+            </Text>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={styles.sectionBtn}
           onPress={() => {
             navigator.showModal({
-              screen: 'VendorDetail',
+              screen: 'Vendor',
+              title: vendor.company,
               passProps: {
-                vendorId: this.state.vendor.company_id,
+                companyId: vendor.company_id,
               },
             });
           }}
