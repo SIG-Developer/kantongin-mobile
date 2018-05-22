@@ -165,11 +165,7 @@ class CheckoutShipping extends Component {
     const selectedIds = {
       ...this.state.shipping_id,
     };
-    Object
-      .keys(newItems[itemIndex].products)
-      .map((key) => {
-        selectedIds[key] = shipping.shipping_id;
-      });
+    selectedIds[`${itemIndex}`] = `${shipping.shipping_id}`;
 
     let isNextDisabled = true;
     if (newItems.filter(c => c.shippings
