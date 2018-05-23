@@ -45,6 +45,8 @@ const styles = EStyleSheet.create({
   shippingItemText: {
     fontSize: '0.9rem',
     paddingBottom: 6,
+    marginLeft: 6,
+    marginRight: 6,
   },
   shippingItemDesc: {
     fontSize: '0.8rem',
@@ -65,6 +67,11 @@ const styles = EStyleSheet.create({
   shippingItemTitleWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  shippingItemTitle: {
+    flex: 1,
+    flexDirection: 'row',
   },
   uncheckIcon: {
     fontSize: '1rem',
@@ -188,13 +195,16 @@ class CheckoutShipping extends Component {
         onPress={() => this.handleSelect(shipping, shippingIndex, itemIndex)}
       >
         <View style={styles.shippingItemTitleWrap}>
-          {shipping.isSelected ?
-            <Icon name="radio-button-checked" style={styles.checkIcon} /> :
-            <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
-          }
-          <Text style={styles.shippingItemText}>
-            {shipping.shipping} {shipping.delivery_time}
-          </Text>
+          <View style={styles.shippingItemTitle}>
+            {shipping.isSelected ?
+              <Icon name="radio-button-checked" style={styles.checkIcon} /> :
+              <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
+            }
+            <Text style={styles.shippingItemText}>
+              {shipping.shipping} {shipping.delivery_time}
+            </Text>
+          </View>
+
           <Text style={styles.shippingItemRate}>
             {formatPrice(shipping.rate)}
           </Text>
