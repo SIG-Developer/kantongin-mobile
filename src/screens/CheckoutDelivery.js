@@ -305,9 +305,9 @@ class Checkout extends Component {
 
   handleNextPress() {
     let shippingForm = {};
-    const billingForm = this.refs.checkoutBilling.getValue();
-    if ('shippingForm' in this.refs) {
-      shippingForm = this.refs.checkoutShipping.getValue();
+    const billingForm = this.refs.checkoutBilling.getValue(); // eslint-disable-line
+    if ('shippingForm' in this.refs) {  // eslint-disable-line
+      shippingForm = this.refs.checkoutShipping.getValue();  // eslint-disable-line
     }
     if (billingForm && shippingForm) {
       cartActions.saveUserData({
@@ -319,7 +319,7 @@ class Checkout extends Component {
         backButtonTitle: '',
         title: i18n.gettext('Checkout').toUpperCase(),
         passProps: {
-          total: this.props.cart.total,
+          total: this.props.cart.subtotal,
         },
       });
     }
@@ -337,7 +337,7 @@ class Checkout extends Component {
             title={i18n.gettext('Billing address')}
           >
             <Form
-              ref="checkoutBilling"
+              ref="checkoutBilling"  // eslint-disable-line
               type={this.state.billingFormFields}
               value={this.state.billingValues}
               onChange={values => this.handleChange(values, 'billing')}
@@ -360,7 +360,7 @@ class Checkout extends Component {
             }
           >
             <Form
-              ref="checkoutShipping"
+              ref="checkoutShipping"  // eslint-disable-line
               type={this.state.shippingFormFields}
               value={this.state.shippingValues}
               onChange={values => this.handleChange(values, 'shipping')}
