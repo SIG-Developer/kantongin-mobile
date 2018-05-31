@@ -125,7 +125,7 @@ class Layouts extends Component {
           console.log("TOKEN (getFCMToken)", token);
           alert(token);
         });
-        // User has authorised  
+        // User has authorised
       })
       .catch(error => {
         // User has rejected permissions  

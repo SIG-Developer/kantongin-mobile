@@ -6,6 +6,7 @@ target 'csnative' do
   # use_frameworks!
 
   # Pods for csnative
+  pod 'Firebase/Core'
   pod 'Firebase/Messaging'
 
   target 'csnative-tvOSTests' do
