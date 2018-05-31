@@ -1,5 +1,4 @@
 package com.simtech.multivendor;
-import android.content.Intent;
 
 import android.view.Gravity;
 import android.graphics.Color;
@@ -9,12 +8,6 @@ import android.widget.LinearLayout;
 import com.reactnativenavigation.controllers.SplashActivity;
 
 public class MainActivity extends SplashActivity {
-    
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-    }
 
     @Override
     public LinearLayout createSplashLayout() {

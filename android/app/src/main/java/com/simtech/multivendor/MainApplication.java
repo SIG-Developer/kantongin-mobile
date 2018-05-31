@@ -1,7 +1,5 @@
 package com.simtech.multivendor;
 
-import com.evollu.react.fcm.FIRMessagingPackage;
-
 import android.app.Application;
 import android.support.annotation.Nullable;
 
@@ -34,7 +32,6 @@ public class MainApplication extends NavigationApplication {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
-      new FIRMessagingPackage(),
       new VectorIconsPackage(),
       new RNDeviceInfo()
     );
