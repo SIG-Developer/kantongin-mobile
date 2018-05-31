@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import has from 'lodash/has';
+import firebase from 'react-native-firebase';
 
 // Constants
 import {
@@ -117,6 +118,18 @@ class Layouts extends Component {
     });
     this.props.layoutsActions.fetch(config.layoutId, 'index.index');
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+
+    firebase.messaging().requestPermission()
+      .then((token) => {
+        firebase.messaging().getToken().then(token => {
+          console.log("TOKEN (getFCMToken)", token);
+          alert(token);
+        });
+        // User has authorised  
+      })
+      .catch(error => {
+        // User has rejected permissions  
+      });
 
     // if (config.pushNotifications) {
     //   PushNotificaitons.Init();
