@@ -14,4 +14,5 @@ export default {
   version: 'MVE',
   // Enable push notifications
   pushNotifications: true,
+  pushNotificationChannelId: 'cscart.default'
 };

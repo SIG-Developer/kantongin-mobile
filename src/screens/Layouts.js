@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import has from 'lodash/has';
-import firebase from 'react-native-firebase';
+// import firebase from 'react-native-firebase';
 
 // Constants
 import {
@@ -31,7 +31,7 @@ import VendorBlock from '../components/VendorBlock';
 import PageBlock from '../components/PageBlock';
 import ProductBlock from '../components/ProductBlock';
 import CategoryBlock from '../components/CategoryBlock';
-// import PushNotificaitons from '../components/PushNotifications';
+import PushNotificaitons from '../components/PushNotifications';
 
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
@@ -84,7 +84,8 @@ class Layouts extends Component {
     super(props);
     console.disableYellowBox = true;
     this.isFetchBlocksSend = false;
-    this.pushSubscription = null;
+    this.pushNotificationListener = null;
+    this.pushNotificationOpenListener = null;
   }
 
   componentWillMount() {
@@ -119,22 +120,11 @@ class Layouts extends Component {
     this.props.layoutsActions.fetch(config.layoutId, 'index.index');
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
 
-    firebase.messaging().requestPermission()
-      .then((token) => {
-        firebase.messaging().getToken().then(token => {
-          console.log("TOKEN (getFCMToken)", token);
-          alert(token);
-        });
-        // User has authorised
-      })
-      .catch(error => {
-        // User has rejected permissions  
-      });
-
-    // if (config.pushNotifications) {
-    //   PushNotificaitons.Init();
-    //   this.pushSubscription = PushNotificaitons.AddPushListener(navigator);
-    // }
+    if (config.pushNotifications) {
+      PushNotificaitons.Init();
+      this.pushNotificationListener = PushNotificaitons.RegisterPushListener(navigator);
+      this.pushNotificationOpenListener = PushNotificaitons.RegisterOpenListener(navigator);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -160,7 +150,8 @@ class Layouts extends Component {
 
   componentWillUnmount() {
     if (config.pushNotifications && this.pushSubscription) {
-      this.pushSubscription.remove();
+      this.pushNotificationListener();
+      this.pushNotificationOpenListener();
     }
   }
 
