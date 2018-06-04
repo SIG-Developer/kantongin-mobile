@@ -7,31 +7,30 @@ import store from '../store';
 import * as authActions from '../actions/authActions';
 
 function RegisterPushListener() {
-  firebase.messaging().onTokenRefresh((token) => {
-    console.log("TOKEN (refreshUnsubscribe)", token);
-  });
-
   return firebase.notifications().onNotification((notif) => {
-    notif.android.setChannelId(config.pushNotificationChannelId);
-    if (Platform.OS === 'android') {
-      const localNotification = new firebase.notifications.Notification({
-        sound: 'default',
-        show_in_foreground: true,
-      })
-        .setNotificationId(notif.notificationId)
-        .setTitle(notif.title)
-        .setSubtitle(notif.subtitle)
-        .setBody(notif.body)
-        .setData(notif.data)
-        .android.setChannelId(config.pushNotificationChannelId)
-        .android.setSmallIcon('ic_notification')
-        .android.setPriority(firebase.notifications.Android.Priority.High);
+    let notification = new firebase.notifications.Notification();
+    notification = notification
+      .setNotificationId(notif.notificationId)
+      .setTitle(notif.title)
+      .setBody(notif.body)
+      .setSound(notif.sound || 'bell.mp3')
+      .setData({
+        ...notif.data
+      });
 
-      firebase.notifications().displayNotification(localNotification)
-        .catch(err => console.error(err));
-    } else {
-      firebase.notifications().displayNotification(notif); // TODO ios
+    if (Platform.OS === 'android') {
+      notification.android.setAutoCancel(true);
+      notification.android.setColor(config.pushNotificationsColor);
+      notification.android.setColorized(true);
+      notification.android.setPriority(firebase.notifications.Android.Priority.High);
+      notification.android.setSmallIcon('ic_notification');
+      notification.android.setVibrate([300]);
+      notification.android.setOngoing(true);
+      notification.android.setClickAction('open');
+      notification.android.setChannelId(config.pushNotificationChannelId);
     }
+
+    firebase.notifications().displayNotification(notification);
   });
 }
 
@@ -55,7 +54,21 @@ function Init(cb) {
   }).then(() => {
     firebase.messaging().getToken()
       .then((token) => {
+        if (Platform.OS === 'android') {
+          const channel = new firebase.notifications.Android
+            .Channel(
+              config.pushNotificationChannelId,
+              config.pushNotificationChannelId,
+              firebase.notifications.Android.Importance.Max
+            );
+          firebase
+            .notifications()
+            .android
+            .createChannel(channel);
+        }
+
         console.log("TOKEN (getFCMToken)", token);
+
         const { auth } = store.getState();
         if (cb) {
           setTimeout(() => cb(token), 2000);
