@@ -25,7 +25,7 @@ class App extends Component {
     super(props);
     // run app after store persist.
     persistStore(store, {
-      blacklist: ['products', 'discussion', 'orders', 'search'],
+      blacklist: ['products', 'discussion', 'orders', 'search', 'vendors'],
       storage: AsyncStorage
     }, () => this.startApp());
   }
