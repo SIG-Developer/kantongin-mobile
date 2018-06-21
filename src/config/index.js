@@ -15,5 +15,9 @@ export default {
   // Enable push notifications
   pushNotifications: true,
   pushNotificationChannelId: 'cscart.default',
-  pushNotificationsColor: '#26323e'
+  pushNotificationsColor: '#26323e',
+  // Demo app features
+  demo: true,
+  demoUsername: 'customer@example.com',
+  demoPassword: 'customer',
 };

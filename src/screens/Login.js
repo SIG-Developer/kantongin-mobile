@@ -25,6 +25,8 @@ import {
   iconsLoaded,
 } from '../utils/navIcons';
 
+import config from '../config';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -161,12 +163,20 @@ class Login extends Component {
 
   render() {
     const { auth, navigator } = this.props;
+    const values = {};
+
+    if (config.demo) {
+      values.email = config.demoUsername;
+      values.password = config.demoPassword;
+    }
+
     return (
       <View style={styles.container}>
         <Form
           ref="form"
           type={FormFields}
           options={options}
+          value={values}
         />
         <TouchableOpacity
           style={styles.btn}

@@ -15,6 +15,12 @@ import * as authActions from '../actions/authActions';
 // theme
 import theme from '../config/theme';
 
+// Icons
+import {
+  iconsMap,
+  iconsLoaded,
+} from '../utils/navIcons';
+
 // Components
 import Spinner from '../components/Spinner';
 
@@ -44,6 +50,7 @@ class Registration extends Component {
       logged: PropTypes.bool,
       fetching: PropTypes.bool,
     }),
+    showClose: PropTypes.bool,
   };
 
   static navigatorStyle = {
@@ -60,6 +67,24 @@ class Registration extends Component {
     props.navigator.setTitle({
       title: i18n.gettext('Registration')
     });
+
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentWillMount() {
+    const { navigator, showClose } = this.props;
+    if (showClose) {
+      iconsLoaded.then(() => {
+        navigator.setButtons({
+          leftButtons: [
+            {
+              id: 'close',
+              icon: iconsMap.close,
+            },
+          ],
+        });
+      });
+    }
   }
 
   componentDidMount() {
@@ -70,6 +95,15 @@ class Registration extends Component {
     navigator.setTitle({
       title: i18n.gettext('Registration').toUpperCase(),
     });
+  }
+
+  onNavigatorEvent(event) {
+    const { navigator } = this.props;
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'close') {
+        navigator.dismissModal();
+      }
+    }
   }
 
   onNavigationStateChange(e) {

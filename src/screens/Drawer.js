@@ -63,10 +63,18 @@ const styles = EStyleSheet.create({
   },
   signInBtn: {
     backgroundColor: 'transparent',
-    padding: 12,
+  },
+  signInDelim: {
+    paddingLeft: 6,
+    paddingRight: 6,
+  },
+  signInWrapper: {
     position: 'absolute',
+    padding: 12,
     bottom: 14,
     left: 14,
+    flex: 1,
+    flexDirection: 'row',
   },
   signInBtnText: {
     textAlign: 'left',
@@ -232,21 +240,46 @@ class Drawer extends Component {
           source={{ uri: theme.$logoUrl }}
           style={[styles.logo, styles.logoLogin]}
         />
-        <TouchableOpacity
-          style={styles.signInBtn}
-          onPress={() => {
-            this.props.navigator.toggleDrawer({
-              side: 'left',
-            });
-            this.props.navigator.showModal({
-              screen: 'Login',
-            });
-          }}
-        >
-          <Text style={styles.signInBtnText}>
-            {i18n.gettext('Login | Registration')}
+        <View style={styles.signInWrapper}>
+          <TouchableOpacity
+            style={styles.signInBtn}
+            onPress={() => {
+              this.props.navigator.toggleDrawer({
+                side: 'left',
+              });
+              this.props.navigator.showModal({
+                screen: 'Login',
+              });
+            }}
+          >
+            <Text style={styles.signInBtnText}>
+              {i18n.gettext('Login')}
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={[styles.signInBtnText, styles.signInDelim]}>
+            {i18n.gettext('|')}
           </Text>
-        </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.signInBtn}
+            onPress={() => {
+              this.props.navigator.toggleDrawer({
+                side: 'left',
+              });
+              this.props.navigator.showModal({
+                screen: 'Registration',
+                passProps: {
+                  showClose: true,
+                },
+              });
+            }}
+          >
+            <Text style={styles.signInBtnText}>
+              {i18n.gettext('Registration')}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
