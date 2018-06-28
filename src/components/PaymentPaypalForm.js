@@ -34,7 +34,7 @@ export default class PaymentPaypalForm extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Paypal</Text>
+        <Text>{i18n.gettext('Paypal')}</Text>
         <Form
           ref={'formRef'}
           type={formFields}
