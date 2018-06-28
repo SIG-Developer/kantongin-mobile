@@ -47,25 +47,6 @@ export function create(data, cb = null) {
   };
 }
 
-export function fetchOne(id) {
-  return (dispatch) => {
-    dispatch({ type: FETCH_ORDER_DETAIL_REQUEST });
-    return Api.get(`/orders/${id}`)
-      .then((response) => {
-        dispatch({
-          type: FETCH_ORDER_DETAIL_SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: FETCH_ORDER_DETAIL_FAIL,
-          error,
-        });
-      });
-  };
-}
-
 export function fetch(page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDERS_REQUEST });

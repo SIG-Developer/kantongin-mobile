@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  Alert,
   View,
   ScrollView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import has from 'lodash/has';
-// import firebase from 'react-native-firebase';
 
 // Constants
 import {

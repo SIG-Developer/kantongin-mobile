@@ -40,7 +40,7 @@ function RegisterOpenListener(navigator) {
     if (notif.data && notif.data.targetScreen) {
       navigator.handleDeepLink({
         link: notif.data.targetScreen,
-        payload: {},
+        payload: notif.data.payload,
       });
     }
   });

@@ -19,6 +19,7 @@ import FormBlockField from '../components/FormBlockField';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
+import Api from '../services/api';
 
 import {
   iconsMap,
@@ -89,13 +90,7 @@ const styles = EStyleSheet.create({
 
 class CheckoutComplete extends Component {
   static propTypes = {
-    ordersActions: PropTypes.shape({
-      fetchOne: PropTypes.func,
-    }),
     orderId: PropTypes.number,
-    orderDetail: PropTypes.shape({
-      fetching: PropTypes.bool,
-    }),
     navigator: PropTypes.shape({
       push: PropTypes.func,
       setTitle: PropTypes.func,
@@ -114,17 +109,19 @@ class CheckoutComplete extends Component {
 
     this.state = {
       fetching: true,
+      orderDetail: {},
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
-    this.props.navigator.setTitle({
+    const { orderId, navigator } = this.props;
+    navigator.setTitle({
       title: i18n.gettext('Checkout complete').toUpperCase(),
     });
     iconsLoaded.then(() => {
-      this.props.navigator.setButtons({
+      navigator.setButtons({
         leftButtons: [
           {
             id: 'close',
@@ -133,18 +130,19 @@ class CheckoutComplete extends Component {
         ],
       });
     });
-  }
 
-  componentDidMount() {
-    this.props.ordersActions.fetchOne(this.props.orderId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.orderDetail.fetching) {
-      this.setState({
-        fetching: false,
+    Api.get(`/orders/${orderId}`)
+      .then((response) => {
+        this.setState({
+          fetching: false,
+          orderDetail: response.data,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          fetching: false,
+        });
       });
-    }
   }
 
   onNavigatorEvent(event) {
@@ -183,8 +181,8 @@ class CheckoutComplete extends Component {
   }
 
   render() {
-    const { orderDetail } = this.props;
-    if (this.state.fetching) {
+    const { orderDetail, fetching } = this.state;
+    if (fetching) {
       return (
         <View style={styles.container}>
           <Spinner visible mode="content" />
@@ -316,13 +314,7 @@ class CheckoutComplete extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    cart: state.cart,
-    auth: state.auth,
-    orderDetail: state.orderDetail,
-  }),
-  dispatch => ({
-    ordersActions: bindActionCreators(ordersActions, dispatch),
-  })
-)(CheckoutComplete);
+export default connect(state => ({
+  cart: state.cart,
+  auth: state.auth,
+}))(CheckoutComplete);

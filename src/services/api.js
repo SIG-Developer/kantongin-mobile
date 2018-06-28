@@ -32,15 +32,12 @@ AxiosInstance.interceptors.request.use((conf) => {
 });
 
 AxiosInstance.interceptors.response.use(config => config, (error) => {
-    const state = store.getState();
-
-    if (error.response.status === 401) {
-      store.dispatch(authActions.logout());
-    } else if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A time happend on url ${error.config.url}`)
-    }
-    return Promise.reject(error);
-  },
-);
+  if (error.response.status === 401) {
+    store.dispatch(authActions.logout());
+  } else if (error.response.status === 408 || error.code === 'ECONNABORTED') {
+    console.log(`A time happend on url ${error.config.url}`);
+  }
+  return Promise.reject(error);
+});
 
 export default AxiosInstance;

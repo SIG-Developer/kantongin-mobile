@@ -1,8 +1,11 @@
 import { Linking, Alert } from 'react-native';
 import i18n from './i18n';
 import config from '../config';
+import store from '../store';
 
 export const registerDrawerDeepLinks = (e, navigator) => {
+  const { auth } = store.getState();
+
   if (e.type === 'DeepLink') {
     const parts = e.link.split('/');
     const { payload } = e;
@@ -16,7 +19,7 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         screen: 'Cart',
         animated: false,
       });
-    } else if (parts[0] === 'profile') {
+    } else if (parts[0] === 'profile' && auth.logged) {
       navigator.push({
         screen: 'Profile',
         backButtonTitle: '',
@@ -31,7 +34,7 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         },
         ...payload,
       });
-    } else if (parts[0] === 'orders' && parts[1]) {
+    } else if (parts[0] === 'orders' && parts[1] && auth.logged) {
       navigator.push({
         screen: 'OrderDetail',
         passProps: {
@@ -39,7 +42,7 @@ export const registerDrawerDeepLinks = (e, navigator) => {
         },
         animated: false,
       });
-    } else if (parts[0] === 'orders') {
+    } else if (parts[0] === 'orders' && auth.logged) {
       navigator.resetTo({
         screen: 'Orders',
         animated: false,

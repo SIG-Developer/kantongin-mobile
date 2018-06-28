@@ -86,9 +86,6 @@ class CheckoutStepThree extends Component {
       items: PropTypes.arrayOf(PropTypes.object),
       fetching: PropTypes.bool,
     }),
-    orderDetail: PropTypes.shape({
-      fetching: PropTypes.bool,
-    }),
     cartActions: PropTypes.shape({
       clear: PropTypes.func,
     }),
@@ -137,19 +134,15 @@ class CheckoutStepThree extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    setTimeout(() => {
-      this.setState({
-        fetching: nextProps.orderDetail.fetching,
-      });
-    }, 300);
-  }
-
   handlePlaceOrder() {
     const { selectedItem } = this.state;
     if (!selectedItem) {
       return null;
     }
+
+    this.setState({
+      fetching: true,
+    });
 
     if (selectedItem.template === PAYMENT_PAYPAL_EXPRESS) {
       return this.placePayPalOrder();
@@ -181,6 +174,9 @@ class CheckoutStepThree extends Component {
       return orderInfo;
     });
     ordersActions.create(orderInfo, (orderId) => {
+      this.setState({
+        fetching: false,
+      });
       cartActions.clear();
       navigator.push({
         screen: 'CheckoutComplete',
@@ -213,6 +209,9 @@ class CheckoutStepThree extends Component {
       return orderInfo;
     });
     ordersActions.create(orderInfo, (orderId) => {
+      this.setState({
+        fetching: false,
+      });
       paymentsActions.paypalSettlements(orderId.order_id, false, (data) => {
         navigator.push({
           screen: 'PayPalCompleteWebView',
@@ -362,7 +361,6 @@ export default connect(
   state => ({
     cart: state.cart,
     auth: state.auth,
-    orderDetail: state.orderDetail,
   }),
   dispatch => ({
     ordersActions: bindActionCreators(ordersActions, dispatch),

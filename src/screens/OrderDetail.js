@@ -12,7 +12,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 // Import actions.
-import * as ordersActions from '../actions/ordersActions';
+import * as notificationsActions from '../actions/notificationsActions';
 
 // Components
 import FormBlock from '../components/FormBlock';
@@ -20,6 +20,7 @@ import FormBlockField from '../components/FormBlockField';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
+import Api from '../services/api';
 
 const styles = EStyleSheet.create({
   container: {
@@ -88,8 +89,8 @@ const styles = EStyleSheet.create({
 
 class OrderDetail extends Component {
   static propTypes = {
-    ordersActions: PropTypes.shape({
-      fetchOne: PropTypes.func,
+    notificationsActions: PropTypes.shape({
+      show: PropTypes.func,
     }),
     orderId: PropTypes.string,
     orderDetail: PropTypes.shape({
@@ -112,22 +113,37 @@ class OrderDetail extends Component {
 
     this.state = {
       fetching: true,
+      orderDetail: {},
     };
   }
 
-  componentDidMount() {
-    this.props.ordersActions.fetchOne(this.props.orderId);
-    this.props.navigator.setTitle({
+  componentWillMount() {
+    const { orderId, navigator } = this.props;
+    Api.get(`/orders/${orderId}`)
+      .then((response) => {
+        this.setState({
+          fetching: false,
+          orderDetail: response.data,
+        });
+      })
+      .catch(() => {
+        this.props.notificationsActions.show({
+          type: 'info',
+          title: i18n.gettext('Information'),
+          text: i18n.gettext('Order not found.'),
+          closeLastModal: false,
+        });
+        setTimeout(() => {
+          navigator.resetTo({
+            screen: 'Layouts',
+            animated: false,
+          });
+        });
+      });
+
+    navigator.setTitle({
       title: i18n.gettext('Order Detail').toUpperCase(),
     });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.orderDetail.fetching) {
-      this.setState({
-        fetching: false,
-      });
-    }
   }
 
   renderProduct = (item, index) => {
@@ -157,7 +173,7 @@ class OrderDetail extends Component {
   }
 
   renderBilling() {
-    const { orderDetail } = this.props;
+    const { orderDetail } = this.state;
     return (
       <FormBlock
         title={i18n.gettext('Billing address')}
@@ -205,7 +221,7 @@ class OrderDetail extends Component {
   }
 
   renderShipping() {
-    const { orderDetail } = this.props;
+    const { orderDetail } = this.state;
     return (
       <FormBlock
         title={i18n.gettext('Shipping address')}
@@ -253,7 +269,7 @@ class OrderDetail extends Component {
   }
 
   render() {
-    const { orderDetail } = this.props;
+    const { orderDetail } = this.state;
     if (this.state.fetching) {
       return (
         <View style={styles.container}>
@@ -334,9 +350,8 @@ export default connect(
   state => ({
     cart: state.cart,
     auth: state.auth,
-    orderDetail: state.orderDetail,
   }),
   dispatch => ({
-    ordersActions: bindActionCreators(ordersActions, dispatch),
+    notificationsActions: bindActionCreators(notificationsActions, dispatch),
   })
 )(OrderDetail);
