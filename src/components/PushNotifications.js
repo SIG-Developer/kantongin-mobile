@@ -74,7 +74,7 @@ function Init(cb) {
           setTimeout(() => cb(token), 2000);
         }
 
-        if (auth.pushToken !== token) {
+        if (auth.deviceToken !== token) {
           store.dispatch(authActions.deviceInfo({
             token,
             platform: Platform.OS,

@@ -30,7 +30,10 @@ export function deviceInfo(data) {
       .then((response) => {
         dispatch({
           type: REGISTER_DEVICE_SUCCESS,
-          payload: response.data,
+          payload: {
+            ...data,
+            ...response.data,
+          },
         });
       })
       .catch((error) => {
