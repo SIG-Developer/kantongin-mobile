@@ -671,7 +671,7 @@ class ProductDetail extends Component {
             {i18n.gettext('%1 item(s)', vendor.products_count)}
           </Text>
           <Text style={styles.vendorDescription}>
-            {this.state.vendor.description}
+            {stripTags(this.state.vendor.description)}
           </Text>
           <TouchableOpacity
             style={styles.vendorInfoBtn}

@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import has from 'lodash/has';
 

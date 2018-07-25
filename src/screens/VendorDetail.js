@@ -27,6 +27,7 @@ import theme from '../config/theme';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
+import { stripTags } from '../utils';
 
 import {
   iconsMap,
@@ -230,7 +231,7 @@ export class VendorDetail extends Component {
             count={discussion.search.total_items}
           />
           <Text style={styles.vendorDescription}>
-            {vendor.description}
+            {stripTags(vendor.description)}
           </Text>
         </View>
       </Section>

@@ -246,7 +246,7 @@ class CheckoutStepThree extends Component {
           <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
         }
         <Text style={styles.paymentItemText}>
-          {item.description}
+          {stripTags(item.description)}
         </Text>
       </TouchableOpacity>
     );
