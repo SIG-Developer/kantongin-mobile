@@ -253,7 +253,7 @@ class Layouts extends Component {
       case BLOCK_VENDORS:
         return (
           <VendorBlock
-            name={i18n.gettext('Vendors')}
+            name={block.name}
             items={items}
             onPress={(vendor) => {
               navigator.showModal({
