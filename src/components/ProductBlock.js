@@ -7,7 +7,6 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 import chunk from 'lodash/chunk';
-import uniqueId from 'lodash/uniqueId';
 import ProductListView from './ProductListView';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
 

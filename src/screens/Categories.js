@@ -40,7 +40,13 @@ const styles = EStyleSheet.create({
     paddingLeft: 10,
     paddingTop: 20,
     paddingBottom: 20,
-  }
+  },
+  emptyList: {
+    fontSize: '1rem',
+    textAlign: 'center',
+    color: '$darkColor',
+    marginTop: '1rem',
+  },
 });
 
 class Categories extends Component {
@@ -81,7 +87,7 @@ class Categories extends Component {
     this.isFirstLoad = true;
 
     this.state = {
-      products: [],
+      products: [{}],
       subCategories: [],
       refreshing: false,
     };
@@ -205,11 +211,15 @@ class Categories extends Component {
     const {
       navigator, companyId, vendors
     } = this.props;
-    const productHeader = (
-      <Text style={styles.header}>
-        {companyId ? i18n.gettext('Vendor products') : i18n.gettext('Products')}
-      </Text>
-    );
+    let productHeader = null;
+
+    if (this.state.subCategories.length !== 0 && this.state.products.length !== 0) {
+      productHeader = (
+        <Text style={styles.header}>
+          {companyId ? i18n.gettext('Vendor products') : i18n.gettext('Products')}
+        </Text>
+      );
+    }
 
     let vendorHeader = null;
     if (vendors.items[companyId] && !vendors.fetching) {
@@ -246,13 +256,19 @@ class Categories extends Component {
             });
           }}
         />
-        {this.state.subCategories.length !== 0 && productHeader}
+        {productHeader}
       </View>
     );
   }
 
   renderSpinner = () => (
     <Spinner visible mode="content" />
+  );
+
+  renderEmptyList = () => (
+    <Text style={styles.emptyList}>
+      {i18n.gettext('There are no products in this section')}
+    </Text>
   );
 
   renderList() {
@@ -277,6 +293,7 @@ class Categories extends Component {
         refreshing={this.state.refreshing}
         onEndReachedThreshold={-1}
         onEndReached={() => this.handleLoadMore()}
+        ListEmptyComponent={() => this.renderEmptyList()}
       />
     );
   }
