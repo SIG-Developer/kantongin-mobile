@@ -5,6 +5,8 @@ import {
   Text,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import sortBy from 'lodash/sortBy';
+
 import CategoryListView from './CategoryListView';
 import i18n from '../utils/i18n';
 
@@ -55,7 +57,9 @@ export default class CategoriesBlocks extends Component {
       return null;
     }
 
-    const itemsList = items.map((item, index) => this.renderCategory(item, index));
+    const itemsList = sortBy(items, ['position'])
+      .map((item, index) => this.renderCategory(item, index));
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
