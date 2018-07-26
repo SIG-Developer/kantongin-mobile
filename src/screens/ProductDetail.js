@@ -660,7 +660,7 @@ class ProductDetail extends Component {
     const { vendor } = this.state;
     return (
       <Section
-        title={i18n.gettext('Vendor info')}
+        title={i18n.gettext('Vendor')}
         wrapperStyle={styles.noPadding}
       >
         <View style={styles.vendorWrapper}>
@@ -685,7 +685,7 @@ class ProductDetail extends Component {
             }}
           >
             <Text style={styles.sectionBtnText}>
-              {i18n.gettext('Vendor Info')}
+              {i18n.gettext('Details')}
             </Text>
           </TouchableOpacity>
         </View>
