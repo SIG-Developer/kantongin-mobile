@@ -89,9 +89,6 @@ class Registration extends Component {
 
   componentDidMount() {
     const { navigator } = this.props;
-    navigator.setStyle({
-      navBarRightButtonColor: theme.$navBarRightButtonColor,
-    });
     navigator.setTitle({
       title: i18n.gettext('Registration').toUpperCase(),
     });

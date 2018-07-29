@@ -110,9 +110,6 @@ class Login extends Component {
 
   componentWillMount() {
     const { navigator } = this.props;
-    navigator.setStyle({
-      navBarRightButtonColor: '#FF6008',
-    });
     navigator.setTitle({
       title: i18n.gettext('Login').toUpperCase(),
     });
