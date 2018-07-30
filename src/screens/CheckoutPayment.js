@@ -26,7 +26,7 @@ import PaymentCheckForm from '../components/PaymentCheckForm';
 import PaymentPaypalForm from '../components/PaymentPaypalForm';
 import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
-import { stripTags, formatPrice } from '../utils';
+import { stripTags } from '../utils';
 import i18n from '../utils/i18n';
 
 // theme
@@ -331,6 +331,7 @@ class CheckoutStepThree extends Component {
   };
 
   render() {
+    const { cart } = this.props;
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView>
@@ -346,7 +347,7 @@ class CheckoutStepThree extends Component {
           />
         </KeyboardAwareScrollView>
         <CartFooter
-          totalPrice={formatPrice(this.state.total)}
+          totalPrice={`${cart.subtotal_formatted.symbol}${this.state.total}`}
           btnText={i18n.gettext('Place order').toUpperCase()}
           isBtnDisabled={false}
           onBtnPress={() => this.handlePlaceOrder()}

@@ -8,13 +8,13 @@ import store from '../store';
 import * as authActions from '../actions/authActions';
 
 const sl = DeviceInfo.getDeviceLocale().split('-')[0];
-
 // Config axios defaults.
 const AxiosInstance = axios.create({
   baseURL: config.baseUrl,
   timeout: 15000,
   params: {
     sl,
+    currency: 'EUR',
     items_per_page: 50,
     s_layouts: config.layoutId,
   },

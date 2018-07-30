@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   View,
@@ -9,9 +8,6 @@ import {
   Image,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-
-// Import actions.
-import * as ordersActions from '../actions/ordersActions';
 
 // Components
 import FormBlock from '../components/FormBlock';

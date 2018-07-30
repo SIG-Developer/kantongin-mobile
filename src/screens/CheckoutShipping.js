@@ -22,7 +22,7 @@ import CartFooter from '../components/CartFooter';
 import Icon from '../components/Icon';
 
 import i18n from '../utils/i18n';
-import { stripTags, formatPrice } from '../utils';
+import { stripTags } from '../utils';
 
 // theme
 import theme from '../config/theme';
@@ -188,6 +188,7 @@ class CheckoutShipping extends Component {
   }
 
   renderItem = (shipping, shippingIndex, itemIndex) => {
+    const { cart } = this.props;
     return (
       <TouchableOpacity
         key={uniqueId('item_')}
@@ -206,7 +207,7 @@ class CheckoutShipping extends Component {
           </View>
 
           <Text style={styles.shippingItemRate}>
-            {formatPrice(shipping.rate)}
+            {cart.subtotal_formatted.symbol}{shipping.rate}
           </Text>
         </View>
         <Text style={styles.shippingItemDesc}>
@@ -235,6 +236,7 @@ class CheckoutShipping extends Component {
 
   render() {
     const { items, isNextDisabled, total } = this.state;
+    const { cart } = this.props;
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -249,7 +251,7 @@ class CheckoutShipping extends Component {
           ))}
         </ScrollView>
         <CartFooter
-          totalPrice={formatPrice(total)}
+          totalPrice={`${cart.subtotal_formatted.symbol}${total}`}
           btnText={i18n.gettext('Next').toUpperCase()}
           isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}

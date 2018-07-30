@@ -16,7 +16,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 import { has } from 'lodash';
-import { stripTags, formatPrice } from '../utils';
+import { stripTags } from '../utils';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -507,7 +507,7 @@ class ProductDetail extends Component {
     }
     return (
       <Text style={styles.priceText}>
-        {formatPrice(product.price)}
+        {product.price_formatted.price}
       </Text>
     );
   }

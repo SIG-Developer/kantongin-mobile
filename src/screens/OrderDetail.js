@@ -165,7 +165,7 @@ class OrderDetail extends Component {
             {item.product}
           </Text>
           <Text style={styles.productItemPrice}>
-            {item.amount} x ${item.price}
+            {item.amount} x ${item.price_formatted.price}
           </Text>
         </View>
       </View>
