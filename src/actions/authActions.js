@@ -25,12 +25,8 @@ import * as wishListActions from './wishListActions';
 export function deviceInfo(data) {
   return (dispatch) => {
     dispatch({ type: REGISTER_DEVICE_REQUEST });
-    console.log(data, 'token send');
-    alert('token send ' + data.token);
     return Api.post('/sra_notifications', data)
       .then((response) => {
-        alert('token send ' + data.token);
-        console.log(response, data);
         dispatch({
           type: REGISTER_DEVICE_SUCCESS,
           payload: {
