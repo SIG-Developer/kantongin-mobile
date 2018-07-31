@@ -55,14 +55,14 @@ export default class PaymentPhoneForm extends Component {
   };
 
   componentDidMount() {
-    this.props.onInit(this.refs.formRef);
+    this.props.onInit(this.refs.form);
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Form
-          ref={'formRef'}
+          ref="form"
           type={formFields}
           options={formOptions}
         />

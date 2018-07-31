@@ -81,6 +81,14 @@ const PAYMENT_PAYPAL_EXPRESS = 'addons/paypal/views/orders/components/payments/p
 const PAYMENT_PHONE = 'views/orders/components/payments/phone.tpl';
 
 class CheckoutStepThree extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   static propTypes = {
     cart: PropTypes.shape({
       items: PropTypes.arrayOf(PropTypes.object),
@@ -100,14 +108,6 @@ class CheckoutStepThree extends Component {
       push: PropTypes.func,
     }),
     total: PropTypes.number,
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -140,10 +140,6 @@ class CheckoutStepThree extends Component {
       return null;
     }
 
-    this.setState({
-      fetching: true,
-    });
-
     if (selectedItem.template === PAYMENT_PAYPAL_EXPRESS) {
       return this.placePayPalOrder();
     }
@@ -155,9 +151,15 @@ class CheckoutStepThree extends Component {
       cart, shipping_id, ordersActions, navigator, cartActions
     } = this.props;
     const values = this.paymentFormRef.getValue();
+
     if (!values) {
       return null;
     }
+
+    this.setState({
+      fetching: true,
+    });
+
     const orderInfo = {
       products: {},
       shipping_id,
@@ -252,13 +254,11 @@ class CheckoutStepThree extends Component {
     );
   }
 
-  renderHeader = () => {
-    return (
-      <View style={styles.stepsWrapper}>
-        <CheckoutSteps step={3} />
-      </View>
-    );
-  }
+  renderHeader = () => (
+    <View style={styles.stepsWrapper}>
+      <CheckoutSteps step={3} />
+    </View>
+  );
 
   renderFooter() {
     const { selectedItem } = this.state;
@@ -266,7 +266,7 @@ class CheckoutStepThree extends Component {
       return null;
     }
     let form = null;
-    // FIXME: HARDCOD
+    // FIXME: HARDCODE
     switch (selectedItem.template) {
       case PAYMENT_CREDIT_CARD:
         form = (

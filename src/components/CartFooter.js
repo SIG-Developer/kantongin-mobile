@@ -40,7 +40,9 @@ export default class extends PureComponent {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.cartInfoTitle}>{i18n.gettext('Total').toUpperCase()}</Text>
+          <Text style={styles.cartInfoTitle}>
+            {i18n.gettext('Total').toUpperCase()}
+          </Text>
           <Text style={styles.cartInfoTotal}>
             {this.props.totalPrice}
           </Text>
