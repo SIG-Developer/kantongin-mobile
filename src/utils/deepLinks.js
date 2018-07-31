@@ -1,81 +1,91 @@
 import { Linking, Alert } from 'react-native';
+
 import i18n from './i18n';
 import config from '../config';
 import store from '../store';
+import { parseQueryString } from './index';
 
-export const registerDrawerDeepLinks = (e, navigator) => {
+export const registerDrawerDeepLinks = (event, navigator) => {
   const { auth } = store.getState();
 
-  if (e.type === 'DeepLink') {
-    const parts = e.link.split('/');
-    const { payload } = e;
-    if (parts[0] === 'home') {
-      navigator.resetTo({
-        screen: 'Layouts',
-        animated: false,
-      });
-    } else if (parts[0] === 'cart' && parts[1] === 'content') {
-      navigator.resetTo({
-        screen: 'Cart',
-        animated: false,
-      });
-    } else if (parts[0] === 'profile' && auth.logged) {
+  if (event.type !== 'DeepLink') {
+    return;
+  }
+
+  const { payload, link } = event;
+  const params = parseQueryString(link);
+
+  if (params.dispatch === 'pages.view' && params.page_id) {
+    navigator.push({
+      screen: 'Page',
+      backButtonTitle: '',
+      passProps: {
+        uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${params.page_id}&s_layout=${config.layoutId}`,
+      },
+      ...payload,
+    });
+  } else if (params.dispatch === 'cart.content') {
+    navigator.resetTo({
+      screen: 'Cart',
+      animated: false,
+    });
+  } else if (params.dispatch === 'products.view' && params.product_id) {
+    navigator.push({
+      screen: 'ProductDetail',
+      backButtonTitle: '',
+      passProps: {
+        pid: params.product_id,
+        payload,
+      }
+    });
+  } else if (params.dispatch === 'categories.view' && params.category_id) {
+    navigator.push({
+      screen: 'Categories',
+      backButtonTitle: '',
+      passProps: {
+        cid: params.category_id,
+      }
+    });
+  } else if (link === 'home/') {
+    navigator.resetTo({
+      screen: 'Layouts',
+      animated: false,
+    });
+  } else if (link.startsWith('http://') || link.startsWith('https://')) {
+    Linking.canOpenURL(e.link).then((supported) => {
+      if (!supported) {
+        return Alert.alert(
+          i18n.gettext('Can\'t handle url'),
+          ''
+        );
+      }
+      return Linking.openURL(e.link);
+    });
+  }
+
+  if (auth.logged) {
+    if (params.dispatch === 'profiles.update') {
       navigator.push({
         screen: 'Profile',
         backButtonTitle: '',
         animated: false,
       });
-    } else if (parts[0] === 'page') {
-      navigator.push({
-        screen: 'Page',
-        backButtonTitle: '',
-        passProps: {
-          uri: `${config.siteUrl}index.php?dispatch=pages.view&page_id=${parts[1]}&s_layout=${config.layoutId}`,
-        },
-        ...payload,
-      });
-    } else if (parts[0] === 'orders' && parts[1] && auth.logged) {
+    } else if (params.dispatch === 'orders.details' && params.order_id) {
       navigator.push({
         screen: 'OrderDetail',
         passProps: {
-          orderId: parts[1],
+          orderId: params.order_id,
         },
         animated: false,
       });
-    } else if (parts[0] === 'orders' && auth.logged) {
+    } else if (params.dispatch === 'orders.search') {
       navigator.resetTo({
         screen: 'Orders',
         animated: false,
       });
-    } else if (parts[0] === 'product') {
-      navigator.push({
-        screen: 'ProductDetail',
-        backButtonTitle: '',
-        passProps: {
-          pid: parts[1],
-          payload,
-        }
-      });
-    } else if (parts[0] === 'category') {
-      navigator.push({
-        screen: 'Categories',
-        backButtonTitle: '',
-        passProps: {
-          cid: parts[1],
-        }
-      });
-    } else if (parts[0] === 'http:') {
-      Linking.canOpenURL(e.link).then((supported) => {
-        if (!supported) {
-          return Alert.alert(
-            i18n.gettext('Can\'t handle url'),
-            ''
-          );
-        }
-        return Linking.openURL(e.link);
-      });
     }
   }
+
 };
 
 export const unregisterDrawerDeepLinks = () => {};

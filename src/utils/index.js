@@ -29,8 +29,6 @@ export const lang = DeviceInfo.getDeviceLocale().split('-')[0];
 // Strip tags
 export const stripTags = str => str.replace(/<br[^>]*>/gi, '\n').replace(/(<([^>]+)>)/ig, '').trimLeft();
 
-export const formatPrice = price => `${parseFloat(price).toFixed(2)}`;
-
 export const toArray = obj => Object.keys(obj).map(k => obj[k]);
 
 export function getCountries() {
@@ -66,4 +64,20 @@ export function objectToQuerystring(obj) {
     val = encodeURIComponent(obj[key]);
     return [str, delimiter, key, '=', val].join('');
   }, '');
+}
+
+export function parseQueryString(query) {
+  const obj = {};
+  const qPos = query.indexOf("?");
+  const tokens = query.substr(qPos + 1).split('&');
+
+  i = tokens.length - 1;
+
+  if (qPos !== -1 || query.indexOf("=") !== -1) {
+    for (; i >= 0; i--) {
+      const s = tokens[i].split('=');
+      obj[unescape(s[0])] = s.hasOwnProperty(1) ? unescape(s[1]) : null;
+    };
+  }
+  return obj;
 }

@@ -186,7 +186,7 @@ class Drawer extends Component {
 
   handleOpenPage = (page) => {
     this.props.navigator.handleDeepLink({
-      link: `page/${page.page_id}`,
+      link: `dispatch=pages.view&page_id=${page.page_id}`,
       payload: {
         title: page.page,
       },
@@ -414,7 +414,7 @@ class Drawer extends Component {
                 style={styles.itemBtn}
                 onPress={() => {
                   navigator.handleDeepLink({
-                    link: 'profile/',
+                    link: 'dispatch=profiles.update',
                     payload: {},
                   });
                   navigator.toggleDrawer({
@@ -436,7 +436,7 @@ class Drawer extends Component {
                 style={styles.itemBtn}
                 onPress={() => {
                   navigator.handleDeepLink({
-                    link: 'orders/',
+                    link: 'dispatch=orders.search',
                     payload: {},
                   });
                   navigator.toggleDrawer({

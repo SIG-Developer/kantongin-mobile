@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
-import qs from 'query-string';
 import { get } from 'lodash';
 
 const styles = EStyleSheet.create({
@@ -44,21 +43,11 @@ export default class BannerBlocks extends Component {
 
   renderImage = (item, index) => {
     const imageUri = get(item, 'main_pair.icon.http_image_path');
-    const banner = { ...item };
-    const parsedUrl = qs.parse(item.url);
-
-    if ('product_id' in parsedUrl) {
-      banner.url = `product/${parsedUrl.product_id}`;
-    } else if ('page_id' in parsedUrl) {
-      banner.url = `page/${parsedUrl.page_id}`;
-    } else if ('category_id' in parsedUrl) {
-      banner.url = `category/${parsedUrl.category_id}`;
-    }
 
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => this.props.onPress(banner)}
+        onPress={() => this.props.onPress(item)}
       >
         <Image source={{ uri: imageUri }} style={styles.img} />
       </TouchableOpacity>
