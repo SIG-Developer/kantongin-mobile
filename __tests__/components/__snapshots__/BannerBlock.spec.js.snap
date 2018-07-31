@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders <BannerBlock /> component correctly 1`] = `
-<View
-  style={undefined}
->
+<View>
   <Text
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
-    style={undefined}
   >
     Banner block
   </Text>
@@ -62,7 +59,6 @@ exports[`renders <BannerBlock /> component correctly 1`] = `
       showsHorizontalScrollIndicator={false}
       showsPagination={true}
       showsVerticalScrollIndicator={false}
-      style={undefined}
     >
       <View>
         <View
@@ -79,16 +75,8 @@ exports[`renders <BannerBlock /> component correctly 1`] = `
           }
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
             accessible={true}
-            collapsable={undefined}
-            hasTVPreferredFocus={undefined}
-            hitSlop={undefined}
             isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
             onResponderGrant={[Function]}
             onResponderMove={[Function]}
             onResponderRelease={[Function]}
@@ -100,8 +88,6 @@ exports[`renders <BannerBlock /> component correctly 1`] = `
                 "opacity": 1,
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Image
               source={
@@ -109,7 +95,6 @@ exports[`renders <BannerBlock /> component correctly 1`] = `
                   "uri": "",
                 }
               }
-              style={undefined}
             />
           </View>
         </View>

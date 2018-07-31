@@ -1,15 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders <CheckoutSteps /> component correctly 1`] = `
-<View
-  style={undefined}
->
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
+<View>
+  <View>
+    <View>
       <Text
         accessible={true}
         allowFontScaling={false}
@@ -26,37 +20,25 @@ exports[`renders <CheckoutSteps /> component correctly 1`] = `
               "fontStyle": "normal",
               "fontWeight": "normal",
             },
+            Object {},
           ]
         }
       >
         
       </Text>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      >
+  <View>
+    <View>
+      <View>
         <Text
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={undefined}
         >
           2
         </Text>
@@ -69,23 +51,13 @@ exports[`renders <CheckoutSteps /> component correctly 1`] = `
         Delivery
       </Text>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
+  <View>
+    <View>
       <View
         style={
           Array [
@@ -98,29 +70,18 @@ exports[`renders <CheckoutSteps /> component correctly 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={undefined}
         >
           3
         </Text>
       </View>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
+  <View>
+    <View>
       <View
         style={
           Array [
@@ -133,36 +94,23 @@ exports[`renders <CheckoutSteps /> component correctly 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={undefined}
         >
           4
         </Text>
       </View>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
 </View>
 `;
 
 exports[`renders <CheckoutSteps /> with props 1`] = `
-<View
-  style={undefined}
->
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
+<View>
+  <View>
+    <View>
       <Text
         accessible={true}
         allowFontScaling={false}
@@ -179,29 +127,20 @@ exports[`renders <CheckoutSteps /> with props 1`] = `
               "fontStyle": "normal",
               "fontWeight": "normal",
             },
+            Object {},
           ]
         }
       >
         
       </Text>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
+  <View>
+    <View>
       <Text
         accessible={true}
         allowFontScaling={false}
@@ -218,37 +157,25 @@ exports[`renders <CheckoutSteps /> with props 1`] = `
               "fontStyle": "normal",
               "fontWeight": "normal",
             },
+            Object {},
           ]
         }
       >
         
       </Text>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      >
+  <View>
+    <View>
+      <View>
         <Text
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={undefined}
         >
           3
         </Text>
@@ -261,23 +188,13 @@ exports[`renders <CheckoutSteps /> with props 1`] = `
         Shipping
       </Text>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
-  <View
-    style={undefined}
-  >
-    <View
-      style={undefined}
-    >
+  <View>
+    <View>
       <View
         style={
           Array [
@@ -290,21 +207,14 @@ exports[`renders <CheckoutSteps /> with props 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={undefined}
         >
           4
         </Text>
       </View>
     </View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      />
-      <View
-        style={undefined}
-      />
+    <View>
+      <View />
+      <View />
     </View>
   </View>
 </View>

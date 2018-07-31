@@ -13,7 +13,6 @@ exports[`renders <FormBlock /> component correctly 1`] = `
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
-    style={undefined}
   >
     TEST
   </Text>

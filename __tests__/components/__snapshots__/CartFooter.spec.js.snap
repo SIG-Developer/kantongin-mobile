@@ -1,15 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CartFooter /> renders <CartFooter /> component correctly 1`] = `
-<View
-  style={undefined}
->
+<View>
   <View>
     <Text
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      style={undefined}
     >
       TOTAL
     </Text>
@@ -17,22 +14,13 @@ exports[`<CartFooter /> renders <CartFooter /> component correctly 1`] = `
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      style={undefined}
     >
       100%
     </Text>
   </View>
   <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
     accessible={true}
-    collapsable={undefined}
-    hasTVPreferredFocus={undefined}
-    hitSlop={undefined}
     isTVSelectable={true}
-    nativeID={undefined}
-    onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -44,8 +32,6 @@ exports[`<CartFooter /> renders <CartFooter /> component correctly 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
-    tvParallaxProperties={undefined}
   >
     <Text
       accessible={true}
@@ -61,7 +47,6 @@ exports[`<CartFooter /> renders <CartFooter /> component correctly 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        style={undefined}
       >
         test
       </Text>

@@ -1,12 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders <WishList /> component correctly 1`] = `
-<View
-  style={undefined}
->
-  <View
-    style={undefined}
-  >
+<View>
+  <View>
     <RCTScrollView
       ListEmptyComponent={[Function]}
       data={
@@ -28,7 +24,6 @@ exports[`renders <WishList /> component correctly 1`] = `
       getItemCount={[Function]}
       horizontal={false}
       initialNumToRender={10}
-      invertStickyHeaders={undefined}
       keyExtractor={[Function]}
       maxToRenderPerBatch={10}
       numColumns={1}
@@ -43,7 +38,6 @@ exports[`renders <WishList /> component correctly 1`] = `
       refreshControl={
         <RefreshControlMock
           onRefresh={[Function]}
-          progressViewOffset={undefined}
           refreshing={false}
         />
       }
@@ -61,9 +55,7 @@ exports[`renders <WishList /> component correctly 1`] = `
           onLayout={[Function]}
           style={null}
         >
-          <View
-            style={undefined}
-          >
+          <View>
             <View
               style={
                 Array [
@@ -104,16 +96,8 @@ exports[`renders <WishList /> component correctly 1`] = `
                 }
               >
                 <View
-                  accessibilityComponentType={undefined}
-                  accessibilityLabel={undefined}
-                  accessibilityTraits={undefined}
                   accessible={true}
-                  collapsable={undefined}
-                  hasTVPreferredFocus={undefined}
-                  hitSlop={undefined}
                   isTVSelectable={true}
-                  nativeID={undefined}
-                  onLayout={undefined}
                   onResponderGrant={[Function]}
                   onResponderMove={[Function]}
                   onResponderRelease={[Function]}
@@ -125,8 +109,6 @@ exports[`renders <WishList /> component correctly 1`] = `
                       "opacity": 1,
                     }
                   }
-                  testID={undefined}
-                  tvParallaxProperties={undefined}
                 >
                   <Image
                     source={
@@ -134,23 +116,18 @@ exports[`renders <WishList /> component correctly 1`] = `
                         "uri": "http://image.path",
                       }
                     }
-                    style={undefined}
                   />
-                  <View
-                    style={undefined}
-                  >
+                  <View>
                     <Text
                       accessible={true}
                       allowFontScaling={true}
                       ellipsizeMode="tail"
                       numberOfLines={1}
-                      style={undefined}
                     />
                     <Text
                       accessible={true}
                       allowFontScaling={true}
                       ellipsizeMode="tail"
-                      style={undefined}
                     >
                        x 
                       20$

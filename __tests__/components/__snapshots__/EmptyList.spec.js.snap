@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders <EmptyList /> component correctly 1`] = `
-<View
-  style={undefined}
->
+<View>
   <Text
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
-    style={undefined}
   >
     List is empty.
   </Text>
