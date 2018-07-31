@@ -1,139 +1,141 @@
+import i18n from '../utils/i18n';
+
 export default [
     {
         "code": "AF",
         "code_alpha3": "AFG",
         "code_numeric": "004",
-        "name": "Afghanistan",
+        "name": i18n.gettext("Afghanistan"),
         "states": []
     },
     {
         "code": "AX",
         "code_alpha3": "ALA",
         "code_numeric": "248",
-        "name": "Aland Islands",
+        "name": i18n.gettext("Aland Islands"),
         "states": []
     },
     {
         "code": "AL",
         "code_alpha3": "ALB",
         "code_numeric": "008",
-        "name": "Albania",
+        "name": i18n.gettext("Albania"),
         "states": []
     },
     {
         "code": "DZ",
         "code_alpha3": "DZA",
         "code_numeric": "012",
-        "name": "Algeria",
+        "name": i18n.gettext("Algeria"),
         "states": []
     },
     {
         "code": "AS",
         "code_alpha3": "ASM",
         "code_numeric": "016",
-        "name": "American Samoa",
+        "name": i18n.gettext("American Samoa"),
         "states": []
     },
     {
         "code": "AD",
         "code_alpha3": "AND",
         "code_numeric": "020",
-        "name": "Andorra",
+        "name": i18n.gettext("Andorra"),
         "states": []
     },
     {
         "code": "AO",
         "code_alpha3": "AGO",
         "code_numeric": "024",
-        "name": "Angola",
+        "name": i18n.gettext("Angola"),
         "states": []
     },
     {
         "code": "AI",
         "code_alpha3": "AIA",
         "code_numeric": "660",
-        "name": "Anguilla",
+        "name": i18n.gettext("Anguilla"),
         "states": []
     },
     {
         "code": "AQ",
         "code_alpha3": "ATA",
         "code_numeric": "010",
-        "name": "Antarctica",
+        "name": i18n.gettext("Antarctica"),
         "states": []
     },
     {
         "code": "AG",
         "code_alpha3": "ATG",
         "code_numeric": "028",
-        "name": "Antigua and Barbuda",
+        "name": i18n.gettext("Antigua and Barbuda"),
         "states": []
     },
     {
         "code": "AR",
         "code_alpha3": "ARG",
         "code_numeric": "032",
-        "name": "Argentina",
+        "name": i18n.gettext("Argentina"),
         "states": []
     },
     {
         "code": "AM",
         "code_alpha3": "ARM",
         "code_numeric": "051",
-        "name": "Armenia",
+        "name": i18n.gettext("Armenia"),
         "states": []
     },
     {
         "code": "AW",
         "code_alpha3": "ABW",
         "code_numeric": "533",
-        "name": "Aruba",
+        "name": i18n.gettext("Aruba"),
         "states": []
     },
     {
         "code": "AP",
         "code_alpha3": "",
         "code_numeric": "",
-        "name": "Asia-Pacific",
+        "name": i18n.gettext("Asia-Pacific"),
         "states": []
     },
     {
         "code": "AU",
         "code_alpha3": "AUS",
         "code_numeric": "036",
-        "name": "Australia",
+        "name": i18n.gettext("Australia"),
         "states": [
             {
                 "code": "ACT",
-                "name": "Australian Capital Territory"
+                "name": i18n.gettext("Australian Capital Territory")
             },
             {
                 "code": "NSW",
-                "name": "New South Wales"
+                "name": i18n.gettext("New South Wales")
             },
             {
                 "code": "NT",
-                "name": "Northern Territory"
+                "name": i18n.gettext("Northern Territory")
             },
             {
                 "code": "QLD",
-                "name": "Queensland"
+                "name": i18n.gettext("Queensland")
             },
             {
                 "code": "SA",
-                "name": "South Australia"
+                "name": i18n.gettext("South Australia")
             },
             {
                 "code": "TAS",
-                "name": "Tasmania"
+                "name": i18n.gettext("Tasmania")
             },
             {
                 "code": "VIC",
-                "name": "Victoria"
+                "name": i18n.gettext("Victoria")
             },
             {
                 "code": "WA",
-                "name": "Western Australia"
+                "name": i18n.gettext("Western Australia")
             }
         ]
     },
@@ -141,151 +143,151 @@ export default [
         "code": "AT",
         "code_alpha3": "AUT",
         "code_numeric": "040",
-        "name": "Austria",
+        "name": i18n.gettext("Austria"),
         "states": []
     },
     {
         "code": "AZ",
         "code_alpha3": "AZE",
         "code_numeric": "031",
-        "name": "Azerbaijan",
+        "name": i18n.gettext("Azerbaijan"),
         "states": []
     },
     {
         "code": "BS",
         "code_alpha3": "BHS",
         "code_numeric": "044",
-        "name": "Bahamas",
+        "name": i18n.gettext("Bahamas"),
         "states": []
     },
     {
         "code": "BH",
         "code_alpha3": "BHR",
         "code_numeric": "048",
-        "name": "Bahrain",
+        "name": i18n.gettext("Bahrain"),
         "states": []
     },
     {
         "code": "BD",
         "code_alpha3": "BGD",
         "code_numeric": "050",
-        "name": "Bangladesh",
+        "name": i18n.gettext("Bangladesh"),
         "states": []
     },
     {
         "code": "BB",
         "code_alpha3": "BRB",
         "code_numeric": "052",
-        "name": "Barbados",
+        "name": i18n.gettext("Barbados"),
         "states": []
     },
     {
         "code": "BY",
         "code_alpha3": "BLR",
         "code_numeric": "112",
-        "name": "Belarus",
+        "name": i18n.gettext("Belarus"),
         "states": []
     },
     {
         "code": "BE",
         "code_alpha3": "BEL",
         "code_numeric": "056",
-        "name": "Belgium",
+        "name": i18n.gettext("Belgium"),
         "states": []
     },
     {
         "code": "BZ",
         "code_alpha3": "BLZ",
         "code_numeric": "084",
-        "name": "Belize",
+        "name": i18n.gettext("Belize"),
         "states": []
     },
     {
         "code": "BJ",
         "code_alpha3": "BEN",
         "code_numeric": "204",
-        "name": "Benin",
+        "name": i18n.gettext("Benin"),
         "states": []
     },
     {
         "code": "BM",
         "code_alpha3": "BMU",
         "code_numeric": "060",
-        "name": "Bermuda",
+        "name": i18n.gettext("Bermuda"),
         "states": []
     },
     {
         "code": "BT",
         "code_alpha3": "BTN",
         "code_numeric": "064",
-        "name": "Bhutan",
+        "name": i18n.gettext("Bhutan"),
         "states": []
     },
     {
         "code": "BO",
         "code_alpha3": "BOL",
         "code_numeric": "068",
-        "name": "Bolivia",
+        "name": i18n.gettext("Bolivia"),
         "states": []
     },
     {
         "code": "BA",
         "code_alpha3": "BIH",
         "code_numeric": "070",
-        "name": "Bosnia and Herzegovina",
+        "name": i18n.gettext("Bosnia and Herzegovina"),
         "states": []
     },
     {
         "code": "BW",
         "code_alpha3": "BWA",
         "code_numeric": "072",
-        "name": "Botswana",
+        "name": i18n.gettext("Botswana"),
         "states": []
     },
     {
         "code": "BV",
         "code_alpha3": "BVT",
         "code_numeric": "074",
-        "name": "Bouvet Island",
+        "name": i18n.gettext("Bouvet Island"),
         "states": []
     },
     {
         "code": "BR",
         "code_alpha3": "BRA",
         "code_numeric": "076",
-        "name": "Brazil",
+        "name": i18n.gettext("Brazil"),
         "states": []
     },
     {
         "code": "IO",
         "code_alpha3": "IOT",
         "code_numeric": "086",
-        "name": "British Indian Ocean Territory",
+        "name": i18n.gettext("British Indian Ocean Territory"),
         "states": []
     },
     {
         "code": "VG",
         "code_alpha3": "VGB",
         "code_numeric": "092",
-        "name": "British Virgin Islands",
+        "name": i18n.gettext("British Virgin Islands"),
         "states": []
     },
     {
         "code": "BN",
         "code_alpha3": "BRN",
         "code_numeric": "096",
-        "name": "Brunei Darussalam",
+        "name": i18n.gettext("Brunei Darussalam"),
         "states": []
     },
     {
         "code": "BG",
         "code_alpha3": "BGR",
         "code_numeric": "100",
-        "name": "Bulgaria",
+        "name": i18n.gettext("Bulgaria"),
         "states": [
             {
                 "code": "SF",
-                "name": "Sofia"
+                "name": i18n.gettext("Sofia")
             }
         ]
     },
@@ -293,87 +295,87 @@ export default [
         "code": "BF",
         "code_alpha3": "BFA",
         "code_numeric": "854",
-        "name": "Burkina Faso",
+        "name": i18n.gettext("Burkina Faso"),
         "states": []
     },
     {
         "code": "BI",
         "code_alpha3": "BDI",
         "code_numeric": "108",
-        "name": "Burundi",
+        "name": i18n.gettext("Burundi"),
         "states": []
     },
     {
         "code": "KH",
         "code_alpha3": "KHM",
         "code_numeric": "116",
-        "name": "Cambodia",
+        "name": i18n.gettext("Cambodia"),
         "states": []
     },
     {
         "code": "CM",
         "code_alpha3": "CMR",
         "code_numeric": "120",
-        "name": "Cameroon",
+        "name": i18n.gettext("Cameroon"),
         "states": []
     },
     {
         "code": "CA",
         "code_alpha3": "CAN",
         "code_numeric": "124",
-        "name": "Canada",
+        "name": i18n.gettext("Canada"),
         "states": [
             {
                 "code": "AB",
-                "name": "Alberta"
+                "name": i18n.gettext("Alberta")
             },
             {
                 "code": "BC",
-                "name": "British Columbia"
+                "name": i18n.gettext("British Columbia")
             },
             {
                 "code": "MB",
-                "name": "Manitoba"
+                "name": i18n.gettext("Manitoba")
             },
             {
                 "code": "NB",
-                "name": "New Brunswick"
+                "name": i18n.gettext("New Brunswick")
             },
             {
                 "code": "NL",
-                "name": "Newfoundland and Labrador"
+                "name": i18n.gettext("Newfoundland and Labrador")
             },
             {
                 "code": "NT",
-                "name": "Northwest Territories"
+                "name": i18n.gettext("Northwest Territories")
             },
             {
                 "code": "NS",
-                "name": "Nova Scotia"
+                "name": i18n.gettext("Nova Scotia")
             },
             {
                 "code": "NU",
-                "name": "Nunavut"
+                "name": i18n.gettext("Nunavut")
             },
             {
                 "code": "ON",
-                "name": "Ontario"
+                "name": i18n.gettext("Ontario")
             },
             {
                 "code": "PE",
-                "name": "Prince Edward Island"
+                "name": i18n.gettext("Prince Edward Island")
             },
             {
                 "code": "QC",
-                "name": "Quebec"
+                "name": i18n.gettext("Quebec")
             },
             {
                 "code": "SK",
-                "name": "Saskatchewan"
+                "name": i18n.gettext("Saskatchewan")
             },
             {
                 "code": "YT",
-                "name": "Yukon"
+                "name": i18n.gettext("Yukon")
             }
         ]
     },
@@ -381,643 +383,643 @@ export default [
         "code": "CV",
         "code_alpha3": "CPV",
         "code_numeric": "132",
-        "name": "Cape Verde",
+        "name": i18n.gettext("Cape Verde"),
         "states": []
     },
     {
         "code": "KY",
         "code_alpha3": "CYM",
         "code_numeric": "136",
-        "name": "Cayman Islands",
+        "name": i18n.gettext("Cayman Islands"),
         "states": []
     },
     {
         "code": "CF",
         "code_alpha3": "CAF",
         "code_numeric": "140",
-        "name": "Central African Republic",
+        "name": i18n.gettext("Central African Republic"),
         "states": []
     },
     {
         "code": "TD",
         "code_alpha3": "TCD",
         "code_numeric": "148",
-        "name": "Chad",
+        "name": i18n.gettext("Chad"),
         "states": []
     },
     {
         "code": "CL",
         "code_alpha3": "CHL",
         "code_numeric": "152",
-        "name": "Chile",
+        "name": i18n.gettext("Chile"),
         "states": []
     },
     {
         "code": "CN",
         "code_alpha3": "CHN",
         "code_numeric": "156",
-        "name": "China",
+        "name": i18n.gettext("China"),
         "states": []
     },
     {
         "code": "CX",
         "code_alpha3": "CXR",
         "code_numeric": "162",
-        "name": "Christmas Island",
+        "name": i18n.gettext("Christmas Island"),
         "states": []
     },
     {
         "code": "CC",
         "code_alpha3": "CCK",
         "code_numeric": "166",
-        "name": "Cocos (Keeling) Islands",
+        "name": i18n.gettext("Cocos (Keeling) Islands"),
         "states": []
     },
     {
         "code": "CO",
         "code_alpha3": "COL",
         "code_numeric": "170",
-        "name": "Colombia",
+        "name": i18n.gettext("Colombia"),
         "states": []
     },
     {
         "code": "KM",
         "code_alpha3": "COM",
         "code_numeric": "174",
-        "name": "Comoros",
+        "name": i18n.gettext("Comoros"),
         "states": []
     },
     {
         "code": "CG",
         "code_alpha3": "COG",
         "code_numeric": "178",
-        "name": "Congo",
+        "name": i18n.gettext("Congo"),
         "states": []
     },
     {
         "code": "CK",
         "code_alpha3": "COK",
         "code_numeric": "184",
-        "name": "Cook Islands",
+        "name": i18n.gettext("Cook Islands"),
         "states": []
     },
     {
         "code": "CR",
         "code_alpha3": "CRI",
         "code_numeric": "188",
-        "name": "Costa Rica",
+        "name": i18n.gettext("Costa Rica"),
         "states": []
     },
     {
         "code": "CI",
         "code_alpha3": "CIV",
         "code_numeric": "384",
-        "name": "Cote D'ivoire",
+        "name": i18n.gettext("Cote D'ivoire"),
         "states": []
     },
     {
         "code": "HR",
         "code_alpha3": "HRV",
         "code_numeric": "191",
-        "name": "Croatia",
+        "name": i18n.gettext("Croatia"),
         "states": []
     },
     {
         "code": "CU",
         "code_alpha3": "CUB",
         "code_numeric": "192",
-        "name": "Cuba",
+        "name": i18n.gettext("Cuba"),
         "states": []
     },
     {
         "code": "CW",
         "code_alpha3": "CUW",
         "code_numeric": "531",
-        "name": "Cura\u00e7ao",
+        "name": i18n.gettext("Cura\u00e7ao"),
         "states": []
     },
     {
         "code": "CY",
         "code_alpha3": "CYP",
         "code_numeric": "196",
-        "name": "Cyprus",
+        "name": i18n.gettext("Cyprus"),
         "states": []
     },
     {
         "code": "CZ",
         "code_alpha3": "CZE",
         "code_numeric": "203",
-        "name": "Czech Republic",
+        "name": i18n.gettext("Czech Republic"),
         "states": []
     },
     {
         "code": "DK",
         "code_alpha3": "DNK",
         "code_numeric": "208",
-        "name": "Denmark",
+        "name": i18n.gettext("Denmark"),
         "states": []
     },
     {
         "code": "DJ",
         "code_alpha3": "DJI",
         "code_numeric": "262",
-        "name": "Djibouti",
+        "name": i18n.gettext("Djibouti"),
         "states": []
     },
     {
         "code": "DM",
         "code_alpha3": "DMA",
         "code_numeric": "212",
-        "name": "Dominica",
+        "name": i18n.gettext("Dominica"),
         "states": []
     },
     {
         "code": "DO",
         "code_alpha3": "DOM",
         "code_numeric": "214",
-        "name": "Dominican Republic",
+        "name": i18n.gettext("Dominican Republic"),
         "states": []
     },
     {
         "code": "TL",
         "code_alpha3": "TLS",
         "code_numeric": "626",
-        "name": "East Timor",
+        "name": i18n.gettext("East Timor"),
         "states": []
     },
     {
         "code": "EC",
         "code_alpha3": "ECU",
         "code_numeric": "218",
-        "name": "Ecuador",
+        "name": i18n.gettext("Ecuador"),
         "states": []
     },
     {
         "code": "EG",
         "code_alpha3": "EGY",
         "code_numeric": "818",
-        "name": "Egypt",
+        "name": i18n.gettext("Egypt"),
         "states": []
     },
     {
         "code": "SV",
         "code_alpha3": "SLV",
         "code_numeric": "222",
-        "name": "El Salvador",
+        "name": i18n.gettext("El Salvador"),
         "states": []
     },
     {
         "code": "GQ",
         "code_alpha3": "GNQ",
         "code_numeric": "226",
-        "name": "Equatorial Guinea",
+        "name": i18n.gettext("Equatorial Guinea"),
         "states": []
     },
     {
         "code": "ER",
         "code_alpha3": "ERI",
         "code_numeric": "232",
-        "name": "Eritrea",
+        "name": i18n.gettext("Eritrea"),
         "states": []
     },
     {
         "code": "EE",
         "code_alpha3": "EST",
         "code_numeric": "233",
-        "name": "Estonia",
+        "name": i18n.gettext("Estonia"),
         "states": []
     },
     {
         "code": "ET",
         "code_alpha3": "ETH",
         "code_numeric": "210",
-        "name": "Ethiopia",
+        "name": i18n.gettext("Ethiopia"),
         "states": []
     },
     {
         "code": "EU",
         "code_alpha3": "",
         "code_numeric": "",
-        "name": "Europe",
+        "name": i18n.gettext("Europe"),
         "states": []
     },
     {
         "code": "FK",
         "code_alpha3": "FLK",
         "code_numeric": "238",
-        "name": "Falkland Islands (Malvinas)",
+        "name": i18n.gettext("Falkland Islands (Malvinas)"),
         "states": []
     },
     {
         "code": "FO",
         "code_alpha3": "FRO",
         "code_numeric": "234",
-        "name": "Faroe Islands",
+        "name": i18n.gettext("Faroe Islands"),
         "states": []
     },
     {
         "code": "FJ",
         "code_alpha3": "FJI",
         "code_numeric": "242",
-        "name": "Fiji",
+        "name": i18n.gettext("Fiji"),
         "states": []
     },
     {
         "code": "FI",
         "code_alpha3": "FIN",
         "code_numeric": "246",
-        "name": "Finland",
+        "name": i18n.gettext("Finland"),
         "states": []
     },
     {
         "code": "FR",
         "code_alpha3": "FRA",
         "code_numeric": "250",
-        "name": "France",
+        "name": i18n.gettext("France"),
         "states": [
             {
                 "code": "01",
-                "name": "Ain"
+                "name": i18n.gettext("Ain")
             },
             {
                 "code": "02",
-                "name": "Aisne"
+                "name": i18n.gettext("Aisne")
             },
             {
                 "code": "03",
-                "name": "Allier"
+                "name": i18n.gettext("Allier")
             },
             {
                 "code": "04",
-                "name": "Alpes-de-Haute-Provence"
+                "name": i18n.gettext("Alpes-de-Haute-Provence")
             },
             {
                 "code": "06",
-                "name": "Alpes-Maritimes"
+                "name": i18n.gettext("Alpes-Maritimes")
             },
             {
                 "code": "07",
-                "name": "Ard\u00e8che"
+                "name": i18n.gettext("Ard\u00e8che")
             },
             {
                 "code": "08",
-                "name": "Ardennes"
+                "name": i18n.gettext("Ardennes")
             },
             {
                 "code": "09",
-                "name": "Ari\u00e8ge"
+                "name": i18n.gettext("Ari\u00e8ge")
             },
             {
                 "code": "10",
-                "name": "Aube"
+                "name": i18n.gettext("Aube")
             },
             {
                 "code": "11",
-                "name": "Aude"
+                "name": i18n.gettext("Aude")
             },
             {
                 "code": "12",
-                "name": "Aveyron"
+                "name": i18n.gettext("Aveyron")
             },
             {
                 "code": "67",
-                "name": "Bas-Rhin"
+                "name": i18n.gettext("Bas-Rhin")
             },
             {
                 "code": "13",
-                "name": "Bouches-du-Rh\u00f4ne"
+                "name": i18n.gettext("Bouches-du-Rh\u00f4ne")
             },
             {
                 "code": "14",
-                "name": "Calvados"
+                "name": i18n.gettext("Calvados")
             },
             {
                 "code": "15",
-                "name": "Cantal"
+                "name": i18n.gettext("Cantal")
             },
             {
                 "code": "16",
-                "name": "Charente"
+                "name": i18n.gettext("Charente")
             },
             {
                 "code": "17",
-                "name": "Charente-Maritime"
+                "name": i18n.gettext("Charente-Maritime")
             },
             {
                 "code": "18",
-                "name": "Cher"
+                "name": i18n.gettext("Cher")
             },
             {
                 "code": "19",
-                "name": "Corr\u00e8ze"
+                "name": i18n.gettext("Corr\u00e8ze")
             },
             {
                 "code": "2A",
-                "name": "Corse-du-Sud"
+                "name": i18n.gettext("Corse-du-Sud")
             },
             {
                 "code": "21",
-                "name": "C\u00f4te-d'Or"
+                "name": i18n.gettext("C\u00f4te-d'Or")
             },
             {
                 "code": "22",
-                "name": "C\u00f4tes-d'Armor"
+                "name": i18n.gettext("C\u00f4tes-d'Armor")
             },
             {
                 "code": "23",
-                "name": "Creuse"
+                "name": i18n.gettext("Creuse")
             },
             {
                 "code": "79",
-                "name": "Deux-S\u00e8vres"
+                "name": i18n.gettext("Deux-S\u00e8vres")
             },
             {
                 "code": "24",
-                "name": "Dordogne"
+                "name": i18n.gettext("Dordogne")
             },
             {
                 "code": "25",
-                "name": "Doubs"
+                "name": i18n.gettext("Doubs")
             },
             {
                 "code": "26",
-                "name": "Dr\u00f4me"
+                "name": i18n.gettext("Dr\u00f4me")
             },
             {
                 "code": "91",
-                "name": "Essonne"
+                "name": i18n.gettext("Essonne")
             },
             {
                 "code": "27",
-                "name": "Eure"
+                "name": i18n.gettext("Eure")
             },
             {
                 "code": "28",
-                "name": "Eure-et-Loir"
+                "name": i18n.gettext("Eure-et-Loir")
             },
             {
                 "code": "29",
-                "name": "Finist\u00e8re"
+                "name": i18n.gettext("Finist\u00e8re")
             },
             {
                 "code": "30",
-                "name": "Gard"
+                "name": i18n.gettext("Gard")
             },
             {
                 "code": "32",
-                "name": "Gers"
+                "name": i18n.gettext("Gers")
             },
             {
                 "code": "33",
-                "name": "Gironde"
+                "name": i18n.gettext("Gironde")
             },
             {
                 "code": "68",
-                "name": "Haut-Rhin"
+                "name": i18n.gettext("Haut-Rhin")
             },
             {
                 "code": "2B",
-                "name": "Haute-Corse"
+                "name": i18n.gettext("Haute-Corse")
             },
             {
                 "code": "31",
-                "name": "Haute-Garonne"
+                "name": i18n.gettext("Haute-Garonne")
             },
             {
                 "code": "43",
-                "name": "Haute-Loire"
+                "name": i18n.gettext("Haute-Loire")
             },
             {
                 "code": "52",
-                "name": "Haute-Marne"
+                "name": i18n.gettext("Haute-Marne")
             },
             {
                 "code": "70",
-                "name": "Haute-Sa\u00f4ne"
+                "name": i18n.gettext("Haute-Sa\u00f4ne")
             },
             {
                 "code": "74",
-                "name": "Haute-Savoie"
+                "name": i18n.gettext("Haute-Savoie")
             },
             {
                 "code": "87",
-                "name": "Haute-Vienne"
+                "name": i18n.gettext("Haute-Vienne")
             },
             {
                 "code": "05",
-                "name": "Hautes-Alpes"
+                "name": i18n.gettext("Hautes-Alpes")
             },
             {
                 "code": "65",
-                "name": "Hautes-Pyr\u00e9n\u00e9es"
+                "name": i18n.gettext("Hautes-Pyr\u00e9n\u00e9es")
             },
             {
                 "code": "92",
-                "name": "Hauts-de-Seine"
+                "name": i18n.gettext("Hauts-de-Seine")
             },
             {
                 "code": "34",
-                "name": "H\u00e9rault"
+                "name": i18n.gettext("H\u00e9rault")
             },
             {
                 "code": "35",
-                "name": "Ille-et-Vilaine"
+                "name": i18n.gettext("Ille-et-Vilaine")
             },
             {
                 "code": "36",
-                "name": "Indre"
+                "name": i18n.gettext("Indre")
             },
             {
                 "code": "37",
-                "name": "Indre-et-Loire"
+                "name": i18n.gettext("Indre-et-Loire")
             },
             {
                 "code": "38",
-                "name": "Is\u00e8re"
+                "name": i18n.gettext("Is\u00e8re")
             },
             {
                 "code": "39",
-                "name": "Jura"
+                "name": i18n.gettext("Jura")
             },
             {
                 "code": "40",
-                "name": "Landes"
+                "name": i18n.gettext("Landes")
             },
             {
                 "code": "41",
-                "name": "Loir-et-Cher"
+                "name": i18n.gettext("Loir-et-Cher")
             },
             {
                 "code": "42",
-                "name": "Loire"
+                "name": i18n.gettext("Loire")
             },
             {
                 "code": "44",
-                "name": "Loire-Atlantique"
+                "name": i18n.gettext("Loire-Atlantique")
             },
             {
                 "code": "45",
-                "name": "Loiret"
+                "name": i18n.gettext("Loiret")
             },
             {
                 "code": "46",
-                "name": "Lot"
+                "name": i18n.gettext("Lot")
             },
             {
                 "code": "47",
-                "name": "Lot-et-Garonne"
+                "name": i18n.gettext("Lot-et-Garonne")
             },
             {
                 "code": "48",
-                "name": "Loz\u00e8re"
+                "name": i18n.gettext("Loz\u00e8re")
             },
             {
                 "code": "49",
-                "name": "Maine-et-Loire"
+                "name": i18n.gettext("Maine-et-Loire")
             },
             {
                 "code": "50",
-                "name": "Manche"
+                "name": i18n.gettext("Manche")
             },
             {
                 "code": "51",
-                "name": "Marne"
+                "name": i18n.gettext("Marne")
             },
             {
                 "code": "53",
-                "name": "Mayenne"
+                "name": i18n.gettext("Mayenne")
             },
             {
                 "code": "54",
-                "name": "Meurthe-et-Moselle"
+                "name": i18n.gettext("Meurthe-et-Moselle")
             },
             {
                 "code": "55",
-                "name": "Meuse"
+                "name": i18n.gettext("Meuse")
             },
             {
                 "code": "56",
-                "name": "Morbihan"
+                "name": i18n.gettext("Morbihan")
             },
             {
                 "code": "57",
-                "name": "Moselle"
+                "name": i18n.gettext("Moselle")
             },
             {
                 "code": "58",
-                "name": "Ni\u00e8vre"
+                "name": i18n.gettext("Ni\u00e8vre")
             },
             {
                 "code": "59",
-                "name": "Nord"
+                "name": i18n.gettext("Nord")
             },
             {
                 "code": "60",
-                "name": "Oise"
+                "name": i18n.gettext("Oise")
             },
             {
                 "code": "61",
-                "name": "Orne"
+                "name": i18n.gettext("Orne")
             },
             {
                 "code": "75",
-                "name": "Paris"
+                "name": i18n.gettext("Paris")
             },
             {
                 "code": "62",
-                "name": "Pas-de-Calais"
+                "name": i18n.gettext("Pas-de-Calais")
             },
             {
                 "code": "63",
-                "name": "Puy-de-D\u00f4me"
+                "name": i18n.gettext("Puy-de-D\u00f4me")
             },
             {
                 "code": "64",
-                "name": "Pyr\u00e9n\u00e9es-Atlantiques"
+                "name": i18n.gettext("Pyr\u00e9n\u00e9es-Atlantiques")
             },
             {
                 "code": "66",
-                "name": "Pyr\u00e9n\u00e9es-Orientales"
+                "name": i18n.gettext("Pyr\u00e9n\u00e9es-Orientales")
             },
             {
                 "code": "69",
-                "name": "Rh\u00f4ne"
+                "name": i18n.gettext("Rh\u00f4ne")
             },
             {
                 "code": "71",
-                "name": "Sa\u00f4ne-et-Loire"
+                "name": i18n.gettext("Sa\u00f4ne-et-Loire")
             },
             {
                 "code": "72",
-                "name": "Sarthe"
+                "name": i18n.gettext("Sarthe")
             },
             {
                 "code": "73",
-                "name": "Savoie"
+                "name": i18n.gettext("Savoie")
             },
             {
                 "code": "77",
-                "name": "Seine-et-Marne"
+                "name": i18n.gettext("Seine-et-Marne")
             },
             {
                 "code": "76",
-                "name": "Seine-Maritime"
+                "name": i18n.gettext("Seine-Maritime")
             },
             {
                 "code": "93",
-                "name": "Seine-Saint-Denis"
+                "name": i18n.gettext("Seine-Saint-Denis")
             },
             {
                 "code": "80",
-                "name": "Somme"
+                "name": i18n.gettext("Somme")
             },
             {
                 "code": "81",
-                "name": "Tarn"
+                "name": i18n.gettext("Tarn")
             },
             {
                 "code": "82",
-                "name": "Tarn-et-Garonne"
+                "name": i18n.gettext("Tarn-et-Garonne")
             },
             {
                 "code": "90",
-                "name": "Territoire de Belfort"
+                "name": i18n.gettext("Territoire de Belfort")
             },
             {
                 "code": "95",
-                "name": "Val-d'Oise"
+                "name": i18n.gettext("Val-d'Oise")
             },
             {
                 "code": "94",
-                "name": "Val-de-Marne"
+                "name": i18n.gettext("Val-de-Marne")
             },
             {
                 "code": "83",
-                "name": "Var"
+                "name": i18n.gettext("Var")
             },
             {
                 "code": "84",
-                "name": "Vaucluse"
+                "name": i18n.gettext("Vaucluse")
             },
             {
                 "code": "85",
-                "name": "Vend\u00e9e"
+                "name": i18n.gettext("Vend\u00e9e")
             },
             {
                 "code": "86",
-                "name": "Vienne"
+                "name": i18n.gettext("Vienne")
             },
             {
                 "code": "88",
-                "name": "Vosges"
+                "name": i18n.gettext("Vosges")
             },
             {
                 "code": "89",
-                "name": "Yonne"
+                "name": i18n.gettext("Yonne")
             },
             {
                 "code": "78",
-                "name": "Yvelines"
+                "name": i18n.gettext("Yvelines")
             }
         ]
     },
@@ -1025,120 +1027,120 @@ export default [
         "code": "FX",
         "code_alpha3": "FXX",
         "code_numeric": "249",
-        "name": "France, Metropolitan",
+        "name": i18n.gettext("France, Metropolitan"),
         "states": []
     },
     {
         "code": "GF",
         "code_alpha3": "GUF",
         "code_numeric": "254",
-        "name": "French Guiana",
+        "name": i18n.gettext("French Guiana"),
         "states": []
     },
     {
         "code": "PF",
         "code_alpha3": "PYF",
         "code_numeric": "258",
-        "name": "French Polynesia",
+        "name": i18n.gettext("French Polynesia"),
         "states": []
     },
     {
         "code": "TF",
         "code_alpha3": "ATF",
         "code_numeric": "260",
-        "name": "French Southern Territories",
+        "name": i18n.gettext("French Southern Territories"),
         "states": []
     },
     {
         "code": "GA",
         "code_alpha3": "GAB",
         "code_numeric": "266",
-        "name": "Gabon",
+        "name": i18n.gettext("Gabon"),
         "states": []
     },
     {
         "code": "GM",
         "code_alpha3": "GMB",
         "code_numeric": "270",
-        "name": "Gambia",
+        "name": i18n.gettext("Gambia"),
         "states": []
     },
     {
         "code": "GE",
         "code_alpha3": "GEO",
         "code_numeric": "268",
-        "name": "Georgia",
+        "name": i18n.gettext("Georgia"),
         "states": []
     },
     {
         "code": "DE",
         "code_alpha3": "DEU",
         "code_numeric": "276",
-        "name": "Germany",
+        "name": i18n.gettext("Germany"),
         "states": [
             {
                 "code": "BAW",
-                "name": "Baden-W\u00fcrttemberg"
+                "name": i18n.gettext("Baden-W\u00fcrttemberg")
             },
             {
                 "code": "BAY",
-                "name": "Bayern"
+                "name": i18n.gettext("Bayern")
             },
             {
                 "code": "BER",
-                "name": "Berlin"
+                "name": i18n.gettext("Berlin")
             },
             {
                 "code": "BRG",
-                "name": "Branderburg"
+                "name": i18n.gettext("Branderburg")
             },
             {
                 "code": "BRE",
-                "name": "Bremen"
+                "name": i18n.gettext("Bremen")
             },
             {
                 "code": "HAM",
-                "name": "Hamburg"
+                "name": i18n.gettext("Hamburg")
             },
             {
                 "code": "HES",
-                "name": "Hessen"
+                "name": i18n.gettext("Hessen")
             },
             {
                 "code": "MEC",
-                "name": "Mecklenburg-Vorpommern"
+                "name": i18n.gettext("Mecklenburg-Vorpommern")
             },
             {
                 "code": "NDS",
-                "name": "Niedersachsen"
+                "name": i18n.gettext("Niedersachsen")
             },
             {
                 "code": "NRW",
-                "name": "Nordrhein-Westfalen"
+                "name": i18n.gettext("Nordrhein-Westfalen")
             },
             {
                 "code": "RHE",
-                "name": "Rheinland-Pfalz"
+                "name": i18n.gettext("Rheinland-Pfalz")
             },
             {
                 "code": "SAR",
-                "name": "Saarland"
+                "name": i18n.gettext("Saarland")
             },
             {
                 "code": "SAS",
-                "name": "Sachsen"
+                "name": i18n.gettext("Sachsen")
             },
             {
                 "code": "SAC",
-                "name": "Sachsen-Anhalt"
+                "name": i18n.gettext("Sachsen-Anhalt")
             },
             {
                 "code": "SCN",
-                "name": "Schleswig-Holstein"
+                "name": i18n.gettext("Schleswig-Holstein")
             },
             {
                 "code": "THE",
-                "name": "Th\u00fcringen"
+                "name": i18n.gettext("Th\u00fcringen")
             }
         ]
     },
@@ -1146,21 +1148,21 @@ export default [
         "code": "GH",
         "code_alpha3": "GHA",
         "code_numeric": "288",
-        "name": "Ghana",
+        "name": i18n.gettext("Ghana"),
         "states": []
     },
     {
         "code": "GI",
         "code_alpha3": "GIB",
         "code_numeric": "292",
-        "name": "Gibraltar",
+        "name": i18n.gettext("Gibraltar"),
         "states": []
     },
     {
         "code": "GR",
         "code_alpha3": "GRC",
         "code_numeric": "300",
-        "name": "Greece",
+        "name": i18n.gettext("Greece"),
         "states": [
             {
                 "code": "\u039a\u0395\u03a6",
@@ -1372,589 +1374,589 @@ export default [
         "code": "GL",
         "code_alpha3": "GRL",
         "code_numeric": "304",
-        "name": "Greenland",
+        "name": i18n.gettext("Greenland"),
         "states": []
     },
     {
         "code": "GD",
         "code_alpha3": "GRD",
         "code_numeric": "308",
-        "name": "Grenada",
+        "name": i18n.gettext("Grenada"),
         "states": []
     },
     {
         "code": "GP",
         "code_alpha3": "GLP",
         "code_numeric": "312",
-        "name": "Guadeloupe",
+        "name": i18n.gettext("Guadeloupe"),
         "states": []
     },
     {
         "code": "GU",
         "code_alpha3": "GUM",
         "code_numeric": "316",
-        "name": "Guam",
+        "name": i18n.gettext("Guam"),
         "states": []
     },
     {
         "code": "GT",
         "code_alpha3": "GTM",
         "code_numeric": "320",
-        "name": "Guatemala",
+        "name": i18n.gettext("Guatemala"),
         "states": []
     },
     {
         "code": "GG",
         "code_alpha3": "GGY",
         "code_numeric": "831",
-        "name": "Guernsey",
+        "name": i18n.gettext("Guernsey"),
         "states": []
     },
     {
         "code": "GN",
         "code_alpha3": "GIN",
         "code_numeric": "324",
-        "name": "Guinea",
+        "name": i18n.gettext("Guinea"),
         "states": []
     },
     {
         "code": "GW",
         "code_alpha3": "GNB",
         "code_numeric": "624",
-        "name": "Guinea-Bissau",
+        "name": i18n.gettext("Guinea-Bissau"),
         "states": []
     },
     {
         "code": "GY",
         "code_alpha3": "GUY",
         "code_numeric": "328",
-        "name": "Guyana",
+        "name": i18n.gettext("Guyana"),
         "states": []
     },
     {
         "code": "HT",
         "code_alpha3": "HTI",
         "code_numeric": "332",
-        "name": "Haiti",
+        "name": i18n.gettext("Haiti"),
         "states": []
     },
     {
         "code": "HM",
         "code_alpha3": "HMD",
         "code_numeric": "334",
-        "name": "Heard and McDonald Islands",
+        "name": i18n.gettext("Heard and McDonald Islands"),
         "states": []
     },
     {
         "code": "HN",
         "code_alpha3": "HND",
         "code_numeric": "340",
-        "name": "Honduras",
+        "name": i18n.gettext("Honduras"),
         "states": []
     },
     {
         "code": "HK",
         "code_alpha3": "HKG",
         "code_numeric": "344",
-        "name": "Hong Kong",
+        "name": i18n.gettext("Hong Kong"),
         "states": []
     },
     {
         "code": "HU",
         "code_alpha3": "HUN",
         "code_numeric": "348",
-        "name": "Hungary",
+        "name": i18n.gettext("Hungary"),
         "states": []
     },
     {
         "code": "IS",
         "code_alpha3": "ISL",
         "code_numeric": "352",
-        "name": "Iceland",
+        "name": i18n.gettext("Iceland"),
         "states": []
     },
     {
         "code": "IN",
         "code_alpha3": "IND",
         "code_numeric": "356",
-        "name": "India",
+        "name": i18n.gettext("India"),
         "states": []
     },
     {
         "code": "ID",
         "code_alpha3": "IDN",
         "code_numeric": "360",
-        "name": "Indonesia",
+        "name": i18n.gettext("Indonesia"),
         "states": []
     },
     {
         "code": "IQ",
         "code_alpha3": "IRQ",
         "code_numeric": "368",
-        "name": "Iraq",
+        "name": i18n.gettext("Iraq"),
         "states": []
     },
     {
         "code": "IE",
         "code_alpha3": "IRL",
         "code_numeric": "372",
-        "name": "Ireland",
+        "name": i18n.gettext("Ireland"),
         "states": []
     },
     {
         "code": "IR",
         "code_alpha3": "IRN",
         "code_numeric": "364",
-        "name": "Islamic Republic of Iran",
+        "name": i18n.gettext("Islamic Republic of Iran"),
         "states": []
     },
     {
         "code": "IM",
         "code_alpha3": "IMN",
         "code_numeric": "833",
-        "name": "Isle of Man",
+        "name": i18n.gettext("Isle of Man"),
         "states": []
     },
     {
         "code": "IL",
         "code_alpha3": "ISR",
         "code_numeric": "376",
-        "name": "Israel",
+        "name": i18n.gettext("Israel"),
         "states": []
     },
     {
         "code": "IT",
         "code_alpha3": "ITA",
         "code_numeric": "380",
-        "name": "Italy",
+        "name": i18n.gettext("Italy"),
         "states": [
             {
                 "code": "AG",
-                "name": "Agrigento"
+                "name": i18n.gettext("Agrigento")
             },
             {
                 "code": "AL",
-                "name": "Alessandria"
+                "name": i18n.gettext("Alessandria")
             },
             {
                 "code": "AN",
-                "name": "Ancona"
+                "name": i18n.gettext("Ancona")
             },
             {
                 "code": "AO",
-                "name": "Aosta"
+                "name": i18n.gettext("Aosta")
             },
             {
                 "code": "AR",
-                "name": "Arezzo"
+                "name": i18n.gettext("Arezzo")
             },
             {
                 "code": "AP",
-                "name": "Ascoli Piceno"
+                "name": i18n.gettext("Ascoli Piceno")
             },
             {
                 "code": "AT",
-                "name": "Asti"
+                "name": i18n.gettext("Asti")
             },
             {
                 "code": "AV",
-                "name": "Avellino"
+                "name": i18n.gettext("Avellino")
             },
             {
                 "code": "BA",
-                "name": "Bari"
+                "name": i18n.gettext("Bari")
             },
             {
                 "code": "BL",
-                "name": "Belluno"
+                "name": i18n.gettext("Belluno")
             },
             {
                 "code": "BN",
-                "name": "Benevento"
+                "name": i18n.gettext("Benevento")
             },
             {
                 "code": "BG",
-                "name": "Bergamo"
+                "name": i18n.gettext("Bergamo")
             },
             {
                 "code": "BI",
-                "name": "Biella"
+                "name": i18n.gettext("Biella")
             },
             {
                 "code": "BO",
-                "name": "Bologna"
+                "name": i18n.gettext("Bologna")
             },
             {
                 "code": "BZ",
-                "name": "Bolzano"
+                "name": i18n.gettext("Bolzano")
             },
             {
                 "code": "BS",
-                "name": "Brescia"
+                "name": i18n.gettext("Brescia")
             },
             {
                 "code": "BR",
-                "name": "Brindisi"
+                "name": i18n.gettext("Brindisi")
             },
             {
                 "code": "CA",
-                "name": "Cagliari"
+                "name": i18n.gettext("Cagliari")
             },
             {
                 "code": "CL",
-                "name": "Caltanissetta"
+                "name": i18n.gettext("Caltanissetta")
             },
             {
                 "code": "CB",
-                "name": "Campobasso"
+                "name": i18n.gettext("Campobasso")
             },
             {
                 "code": "CI",
-                "name": "Carbonia-Iglesias"
+                "name": i18n.gettext("Carbonia-Iglesias")
             },
             {
                 "code": "CE",
-                "name": "Caserta"
+                "name": i18n.gettext("Caserta")
             },
             {
                 "code": "CT",
-                "name": "Catania"
+                "name": i18n.gettext("Catania")
             },
             {
                 "code": "CZ",
-                "name": "Catanzaro"
+                "name": i18n.gettext("Catanzaro")
             },
             {
                 "code": "CH",
-                "name": "Chieti"
+                "name": i18n.gettext("Chieti")
             },
             {
                 "code": "CO",
-                "name": "Como"
+                "name": i18n.gettext("Como")
             },
             {
                 "code": "CS",
-                "name": "Cosenza"
+                "name": i18n.gettext("Cosenza")
             },
             {
                 "code": "CR",
-                "name": "Cremona"
+                "name": i18n.gettext("Cremona")
             },
             {
                 "code": "KR",
-                "name": "Crotone"
+                "name": i18n.gettext("Crotone")
             },
             {
                 "code": "CN",
-                "name": "Cuneo"
+                "name": i18n.gettext("Cuneo")
             },
             {
                 "code": "EN",
-                "name": "Enna"
+                "name": i18n.gettext("Enna")
             },
             {
                 "code": "FE",
-                "name": "Ferrara"
+                "name": i18n.gettext("Ferrara")
             },
             {
                 "code": "FI",
-                "name": "Firenze"
+                "name": i18n.gettext("Firenze")
             },
             {
                 "code": "FG",
-                "name": "Foggia"
+                "name": i18n.gettext("Foggia")
             },
             {
                 "code": "FC",
-                "name": "Forli-Cesena"
+                "name": i18n.gettext("Forli-Cesena")
             },
             {
                 "code": "FR",
-                "name": "Frosinone"
+                "name": i18n.gettext("Frosinone")
             },
             {
                 "code": "GE",
-                "name": "Genova"
+                "name": i18n.gettext("Genova")
             },
             {
                 "code": "GO",
-                "name": "Gorizia"
+                "name": i18n.gettext("Gorizia")
             },
             {
                 "code": "GR",
-                "name": "Grosseto"
+                "name": i18n.gettext("Grosseto")
             },
             {
                 "code": "IM",
-                "name": "Imperia"
+                "name": i18n.gettext("Imperia")
             },
             {
                 "code": "IS",
-                "name": "Isernia"
+                "name": i18n.gettext("Isernia")
             },
             {
                 "code": "AQ",
-                "name": "L'Aquila"
+                "name": i18n.gettext("L'Aquila")
             },
             {
                 "code": "SP",
-                "name": "La Spezia"
+                "name": i18n.gettext("La Spezia")
             },
             {
                 "code": "LT",
-                "name": "Latina"
+                "name": i18n.gettext("Latina")
             },
             {
                 "code": "LE",
-                "name": "Lecce"
+                "name": i18n.gettext("Lecce")
             },
             {
                 "code": "LC",
-                "name": "Lecco"
+                "name": i18n.gettext("Lecco")
             },
             {
                 "code": "LI",
-                "name": "Livorno"
+                "name": i18n.gettext("Livorno")
             },
             {
                 "code": "LO",
-                "name": "Lodi"
+                "name": i18n.gettext("Lodi")
             },
             {
                 "code": "LU",
-                "name": "Lucca"
+                "name": i18n.gettext("Lucca")
             },
             {
                 "code": "MC",
-                "name": "Macerata"
+                "name": i18n.gettext("Macerata")
             },
             {
                 "code": "MN",
-                "name": "Mantova"
+                "name": i18n.gettext("Mantova")
             },
             {
                 "code": "MS",
-                "name": "Massa-Carrara"
+                "name": i18n.gettext("Massa-Carrara")
             },
             {
                 "code": "MT",
-                "name": "Matera"
+                "name": i18n.gettext("Matera")
             },
             {
                 "code": "VS",
-                "name": "Medio Campidano"
+                "name": i18n.gettext("Medio Campidano")
             },
             {
                 "code": "ME",
-                "name": "Messina"
+                "name": i18n.gettext("Messina")
             },
             {
                 "code": "MI",
-                "name": "Milano"
+                "name": i18n.gettext("Milano")
             },
             {
                 "code": "MO",
-                "name": "Modena"
+                "name": i18n.gettext("Modena")
             },
             {
                 "code": "NA",
-                "name": "Napoli"
+                "name": i18n.gettext("Napoli")
             },
             {
                 "code": "NO",
-                "name": "Novara"
+                "name": i18n.gettext("Novara")
             },
             {
                 "code": "NU",
-                "name": "Nuoro"
+                "name": i18n.gettext("Nuoro")
             },
             {
                 "code": "OG",
-                "name": "Ogliastra"
+                "name": i18n.gettext("Ogliastra")
             },
             {
                 "code": "OT",
-                "name": "Olbia-Tempio"
+                "name": i18n.gettext("Olbia-Tempio")
             },
             {
                 "code": "OR",
-                "name": "Oristano"
+                "name": i18n.gettext("Oristano")
             },
             {
                 "code": "PD",
-                "name": "Padova"
+                "name": i18n.gettext("Padova")
             },
             {
                 "code": "PA",
-                "name": "Palermo"
+                "name": i18n.gettext("Palermo")
             },
             {
                 "code": "PR",
-                "name": "Parma"
+                "name": i18n.gettext("Parma")
             },
             {
                 "code": "PV",
-                "name": "Pavia"
+                "name": i18n.gettext("Pavia")
             },
             {
                 "code": "PG",
-                "name": "Perugia"
+                "name": i18n.gettext("Perugia")
             },
             {
                 "code": "PU",
-                "name": "Pesaro e Urbino"
+                "name": i18n.gettext("Pesaro e Urbino")
             },
             {
                 "code": "PE",
-                "name": "Pescara"
+                "name": i18n.gettext("Pescara")
             },
             {
                 "code": "PC",
-                "name": "Piacenza"
+                "name": i18n.gettext("Piacenza")
             },
             {
                 "code": "PI",
-                "name": "Pisa"
+                "name": i18n.gettext("Pisa")
             },
             {
                 "code": "PT",
-                "name": "Pistoia"
+                "name": i18n.gettext("Pistoia")
             },
             {
                 "code": "PN",
-                "name": "Pordenone"
+                "name": i18n.gettext("Pordenone")
             },
             {
                 "code": "PZ",
-                "name": "Potenza"
+                "name": i18n.gettext("Potenza")
             },
             {
                 "code": "PO",
-                "name": "Prato"
+                "name": i18n.gettext("Prato")
             },
             {
                 "code": "RG",
-                "name": "Ragusa"
+                "name": i18n.gettext("Ragusa")
             },
             {
                 "code": "RA",
-                "name": "Ravenna"
+                "name": i18n.gettext("Ravenna")
             },
             {
                 "code": "RC",
-                "name": "Reggio Calabria"
+                "name": i18n.gettext("Reggio Calabria")
             },
             {
                 "code": "RE",
-                "name": "Reggio Emilia"
+                "name": i18n.gettext("Reggio Emilia")
             },
             {
                 "code": "RI",
-                "name": "Rieti"
+                "name": i18n.gettext("Rieti")
             },
             {
                 "code": "RN",
-                "name": "Rimini"
+                "name": i18n.gettext("Rimini")
             },
             {
                 "code": "RM",
-                "name": "Roma"
+                "name": i18n.gettext("Roma")
             },
             {
                 "code": "RO",
-                "name": "Rovigo"
+                "name": i18n.gettext("Rovigo")
             },
             {
                 "code": "SA",
-                "name": "Salerno"
+                "name": i18n.gettext("Salerno")
             },
             {
                 "code": "SS",
-                "name": "Sassari"
+                "name": i18n.gettext("Sassari")
             },
             {
                 "code": "SV",
-                "name": "Savona"
+                "name": i18n.gettext("Savona")
             },
             {
                 "code": "SI",
-                "name": "Siena"
+                "name": i18n.gettext("Siena")
             },
             {
                 "code": "SR",
-                "name": "Siracusa"
+                "name": i18n.gettext("Siracusa")
             },
             {
                 "code": "SO",
-                "name": "Sondrio"
+                "name": i18n.gettext("Sondrio")
             },
             {
                 "code": "TA",
-                "name": "Taranto"
+                "name": i18n.gettext("Taranto")
             },
             {
                 "code": "TE",
-                "name": "Teramo"
+                "name": i18n.gettext("Teramo")
             },
             {
                 "code": "TR",
-                "name": "Terni"
+                "name": i18n.gettext("Terni")
             },
             {
                 "code": "TO",
-                "name": "Torino"
+                "name": i18n.gettext("Torino")
             },
             {
                 "code": "TP",
-                "name": "Trapani"
+                "name": i18n.gettext("Trapani")
             },
             {
                 "code": "TN",
-                "name": "Trento"
+                "name": i18n.gettext("Trento")
             },
             {
                 "code": "TV",
-                "name": "Treviso"
+                "name": i18n.gettext("Treviso")
             },
             {
                 "code": "TS",
-                "name": "Trieste"
+                "name": i18n.gettext("Trieste")
             },
             {
                 "code": "UD",
-                "name": "Udine"
+                "name": i18n.gettext("Udine")
             },
             {
                 "code": "VA",
-                "name": "Varese"
+                "name": i18n.gettext("Varese")
             },
             {
                 "code": "VE",
-                "name": "Venezia"
+                "name": i18n.gettext("Venezia")
             },
             {
                 "code": "VB",
-                "name": "Verbano-Cusio-Ossola"
+                "name": i18n.gettext("Verbano-Cusio-Ossola")
             },
             {
                 "code": "VC",
-                "name": "Vercelli"
+                "name": i18n.gettext("Vercelli")
             },
             {
                 "code": "VR",
-                "name": "Verona"
+                "name": i18n.gettext("Verona")
             },
             {
                 "code": "VV",
-                "name": "Vibo Valentia"
+                "name": i18n.gettext("Vibo Valentia")
             },
             {
                 "code": "VI",
-                "name": "Vicenza"
+                "name": i18n.gettext("Vicenza")
             },
             {
                 "code": "VT",
-                "name": "Viterbo"
+                "name": i18n.gettext("Viterbo")
             }
         ]
     },
@@ -1962,377 +1964,377 @@ export default [
         "code": "JM",
         "code_alpha3": "JAM",
         "code_numeric": "388",
-        "name": "Jamaica",
+        "name": i18n.gettext("Jamaica"),
         "states": []
     },
     {
         "code": "JP",
         "code_alpha3": "JPN",
         "code_numeric": "392",
-        "name": "Japan",
+        "name": i18n.gettext("Japan"),
         "states": []
     },
     {
         "code": "JE",
         "code_alpha3": "JEY",
         "code_numeric": "832",
-        "name": "Jersey",
+        "name": i18n.gettext("Jersey"),
         "states": []
     },
     {
         "code": "JO",
         "code_alpha3": "JOR",
         "code_numeric": "400",
-        "name": "Jordan",
+        "name": i18n.gettext("Jordan"),
         "states": []
     },
     {
         "code": "KZ",
         "code_alpha3": "KAZ",
         "code_numeric": "398",
-        "name": "Kazakhstan",
+        "name": i18n.gettext("Kazakhstan"),
         "states": []
     },
     {
         "code": "KE",
         "code_alpha3": "KEN",
         "code_numeric": "404",
-        "name": "Kenya",
+        "name": i18n.gettext("Kenya"),
         "states": []
     },
     {
         "code": "KI",
         "code_alpha3": "KIR",
         "code_numeric": "296",
-        "name": "Kiribati",
+        "name": i18n.gettext("Kiribati"),
         "states": []
     },
     {
         "code": "KP",
         "code_alpha3": "PRK",
         "code_numeric": "408",
-        "name": "Korea",
+        "name": i18n.gettext("Korea"),
         "states": []
     },
     {
         "code": "KR",
         "code_alpha3": "KOR",
         "code_numeric": "410",
-        "name": "Korea, Republic of",
+        "name": i18n.gettext("Korea, Republic of"),
         "states": []
     },
     {
         "code": "KW",
         "code_alpha3": "KWT",
         "code_numeric": "414",
-        "name": "Kuwait",
+        "name": i18n.gettext("Kuwait"),
         "states": []
     },
     {
         "code": "KG",
         "code_alpha3": "KGZ",
         "code_numeric": "417",
-        "name": "Kyrgyzstan",
+        "name": i18n.gettext("Kyrgyzstan"),
         "states": []
     },
     {
         "code": "LA",
         "code_alpha3": "LAO",
         "code_numeric": "418",
-        "name": "Laos",
+        "name": i18n.gettext("Laos"),
         "states": []
     },
     {
         "code": "LV",
         "code_alpha3": "LVA",
         "code_numeric": "428",
-        "name": "Latvia",
+        "name": i18n.gettext("Latvia"),
         "states": []
     },
     {
         "code": "LB",
         "code_alpha3": "LBN",
         "code_numeric": "422",
-        "name": "Lebanon",
+        "name": i18n.gettext("Lebanon"),
         "states": []
     },
     {
         "code": "LS",
         "code_alpha3": "LSO",
         "code_numeric": "426",
-        "name": "Lesotho",
+        "name": i18n.gettext("Lesotho"),
         "states": []
     },
     {
         "code": "LR",
         "code_alpha3": "LBR",
         "code_numeric": "430",
-        "name": "Liberia",
+        "name": i18n.gettext("Liberia"),
         "states": []
     },
     {
         "code": "LY",
         "code_alpha3": "LBY",
         "code_numeric": "434",
-        "name": "Libyan Arab Jamahiriya",
+        "name": i18n.gettext("Libyan Arab Jamahiriya"),
         "states": []
     },
     {
         "code": "LI",
         "code_alpha3": "LIE",
         "code_numeric": "438",
-        "name": "Liechtenstein",
+        "name": i18n.gettext("Liechtenstein"),
         "states": []
     },
     {
         "code": "LT",
         "code_alpha3": "LTU",
         "code_numeric": "440",
-        "name": "Lithuania",
+        "name": i18n.gettext("Lithuania"),
         "states": []
     },
     {
         "code": "LU",
         "code_alpha3": "LUX",
         "code_numeric": "442",
-        "name": "Luxembourg",
+        "name": i18n.gettext("Luxembourg"),
         "states": []
     },
     {
         "code": "MO",
         "code_alpha3": "MAC",
         "code_numeric": "446",
-        "name": "Macau",
+        "name": i18n.gettext("Macau"),
         "states": []
     },
     {
         "code": "MK",
         "code_alpha3": "MKD",
         "code_numeric": "807",
-        "name": "Macedonia",
+        "name": i18n.gettext("Macedonia"),
         "states": []
     },
     {
         "code": "MG",
         "code_alpha3": "MDG",
         "code_numeric": "450",
-        "name": "Madagascar",
+        "name": i18n.gettext("Madagascar"),
         "states": []
     },
     {
         "code": "MW",
         "code_alpha3": "MWI",
         "code_numeric": "454",
-        "name": "Malawi",
+        "name": i18n.gettext("Malawi"),
         "states": []
     },
     {
         "code": "MY",
         "code_alpha3": "MYS",
         "code_numeric": "458",
-        "name": "Malaysia",
+        "name": i18n.gettext("Malaysia"),
         "states": []
     },
     {
         "code": "MV",
         "code_alpha3": "MDV",
         "code_numeric": "462",
-        "name": "Maldives",
+        "name": i18n.gettext("Maldives"),
         "states": []
     },
     {
         "code": "ML",
         "code_alpha3": "MLI",
         "code_numeric": "466",
-        "name": "Mali",
+        "name": i18n.gettext("Mali"),
         "states": []
     },
     {
         "code": "MT",
         "code_alpha3": "MLT",
         "code_numeric": "470",
-        "name": "Malta",
+        "name": i18n.gettext("Malta"),
         "states": []
     },
     {
         "code": "MH",
         "code_alpha3": "MHL",
         "code_numeric": "584",
-        "name": "Marshall Islands",
+        "name": i18n.gettext("Marshall Islands"),
         "states": []
     },
     {
         "code": "MQ",
         "code_alpha3": "MTQ",
         "code_numeric": "474",
-        "name": "Martinique",
+        "name": i18n.gettext("Martinique"),
         "states": []
     },
     {
         "code": "MR",
         "code_alpha3": "MRT",
         "code_numeric": "478",
-        "name": "Mauritania",
+        "name": i18n.gettext("Mauritania"),
         "states": []
     },
     {
         "code": "MU",
         "code_alpha3": "MUS",
         "code_numeric": "480",
-        "name": "Mauritius",
+        "name": i18n.gettext("Mauritius"),
         "states": []
     },
     {
         "code": "YT",
         "code_alpha3": "MYT",
         "code_numeric": "175",
-        "name": "Mayotte",
+        "name": i18n.gettext("Mayotte"),
         "states": []
     },
     {
         "code": "MX",
         "code_alpha3": "MEX",
         "code_numeric": "484",
-        "name": "Mexico",
+        "name": i18n.gettext("Mexico"),
         "states": []
     },
     {
         "code": "FM",
         "code_alpha3": "FSM",
         "code_numeric": "583",
-        "name": "Micronesia",
+        "name": i18n.gettext("Micronesia"),
         "states": []
     },
     {
         "code": "MD",
         "code_alpha3": "MDA",
         "code_numeric": "498",
-        "name": "Moldova, Republic of",
+        "name": i18n.gettext("Moldova, Republic of"),
         "states": []
     },
     {
         "code": "MC",
         "code_alpha3": "MCO",
         "code_numeric": "492",
-        "name": "Monaco",
+        "name": i18n.gettext("Monaco"),
         "states": []
     },
     {
         "code": "MN",
         "code_alpha3": "MNG",
         "code_numeric": "496",
-        "name": "Mongolia",
+        "name": i18n.gettext("Mongolia"),
         "states": []
     },
     {
         "code": "ME",
         "code_alpha3": "MNE",
         "code_numeric": "499",
-        "name": "Montenegro",
+        "name": i18n.gettext("Montenegro"),
         "states": []
     },
     {
         "code": "MS",
         "code_alpha3": "MSR",
         "code_numeric": "500",
-        "name": "Montserrat",
+        "name": i18n.gettext("Montserrat"),
         "states": []
     },
     {
         "code": "MA",
         "code_alpha3": "MAR",
         "code_numeric": "504",
-        "name": "Morocco",
+        "name": i18n.gettext("Morocco"),
         "states": []
     },
     {
         "code": "MZ",
         "code_alpha3": "MOZ",
         "code_numeric": "508",
-        "name": "Mozambique",
+        "name": i18n.gettext("Mozambique"),
         "states": []
     },
     {
         "code": "MM",
         "code_alpha3": "MMR",
         "code_numeric": "104",
-        "name": "Myanmar",
+        "name": i18n.gettext("Myanmar"),
         "states": []
     },
     {
         "code": "NA",
         "code_alpha3": "NAM",
         "code_numeric": "516",
-        "name": "Namibia",
+        "name": i18n.gettext("Namibia"),
         "states": []
     },
     {
         "code": "NR",
         "code_alpha3": "NRU",
         "code_numeric": "520",
-        "name": "Nauru",
+        "name": i18n.gettext("Nauru"),
         "states": []
     },
     {
         "code": "NP",
         "code_alpha3": "NPL",
         "code_numeric": "524",
-        "name": "Nepal",
+        "name": i18n.gettext("Nepal"),
         "states": []
     },
     {
         "code": "NL",
         "code_alpha3": "NLD",
         "code_numeric": "528",
-        "name": "Netherlands",
+        "name": i18n.gettext("Netherlands"),
         "states": [
             {
                 "code": "DR",
-                "name": "Drenthe"
+                "name": i18n.gettext("Drenthe")
             },
             {
                 "code": "FL",
-                "name": "Flevoland"
+                "name": i18n.gettext("Flevoland")
             },
             {
                 "code": "FR",
-                "name": "Friesland"
+                "name": i18n.gettext("Friesland")
             },
             {
                 "code": "GE",
-                "name": "Gelderland"
+                "name": i18n.gettext("Gelderland")
             },
             {
                 "code": "GR",
-                "name": "Groningen"
+                "name": i18n.gettext("Groningen")
             },
             {
                 "code": "LI",
-                "name": "Limburg"
+                "name": i18n.gettext("Limburg")
             },
             {
                 "code": "NB",
-                "name": "Noord Brabant"
+                "name": i18n.gettext("Noord Brabant")
             },
             {
                 "code": "NH",
-                "name": "Noord Holland"
+                "name": i18n.gettext("Noord Holland")
             },
             {
                 "code": "OV",
-                "name": "Overijssel"
+                "name": i18n.gettext("Overijssel")
             },
             {
                 "code": "UT",
-                "name": "Utrecht"
+                "name": i18n.gettext("Utrecht")
             },
             {
                 "code": "ZE",
-                "name": "Zeeland"
+                "name": i18n.gettext("Zeeland")
             },
             {
                 "code": "ZH",
-                "name": "Zuid Holland"
+                "name": i18n.gettext("Zuid Holland")
             }
         ]
     },
@@ -2340,521 +2342,521 @@ export default [
         "code": "NC",
         "code_alpha3": "NCL",
         "code_numeric": "540",
-        "name": "New Caledonia",
+        "name": i18n.gettext("New Caledonia"),
         "states": []
     },
     {
         "code": "NZ",
         "code_alpha3": "NZL",
         "code_numeric": "554",
-        "name": "New Zealand",
+        "name": i18n.gettext("New Zealand"),
         "states": []
     },
     {
         "code": "NI",
         "code_alpha3": "NIC",
         "code_numeric": "558",
-        "name": "Nicaragua",
+        "name": i18n.gettext("Nicaragua"),
         "states": []
     },
     {
         "code": "NE",
         "code_alpha3": "NER",
         "code_numeric": "562",
-        "name": "Niger",
+        "name": i18n.gettext("Niger"),
         "states": []
     },
     {
         "code": "NG",
         "code_alpha3": "NGA",
         "code_numeric": "566",
-        "name": "Nigeria",
+        "name": i18n.gettext("Nigeria"),
         "states": []
     },
     {
         "code": "NU",
         "code_alpha3": "NIU",
         "code_numeric": "570",
-        "name": "Niue",
+        "name": i18n.gettext("Niue"),
         "states": []
     },
     {
         "code": "NF",
         "code_alpha3": "NFK",
         "code_numeric": "574",
-        "name": "Norfolk Island",
+        "name": i18n.gettext("Norfolk Island"),
         "states": []
     },
     {
         "code": "MP",
         "code_alpha3": "MNP",
         "code_numeric": "580",
-        "name": "Northern Mariana Islands",
+        "name": i18n.gettext("Northern Mariana Islands"),
         "states": []
     },
     {
         "code": "NO",
         "code_alpha3": "NOR",
         "code_numeric": "578",
-        "name": "Norway",
+        "name": i18n.gettext("Norway"),
         "states": []
     },
     {
         "code": "OM",
         "code_alpha3": "OMN",
         "code_numeric": "512",
-        "name": "Oman",
+        "name": i18n.gettext("Oman"),
         "states": []
     },
     {
         "code": "PK",
         "code_alpha3": "PAK",
         "code_numeric": "586",
-        "name": "Pakistan",
+        "name": i18n.gettext("Pakistan"),
         "states": []
     },
     {
         "code": "PW",
         "code_alpha3": "PLW",
         "code_numeric": "585",
-        "name": "Palau",
+        "name": i18n.gettext("Palau"),
         "states": []
     },
     {
         "code": "PS",
         "code_alpha3": "PSE",
         "code_numeric": "275",
-        "name": "Palestine Authority",
+        "name": i18n.gettext("Palestine Authority"),
         "states": []
     },
     {
         "code": "PA",
         "code_alpha3": "PAN",
         "code_numeric": "591",
-        "name": "Panama",
+        "name": i18n.gettext("Panama"),
         "states": []
     },
     {
         "code": "PG",
         "code_alpha3": "PNG",
         "code_numeric": "598",
-        "name": "Papua New Guinea",
+        "name": i18n.gettext("Papua New Guinea"),
         "states": []
     },
     {
         "code": "PY",
         "code_alpha3": "PRY",
         "code_numeric": "600",
-        "name": "Paraguay",
+        "name": i18n.gettext("Paraguay"),
         "states": []
     },
     {
         "code": "PE",
         "code_alpha3": "PER",
         "code_numeric": "604",
-        "name": "Peru",
+        "name": i18n.gettext("Peru"),
         "states": []
     },
     {
         "code": "PH",
         "code_alpha3": "PHL",
         "code_numeric": "608",
-        "name": "Philippines",
+        "name": i18n.gettext("Philippines"),
         "states": []
     },
     {
         "code": "PN",
         "code_alpha3": "PCN",
         "code_numeric": "612",
-        "name": "Pitcairn",
+        "name": i18n.gettext("Pitcairn"),
         "states": []
     },
     {
         "code": "PL",
         "code_alpha3": "POL",
         "code_numeric": "616",
-        "name": "Poland",
+        "name": i18n.gettext("Poland"),
         "states": []
     },
     {
         "code": "PT",
         "code_alpha3": "PRT",
         "code_numeric": "620",
-        "name": "Portugal",
+        "name": i18n.gettext("Portugal"),
         "states": []
     },
     {
         "code": "PR",
         "code_alpha3": "PRI",
         "code_numeric": "630",
-        "name": "Puerto Rico",
+        "name": i18n.gettext("Puerto Rico"),
         "states": []
     },
     {
         "code": "QA",
         "code_alpha3": "QAT",
         "code_numeric": "634",
-        "name": "Qatar",
+        "name": i18n.gettext("Qatar"),
         "states": []
     },
     {
         "code": "RS",
         "code_alpha3": "SRB",
         "code_numeric": "688",
-        "name": "Republic of Serbia",
+        "name": i18n.gettext("Republic of Serbia"),
         "states": []
     },
     {
         "code": "RE",
         "code_alpha3": "REU",
         "code_numeric": "638",
-        "name": "Reunion",
+        "name": i18n.gettext("Reunion"),
         "states": []
     },
     {
         "code": "RO",
         "code_alpha3": "ROU",
         "code_numeric": "642",
-        "name": "Romania",
+        "name": i18n.gettext("Romania"),
         "states": []
     },
     {
         "code": "RU",
         "code_alpha3": "RUS",
         "code_numeric": "643",
-        "name": "Russian Federation",
+        "name": i18n.gettext("Russian Federation"),
         "states": [
             {
                 "code": "ALT",
-                "name": "Altajskij kraj"
+                "name": i18n.gettext("Altajskij kraj")
             },
             {
                 "code": "AMU",
-                "name": "Amurskaja oblast'"
+                "name": i18n.gettext("Amurskaja oblast'")
             },
             {
                 "code": "ARK",
-                "name": "Arhangel'skaja oblast'"
+                "name": i18n.gettext("Arhangel'skaja oblast'")
             },
             {
                 "code": "AST",
-                "name": "Astrahanskaja oblast'"
+                "name": i18n.gettext("Astrahanskaja oblast'")
             },
             {
                 "code": "BEL",
-                "name": "Belgorodskaja oblast'"
+                "name": i18n.gettext("Belgorodskaja oblast'")
             },
             {
                 "code": "BRY",
-                "name": "Brjanskaja oblast'"
+                "name": i18n.gettext("Brjanskaja oblast'")
             },
             {
                 "code": "CE",
-                "name": "Chechenskaja respublika"
+                "name": i18n.gettext("Chechenskaja respublika")
             },
             {
                 "code": "CHE",
-                "name": "Cheljabinskaja oblast'"
+                "name": i18n.gettext("Cheljabinskaja oblast'")
             },
             {
                 "code": "CHU",
-                "name": "Chukotskij avtonomnyj okrug"
+                "name": i18n.gettext("Chukotskij avtonomnyj okrug")
             },
             {
                 "code": "CU",
-                "name": "Chuvashskaja Respublika"
+                "name": i18n.gettext("Chuvashskaja Respublika")
             },
             {
                 "code": "YEV",
-                "name": "Evrejskaja avtonomnaja oblast'"
+                "name": i18n.gettext("Evrejskaja avtonomnaja oblast'")
             },
             {
                 "code": "KHA",
-                "name": "Habarovskij kraj"
+                "name": i18n.gettext("Habarovskij kraj")
             },
             {
                 "code": "KHM",
-                "name": "Hanty-Mansijskij avtonomnyj okrug - Jugra"
+                "name": i18n.gettext("Hanty-Mansijskij avtonomnyj okrug - Jugra")
             },
             {
                 "code": "IRK",
-                "name": "Irkutskaja oblast'"
+                "name": i18n.gettext("Irkutskaja oblast'")
             },
             {
                 "code": "IVA",
-                "name": "Ivanovskaja oblast'"
+                "name": i18n.gettext("Ivanovskaja oblast'")
             },
             {
                 "code": "YAN",
-                "name": "Jamalo-Neneckij avtonomnyj okrug"
+                "name": i18n.gettext("Jamalo-Neneckij avtonomnyj okrug")
             },
             {
                 "code": "YAR",
-                "name": "Jaroslavskaja oblast'"
+                "name": i18n.gettext("Jaroslavskaja oblast'")
             },
             {
                 "code": "KB",
-                "name": "Kabardino-Balkarskaja Respublika"
+                "name": i18n.gettext("Kabardino-Balkarskaja Respublika")
             },
             {
                 "code": "KGD",
-                "name": "Kaliningradskaja oblast'"
+                "name": i18n.gettext("Kaliningradskaja oblast'")
             },
             {
                 "code": "KLU",
-                "name": "Kaluzhskaja oblast'"
+                "name": i18n.gettext("Kaluzhskaja oblast'")
             },
             {
                 "code": "KAM",
-                "name": "Kamchatskiy kraj"
+                "name": i18n.gettext("Kamchatskiy kraj")
             },
             {
                 "code": "KC",
-                "name": "Karachaevo-Cherkesskaja respublika"
+                "name": i18n.gettext("Karachaevo-Cherkesskaja respublika")
             },
             {
                 "code": "KEM",
-                "name": "Kemerovskaja oblast'"
+                "name": i18n.gettext("Kemerovskaja oblast'")
             },
             {
                 "code": "KIR",
-                "name": "Kirovskaja oblast'"
+                "name": i18n.gettext("Kirovskaja oblast'")
             },
             {
                 "code": "KOS",
-                "name": "Kostromskaja oblast'"
+                "name": i18n.gettext("Kostromskaja oblast'")
             },
             {
                 "code": "KDA",
-                "name": "Krasnodarskij kraj"
+                "name": i18n.gettext("Krasnodarskij kraj")
             },
             {
                 "code": "KIA",
-                "name": "Krasnojarskij kraj"
+                "name": i18n.gettext("Krasnojarskij kraj")
             },
             {
                 "code": "KGN",
-                "name": "Kurganskaja oblast'"
+                "name": i18n.gettext("Kurganskaja oblast'")
             },
             {
                 "code": "KRS",
-                "name": "Kurskaja oblast'"
+                "name": i18n.gettext("Kurskaja oblast'")
             },
             {
                 "code": "LEN",
-                "name": "Leningradskaja oblast'"
+                "name": i18n.gettext("Leningradskaja oblast'")
             },
             {
                 "code": "LIP",
-                "name": "Lipeckaja oblast'"
+                "name": i18n.gettext("Lipeckaja oblast'")
             },
             {
                 "code": "MAG",
-                "name": "Magadanskaja oblast'"
+                "name": i18n.gettext("Magadanskaja oblast'")
             },
             {
                 "code": "MOS",
-                "name": "Moskovskaja oblast'"
+                "name": i18n.gettext("Moskovskaja oblast'")
             },
             {
                 "code": "MOW",
-                "name": "Moskva"
+                "name": i18n.gettext("Moskva")
             },
             {
                 "code": "MUR",
-                "name": "Murmanskaja oblast'"
+                "name": i18n.gettext("Murmanskaja oblast'")
             },
             {
                 "code": "NEN",
-                "name": "Neneckij avtonomnyj okrug"
+                "name": i18n.gettext("Neneckij avtonomnyj okrug")
             },
             {
                 "code": "NIZ",
-                "name": "Nizhegorodskaja oblast'"
+                "name": i18n.gettext("Nizhegorodskaja oblast'")
             },
             {
                 "code": "NGR",
-                "name": "Novgorodskaja oblast'"
+                "name": i18n.gettext("Novgorodskaja oblast'")
             },
             {
                 "code": "NVS",
-                "name": "Novosibirskaja oblast'"
+                "name": i18n.gettext("Novosibirskaja oblast'")
             },
             {
                 "code": "OMS",
-                "name": "Omskaja oblast'"
+                "name": i18n.gettext("Omskaja oblast'")
             },
             {
                 "code": "ORE",
-                "name": "Orenburgskaja oblast'"
+                "name": i18n.gettext("Orenburgskaja oblast'")
             },
             {
                 "code": "ORL",
-                "name": "Orlovskaja oblast'"
+                "name": i18n.gettext("Orlovskaja oblast'")
             },
             {
                 "code": "PNZ",
-                "name": "Penzenskaja oblast'"
+                "name": i18n.gettext("Penzenskaja oblast'")
             },
             {
                 "code": "PER",
-                "name": "Permskij kraj"
+                "name": i18n.gettext("Permskij kraj")
             },
             {
                 "code": "PRI",
-                "name": "Primorskij kraj"
+                "name": i18n.gettext("Primorskij kraj")
             },
             {
                 "code": "PSK",
-                "name": "Pskovskaja oblast'"
+                "name": i18n.gettext("Pskovskaja oblast'")
             },
             {
                 "code": "AD",
-                "name": "Respublika Adygeja"
+                "name": i18n.gettext("Respublika Adygeja")
             },
             {
                 "code": "AL",
-                "name": "Respublika Altaj"
+                "name": i18n.gettext("Respublika Altaj")
             },
             {
                 "code": "BA",
-                "name": "Respublika Bashkortostan"
+                "name": i18n.gettext("Respublika Bashkortostan")
             },
             {
                 "code": "BU",
-                "name": "Respublika Burjatija"
+                "name": i18n.gettext("Respublika Burjatija")
             },
             {
                 "code": "DA",
-                "name": "Respublika Dagestan"
+                "name": i18n.gettext("Respublika Dagestan")
             },
             {
                 "code": "KK",
-                "name": "Respublika Hakasija"
+                "name": i18n.gettext("Respublika Hakasija")
             },
             {
                 "code": "IN",
-                "name": "Respublika Ingushetija"
+                "name": i18n.gettext("Respublika Ingushetija")
             },
             {
                 "code": "KL",
-                "name": "Respublika Kalmykija"
+                "name": i18n.gettext("Respublika Kalmykija")
             },
             {
                 "code": "KR",
-                "name": "Respublika Karelija"
+                "name": i18n.gettext("Respublika Karelija")
             },
             {
                 "code": "KO",
-                "name": "Respublika Komi"
+                "name": i18n.gettext("Respublika Komi")
             },
             {
                 "code": "ME",
-                "name": "Respublika Marij Jel"
+                "name": i18n.gettext("Respublika Marij Jel")
             },
             {
                 "code": "MO",
-                "name": "Respublika Mordovija"
+                "name": i18n.gettext("Respublika Mordovija")
             },
             {
                 "code": "SA",
-                "name": "Respublika Saha (Jakutija)"
+                "name": i18n.gettext("Respublika Saha (Jakutija)")
             },
             {
                 "code": "SE",
-                "name": "Respublika Severnaja Osetija-Alanija"
+                "name": i18n.gettext("Respublika Severnaja Osetija-Alanija")
             },
             {
                 "code": "TA",
-                "name": "Respublika Tatarstan"
+                "name": i18n.gettext("Respublika Tatarstan")
             },
             {
                 "code": "TY",
-                "name": "Respublika Tyva"
+                "name": i18n.gettext("Respublika Tyva")
             },
             {
                 "code": "RYA",
-                "name": "Rjazanskaja oblast'"
+                "name": i18n.gettext("Rjazanskaja oblast'")
             },
             {
                 "code": "ROS",
-                "name": "Rostovskaja oblast'"
+                "name": i18n.gettext("Rostovskaja oblast'")
             },
             {
                 "code": "SAK",
-                "name": "Sahalinskaja oblast'"
+                "name": i18n.gettext("Sahalinskaja oblast'")
             },
             {
                 "code": "SAM",
-                "name": "Samarskaja oblast'"
+                "name": i18n.gettext("Samarskaja oblast'")
             },
             {
                 "code": "SPE",
-                "name": "Sankt-Peterburg"
+                "name": i18n.gettext("Sankt-Peterburg")
             },
             {
                 "code": "SAR",
-                "name": "Saratovskaja oblast'"
+                "name": i18n.gettext("Saratovskaja oblast'")
             },
             {
                 "code": "SMO",
-                "name": "Smolenskaja oblast'"
+                "name": i18n.gettext("Smolenskaja oblast'")
             },
             {
                 "code": "STA",
-                "name": "Stavropol'skij kraj"
+                "name": i18n.gettext("Stavropol'skij kraj")
             },
             {
                 "code": "SVE",
-                "name": "Sverdlovskaja oblast'"
+                "name": i18n.gettext("Sverdlovskaja oblast'")
             },
             {
                 "code": "TAM",
-                "name": "Tambovskaja oblast'"
+                "name": i18n.gettext("Tambovskaja oblast'")
             },
             {
                 "code": "TYU",
-                "name": "Tjumenskaja oblast'"
+                "name": i18n.gettext("Tjumenskaja oblast'")
             },
             {
                 "code": "TOM",
-                "name": "Tomskaja oblast'"
+                "name": i18n.gettext("Tomskaja oblast'")
             },
             {
                 "code": "TUL",
-                "name": "Tul'skaja oblast'"
+                "name": i18n.gettext("Tul'skaja oblast'")
             },
             {
                 "code": "TVE",
-                "name": "Tverskaja oblast'"
+                "name": i18n.gettext("Tverskaja oblast'")
             },
             {
                 "code": "UD",
-                "name": "Udmurtskaja Respublika"
+                "name": i18n.gettext("Udmurtskaja Respublika")
             },
             {
                 "code": "ULY",
-                "name": "Ul'janovskaja oblast'"
+                "name": i18n.gettext("Ul'janovskaja oblast'")
             },
             {
                 "code": "VLA",
-                "name": "Vladimirskaja oblast'"
+                "name": i18n.gettext("Vladimirskaja oblast'")
             },
             {
                 "code": "VGG",
-                "name": "Volgogradskaja oblast'"
+                "name": i18n.gettext("Volgogradskaja oblast'")
             },
             {
                 "code": "VLG",
-                "name": "Vologodskaja oblast'"
+                "name": i18n.gettext("Vologodskaja oblast'")
             },
             {
                 "code": "VOR",
-                "name": "Voronezhskaja oblast'"
+                "name": i18n.gettext("Voronezhskaja oblast'")
             },
             {
                 "code": "ZAB",
-                "name": "Zabaykal'skiy kraj"
+                "name": i18n.gettext("Zabaykal'skiy kraj")
             }
         ]
     },
@@ -2862,334 +2864,334 @@ export default [
         "code": "RW",
         "code_alpha3": "RWA",
         "code_numeric": "646",
-        "name": "Rwanda",
+        "name": i18n.gettext("Rwanda"),
         "states": []
     },
     {
         "code": "LC",
         "code_alpha3": "LCA",
         "code_numeric": "662",
-        "name": "Saint Lucia",
+        "name": i18n.gettext("Saint Lucia"),
         "states": []
     },
     {
         "code": "WS",
         "code_alpha3": "WSM",
         "code_numeric": "685",
-        "name": "Samoa",
+        "name": i18n.gettext("Samoa"),
         "states": []
     },
     {
         "code": "SM",
         "code_alpha3": "SMR",
         "code_numeric": "674",
-        "name": "San Marino",
+        "name": i18n.gettext("San Marino"),
         "states": []
     },
     {
         "code": "ST",
         "code_alpha3": "STP",
         "code_numeric": "678",
-        "name": "Sao Tome and Principe",
+        "name": i18n.gettext("Sao Tome and Principe"),
         "states": []
     },
     {
         "code": "SA",
         "code_alpha3": "SAU",
         "code_numeric": "682",
-        "name": "Saudi Arabia",
+        "name": i18n.gettext("Saudi Arabia"),
         "states": []
     },
     {
         "code": "SN",
         "code_alpha3": "SEN",
         "code_numeric": "686",
-        "name": "Senegal",
+        "name": i18n.gettext("Senegal"),
         "states": []
     },
     {
         "code": "CS",
         "code_alpha3": "SCG",
         "code_numeric": "891",
-        "name": "Serbia",
+        "name": i18n.gettext("Serbia"),
         "states": []
     },
     {
         "code": "SC",
         "code_alpha3": "SYC",
         "code_numeric": "690",
-        "name": "Seychelles",
+        "name": i18n.gettext("Seychelles"),
         "states": []
     },
     {
         "code": "SL",
         "code_alpha3": "SLE",
         "code_numeric": "694",
-        "name": "Sierra Leone",
+        "name": i18n.gettext("Sierra Leone"),
         "states": []
     },
     {
         "code": "SG",
         "code_alpha3": "SGP",
         "code_numeric": "702",
-        "name": "Singapore",
+        "name": i18n.gettext("Singapore"),
         "states": []
     },
     {
         "code": "SX",
         "code_alpha3": "SXM",
         "code_numeric": "534",
-        "name": "Sint Maarten",
+        "name": i18n.gettext("Sint Maarten"),
         "states": []
     },
     {
         "code": "SK",
         "code_alpha3": "SVK",
         "code_numeric": "703",
-        "name": "Slovakia",
+        "name": i18n.gettext("Slovakia"),
         "states": []
     },
     {
         "code": "SI",
         "code_alpha3": "SVN",
         "code_numeric": "705",
-        "name": "Slovenia",
+        "name": i18n.gettext("Slovenia"),
         "states": []
     },
     {
         "code": "SB",
         "code_alpha3": "SLB",
         "code_numeric": "090",
-        "name": "Solomon Islands",
+        "name": i18n.gettext("Solomon Islands"),
         "states": []
     },
     {
         "code": "SO",
         "code_alpha3": "SOM",
         "code_numeric": "706",
-        "name": "Somalia",
+        "name": i18n.gettext("Somalia"),
         "states": []
     },
     {
         "code": "ZA",
         "code_alpha3": "ZAF",
         "code_numeric": "710",
-        "name": "South Africa",
+        "name": i18n.gettext("South Africa"),
         "states": []
     },
     {
         "code": "ES",
         "code_alpha3": "ESP",
         "code_numeric": "724",
-        "name": "Spain",
+        "name": i18n.gettext("Spain"),
         "states": [
             {
                 "code": "C",
-                "name": "A Coru\u00f1a"
+                "name": i18n.gettext("A Coru\u00f1a")
             },
             {
                 "code": "VI",
-                "name": "\u00c1lava"
+                "name": i18n.gettext("\u00c1lava")
             },
             {
                 "code": "AB",
-                "name": "Albacete"
+                "name": i18n.gettext("Albacete")
             },
             {
                 "code": "A",
-                "name": "Alicante"
+                "name": i18n.gettext("Alicante")
             },
             {
                 "code": "AL",
-                "name": "Almer\u00eda"
+                "name": i18n.gettext("Almer\u00eda")
             },
             {
                 "code": "O",
-                "name": "Asturias"
+                "name": i18n.gettext("Asturias")
             },
             {
                 "code": "AV",
-                "name": "\u00c1vila"
+                "name": i18n.gettext("\u00c1vila")
             },
             {
                 "code": "BA",
-                "name": "Badajoz"
+                "name": i18n.gettext("Badajoz")
             },
             {
                 "code": "PM",
-                "name": "Baleares"
+                "name": i18n.gettext("Baleares")
             },
             {
                 "code": "B",
-                "name": "Barcelona"
+                "name": i18n.gettext("Barcelona")
             },
             {
                 "code": "BU",
-                "name": "Burgos"
+                "name": i18n.gettext("Burgos")
             },
             {
                 "code": "CC",
-                "name": "C\u00e1ceres"
+                "name": i18n.gettext("C\u00e1ceres")
             },
             {
                 "code": "CA",
-                "name": "C\u00e1diz"
+                "name": i18n.gettext("C\u00e1diz")
             },
             {
                 "code": "S",
-                "name": "Cantabria"
+                "name": i18n.gettext("Cantabria")
             },
             {
                 "code": "CS",
-                "name": "Castell\u00f3n"
+                "name": i18n.gettext("Castell\u00f3n")
             },
             {
                 "code": "CE",
-                "name": "Ceuta"
+                "name": i18n.gettext("Ceuta")
             },
             {
                 "code": "CR",
-                "name": "Ciudad Real"
+                "name": i18n.gettext("Ciudad Real")
             },
             {
                 "code": "CO",
-                "name": "C\u00f3rdoba"
+                "name": i18n.gettext("C\u00f3rdoba")
             },
             {
                 "code": "CU",
-                "name": "Cuenca"
+                "name": i18n.gettext("Cuenca")
             },
             {
                 "code": "GI",
-                "name": "Girona"
+                "name": i18n.gettext("Girona")
             },
             {
                 "code": "GR",
-                "name": "Granada"
+                "name": i18n.gettext("Granada")
             },
             {
                 "code": "GU",
-                "name": "Guadalajara"
+                "name": i18n.gettext("Guadalajara")
             },
             {
                 "code": "SS",
-                "name": "Guip\u00fazcoa"
+                "name": i18n.gettext("Guip\u00fazcoa")
             },
             {
                 "code": "H",
-                "name": "Huelva"
+                "name": i18n.gettext("Huelva")
             },
             {
                 "code": "HU",
-                "name": "Huesca"
+                "name": i18n.gettext("Huesca")
             },
             {
                 "code": "J",
-                "name": "Ja\u00e9n"
+                "name": i18n.gettext("Ja\u00e9n")
             },
             {
                 "code": "LO",
-                "name": "La Rioja"
+                "name": i18n.gettext("La Rioja")
             },
             {
                 "code": "GC",
-                "name": "Las Palmas"
+                "name": i18n.gettext("Las Palmas")
             },
             {
                 "code": "LE",
-                "name": "Le\u00f3n"
+                "name": i18n.gettext("Le\u00f3n")
             },
             {
                 "code": "L",
-                "name": "Lleida"
+                "name": i18n.gettext("Lleida")
             },
             {
                 "code": "LU",
-                "name": "Lugo"
+                "name": i18n.gettext("Lugo")
             },
             {
                 "code": "M",
-                "name": "Madrid"
+                "name": i18n.gettext("Madrid")
             },
             {
                 "code": "MA",
-                "name": "M\u00e1laga"
+                "name": i18n.gettext("M\u00e1laga")
             },
             {
                 "code": "ML",
-                "name": "Melilla"
+                "name": i18n.gettext("Melilla")
             },
             {
                 "code": "MU",
-                "name": "Murcia"
+                "name": i18n.gettext("Murcia")
             },
             {
                 "code": "NA",
-                "name": "Navarra"
+                "name": i18n.gettext("Navarra")
             },
             {
                 "code": "OR",
-                "name": "Ourense"
+                "name": i18n.gettext("Ourense")
             },
             {
                 "code": "P",
-                "name": "Palencia"
+                "name": i18n.gettext("Palencia")
             },
             {
                 "code": "PO",
-                "name": "Pontevedra"
+                "name": i18n.gettext("Pontevedra")
             },
             {
                 "code": "SA",
-                "name": "Salamanca"
+                "name": i18n.gettext("Salamanca")
             },
             {
                 "code": "TF",
-                "name": "Santa Cruz de Tenerife"
+                "name": i18n.gettext("Santa Cruz de Tenerife")
             },
             {
                 "code": "SG",
-                "name": "Segovia"
+                "name": i18n.gettext("Segovia")
             },
             {
                 "code": "SE",
-                "name": "Sevilla"
+                "name": i18n.gettext("Sevilla")
             },
             {
                 "code": "SO",
-                "name": "Soria"
+                "name": i18n.gettext("Soria")
             },
             {
                 "code": "T",
-                "name": "Tarragona"
+                "name": i18n.gettext("Tarragona")
             },
             {
                 "code": "TE",
-                "name": "Teruel"
+                "name": i18n.gettext("Teruel")
             },
             {
                 "code": "TO",
-                "name": "Toledo"
+                "name": i18n.gettext("Toledo")
             },
             {
                 "code": "V",
-                "name": "Valencia"
+                "name": i18n.gettext("Valencia")
             },
             {
                 "code": "VA",
-                "name": "Valladolid"
+                "name": i18n.gettext("Valladolid")
             },
             {
                 "code": "BI",
-                "name": "Vizcaya"
+                "name": i18n.gettext("Vizcaya")
             },
             {
                 "code": "ZA",
-                "name": "Zamora"
+                "name": i18n.gettext("Zamora")
             },
             {
                 "code": "Z",
-                "name": "Zaragoza"
+                "name": i18n.gettext("Zaragoza")
             }
         ]
     },
@@ -3197,181 +3199,181 @@ export default [
         "code": "LK",
         "code_alpha3": "LKA",
         "code_numeric": "144",
-        "name": "Sri Lanka",
+        "name": i18n.gettext("Sri Lanka"),
         "states": []
     },
     {
         "code": "SH",
         "code_alpha3": "SHN",
         "code_numeric": "654",
-        "name": "St. Helena",
+        "name": i18n.gettext("St. Helena"),
         "states": []
     },
     {
         "code": "KN",
         "code_alpha3": "KNA",
         "code_numeric": "659",
-        "name": "St. Kitts and Nevis",
+        "name": i18n.gettext("St. Kitts and Nevis"),
         "states": []
     },
     {
         "code": "PM",
         "code_alpha3": "SPM",
         "code_numeric": "666",
-        "name": "St. Pierre and Miquelon",
+        "name": i18n.gettext("St. Pierre and Miquelon"),
         "states": []
     },
     {
         "code": "VC",
         "code_alpha3": "VCT",
         "code_numeric": "670",
-        "name": "St. Vincent and the Grenadines",
+        "name": i18n.gettext("St. Vincent and the Grenadines"),
         "states": []
     },
     {
         "code": "SD",
         "code_alpha3": "SDN",
         "code_numeric": "736",
-        "name": "Sudan",
+        "name": i18n.gettext("Sudan"),
         "states": []
     },
     {
         "code": "SR",
         "code_alpha3": "SUR",
         "code_numeric": "740",
-        "name": "Suriname",
+        "name": i18n.gettext("Suriname"),
         "states": []
     },
     {
         "code": "SJ",
         "code_alpha3": "SJM",
         "code_numeric": "744",
-        "name": "Svalbard and Jan Mayen Islands",
+        "name": i18n.gettext("Svalbard and Jan Mayen Islands"),
         "states": []
     },
     {
         "code": "SZ",
         "code_alpha3": "SWZ",
         "code_numeric": "748",
-        "name": "Swaziland",
+        "name": i18n.gettext("Swaziland"),
         "states": []
     },
     {
         "code": "SE",
         "code_alpha3": "SWE",
         "code_numeric": "752",
-        "name": "Sweden",
+        "name": i18n.gettext("Sweden"),
         "states": []
     },
     {
         "code": "CH",
         "code_alpha3": "CHE",
         "code_numeric": "756",
-        "name": "Switzerland",
+        "name": i18n.gettext("Switzerland"),
         "states": [
             {
                 "code": "AR",
-                "name": "Appenzell Rhodes-Ext\u00e9rieures"
+                "name": i18n.gettext("Appenzell Rhodes-Ext\u00e9rieures")
             },
             {
                 "code": "AI",
-                "name": "Appenzell Rhodes-Int\u00e9rieures"
+                "name": i18n.gettext("Appenzell Rhodes-Int\u00e9rieures")
             },
             {
                 "code": "AG",
-                "name": "Argovie"
+                "name": i18n.gettext("Argovie")
             },
             {
                 "code": "BL",
-                "name": "B\u00e2le-Campagne"
+                "name": i18n.gettext("B\u00e2le-Campagne")
             },
             {
                 "code": "BS",
-                "name": "B\u00e2le-Ville"
+                "name": i18n.gettext("B\u00e2le-Ville")
             },
             {
                 "code": "BE",
-                "name": "Berne"
+                "name": i18n.gettext("Berne")
             },
             {
                 "code": "FR",
-                "name": "Fribourg"
+                "name": i18n.gettext("Fribourg")
             },
             {
                 "code": "GE",
-                "name": "Gen\u00e8ve"
+                "name": i18n.gettext("Gen\u00e8ve")
             },
             {
                 "code": "GL",
-                "name": "Glaris"
+                "name": i18n.gettext("Glaris")
             },
             {
                 "code": "GR",
-                "name": "Grisons"
+                "name": i18n.gettext("Grisons")
             },
             {
                 "code": "JU",
-                "name": "Jura"
+                "name": i18n.gettext("Jura")
             },
             {
                 "code": "LU",
-                "name": "Lucerne"
+                "name": i18n.gettext("Lucerne")
             },
             {
                 "code": "NE",
-                "name": "Neuch\u00e2tel"
+                "name": i18n.gettext("Neuch\u00e2tel")
             },
             {
                 "code": "NW",
-                "name": "Nidwald"
+                "name": i18n.gettext("Nidwald")
             },
             {
                 "code": "OW",
-                "name": "Obwald"
+                "name": i18n.gettext("Obwald")
             },
             {
                 "code": "SG",
-                "name": "Saint-Gall"
+                "name": i18n.gettext("Saint-Gall")
             },
             {
                 "code": "SH",
-                "name": "Schaffhouse"
+                "name": i18n.gettext("Schaffhouse")
             },
             {
                 "code": "SZ",
-                "name": "Schwytz"
+                "name": i18n.gettext("Schwytz")
             },
             {
                 "code": "SO",
-                "name": "Soleure"
+                "name": i18n.gettext("Soleure")
             },
             {
                 "code": "TI",
-                "name": "Tessin"
+                "name": i18n.gettext("Tessin")
             },
             {
                 "code": "TG",
-                "name": "Thurgovie"
+                "name": i18n.gettext("Thurgovie")
             },
             {
                 "code": "UR",
-                "name": "Uri"
+                "name": i18n.gettext("Uri")
             },
             {
                 "code": "VS",
-                "name": "Valais"
+                "name": i18n.gettext("Valais")
             },
             {
                 "code": "VD",
-                "name": "Vaud"
+                "name": i18n.gettext("Vaud")
             },
             {
                 "code": "ZG",
-                "name": "Zoug"
+                "name": i18n.gettext("Zoug")
             },
             {
                 "code": "ZH",
-                "name": "Zurich"
+                "name": i18n.gettext("Zurich")
             }
         ]
     },
@@ -3379,642 +3381,642 @@ export default [
         "code": "SY",
         "code_alpha3": "SYR",
         "code_numeric": "760",
-        "name": "Syrian Arab Republic",
+        "name": i18n.gettext("Syrian Arab Republic"),
         "states": []
     },
     {
         "code": "TW",
         "code_alpha3": "TWN",
         "code_numeric": "158",
-        "name": "Taiwan",
+        "name": i18n.gettext("Taiwan"),
         "states": []
     },
     {
         "code": "TJ",
         "code_alpha3": "TJK",
         "code_numeric": "762",
-        "name": "Tajikistan",
+        "name": i18n.gettext("Tajikistan"),
         "states": []
     },
     {
         "code": "TZ",
         "code_alpha3": "TZA",
         "code_numeric": "834",
-        "name": "Tanzania, United Republic of",
+        "name": i18n.gettext("Tanzania, United Republic of"),
         "states": []
     },
     {
         "code": "TH",
         "code_alpha3": "THA",
         "code_numeric": "764",
-        "name": "Thailand",
+        "name": i18n.gettext("Thailand"),
         "states": []
     },
     {
         "code": "TG",
         "code_alpha3": "TGO",
         "code_numeric": "768",
-        "name": "Togo",
+        "name": i18n.gettext("Togo"),
         "states": []
     },
     {
         "code": "TK",
         "code_alpha3": "TKL",
         "code_numeric": "772",
-        "name": "Tokelau",
+        "name": i18n.gettext("Tokelau"),
         "states": []
     },
     {
         "code": "TO",
         "code_alpha3": "TON",
         "code_numeric": "776",
-        "name": "Tonga",
+        "name": i18n.gettext("Tonga"),
         "states": []
     },
     {
         "code": "TT",
         "code_alpha3": "TTO",
         "code_numeric": "780",
-        "name": "Trinidad and Tobago",
+        "name": i18n.gettext("Trinidad and Tobago"),
         "states": []
     },
     {
         "code": "TN",
         "code_alpha3": "TUN",
         "code_numeric": "788",
-        "name": "Tunisia",
+        "name": i18n.gettext("Tunisia"),
         "states": []
     },
     {
         "code": "TR",
         "code_alpha3": "TUR",
         "code_numeric": "792",
-        "name": "Turkey",
+        "name": i18n.gettext("Turkey"),
         "states": []
     },
     {
         "code": "TM",
         "code_alpha3": "TKM",
         "code_numeric": "795",
-        "name": "Turkmenistan",
+        "name": i18n.gettext("Turkmenistan"),
         "states": []
     },
     {
         "code": "TC",
         "code_alpha3": "TCA",
         "code_numeric": "796",
-        "name": "Turks and Caicos Islands",
+        "name": i18n.gettext("Turks and Caicos Islands"),
         "states": []
     },
     {
         "code": "TV",
         "code_alpha3": "TUV",
         "code_numeric": "798",
-        "name": "Tuvalu",
+        "name": i18n.gettext("Tuvalu"),
         "states": []
     },
     {
         "code": "UG",
         "code_alpha3": "UGA",
         "code_numeric": "800",
-        "name": "Uganda",
+        "name": i18n.gettext("Uganda"),
         "states": []
     },
     {
         "code": "UA",
         "code_alpha3": "UKR",
         "code_numeric": "804",
-        "name": "Ukraine",
+        "name": i18n.gettext("Ukraine"),
         "states": []
     },
     {
         "code": "AE",
         "code_alpha3": "ARE",
         "code_numeric": "784",
-        "name": "United Arab Emirates",
+        "name": i18n.gettext("United Arab Emirates"),
         "states": []
     },
     {
         "code": "GB",
         "code_alpha3": "GBR",
         "code_numeric": "826",
-        "name": "United Kingdom (Great Britain)",
+        "name": i18n.gettext("United Kingdom (Great Britain)"),
         "states": [
             {
                 "code": "ABN",
-                "name": "Aberdeen"
+                "name": i18n.gettext("Aberdeen")
             },
             {
                 "code": "ABNS",
-                "name": "Aberdeenshire"
+                "name": i18n.gettext("Aberdeenshire")
             },
             {
                 "code": "ANG",
-                "name": "Anglesey"
+                "name": i18n.gettext("Anglesey")
             },
             {
                 "code": "AGS",
-                "name": "Angus"
+                "name": i18n.gettext("Angus")
             },
             {
                 "code": "ARY",
-                "name": "Argyll and Bute"
+                "name": i18n.gettext("Argyll and Bute")
             },
             {
                 "code": "AVN",
-                "name": "Avon"
+                "name": i18n.gettext("Avon")
             },
             {
                 "code": "BAN",
-                "name": "Banffshire"
+                "name": i18n.gettext("Banffshire")
             },
             {
                 "code": "BEDS",
-                "name": "Bedfordshire"
+                "name": i18n.gettext("Bedfordshire")
             },
             {
                 "code": "BERKS",
-                "name": "Berkshire"
+                "name": i18n.gettext("Berkshire")
             },
             {
                 "code": "BEW",
-                "name": "Berwickshire"
+                "name": i18n.gettext("Berwickshire")
             },
             {
                 "code": "BLA",
-                "name": "Blaenau Gwent"
+                "name": i18n.gettext("Blaenau Gwent")
             },
             {
                 "code": "BRI",
-                "name": "Bridgend"
+                "name": i18n.gettext("Bridgend")
             },
             {
                 "code": "BSTL",
-                "name": "Bristol"
+                "name": i18n.gettext("Bristol")
             },
             {
                 "code": "BUCKS",
-                "name": "Buckinghamshire"
+                "name": i18n.gettext("Buckinghamshire")
             },
             {
                 "code": "CAE",
-                "name": "Caerphilly"
+                "name": i18n.gettext("Caerphilly")
             },
             {
                 "code": "CAI",
-                "name": "Caithness"
+                "name": i18n.gettext("Caithness")
             },
             {
                 "code": "CAMBS",
-                "name": "Cambridgeshire"
+                "name": i18n.gettext("Cambridgeshire")
             },
             {
                 "code": "CDF",
-                "name": "Cardiff"
+                "name": i18n.gettext("Cardiff")
             },
             {
                 "code": "CARM",
-                "name": "Carmarthenshire"
+                "name": i18n.gettext("Carmarthenshire")
             },
             {
                 "code": "CDGN",
-                "name": "Ceredigion"
+                "name": i18n.gettext("Ceredigion")
             },
             {
                 "code": "CHES",
-                "name": "Cheshire"
+                "name": i18n.gettext("Cheshire")
             },
             {
                 "code": "CLACK",
-                "name": "Clackmannanshire"
+                "name": i18n.gettext("Clackmannanshire")
             },
             {
                 "code": "CLV",
-                "name": "Cleveland"
+                "name": i18n.gettext("Cleveland")
             },
             {
                 "code": "CWD",
-                "name": "Clwyd"
+                "name": i18n.gettext("Clwyd")
             },
             {
                 "code": "CON",
-                "name": "Conwy"
+                "name": i18n.gettext("Conwy")
             },
             {
                 "code": "CORN",
-                "name": "Cornwall"
+                "name": i18n.gettext("Cornwall")
             },
             {
                 "code": "ANT",
-                "name": "County Antrim"
+                "name": i18n.gettext("County Antrim")
             },
             {
                 "code": "ARM",
-                "name": "County Armagh"
+                "name": i18n.gettext("County Armagh")
             },
             {
                 "code": "DOW",
-                "name": "County Down"
+                "name": i18n.gettext("County Down")
             },
             {
                 "code": "FER",
-                "name": "County Fermanagh"
+                "name": i18n.gettext("County Fermanagh")
             },
             {
                 "code": "LDY",
-                "name": "County Londonderry"
+                "name": i18n.gettext("County Londonderry")
             },
             {
                 "code": "TYR",
-                "name": "County Tyrone"
+                "name": i18n.gettext("County Tyrone")
             },
             {
                 "code": "CMA",
-                "name": "Cumbria"
+                "name": i18n.gettext("Cumbria")
             },
             {
                 "code": "DNBG",
-                "name": "Denbighshire"
+                "name": i18n.gettext("Denbighshire")
             },
             {
                 "code": "DERBY",
-                "name": "Derbyshire"
+                "name": i18n.gettext("Derbyshire")
             },
             {
                 "code": "DVN",
-                "name": "Devon"
+                "name": i18n.gettext("Devon")
             },
             {
                 "code": "DOR",
-                "name": "Dorset"
+                "name": i18n.gettext("Dorset")
             },
             {
                 "code": "DGL",
-                "name": "Dumfries and Galloway"
+                "name": i18n.gettext("Dumfries and Galloway")
             },
             {
                 "code": "DFS",
-                "name": "Dumfries-shire"
+                "name": i18n.gettext("Dumfries-shire")
             },
             {
                 "code": "DUND",
-                "name": "Dundee"
+                "name": i18n.gettext("Dundee")
             },
             {
                 "code": "DHM",
-                "name": "Durham"
+                "name": i18n.gettext("Durham")
             },
             {
                 "code": "DFD",
-                "name": "Dyfed"
+                "name": i18n.gettext("Dyfed")
             },
             {
                 "code": "ARYE",
-                "name": "East Ayrshire"
+                "name": i18n.gettext("East Ayrshire")
             },
             {
                 "code": "DUNBE",
-                "name": "East Dunbartonshire"
+                "name": i18n.gettext("East Dunbartonshire")
             },
             {
                 "code": "LOTE",
-                "name": "East Lothian"
+                "name": i18n.gettext("East Lothian")
             },
             {
                 "code": "RENE",
-                "name": "East Renfrewshire"
+                "name": i18n.gettext("East Renfrewshire")
             },
             {
                 "code": "ERYS",
-                "name": "East Riding of Yorkshire"
+                "name": i18n.gettext("East Riding of Yorkshire")
             },
             {
                 "code": "SXE",
-                "name": "East Sussex"
+                "name": i18n.gettext("East Sussex")
             },
             {
                 "code": "EDIN",
-                "name": "Edinburgh"
+                "name": i18n.gettext("Edinburgh")
             },
             {
                 "code": "ESX",
-                "name": "Essex"
+                "name": i18n.gettext("Essex")
             },
             {
                 "code": "FALK",
-                "name": "Falkirk"
+                "name": i18n.gettext("Falkirk")
             },
             {
                 "code": "FFE",
-                "name": "Fife"
+                "name": i18n.gettext("Fife")
             },
             {
                 "code": "FLINT",
-                "name": "Flintshire"
+                "name": i18n.gettext("Flintshire")
             },
             {
                 "code": "GLAS",
-                "name": "Glasgow"
+                "name": i18n.gettext("Glasgow")
             },
             {
                 "code": "GLOS",
-                "name": "Gloucestershire"
+                "name": i18n.gettext("Gloucestershire")
             },
             {
                 "code": "LDN",
-                "name": "Greater London"
+                "name": i18n.gettext("Greater London")
             },
             {
                 "code": "MCH",
-                "name": "Greater Manchester"
+                "name": i18n.gettext("Greater Manchester")
             },
             {
                 "code": "GDD",
-                "name": "Gwynedd"
+                "name": i18n.gettext("Gwynedd")
             },
             {
                 "code": "HANTS",
-                "name": "Hampshire"
+                "name": i18n.gettext("Hampshire")
             },
             {
                 "code": "HWR",
-                "name": "Herefordshire"
+                "name": i18n.gettext("Herefordshire")
             },
             {
                 "code": "HERTS",
-                "name": "Hertfordshire"
+                "name": i18n.gettext("Hertfordshire")
             },
             {
                 "code": "HLD",
-                "name": "Highlands"
+                "name": i18n.gettext("Highlands")
             },
             {
                 "code": "HUM",
-                "name": "Humberside"
+                "name": i18n.gettext("Humberside")
             },
             {
                 "code": "IVER",
-                "name": "Inverclyde"
+                "name": i18n.gettext("Inverclyde")
             },
             {
                 "code": "INV",
-                "name": "Inverness-shire"
+                "name": i18n.gettext("Inverness-shire")
             },
             {
                 "code": "IOW",
-                "name": "Isle of Wight"
+                "name": i18n.gettext("Isle of Wight")
             },
             {
                 "code": "IOS",
-                "name": "Isles of Scilly"
+                "name": i18n.gettext("Isles of Scilly")
             },
             {
                 "code": "KNT",
-                "name": "Kent"
+                "name": i18n.gettext("Kent")
             },
             {
                 "code": "KCD",
-                "name": "Kincardineshire"
+                "name": i18n.gettext("Kincardineshire")
             },
             {
                 "code": "LANCS",
-                "name": "Lancashire"
+                "name": i18n.gettext("Lancashire")
             },
             {
                 "code": "LEICS",
-                "name": "Leicestershire"
+                "name": i18n.gettext("Leicestershire")
             },
             {
                 "code": "LINCS",
-                "name": "Lincolnshire"
+                "name": i18n.gettext("Lincolnshire")
             },
             {
                 "code": "MER",
-                "name": "Merionethshire"
+                "name": i18n.gettext("Merionethshire")
             },
             {
                 "code": "MSY",
-                "name": "Merseyside"
+                "name": i18n.gettext("Merseyside")
             },
             {
                 "code": "MERT",
-                "name": "Merthyr Tydfil"
+                "name": i18n.gettext("Merthyr Tydfil")
             },
             {
                 "code": "MDX",
-                "name": "Middlesex"
+                "name": i18n.gettext("Middlesex")
             },
             {
                 "code": "MLOT",
-                "name": "Midlothian"
+                "name": i18n.gettext("Midlothian")
             },
             {
                 "code": "MMOUTH",
-                "name": "Monmouthshire"
+                "name": i18n.gettext("Monmouthshire")
             },
             {
                 "code": "MORAY",
-                "name": "Moray"
+                "name": i18n.gettext("Moray")
             },
             {
                 "code": "NAI",
-                "name": "Nairnshire"
+                "name": i18n.gettext("Nairnshire")
             },
             {
                 "code": "NPRTAL",
-                "name": "Neath Port Talbot"
+                "name": i18n.gettext("Neath Port Talbot")
             },
             {
                 "code": "NEWPT",
-                "name": "Newport"
+                "name": i18n.gettext("Newport")
             },
             {
                 "code": "NOR",
-                "name": "Norfolk"
+                "name": i18n.gettext("Norfolk")
             },
             {
                 "code": "ARYN",
-                "name": "North Ayrshire"
+                "name": i18n.gettext("North Ayrshire")
             },
             {
                 "code": "LANN",
-                "name": "North Lanarkshire"
+                "name": i18n.gettext("North Lanarkshire")
             },
             {
                 "code": "YSN",
-                "name": "North Yorkshire"
+                "name": i18n.gettext("North Yorkshire")
             },
             {
                 "code": "NHM",
-                "name": "Northamptonshire"
+                "name": i18n.gettext("Northamptonshire")
             },
             {
                 "code": "NLD",
-                "name": "Northumberland"
+                "name": i18n.gettext("Northumberland")
             },
             {
                 "code": "NOT",
-                "name": "Nottinghamshire"
+                "name": i18n.gettext("Nottinghamshire")
             },
             {
                 "code": "ORK",
-                "name": "Orkney Islands"
+                "name": i18n.gettext("Orkney Islands")
             },
             {
                 "code": "OFE",
-                "name": "Oxfordshire"
+                "name": i18n.gettext("Oxfordshire")
             },
             {
                 "code": "PEE",
-                "name": "Peebles-shire"
+                "name": i18n.gettext("Peebles-shire")
             },
             {
                 "code": "PEM",
-                "name": "Pembrokeshire"
+                "name": i18n.gettext("Pembrokeshire")
             },
             {
                 "code": "PERTH",
-                "name": "Perth and Kinross"
+                "name": i18n.gettext("Perth and Kinross")
             },
             {
                 "code": "PWS",
-                "name": "Powys"
+                "name": i18n.gettext("Powys")
             },
             {
                 "code": "REN",
-                "name": "Renfrewshire"
+                "name": i18n.gettext("Renfrewshire")
             },
             {
                 "code": "RHON",
-                "name": "Rhondda Cynon Taff"
+                "name": i18n.gettext("Rhondda Cynon Taff")
             },
             {
                 "code": "ROX",
-                "name": "Roxburghshire"
+                "name": i18n.gettext("Roxburghshire")
             },
             {
                 "code": "RUT",
-                "name": "Rutland"
+                "name": i18n.gettext("Rutland")
             },
             {
                 "code": "BOR",
-                "name": "Scottish Borders"
+                "name": i18n.gettext("Scottish Borders")
             },
             {
                 "code": "SEL",
-                "name": "Selkirkshire"
+                "name": i18n.gettext("Selkirkshire")
             },
             {
                 "code": "SHET",
-                "name": "Shetland Islands"
+                "name": i18n.gettext("Shetland Islands")
             },
             {
                 "code": "SPE",
-                "name": "Shropshire"
+                "name": i18n.gettext("Shropshire")
             },
             {
                 "code": "SOM",
-                "name": "Somerset"
+                "name": i18n.gettext("Somerset")
             },
             {
                 "code": "ARYS",
-                "name": "South Ayrshire"
+                "name": i18n.gettext("South Ayrshire")
             },
             {
                 "code": "LANS",
-                "name": "South Lanarkshire"
+                "name": i18n.gettext("South Lanarkshire")
             },
             {
                 "code": "SYK",
-                "name": "South Yorkshire"
+                "name": i18n.gettext("South Yorkshire")
             },
             {
                 "code": "SFD",
-                "name": "Staffordshire"
+                "name": i18n.gettext("Staffordshire")
             },
             {
                 "code": "STIR",
-                "name": "Stirling"
+                "name": i18n.gettext("Stirling")
             },
             {
                 "code": "STI",
-                "name": "Stirlingshire"
+                "name": i18n.gettext("Stirlingshire")
             },
             {
                 "code": "SFK",
-                "name": "Suffolk"
+                "name": i18n.gettext("Suffolk")
             },
             {
                 "code": "SRY",
-                "name": "Surrey"
+                "name": i18n.gettext("Surrey")
             },
             {
                 "code": "SUT",
-                "name": "Sutherland"
+                "name": i18n.gettext("Sutherland")
             },
             {
                 "code": "SWAN",
-                "name": "Swansea"
+                "name": i18n.gettext("Swansea")
             },
             {
                 "code": "TORF",
-                "name": "Torfaen"
+                "name": i18n.gettext("Torfaen")
             },
             {
                 "code": "TWR",
-                "name": "Tyne and Wear"
+                "name": i18n.gettext("Tyne and Wear")
             },
             {
                 "code": "VGLAM",
-                "name": "Vale of Glamorgan"
+                "name": i18n.gettext("Vale of Glamorgan")
             },
             {
                 "code": "WARKS",
-                "name": "Warwickshire"
+                "name": i18n.gettext("Warwickshire")
             },
             {
                 "code": "WDUN",
-                "name": "West Dunbartonshire"
+                "name": i18n.gettext("West Dunbartonshire")
             },
             {
                 "code": "WLOT",
-                "name": "West Lothian"
+                "name": i18n.gettext("West Lothian")
             },
             {
                 "code": "WMD",
-                "name": "West Midlands"
+                "name": i18n.gettext("West Midlands")
             },
             {
                 "code": "SXW",
-                "name": "West Sussex"
+                "name": i18n.gettext("West Sussex")
             },
             {
                 "code": "YSW",
-                "name": "West Yorkshire"
+                "name": i18n.gettext("West Yorkshire")
             },
             {
                 "code": "WIL",
-                "name": "Western Isles"
+                "name": i18n.gettext("Western Isles")
             },
             {
                 "code": "WIG",
-                "name": "Wigtownshire"
+                "name": i18n.gettext("Wigtownshire")
             },
             {
                 "code": "WLT",
-                "name": "Wiltshire"
+                "name": i18n.gettext("Wiltshire")
             },
             {
                 "code": "WORCS",
-                "name": "Worcestershire"
+                "name": i18n.gettext("Worcestershire")
             },
             {
                 "code": "WRX",
-                "name": "Wrexham"
+                "name": i18n.gettext("Wrexham")
             },
             {
                 "code": "YKS",
-                "name": "Yorkshire"
+                "name": i18n.gettext("Yorkshire")
             }
         ]
     },
@@ -4022,227 +4024,227 @@ export default [
         "code": "US",
         "code_alpha3": "USA",
         "code_numeric": "840",
-        "name": "United States",
+        "name": i18n.gettext("United States"),
         "states": [
             {
                 "code": "AL",
-                "name": "Alabama"
+                "name": i18n.gettext("Alabama")
             },
             {
                 "code": "AK",
-                "name": "Alaska"
+                "name": i18n.gettext("Alaska")
             },
             {
                 "code": "AZ",
-                "name": "Arizona"
+                "name": i18n.gettext("Arizona")
             },
             {
                 "code": "AR",
-                "name": "Arkansas"
+                "name": i18n.gettext("Arkansas")
             },
             {
                 "code": "CA",
-                "name": "California"
+                "name": i18n.gettext("California")
             },
             {
                 "code": "CO",
-                "name": "Colorado"
+                "name": i18n.gettext("Colorado")
             },
             {
                 "code": "CT",
-                "name": "Connecticut"
+                "name": i18n.gettext("Connecticut")
             },
             {
                 "code": "DE",
-                "name": "Delaware"
+                "name": i18n.gettext("Delaware")
             },
             {
                 "code": "DC",
-                "name": "District of Columbia"
+                "name": i18n.gettext("District of Columbia")
             },
             {
                 "code": "FL",
-                "name": "Florida"
+                "name": i18n.gettext("Florida")
             },
             {
                 "code": "GA",
-                "name": "Georgia"
+                "name": i18n.gettext("Georgia")
             },
             {
                 "code": "GU",
-                "name": "Guam"
+                "name": i18n.gettext("Guam")
             },
             {
                 "code": "HI",
-                "name": "Hawaii"
+                "name": i18n.gettext("Hawaii")
             },
             {
                 "code": "ID",
-                "name": "Idaho"
+                "name": i18n.gettext("Idaho")
             },
             {
                 "code": "IL",
-                "name": "Illinois"
+                "name": i18n.gettext("Illinois")
             },
             {
                 "code": "IN",
-                "name": "Indiana"
+                "name": i18n.gettext("Indiana")
             },
             {
                 "code": "IA",
-                "name": "Iowa"
+                "name": i18n.gettext("Iowa")
             },
             {
                 "code": "KS",
-                "name": "Kansas"
+                "name": i18n.gettext("Kansas")
             },
             {
                 "code": "KY",
-                "name": "Kentucky"
+                "name": i18n.gettext("Kentucky")
             },
             {
                 "code": "LA",
-                "name": "Louisiana"
+                "name": i18n.gettext("Louisiana")
             },
             {
                 "code": "ME",
-                "name": "Maine"
+                "name": i18n.gettext("Maine")
             },
             {
                 "code": "MD",
-                "name": "Maryland"
+                "name": i18n.gettext("Maryland")
             },
             {
                 "code": "MA",
-                "name": "Massachusetts"
+                "name": i18n.gettext("Massachusetts")
             },
             {
                 "code": "MI",
-                "name": "Michigan"
+                "name": i18n.gettext("Michigan")
             },
             {
                 "code": "MN",
-                "name": "Minnesota"
+                "name": i18n.gettext("Minnesota")
             },
             {
                 "code": "MS",
-                "name": "Mississippi"
+                "name": i18n.gettext("Mississippi")
             },
             {
                 "code": "MO",
-                "name": "Missouri"
+                "name": i18n.gettext("Missouri")
             },
             {
                 "code": "MT",
-                "name": "Montana"
+                "name": i18n.gettext("Montana")
             },
             {
                 "code": "NE",
-                "name": "Nebraska"
+                "name": i18n.gettext("Nebraska")
             },
             {
                 "code": "NV",
-                "name": "Nevada"
+                "name": i18n.gettext("Nevada")
             },
             {
                 "code": "NH",
-                "name": "New Hampshire"
+                "name": i18n.gettext("New Hampshire")
             },
             {
                 "code": "NJ",
-                "name": "New Jersey"
+                "name": i18n.gettext("New Jersey")
             },
             {
                 "code": "NM",
-                "name": "New Mexico"
+                "name": i18n.gettext("New Mexico")
             },
             {
                 "code": "NY",
-                "name": "New York"
+                "name": i18n.gettext("New York")
             },
             {
                 "code": "NC",
-                "name": "North Carolina"
+                "name": i18n.gettext("North Carolina")
             },
             {
                 "code": "ND",
-                "name": "North Dakota"
+                "name": i18n.gettext("North Dakota")
             },
             {
                 "code": "MP",
-                "name": "Northern Mariana Islands"
+                "name": i18n.gettext("Northern Mariana Islands")
             },
             {
                 "code": "OH",
-                "name": "Ohio"
+                "name": i18n.gettext("Ohio")
             },
             {
                 "code": "OK",
-                "name": "Oklahoma"
+                "name": i18n.gettext("Oklahoma")
             },
             {
                 "code": "OR",
-                "name": "Oregon"
+                "name": i18n.gettext("Oregon")
             },
             {
                 "code": "PA",
-                "name": "Pennsylvania"
+                "name": i18n.gettext("Pennsylvania")
             },
             {
                 "code": "PR",
-                "name": "Puerto Rico"
+                "name": i18n.gettext("Puerto Rico")
             },
             {
                 "code": "RI",
-                "name": "Rhode Island"
+                "name": i18n.gettext("Rhode Island")
             },
             {
                 "code": "SC",
-                "name": "South Carolina"
+                "name": i18n.gettext("South Carolina")
             },
             {
                 "code": "SD",
-                "name": "South Dakota"
+                "name": i18n.gettext("South Dakota")
             },
             {
                 "code": "TN",
-                "name": "Tennessee"
+                "name": i18n.gettext("Tennessee")
             },
             {
                 "code": "TX",
-                "name": "Texas"
+                "name": i18n.gettext("Texas")
             },
             {
                 "code": "UT",
-                "name": "Utah"
+                "name": i18n.gettext("Utah")
             },
             {
                 "code": "VT",
-                "name": "Vermont"
+                "name": i18n.gettext("Vermont")
             },
             {
                 "code": "VI",
-                "name": "Virgin Islands"
+                "name": i18n.gettext("Virgin Islands")
             },
             {
                 "code": "VA",
-                "name": "Virginia"
+                "name": i18n.gettext("Virginia")
             },
             {
                 "code": "WA",
-                "name": "Washington"
+                "name": i18n.gettext("Washington")
             },
             {
                 "code": "WV",
-                "name": "West Virginia"
+                "name": i18n.gettext("West Virginia")
             },
             {
                 "code": "WI",
-                "name": "Wisconsin"
+                "name": i18n.gettext("Wisconsin")
             },
             {
                 "code": "WY",
-                "name": "Wyoming"
+                "name": i18n.gettext("Wyoming")
             }
         ]
     },
@@ -4250,91 +4252,91 @@ export default [
         "code": "VI",
         "code_alpha3": "VIR",
         "code_numeric": "850",
-        "name": "United States Virgin Islands",
+        "name": i18n.gettext("United States Virgin Islands"),
         "states": []
     },
     {
         "code": "UY",
         "code_alpha3": "URY",
         "code_numeric": "858",
-        "name": "Uruguay",
+        "name": i18n.gettext("Uruguay"),
         "states": []
     },
     {
         "code": "UZ",
         "code_alpha3": "UZB",
         "code_numeric": "860",
-        "name": "Uzbekistan",
+        "name": i18n.gettext("Uzbekistan"),
         "states": []
     },
     {
         "code": "VU",
         "code_alpha3": "VUT",
         "code_numeric": "548",
-        "name": "Vanuatu",
+        "name": i18n.gettext("Vanuatu"),
         "states": []
     },
     {
         "code": "VA",
         "code_alpha3": "VAT",
         "code_numeric": "336",
-        "name": "Vatican City State",
+        "name": i18n.gettext("Vatican City State"),
         "states": []
     },
     {
         "code": "VE",
         "code_alpha3": "VEN",
         "code_numeric": "862",
-        "name": "Venezuela",
+        "name": i18n.gettext("Venezuela"),
         "states": []
     },
     {
         "code": "VN",
         "code_alpha3": "VNM",
         "code_numeric": "704",
-        "name": "Viet Nam",
+        "name": i18n.gettext("Viet Nam"),
         "states": []
     },
     {
         "code": "WF",
         "code_alpha3": "WLF",
         "code_numeric": "876",
-        "name": "Wallis And Futuna Islands",
+        "name": i18n.gettext("Wallis And Futuna Islands"),
         "states": []
     },
     {
         "code": "EH",
         "code_alpha3": "ESH",
         "code_numeric": "732",
-        "name": "Western Sahara",
+        "name": i18n.gettext("Western Sahara"),
         "states": []
     },
     {
         "code": "YE",
         "code_alpha3": "YEM",
         "code_numeric": "887",
-        "name": "Yemen",
+        "name": i18n.gettext("Yemen"),
         "states": []
     },
     {
         "code": "ZR",
         "code_alpha3": "ZAR",
         "code_numeric": "180",
-        "name": "Zaire",
+        "name": i18n.gettext("Zaire"),
         "states": []
     },
     {
         "code": "ZM",
         "code_alpha3": "ZMB",
         "code_numeric": "894",
-        "name": "Zambia",
+        "name": i18n.gettext("Zambia"),
         "states": []
     },
     {
         "code": "ZW",
         "code_alpha3": "ZWE",
         "code_numeric": "716",
-        "name": "Zimbabwe",
+        "name": i18n.gettext("Zimbabwe"),
         "states": []
     }
 ]
