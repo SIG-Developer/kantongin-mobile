@@ -11,6 +11,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { PRODUCT_NUM_COLUMNS } from '../utils';
 import i18n from '../utils/i18n';
+import Api from '../services/api';
 import { BLOCK_CATEGORIES } from '../constants';
 
 // Import actions.
@@ -50,6 +51,14 @@ const styles = EStyleSheet.create({
 });
 
 class Categories extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
@@ -71,14 +80,6 @@ class Categories extends Component {
     productsActions: PropTypes.shape({
       fetchByCategory: PropTypes.func,
     })
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -114,15 +115,19 @@ class Categories extends Component {
     });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
-      productsActions, products, navigator, categoryId,
+      productsActions, products, navigator, categoryId, layouts, companyId,
     } = this.props;
 
     let category = { ...this.props.category };
 
+    if (!category) {
+      category = await Api.get('/categories/432?subcats=Y');
+    }
+
     if (categoryId) {
-      const categories = this.props.layouts.blocks.find(b => b.type === BLOCK_CATEGORIES);
+      const categories = layouts.blocks.find(b => b.type === BLOCK_CATEGORIES);
       const items = Object.keys(categories.content.items).map(k => categories.content.items[k]);
       category = this.findCategoryById(items);
     }
@@ -143,11 +148,11 @@ class Categories extends Component {
       this.setState({
         ...this.state,
         ...newState,
-      }, () => productsActions.fetchByCategory(this.activeCategoryId, 1, this.props.companyId));
+      }, () => productsActions.fetchByCategory(this.activeCategoryId, 1, companyId));
     });
 
     navigator.setTitle({
-      title: category.category.toUpperCase(),
+      title: category.category,
     });
   }
 
@@ -201,10 +206,10 @@ class Categories extends Component {
   }
 
   handleRefresh() {
-    const { productsActions } = this.props;
+    const { productsActions, companyId } = this.props;
     this.setState({
       refreshing: true,
-    }, () => productsActions.fetchByCategory(this.activeCategoryId, 1, this.props.companyId));
+    }, () => productsActions.fetchByCategory(this.activeCategoryId, 1, companyId));
   }
 
   renderHeader() {

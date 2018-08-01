@@ -43,7 +43,7 @@ export const registerDrawerDeepLinks = (event, navigator) => {
       screen: 'Categories',
       backButtonTitle: '',
       passProps: {
-        cid: params.category_id,
+        categoryId: params.category_id,
       }
     });
   } else if (link === 'home/') {
@@ -52,14 +52,14 @@ export const registerDrawerDeepLinks = (event, navigator) => {
       animated: false,
     });
   } else if (link.startsWith('http://') || link.startsWith('https://')) {
-    Linking.canOpenURL(e.link).then((supported) => {
+    Linking.canOpenURL(link).then((supported) => {
       if (!supported) {
         return Alert.alert(
           i18n.gettext('Can\'t handle url'),
           ''
         );
       }
-      return Linking.openURL(e.link);
+      return Linking.openURL(link);
     });
   }
 
