@@ -139,7 +139,7 @@ class Vendor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { products, vendors, companyId } = nextProps;
+    const { products, vendors, companyId, navigator } = nextProps;
     const vendorProducts = products.items[companyId];
     if (vendorProducts) {
       this.setState({
@@ -152,6 +152,10 @@ class Vendor extends Component {
     if (vendors.items[companyId]) {
       this.setState({
         vendor: vendors.items[companyId],
+      }, () => {
+        navigator.setTitle({
+          title: this.state.vendor.company,
+        });
       });
     }
   }

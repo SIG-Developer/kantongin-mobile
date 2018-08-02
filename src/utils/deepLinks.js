@@ -46,6 +46,13 @@ export const registerDrawerDeepLinks = (event, navigator) => {
         categoryId: params.category_id,
       }
     });
+  } else if (params.dispatch === 'companies.view' && params.company_id) {
+    navigator.showModal({
+      screen: 'Vendor',
+      passProps: {
+        companyId: params.company_id,
+      },
+    });
   } else if (link === 'home/') {
     navigator.resetTo({
       screen: 'Layouts',
@@ -85,7 +92,6 @@ export const registerDrawerDeepLinks = (event, navigator) => {
       });
     }
   }
-
 };
 
 export const unregisterDrawerDeepLinks = () => {};
