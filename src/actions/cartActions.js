@@ -24,6 +24,10 @@ import {
   CART_CLEAR_REQUEST,
   CART_CLEAR_SUCCESS,
   CART_CLEAR_FAIL,
+
+  CART_RECALCULATE_REQUEST,
+  CART_RECALCULATE_SUCCESS,
+  CART_RECALCULATE_FAIL,
 } from '../constants';
 
 import i18n from '../utils/i18n';
@@ -47,6 +51,27 @@ export function fetch(fetching = true) {
       .catch((error) => {
         dispatch({
           type: CART_FAIL,
+          error,
+        });
+      });
+  };
+}
+
+export function recalculateTotal(ids) {
+  return (dispatch) => {
+    dispatch({
+      type: CART_RECALCULATE_REQUEST,
+    });
+    return Api.get('/sra_cart_content/', { params: { shipping_ids: ids, calculate_shipping: 'E' } })
+      .then((response) => {
+        dispatch({
+          type: CART_RECALCULATE_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_RECALCULATE_FAIL,
           error,
         });
       });

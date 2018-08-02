@@ -107,7 +107,6 @@ class CheckoutStepThree extends Component {
     navigator: PropTypes.shape({
       push: PropTypes.func,
     }),
-    total: PropTypes.number,
   };
 
   constructor(props) {
@@ -116,7 +115,6 @@ class CheckoutStepThree extends Component {
     this.state = {
       fetching: false,
       selectedItem: null,
-      total: 0,
       items: [],
     };
   }
@@ -130,7 +128,6 @@ class CheckoutStepThree extends Component {
     this.setState({
       items,
       selectedItem,
-      total: this.props.total,
     });
   }
 
@@ -347,7 +344,7 @@ class CheckoutStepThree extends Component {
           />
         </KeyboardAwareScrollView>
         <CartFooter
-          totalPrice={`${cart.subtotal_formatted.symbol}${this.state.total}`}
+          totalPrice={cart.total_formatted.price}
           btnText={i18n.gettext('Place order').toUpperCase()}
           isBtnDisabled={false}
           onBtnPress={() => this.handlePlaceOrder()}

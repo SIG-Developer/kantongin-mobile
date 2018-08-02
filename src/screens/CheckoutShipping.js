@@ -14,7 +14,7 @@ import values from 'lodash/values';
 import uniqueId from 'lodash/uniqueId';
 
 // Import actions.
-import * as shippingActions from '../actions/shippingActions';
+import * as cartActions from '../actions/cartActions';
 
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -87,14 +87,6 @@ const styles = EStyleSheet.create({
 
 
 class CheckoutShipping extends Component {
-  static propTypes = {
-    cart: PropTypes.shape({}),
-    navigator: PropTypes.shape({
-      push: PropTypes.func,
-    }),
-    total: PropTypes.number,
-  };
-
   static navigatorStyle = {
     navBarBackgroundColor: theme.$navBarBackgroundColor,
     navBarButtonColor: theme.$navBarButtonColor,
@@ -103,14 +95,20 @@ class CheckoutShipping extends Component {
     screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
+  static propTypes = {
+    cart: PropTypes.shape({}),
+    navigator: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
       items: [],
       shipping_id: {},
-      isNextDisabled: true,
-      total: 0,
+      isNextDisabled: false,
     };
   }
 
@@ -118,7 +116,6 @@ class CheckoutShipping extends Component {
     const { cart } = this.props;
     this.setState({
       items: this.normalizeData(cart.product_groups),
-      total: this.props.total,
     });
   }
 
@@ -126,7 +123,7 @@ class CheckoutShipping extends Component {
     return blobData.map((currentItem) => {
       const item = { ...currentItem };
       item.shippings = values(item.shippings);
-      item.shippings = item.shippings.map(i => ({ ...i, isSelected: false, }));
+      item.shippings = item.shippings.map((i, index) => ({ ...i, isSelected: index === 0, }));
       return item;
     });
   }
@@ -138,23 +135,8 @@ class CheckoutShipping extends Component {
       title: i18n.gettext('Checkout').toUpperCase(),
       backButtonTitle: '',
       passProps: {
-        total: this.state.total,
         shipping_id: this.state.shipping_id,
       },
-    });
-  }
-
-  recalculateTotal() {
-    const { items } = this.state;
-    let newTotal = this.props.total;
-    items.map(company => company
-      .shippings.forEach((shipping) => {
-        if (shipping.isSelected) {
-          newTotal += shipping.rate;
-        }
-      }));
-    this.setState({
-      total: newTotal,
     });
   }
 
@@ -168,23 +150,18 @@ class CheckoutShipping extends Component {
       .map(s => ({ ...s, isSelected: false, }));
     newItems[itemIndex].shippings[shippingIndex].isSelected = true;
 
+    this.props.cartActions.recalculateTotal([shipping.shipping_id]);
+
     // Get selected ids
     const selectedIds = {
       ...this.state.shipping_id,
     };
     selectedIds[`${itemIndex}`] = `${shipping.shipping_id}`;
 
-    let isNextDisabled = true;
-    if (newItems.filter(c => c.shippings
-      .filter(s => s.isSelected).length).length === newItems.length) {
-      isNextDisabled = false;
-    }
-
     this.setState({
       items: newItems,
       shipping_id: selectedIds,
-      isNextDisabled,
-    }, () => this.recalculateTotal());
+    });
   }
 
   renderItem = (shipping, shippingIndex, itemIndex) => {
@@ -235,7 +212,7 @@ class CheckoutShipping extends Component {
   };
 
   render() {
-    const { items, isNextDisabled, total } = this.state;
+    const { items, isNextDisabled } = this.state;
     const { cart } = this.props;
     return (
       <View style={styles.container}>
@@ -251,7 +228,7 @@ class CheckoutShipping extends Component {
           ))}
         </ScrollView>
         <CartFooter
-          totalPrice={`${cart.subtotal_formatted.symbol}${total}`}
+          totalPrice={`${cart.total_formatted.price}`}
           btnText={i18n.gettext('Next').toUpperCase()}
           isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}
@@ -267,6 +244,6 @@ export default connect(
     shippings: state.shippings,
   }),
   dispatch => ({
-    shippingActions: bindActionCreators(shippingActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch),
   })
 )(CheckoutShipping);

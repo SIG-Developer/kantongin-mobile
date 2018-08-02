@@ -14,6 +14,8 @@ import {
   CART_CLEAR_SUCCESS,
   CART_CLEAR_FAIL,
 
+  CART_RECALCULATE_SUCCESS,
+
   CHANGE_AMOUNT,
   AUTH_LOGOUT,
 } from '../constants';
@@ -104,6 +106,15 @@ export default function (state = initialState, action) {
           ...state.user_data,
           ...action.payload,
         }
+      };
+
+    case CART_RECALCULATE_SUCCESS:
+      return {
+        ...state,
+        total: action.payload.total,
+        total_formatted: action.payload.total_formatted,
+        subtotal: action.payload.total_formatted,
+        subtotal_formatted: action.payload.subtotal_formatted,
       };
 
     case AUTH_LOGOUT:

@@ -304,6 +304,7 @@ class Checkout extends Component {
   }
 
   handleNextPress() {
+    const { navigator, cart, cartActions } = this.props;
     let shippingForm = {};
     const billingForm = this.refs.checkoutBilling.getValue(); // eslint-disable-line
     if ('shippingForm' in this.refs) {  // eslint-disable-line
@@ -314,12 +315,12 @@ class Checkout extends Component {
         ...billingForm,
         ...shippingForm,
       });
-      this.props.navigator.push({
+      navigator.push({
         screen: 'CheckoutShipping',
         backButtonTitle: '',
         title: i18n.gettext('Checkout').toUpperCase(),
         passProps: {
-          total: this.props.cart.subtotal,
+          total: cart.subtotal,
         },
       });
     }
@@ -327,6 +328,12 @@ class Checkout extends Component {
 
   render() {
     const { cart } = this.props;
+    const {
+      billingFormFields,
+      billingValues,
+      shippingValues,
+      shippingFormFields,
+    } = this.state;
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView
@@ -338,8 +345,8 @@ class Checkout extends Component {
           >
             <Form
               ref="checkoutBilling"  // eslint-disable-line
-              type={this.state.billingFormFields}
-              value={this.state.billingValues}
+              type={billingFormFields}
+              value={billingValues}
               onChange={values => this.handleChange(values, 'billing')}
               options={BillingOptions}
             />
@@ -348,21 +355,21 @@ class Checkout extends Component {
           <FormBlock
             title={i18n.gettext('Shipping address')}
             buttonText={i18n.gettext('Change address')}
-            simpleView={
+            simpleView={(
               <View>
                 <FormBlockField title={i18n.gettext('First name:')}>
-                  {this.state.shippingValues.s_firstname}
+                  {shippingValues.s_firstname}
                 </FormBlockField>
                 <FormBlockField title={i18n.gettext('Last name:')}>
-                  {this.state.shippingValues.s_lastname}
+                  {shippingValues.s_lastname}
                 </FormBlockField>
               </View>
-            }
+            )}
           >
             <Form
               ref="checkoutShipping"  // eslint-disable-line
-              type={this.state.shippingFormFields}
-              value={this.state.shippingValues}
+              type={shippingFormFields}
+              value={shippingValues}
               onChange={values => this.handleChange(values, 'shipping')}
               options={ShippingOptions}
             />
