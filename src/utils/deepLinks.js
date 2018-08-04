@@ -46,7 +46,7 @@ export const registerDrawerDeepLinks = (event, navigator) => {
         categoryId: params.category_id,
       }
     });
-  } else if (params.dispatch === 'companies.view' && params.company_id) {
+  } else if (params.dispatch === 'companies.products' && params.company_id) {
     navigator.showModal({
       screen: 'Vendor',
       passProps: {
