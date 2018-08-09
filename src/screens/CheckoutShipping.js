@@ -123,7 +123,19 @@ class CheckoutShipping extends Component {
     return blobData.map((currentItem) => {
       const item = { ...currentItem };
       item.shippings = values(item.shippings);
-      item.shippings = item.shippings.map((i, index) => ({ ...i, isSelected: index === 0, }));
+      item.shippings = item.shippings.map((i, index) => {
+        if (index === 0) {
+          this.setState({ shipping_id: i.shipping_id });
+          return {
+            ...i,
+            isSelected: true,
+          };
+        }
+        return {
+          ...i,
+          isSelected: false,
+        };
+      });
       return item;
     });
   }
@@ -141,6 +153,7 @@ class CheckoutShipping extends Component {
   }
 
   handleSelect(shipping, shippingIndex, itemIndex) {
+    console.log(shipping, shippingIndex, itemIndex, 'ccc');
     if (shipping.isSelected) {
       return;
     }
@@ -149,8 +162,6 @@ class CheckoutShipping extends Component {
     newItems[itemIndex].shippings = newItems[itemIndex].shippings
       .map(s => ({ ...s, isSelected: false, }));
     newItems[itemIndex].shippings[shippingIndex].isSelected = true;
-
-    this.props.cartActions.recalculateTotal([shipping.shipping_id]);
 
     // Get selected ids
     const selectedIds = {
