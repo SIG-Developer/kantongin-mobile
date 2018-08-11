@@ -182,6 +182,7 @@ class Layouts extends Component {
         return (
           <BannerBlock
             name={block.name}
+            wrapper={block.wrapper}
             items={items}
             onPress={(banner) => {
               navigator.handleDeepLink({
@@ -199,6 +200,7 @@ class Layouts extends Component {
         return (
           <ProductBlock
             name={block.name}
+            wrapper={block.wrapper}
             items={items}
             onPress={(product) => {
               navigator.push({
@@ -217,6 +219,7 @@ class Layouts extends Component {
         return (
           <CategoryBlock
             name={block.name}
+            wrapper={block.wrapper}
             items={items}
             onPress={(category) => {
               navigator.push({
@@ -235,6 +238,7 @@ class Layouts extends Component {
         return (
           <PageBlock
             name={block.name}
+            wrapper={block.wrapper}
             items={items}
             onPress={(page) => {
               navigator.push({
@@ -254,6 +258,7 @@ class Layouts extends Component {
         return (
           <VendorBlock
             name={block.name}
+            wrapper={block.wrapper}
             items={items}
             onPress={(vendor) => {
               navigator.showModal({

@@ -51,6 +51,7 @@ const styles = EStyleSheet.create({
 export default class VendorBlock extends Component {
   static propTypes = {
     name: PropTypes.string,
+    wrapper: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.shape({})),
     onPress: PropTypes.func,
   }
@@ -74,10 +75,10 @@ export default class VendorBlock extends Component {
   }
 
   render() {
-    const { items, name } = this.props;
+    const { items, name, wrapper } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>{name}</Text>
+        {wrapper !== '' && <Text style={styles.header}>{name}</Text>}
         <FlatList
           style={styles.content}
           horizontal

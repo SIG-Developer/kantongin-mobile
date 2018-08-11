@@ -36,6 +36,7 @@ const styles = EStyleSheet.create({
 export default class ProductBlock extends Component {
   static propTypes = {
     name: PropTypes.string,
+    wrapper: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),
     onPress: PropTypes.func,
   }
@@ -57,13 +58,13 @@ export default class ProductBlock extends Component {
   );
 
   render() {
-    const { items, name } = this.props;
+    const { items, name, wrapper } = this.props;
     const itemsList = chunk(items, PRODUCT_NUM_COLUMNS)
       .map((items, index) => this.renderProduct(items, index));
 
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>{name}</Text>
+        {wrapper !== '' && <Text style={styles.header}>{name}</Text>}
         <Swiper
           horizontal
           height={300}

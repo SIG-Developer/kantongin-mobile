@@ -34,6 +34,7 @@ const styles = EStyleSheet.create({
 
 export default class CategoriesBlocks extends Component {
   static propTypes = {
+    wrapper: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),
     onPress: PropTypes.func,
   }
@@ -51,7 +52,7 @@ export default class CategoriesBlocks extends Component {
   );
 
   render() {
-    const { items } = this.props;
+    const { items, wrapper } = this.props;
 
     if (!items.length) {
       return null;
@@ -62,9 +63,11 @@ export default class CategoriesBlocks extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>
-          {i18n.gettext('Categories')}
-        </Text>
+        {wrapper !== '' && (
+          <Text style={styles.header}>
+            {i18n.gettext('Categories')}
+          </Text>
+        )}
         <View style={styles.wrapper}>
           {itemsList}
         </View>

@@ -33,6 +33,7 @@ const styles = EStyleSheet.create({
 export default class BannerBlocks extends Component {
   static propTypes = {
     name: PropTypes.string,
+    wrapper: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),
     onPress: PropTypes.func,
   }
@@ -55,11 +56,11 @@ export default class BannerBlocks extends Component {
   }
 
   render() {
-    const { items, name } = this.props;
+    const { items, name, wrapper } = this.props;
     const itemsList = items.map((item, index) => this.renderImage(item, index));
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>{name}</Text>
+        {wrapper !== '' && <Text style={styles.header}>{name}</Text>}
         <Swiper
           horizontal
           height={200}
