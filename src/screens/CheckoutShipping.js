@@ -153,7 +153,6 @@ class CheckoutShipping extends Component {
   }
 
   handleSelect(shipping, shippingIndex, itemIndex) {
-    console.log(shipping, shippingIndex, itemIndex, 'ccc');
     if (shipping.isSelected) {
       return;
     }
