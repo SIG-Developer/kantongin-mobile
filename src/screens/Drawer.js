@@ -32,7 +32,7 @@ const styles = EStyleSheet.create({
   header: {
     paddingTop: 30,
     backgroundColor: '$drawerHeaderBackgroundColor',
-    height: '10rem',
+    height: '7rem',
     position: 'relative',
     borderBottomWidth: 1,
     borderColor: '$drawerHeaderBorderColor'
