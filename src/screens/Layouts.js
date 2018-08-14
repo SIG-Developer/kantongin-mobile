@@ -148,7 +148,7 @@ class Layouts extends Component {
   }
 
   componentWillUnmount() {
-    if (config.pushNotifications && this.pushSubscription) {
+    if (config.pushNotifications) {
       this.pushNotificationListener();
       this.pushNotificationOpenListener();
     }
