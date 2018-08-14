@@ -119,7 +119,7 @@ class OrderDetail extends Component {
 
   componentWillMount() {
     const { orderId, navigator } = this.props;
-    Api.get(`/orders/${orderId}`)
+    Api.get(`/sra_orders/${orderId}`)
       .then((response) => {
         this.setState({
           fetching: false,
@@ -165,7 +165,7 @@ class OrderDetail extends Component {
             {item.product}
           </Text>
           <Text style={styles.productItemPrice}>
-            {item.amount} x ${item.price}
+            {item.amount} x ${item.price_formatted.price}
           </Text>
         </View>
       </View>
@@ -318,13 +318,13 @@ class OrderDetail extends Component {
                 {shippingMethodsList}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Subtotal:')}>
-                {orderDetail.subtotal}
+                {orderDetail.subtotal_formatted.price}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Shipping cost:')}>
-                {orderDetail.shipping_cost}
+                {orderDetail.shipping_cost_formatted.price}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Total:')}>
-                {orderDetail.total}
+                {orderDetail.total_formatted.price}
               </FormBlockField>
             </View>
           </FormBlock>

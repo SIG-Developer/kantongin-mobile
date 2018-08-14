@@ -235,7 +235,7 @@ class Orders extends Component {
               {status.text}
             </Text>
             <Text style={styles.orderItemTotal}>
-              {item.total}
+              {item.total_formatted.price}
             </Text>
           </View>
         </View>
@@ -250,7 +250,7 @@ class Orders extends Component {
     }
     return (
       <FlatList
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => `order_${index}`}
         data={orders}
         ListEmptyComponent={<EmptyList />}
         renderItem={({ item }) => this.renderItem(item)}

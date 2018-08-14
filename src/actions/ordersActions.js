@@ -16,7 +16,7 @@ import i18n from '../utils/i18n';
 export function create(data, cb = null) {
   return (dispatch) => {
     dispatch({ type: ORDER_CREATE_REQUEST });
-    return Api.post('/orders/', data)
+    return Api.post('/sra_orders/', data)
       .then((response) => {
         dispatch({
           type: ORDER_CREATE_SUCCESS,
@@ -46,7 +46,7 @@ export function create(data, cb = null) {
 export function fetch(page = 1) {
   return (dispatch) => {
     dispatch({ type: FETCH_ORDERS_REQUEST });
-    return Api.get(`/orders?page=${page}`)
+    return Api.get(`/sra_orders?page=${page}`)
       .then((response) => {
         dispatch({
           type: FETCH_ORDERS_SUCCESS,
