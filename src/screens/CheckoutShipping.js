@@ -175,7 +175,6 @@ class CheckoutShipping extends Component {
   }
 
   renderItem = (shipping, shippingIndex, itemIndex) => {
-    const { cart } = this.props;
     return (
       <TouchableOpacity
         key={uniqueId('item_')}

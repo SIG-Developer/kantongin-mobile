@@ -312,6 +312,7 @@ class Checkout extends Component {
     }
     if (billingForm && shippingForm) {
       cartActions.saveUserData({
+        ...cart.user_data,
         ...billingForm,
         ...shippingForm,
       });

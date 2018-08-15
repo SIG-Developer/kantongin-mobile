@@ -7,7 +7,9 @@ import {
   CART_CHANGE_SUCCESS,
   CART_CHANGE_FAIL,
 
-  CART_CONTENT_SAVE,
+  CART_CONTENT_SAVE_REQUEST,
+  CART_CONTENT_SAVE_SUCCESS,
+  CART_CONTENT_SAVE_FAIL,
 
   NOTIFICATION_SHOW,
 
@@ -81,9 +83,22 @@ export function recalculateTotal(ids) {
 export function saveUserData(data) {
   return (dispatch) => {
     dispatch({
-      type: CART_CONTENT_SAVE,
+      type: CART_CONTENT_SAVE_REQUEST,
       payload: data,
     });
+    return Api.put('/sra_cart_content/', { user_data: data })
+      .then(() => {
+        dispatch({
+          type: CART_CONTENT_SAVE_SUCCESS,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: CART_CONTENT_SAVE_FAIL,
+          error,
+        });
+      });
   };
 }
 
