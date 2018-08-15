@@ -149,10 +149,11 @@ class OrderDetail extends Component {
   renderProduct = (item, index) => {
     let productImage = null;
     if ('http_image_path' in item.main_pair.detailed) {
-      productImage = (<Image
-        source={{ uri: item.main_pair.detailed.http_image_path }}
-        style={styles.productItemImage}
-      />);
+      productImage = (
+        <Image
+          source={{ uri: item.main_pair.detailed.http_image_path }}
+          style={styles.productItemImage}
+        />);
     }
     return (
       <View style={styles.productItem} key={index}>
@@ -165,7 +166,7 @@ class OrderDetail extends Component {
             {item.product}
           </Text>
           <Text style={styles.productItemPrice}>
-            {item.amount} x ${item.price_formatted.price}
+            {`${item.amount} x ${item.price_formatted.price}`}
           </Text>
         </View>
       </View>
