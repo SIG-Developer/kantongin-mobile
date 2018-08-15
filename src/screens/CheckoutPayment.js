@@ -103,7 +103,7 @@ class CheckoutStepThree extends Component {
     ordersActions: PropTypes.shape({
       create: PropTypes.func,
     }),
-    shipping_id: PropTypes.shape(),
+    shipping_id: PropTypes.string,
     navigator: PropTypes.shape({
       push: PropTypes.func,
     }),
@@ -123,7 +123,7 @@ class CheckoutStepThree extends Component {
     const { cart } = this.props;
     const items = Object.keys(cart.payments).map(k => cart.payments[k]);
     // FIXME: Default selected payment method.
-    const selectedItem = items[1];
+    const selectedItem = items[0];
 
     this.setState({
       items,
@@ -227,8 +227,9 @@ class CheckoutStepThree extends Component {
   }
 
   renderItem = (item) => {
+    const { payment } = this.state.selectedItem;
     // FIXME compare by name.
-    const isSelected = item.payment === this.state.selectedItem.payment;
+    const isSelected = item.payment === payment;
     return (
       <TouchableOpacity
         style={styles.paymentItem}
