@@ -194,7 +194,7 @@ class CheckoutShipping extends Component {
           </View>
 
           <Text style={styles.shippingItemRate}>
-            {cart.subtotal_formatted.symbol}{shipping.rate}
+            {shipping.rate_formatted.price}
           </Text>
         </View>
         <Text style={styles.shippingItemDesc}>
