@@ -127,7 +127,7 @@ class CheckoutComplete extends Component {
       });
     });
 
-    Api.get(`/orders/${orderId}`)
+    Api.get(`/sra_orders/${orderId}`)
       .then((response) => {
         this.setState({
           fetching: false,
@@ -169,7 +169,7 @@ class CheckoutComplete extends Component {
             {item.product}
           </Text>
           <Text style={styles.productItemPrice}>
-            {item.amount} x ${item.price}
+            {`${item.amount} x ${item.price_formatted.price}`}
           </Text>
         </View>
       </View>
