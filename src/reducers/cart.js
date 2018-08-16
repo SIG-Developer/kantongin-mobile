@@ -4,7 +4,9 @@ import {
   CART_FAIL,
 
   CART_CONTENT_SUCCESS,
+  CART_CONTENT_SAVE_REQUEST,
   CART_CONTENT_SAVE_SUCCESS,
+  CART_CONTENT_SAVE_FAIL,
 
   ADD_TO_CART_REQUEST,
   ADD_TO_CART_SUCCESS,
@@ -99,13 +101,21 @@ export default function (state = initialState, action) {
         user_data: action.payload.user_data,
       };
 
+    case CART_CONTENT_SAVE_REQUEST:
+    case CART_CONTENT_SAVE_FAIL:
+      return {
+        ...state,
+        fetching: true,
+      };
+
     case CART_CONTENT_SAVE_SUCCESS:
       return {
         ...state,
         user_data: {
           ...state.user_data,
           ...action.payload,
-        }
+        },
+        fetching: false,
       };
 
     case CART_RECALCULATE_SUCCESS:

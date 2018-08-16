@@ -19,6 +19,7 @@ import * as cartActions from '../actions/cartActions';
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
 import CartFooter from '../components/CartFooter';
+import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
 
 import i18n from '../utils/i18n';
@@ -84,7 +85,6 @@ const styles = EStyleSheet.create({
     padding: 14,
   },
 });
-
 
 class CheckoutShipping extends Component {
   static navigatorStyle = {
@@ -223,6 +223,13 @@ class CheckoutShipping extends Component {
   render() {
     const { items, isNextDisabled } = this.state;
     const { cart } = this.props;
+
+    if (cart.fetching) {
+      return (
+        <Spinner visible={true} mode="content" />
+      );
+    }
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
