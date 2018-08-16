@@ -114,8 +114,10 @@ class CheckoutShipping extends Component {
 
   componentDidMount() {
     const { cart } = this.props;
+    const items = this.normalizeData(cart.product_groups);
     this.setState({
-      items: this.normalizeData(cart.product_groups),
+      items,
+      isNextDisabled: items.length === 0,
     });
   }
 
@@ -226,7 +228,7 @@ class CheckoutShipping extends Component {
 
     if (cart.fetching) {
       return (
-        <Spinner visible={true} mode="content" />
+        <Spinner visible mode="content" />
       );
     }
 
