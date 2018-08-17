@@ -180,6 +180,14 @@ const ShippingOptions = {
 };
 
 class Checkout extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
@@ -187,14 +195,6 @@ class Checkout extends Component {
       setOnNavigatorEvent: PropTypes.func,
     }),
     cart: PropTypes.shape(),
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -307,9 +307,11 @@ class Checkout extends Component {
     const { navigator, cart, cartActions } = this.props;
     let shippingForm = {};
     const billingForm = this.refs.checkoutBilling.getValue(); // eslint-disable-line
-    if ('shippingForm' in this.refs) {  // eslint-disable-line
+
+    if ('checkoutShipping' in this.refs) {  // eslint-disable-line
       shippingForm = this.refs.checkoutShipping.getValue();  // eslint-disable-line
     }
+
     if (billingForm && shippingForm) {
       cartActions.saveUserData({
         ...cart.user_data,

@@ -92,6 +92,7 @@ export function saveUserData(data) {
           type: CART_CONTENT_SAVE_SUCCESS,
           payload: data,
         });
+        fetch(false)(dispatch);
       })
       .catch((error) => {
         dispatch({

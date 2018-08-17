@@ -108,16 +108,22 @@ class CheckoutShipping extends Component {
     this.state = {
       items: [],
       shipping_id: {},
-      isNextDisabled: false,
+      isNextDisabled: true,
     };
   }
 
   componentDidMount() {
     const { cart } = this.props;
     const items = this.normalizeData(cart.product_groups);
+    const shippingsCount = [];
+    items.forEach((i) => {
+      if (i) {
+        i.shippings.forEach(s => shippingsCount.push(s));
+      }
+    });
     this.setState({
       items,
-      isNextDisabled: items.length === 0,
+      isNextDisabled: shippingsCount.length === 0,
     });
   }
 
