@@ -114,6 +114,15 @@ class CheckoutShipping extends Component {
 
   componentDidMount() {
     const { cart } = this.props;
+    this.setDefaults(cart);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { cart } = nextProps;
+    this.setDefaults(cart);
+  }
+
+  setDefaults(cart) {
     const items = this.normalizeData(cart.product_groups);
     const shippingsCount = [];
     items.forEach((i) => {
