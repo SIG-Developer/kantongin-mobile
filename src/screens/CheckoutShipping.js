@@ -163,13 +163,9 @@ class CheckoutShipping extends Component {
     newItems[itemIndex].shippings = newItems[itemIndex].shippings
       .map(s => ({ ...s, isSelected: false, }));
     newItems[itemIndex].shippings[shippingIndex].isSelected = true;
-
     // Get selected ids
-    const selectedIds = {
-      ...this.state.shipping_id,
-    };
+    const selectedIds = {};
     selectedIds[`${itemIndex}`] = `${shipping.shipping_id}`;
-
     this.setState({
       items: newItems,
       shipping_id: selectedIds,
