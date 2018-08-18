@@ -201,6 +201,7 @@ class Checkout extends Component {
     super(props);
     this.isFirstLoad = true;
     this.state = {
+      isShippingChanged: false,
       billingFormFields: t.struct({
         ...billingFields,
       }),
@@ -279,6 +280,7 @@ class Checkout extends Component {
       }
     } else if (type === 'shipping') {
       const sState = getStates(value.s_country);
+      this.isShippingChanged = true;
       if (sState) {
         this.setState({
           shippingFormFields: t.struct({
@@ -304,6 +306,7 @@ class Checkout extends Component {
   }
 
   handleNextPress() {
+    const { isShippingChanged } = this.state;
     const { navigator, cart, cartActions } = this.props;
     let shippingForm = {};
     const billingForm = this.refs.checkoutBilling.getValue(); // eslint-disable-line
@@ -313,6 +316,18 @@ class Checkout extends Component {
     }
 
     if (billingForm && shippingForm) {
+      if (!isShippingChanged) {
+        shippingForm = {
+          s_firstname: billingForm.b_firstname,
+          s_lastname: billingForm.b_lastname,
+          s_address: billingForm.b_address,
+          s_address_2: billingForm.b_address_2,
+          s_city: billingForm.b_city,
+          s_country: billingForm.b_country,
+          s_state: billingForm.b_state,
+          s_zipcode: billingForm.b_zipcode,
+        };
+      }
       cartActions.saveUserData({
         ...cart.user_data,
         ...billingForm,
@@ -358,6 +373,7 @@ class Checkout extends Component {
           <FormBlock
             title={i18n.gettext('Shipping address')}
             buttonText={i18n.gettext('Change address')}
+            onShowMorePress={() => this.setState({ isShippingChanged: true })}
             simpleView={(
               <View>
                 <FormBlockField title={i18n.gettext('First name:')}>

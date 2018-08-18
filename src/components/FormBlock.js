@@ -45,9 +45,14 @@ export default class FormBlock extends Component {
     ]),
     buttonText: PropTypes.string,
     title: PropTypes.string,
+    onShowMorePress: PropTypes.func,
     noContainerStyle: PropTypes.bool,
     simpleView: PropTypes.shape(),
   }
+
+  static defaultProps = {
+    onShowMorePress: () => {},
+  };
 
   constructor(props) {
     super(props);
@@ -77,6 +82,7 @@ export default class FormBlock extends Component {
           <View style={styles.btnWrapper}>
             <Button
               onPress={() => {
+                this.props.onShowMorePress();
                 this.setState({
                   showMore: !this.state.showMore,
                 });
