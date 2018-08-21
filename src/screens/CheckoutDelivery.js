@@ -41,7 +41,7 @@ const billingFields = {
   b_firstname: t.String,
   b_lastname: t.String,
   email: t.String,
-  phone: t.maybe(t.String),
+  b_phone: t.maybe(t.String),
   b_address: t.String,
   b_address_2: t.maybe(t.String),
   b_city: t.String,
@@ -68,7 +68,7 @@ const BillingOptions = {
       returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
-    phone: {
+    b_phone: {
       label: 'Phone',
       keyboardType: 'phone-pad',
       returnKeyType: 'done',
@@ -112,7 +112,7 @@ const shippingFields = {
   s_firstname: t.String,
   s_lastname: t.String,
   email: t.String,
-  phone: t.maybe(t.String),
+  s_phone: t.maybe(t.String),
   s_address: t.String,
   s_address_2: t.maybe(t.String),
   s_city: t.String,
@@ -139,7 +139,7 @@ const ShippingOptions = {
       returnKeyType: 'done',
       clearButtonMode: 'while-editing',
     },
-    phone: {
+    s_phone: {
       label: 'Phone',
       keyboardType: 'phone-pad',
       returnKeyType: 'done',
@@ -225,7 +225,7 @@ class Checkout extends Component {
         b_firstname: cart.user_data.b_firstname,
         b_lastname: cart.user_data.b_lastname,
         email: cart.user_data.email,
-        phone: cart.user_data.phone,
+        b_phone: cart.user_data.b_phone,
         b_address: cart.user_data.b_address,
         b_address_2: cart.user_data.b_address_2,
         b_city: cart.user_data.b_city,
@@ -237,7 +237,7 @@ class Checkout extends Component {
         s_firstname: cart.user_data.s_firstname,
         s_lastname: cart.user_data.s_lastname,
         email: cart.user_data.email,
-        phone: cart.user_data.phone,
+        s_phone: cart.user_data.s_phone,
         s_address: cart.user_data.s_address,
         s_address_2: cart.user_data.s_address_2,
         s_city: cart.user_data.s_city,
