@@ -56,6 +56,14 @@ export function getStates(code) {
   return result;
 }
 
+export function getCountryByCode(code) {
+  const country = countries.find(i => i.code === code);
+  if (!country) {
+    return null;
+  }
+  return country;
+}
+
 export function objectToQuerystring(obj) {
   return Object.keys.reduce((str, key, i) => {
     let val;

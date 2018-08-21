@@ -20,6 +20,7 @@ import FormBlockField from '../components/FormBlockField';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
+import { getCountryByCode } from '../utils';
 import Api from '../services/api';
 
 const styles = EStyleSheet.create({
@@ -88,6 +89,11 @@ const styles = EStyleSheet.create({
 });
 
 class OrderDetail extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+  };
+
   static propTypes = {
     notificationsActions: PropTypes.shape({
       show: PropTypes.func,
@@ -101,11 +107,6 @@ class OrderDetail extends Component {
       setTitle: PropTypes.func,
       setButtons: PropTypes.func,
     }),
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
   };
 
   constructor(props) {
@@ -175,20 +176,39 @@ class OrderDetail extends Component {
 
   renderBilling() {
     const { orderDetail } = this.state;
+    const foundCountry = {
+      name: orderDetail.b_country,
+      states: [],
+      ...getCountryByCode(orderDetail.b_country),
+    };
+    const state = foundCountry.states.filter(s => s.code === orderDetail.b_state);
+    let foundState = {
+      name: orderDetail.b_state,
+    };
+
+    if (state.length) {
+      foundState = {
+        ...foundState,
+        ...state[0],
+      };
+    }
+
     return (
       <FormBlock
         title={i18n.gettext('Billing address')}
         buttonText={i18n.gettext('Show all').toUpperCase()}
         noContainerStyle
         simpleView={
-          <View>
-            <FormBlockField title={i18n.gettext('First name:')}>
-              {orderDetail.s_firstname}
-            </FormBlockField>
-            <FormBlockField title={i18n.gettext('Last name:')}>
-              {orderDetail.s_lastname}
-            </FormBlockField>
-          </View>
+          (
+            <View>
+              <FormBlockField title={i18n.gettext('First name:')}>
+                {orderDetail.s_firstname}
+              </FormBlockField>
+              <FormBlockField title={i18n.gettext('Last name:')}>
+                {orderDetail.s_lastname}
+              </FormBlockField>
+            </View>
+          )
         }
       >
         <View>
@@ -211,10 +231,10 @@ class OrderDetail extends Component {
             {orderDetail.b_city}
           </FormBlockField>
           <FormBlockField title={i18n.gettext('Country:')}>
-            {orderDetail.b_country}
+            {foundCountry.name}
           </FormBlockField>
           <FormBlockField title={i18n.gettext('State:')}>
-            {orderDetail.b_state}
+            {foundState.name}
           </FormBlockField>
         </View>
       </FormBlock>
@@ -223,20 +243,38 @@ class OrderDetail extends Component {
 
   renderShipping() {
     const { orderDetail } = this.state;
+    const foundCountry = {
+      name: orderDetail.s_country,
+      states: [],
+      ...getCountryByCode(orderDetail.s_country),
+    };
+    const state = foundCountry.states.filter(s => s.code === orderDetail.s_state);
+    let foundState = {
+      name: orderDetail.s_state,
+    };
+    if (state.length) {
+      foundState = {
+        ...foundState,
+        ...state[0],
+      };
+    }
+
     return (
       <FormBlock
         title={i18n.gettext('Shipping address')}
         buttonText={i18n.gettext('Show all').toUpperCase()}
         noContainerStyle
         simpleView={
-          <View>
-            <FormBlockField title={i18n.gettext('First name:')}>
-              {orderDetail.s_firstname}
-            </FormBlockField>
-            <FormBlockField title={i18n.gettext('Last name:')}>
-              {orderDetail.s_lastname}
-            </FormBlockField>
-          </View>
+          (
+            <View>
+              <FormBlockField title={i18n.gettext('First name:')}>
+                {orderDetail.s_firstname}
+              </FormBlockField>
+              <FormBlockField title={i18n.gettext('Last name:')}>
+                {orderDetail.s_lastname}
+              </FormBlockField>
+            </View>
+          )
         }
       >
         <View>
@@ -259,10 +297,10 @@ class OrderDetail extends Component {
             {orderDetail.s_city}
           </FormBlockField>
           <FormBlockField title={i18n.gettext('Country:')}>
-            {orderDetail.s_country}
+            {foundCountry.name}
           </FormBlockField>
           <FormBlockField title={i18n.gettext('State:')}>
-            {orderDetail.s_state}
+            {foundState.name}
           </FormBlockField>
         </View>
       </FormBlock>
