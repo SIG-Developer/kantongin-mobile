@@ -19,6 +19,7 @@ import * as cartActions from '../actions/cartActions';
 // Components
 import CheckoutSteps from '../components/CheckoutSteps';
 import CartFooter from '../components/CartFooter';
+import EmptyList from '../components/EmptyList';
 import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
 
@@ -247,6 +248,7 @@ class CheckoutShipping extends Component {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {this.renderSteps()}
+          {!items.length && <EmptyList />}
           {items.map((item, itemIndex) => (
             <View key={item.company_id}>
               {this.renderCompany(item.name)}
