@@ -12,6 +12,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import values from 'lodash/values';
 import uniqueId from 'lodash/uniqueId';
+import flatten from 'lodash/flatten';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -244,11 +245,13 @@ class CheckoutShipping extends Component {
       );
     }
 
+    const shippingsCount = flatten(items.map(s => s.shippings)).length;
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {this.renderSteps()}
-          {!items.length && <EmptyList />}
+          {!shippingsCount && <EmptyList />}
           {items.map((item, itemIndex) => (
             <View key={item.company_id}>
               {this.renderCompany(item.name)}
