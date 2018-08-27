@@ -62,12 +62,12 @@ const options = {
   disableOrder: true,
   fields: {
     email: {
-      label: 'Email',
+      label: i18n.gettext('Email'),
       keyboardType: 'email-address',
       clearButtonMode: 'while-editing',
     },
     password: {
-      label: 'Password',
+      label: i18n.gettext('Password'),
       secureTextEntry: true,
       clearButtonMode: 'while-editing',
     },
