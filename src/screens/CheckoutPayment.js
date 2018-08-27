@@ -191,8 +191,13 @@ class CheckoutStepThree extends Component {
 
   placePayPalOrder() {
     const {
-      cart, shipping_id, ordersActions, navigator, paymentsActions
+      cart,
+      shipping_id,
+      ordersActions,
+      navigator,
+      paymentsActions,
     } = this.props;
+
     const orderInfo = {
       products: {},
       shipping_id,
@@ -207,6 +212,11 @@ class CheckoutStepThree extends Component {
       };
       return orderInfo;
     });
+
+    this.setState({
+      fetching: true,
+    });
+
     ordersActions.create(orderInfo, (orderId) => {
       this.setState({
         fetching: false,
