@@ -376,10 +376,10 @@ class Checkout extends Component {
             onShowMorePress={() => this.setState({ isShippingChanged: true })}
             simpleView={(
               <View>
-                <FormBlockField title={i18n.gettext('First name:')}>
+                <FormBlockField title={`${i18n.gettext('First name')}:`}>
                   {shippingValues.s_firstname}
                 </FormBlockField>
-                <FormBlockField title={i18n.gettext('Last name:')}>
+                <FormBlockField title={`${i18n.gettext('Last name')}:`}>
                   {shippingValues.s_lastname}
                 </FormBlockField>
               </View>

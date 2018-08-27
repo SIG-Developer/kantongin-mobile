@@ -1,7 +1,7 @@
 {
     "": {
-        "language": "en",
-        "plural-forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
+    "language": "en",
+    "plural-forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
     },
     "Cart": "Cart",
     "Total": "Total",
@@ -612,7 +612,6 @@
     "Genève": "Genève",
     "Glaris": "Glaris",
     "Grisons": "Grisons",
-    "Jura": "Jura",
     "Lucerne": "Lucerne",
     "Neuchâtel": "Neuchâtel",
     "Nidwald": "Nidwald",
@@ -784,8 +783,6 @@
     "Delaware": "Delaware",
     "District of Columbia": "District of Columbia",
     "Florida": "Florida",
-    "Georgia": "Georgia",
-    "Guam": "Guam",
     "Hawaii": "Hawaii",
     "Idaho": "Idaho",
     "Illinois": "Illinois",
@@ -810,12 +807,10 @@
     "New York": "New York",
     "North Carolina": "North Carolina",
     "North Dakota": "North Dakota",
-    "Northern Mariana Islands": "Northern Mariana Islands",
     "Ohio": "Ohio",
     "Oklahoma": "Oklahoma",
     "Oregon": "Oregon",
     "Pennsylvania": "Pennsylvania",
-    "Puerto Rico": "Puerto Rico",
     "Rhode Island": "Rhode Island",
     "South Carolina": "South Carolina",
     "South Dakota": "South Dakota",
