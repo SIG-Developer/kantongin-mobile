@@ -220,8 +220,6 @@ class Checkout extends Component {
       title: i18n.gettext('Checkout').toUpperCase(),
     });
 
-    console.log(user_data.b_phone || default_location.phone, user_data.b_phone, default_location.phone, 'asd');
-
     this.setState({
       billingValues: {
         b_firstname: user_data.b_firstname,
