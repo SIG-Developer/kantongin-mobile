@@ -214,36 +214,38 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    const { navigator, cart } = this.props;
+    const { navigator, cart: { user_data, default_location } } = this.props;
 
     navigator.setTitle({
       title: i18n.gettext('Checkout').toUpperCase(),
     });
 
+    console.log(user_data.b_phone || default_location.phone, user_data.b_phone, default_location.phone, 'asd');
+
     this.setState({
       billingValues: {
-        b_firstname: cart.user_data.b_firstname,
-        b_lastname: cart.user_data.b_lastname,
-        email: cart.user_data.email,
-        b_phone: cart.user_data.b_phone,
-        b_address: cart.user_data.b_address,
-        b_address_2: cart.user_data.b_address_2,
-        b_city: cart.user_data.b_city,
-        b_country: cart.user_data.b_country,
-        b_state: cart.user_data.b_state,
-        b_zipcode: cart.user_data.b_zipcode,
+        b_firstname: user_data.b_firstname,
+        b_lastname: user_data.b_lastname,
+        email: user_data.email,
+        b_phone: user_data.b_phone || default_location.phone,
+        b_address: user_data.b_address || default_location.address,
+        b_address_2: user_data.b_address_2,
+        b_city: user_data.b_city || default_location.city,
+        b_country: user_data.b_country || default_location.country,
+        b_state: user_data.b_state || default_location.state,
+        b_zipcode: user_data.b_zipcode || default_location.zipcode,
       },
       shippingValues: {
-        s_firstname: cart.user_data.s_firstname,
-        s_lastname: cart.user_data.s_lastname,
-        email: cart.user_data.email,
-        s_phone: cart.user_data.s_phone,
-        s_address: cart.user_data.s_address,
-        s_address_2: cart.user_data.s_address_2,
-        s_city: cart.user_data.s_city,
-        s_country: cart.user_data.s_country,
-        s_state: cart.user_data.s_state,
-        s_zipcode: cart.user_data.s_zipcode,
+        s_firstname: user_data.s_firstname,
+        s_lastname: user_data.s_lastname,
+        email: user_data.email,
+        s_phone: user_data.s_phone || default_location.phone,
+        s_address: user_data.s_address || default_location.address,
+        s_address_2: user_data.s_address_2,
+        s_city: user_data.s_city || default_location.city,
+        s_country: user_data.s_country || default_location.country,
+        s_state: user_data.s_state || default_location.state,
+        s_zipcode: user_data.s_zipcode || default_location.zipcode,
       },
     }, () => {
       if (this.isFirstLoad) {
