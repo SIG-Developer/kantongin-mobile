@@ -7,6 +7,7 @@
 * [Архитектура приложение и назначение папок](../master/docs/architecture.md)
 * [Настройки дизайна](../master/docs/design_settings.md)
 * [Настройки Push нотификаций](../master/docs/push_notifications.md)
+* [FAQ](../master/docs/faq.md)
 
 ### Полезные ссылки
 * [React native](https://facebook.github.io/react-native/)
