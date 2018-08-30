@@ -25,7 +25,7 @@ import CheckoutPayment from './screens/CheckoutPayment';
 import CheckoutComplete from './screens/CheckoutComplete';
 import CheckoutShipping from './screens/CheckoutShipping';
 import CheckoutDelivery from './screens/CheckoutDelivery';
-import PayPalCompleteWebView from './screens/PayPalCompleteWebView';
+import SettlementsCompleteWebView from './screens/SettlementsCompleteWebView';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
@@ -54,5 +54,5 @@ export default function registerScreens(store, Provider) {
   Navigation.registerComponent('CheckoutDelivery', () => CheckoutDelivery, store, Provider);
   Navigation.registerComponent('CheckoutShipping', () => CheckoutShipping, store, Provider);
   Navigation.registerComponent('CheckoutComplete', () => CheckoutComplete, store, Provider);
-  Navigation.registerComponent('PayPalCompleteWebView', () => PayPalCompleteWebView, store, Provider);
+  Navigation.registerComponent('SettlementsCompleteWebView', () => SettlementsCompleteWebView, store, Provider);
 }

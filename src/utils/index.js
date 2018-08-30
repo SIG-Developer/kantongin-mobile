@@ -27,7 +27,12 @@ export const PRODUCT_IMAGE_WIDTH = (
 export const lang = DeviceInfo.getDeviceLocale().split('-')[0];
 
 // Strip tags
-export const stripTags = str => str.replace(/<br[^>]*>/gi, '\n').replace(/(<([^>]+)>)/ig, '').trimLeft();
+export const stripTags = (str) => {
+  if (!str) {
+    return str;
+  }
+  return str.replace(/<br[^>]*>/gi, '\n').replace(/(<([^>]+)>)/ig, '').trimLeft();
+};
 
 export const toArray = obj => Object.keys(obj).map(k => obj[k]);
 
@@ -65,14 +70,13 @@ export function getCountryByCode(code) {
 }
 
 export function objectToQuerystring(obj) {
-  return Object.keys.reduce((str, key, i) => {
-    let val;
-    const delimiter = (i === 0) ? '?' : '&';
-    key = encodeURIComponent(key);
-    val = encodeURIComponent(obj[key]);
-    return [str, delimiter, key, '=', val].join('');
-  }, '');
-}
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+};
 
 export function parseQueryString(query) {
   const obj = {};

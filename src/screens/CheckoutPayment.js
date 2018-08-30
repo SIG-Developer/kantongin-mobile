@@ -25,6 +25,7 @@ import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
 import PaymentCreditCardOutside from '../components/PaymentCreditCardOutside';
 import PaymentCheckForm from '../components/PaymentCheckForm';
 import PaymentPaypalForm from '../components/PaymentPaypalForm';
+import PaymentYandexKassaForm from '../components/PaymentYandexKassaForm';
 import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
 import { stripTags } from '../utils';
@@ -81,6 +82,7 @@ const PAYMENT_CREDIT_CARD_OUTSIDE = 'views/orders/components/payments/cc_outside
 const PAYMENT_CHECK = 'views/orders/components/payments/check.tpl';
 const PAYMENT_PAYPAL_EXPRESS = 'addons/paypal/views/orders/components/payments/paypal_express.tpl';
 const PAYMENT_PHONE = 'views/orders/components/payments/phone.tpl';
+const PAYMENT_YANDEX_KASSA = 'addons/rus_payments/views/orders/components/payments/yandex_money.tpl';
 
 class CheckoutStepThree extends Component {
   static navigatorStyle = {
@@ -100,7 +102,7 @@ class CheckoutStepThree extends Component {
       clear: PropTypes.func,
     }),
     paymentsActions: PropTypes.shape({
-      paypalSettlements: PropTypes.func,
+      settlements: PropTypes.func,
     }),
     ordersActions: PropTypes.shape({
       create: PropTypes.func,
@@ -139,9 +141,13 @@ class CheckoutStepThree extends Component {
       return null;
     }
 
-    if (selectedItem.template === PAYMENT_PAYPAL_EXPRESS) {
-      return this.placePayPalOrder();
+    if (
+      selectedItem.template === PAYMENT_PAYPAL_EXPRESS ||
+      selectedItem.template === PAYMENT_YANDEX_KASSA
+    ) {
+      return this.placeSettlements();
     }
+
     return this.placeOrderAndComplete();
   }
 
@@ -191,7 +197,7 @@ class CheckoutStepThree extends Component {
     return null;
   }
 
-  placePayPalOrder() {
+  placeSettlements() {
     const {
       cart,
       shipping_id,
@@ -223,10 +229,11 @@ class CheckoutStepThree extends Component {
       this.setState({
         fetching: false,
       });
-      paymentsActions.paypalSettlements(orderId.order_id, false, (data) => {
+      paymentsActions.settlements(orderId.order_id, false, (data) => {
         navigator.push({
-          screen: 'PayPalCompleteWebView',
+          screen: 'SettlementsCompleteWebView',
           backButtonTitle: '',
+          title: this.state.selectedItem.payment,
           // backButtonHidden: true,
           passProps: {
             orderId: orderId.order_id,
@@ -253,12 +260,12 @@ class CheckoutStepThree extends Component {
           });
         }}
       >
-        {isSelected ?
-          <Icon name="radio-button-checked" style={styles.checkIcon} /> :
-          <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
+        {isSelected
+          ? <Icon name="radio-button-checked" style={styles.checkIcon} />
+          : <Icon name="radio-button-unchecked" style={styles.uncheckIcon} />
         }
         <Text style={styles.paymentItemText}>
-          {stripTags(item.description)}
+          {stripTags(item.payment)}
         </Text>
       </TouchableOpacity>
     );
@@ -308,6 +315,15 @@ class CheckoutStepThree extends Component {
       case PAYMENT_PAYPAL_EXPRESS:
         form = (
           <PaymentPaypalForm
+            onInit={(ref) => {
+              this.paymentFormRef = ref;
+            }}
+          />
+        );
+        break;
+      case PAYMENT_YANDEX_KASSA:
+        form = (
+          <PaymentYandexKassaForm
             onInit={(ref) => {
               this.paymentFormRef = ref;
             }}

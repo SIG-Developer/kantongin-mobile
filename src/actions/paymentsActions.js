@@ -3,9 +3,9 @@ import {
   BILLING_SUCCESS,
   BILLING_FAIL,
 
-  PAYPAL_SETTLEMENTS_REQUEST,
-  PAYPAL_SETTLEMENTS_SUCCESS,
-  PAYPAL_SETTLEMENTS_FAIL,
+  SETTLEMENTS_REQUEST,
+  SETTLEMENTS_SUCCESS,
+  SETTLEMENTS_FAIL,
 
   NOTIFICATION_SHOW,
 } from '../constants';
@@ -32,9 +32,9 @@ export function fetchAll() {
   };
 }
 
-export function paypalSettlements(orderId, replay, cb = null) {
+export function settlements(orderId, replay, cb = null) {
   return (dispatch) => {
-    dispatch({ type: PAYPAL_SETTLEMENTS_REQUEST });
+    dispatch({ type: SETTLEMENTS_REQUEST });
     const data = {
       order_id: orderId,
       replay,
@@ -42,12 +42,12 @@ export function paypalSettlements(orderId, replay, cb = null) {
     return Api.post('/sra_settlements', data)
       .then((response) => {
         dispatch({
-          type: PAYPAL_SETTLEMENTS_SUCCESS,
+          type: SETTLEMENTS_SUCCESS,
           payload: response.data,
         });
 
         if (cb) {
-          cb(response.data);
+          setTimeout(() => cb(response.data), 400);
         }
       })
       .catch((error) => {
@@ -60,7 +60,7 @@ export function paypalSettlements(orderId, replay, cb = null) {
           },
         });
         dispatch({
-          type: PAYPAL_SETTLEMENTS_FAIL,
+          type: SETTLEMENTS_FAIL,
           error,
         });
       });

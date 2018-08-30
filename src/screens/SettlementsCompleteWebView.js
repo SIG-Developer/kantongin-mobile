@@ -15,6 +15,8 @@ import * as cartActions from '../actions/cartActions';
 // theme
 import theme from '../config/theme';
 
+import { objectToQuerystring } from '../utils/index';
+
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
@@ -22,7 +24,15 @@ const styles = EStyleSheet.create({
   },
 });
 
-class PayPalCompleteWebView extends Component {
+class SettlementsCompleteWebView extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   static propTypes = {
     return_url: PropTypes.string,
     payment_url: PropTypes.string,
@@ -36,37 +46,35 @@ class PayPalCompleteWebView extends Component {
     })
   };
 
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
-  };
-
-  componentDidMount() {
-    const { navigator } = this.props;
-    // FIXME: Set title
-    navigator.setTitle({
-      title: 'PayPal'.toUpperCase(),
-    });
-  }
-
   onNavigationStateChange = ({ url }) => {
-    if (url.startsWith(this.props.return_url)) {
-      this.props.cartActions.clear();
-      this.props.navigator.push({
+    const {
+      return_url,
+      cartActions,
+      navigator,
+      orderId
+    } = this.props;
+
+    if (url.startsWith(return_url)) {
+      cartActions.clear();
+      navigator.push({
         screen: 'CheckoutComplete',
         backButtonTitle: '',
         backButtonHidden: true,
         passProps: {
-          orderId: this.props.orderId,
+          orderId,
         }
       });
     }
   }
 
   render() {
+    const { payment_url, query_parameters } = this.props;
+    let url = payment_url;
+
+    if (query_parameters) {
+      url = `${url}?${objectToQuerystring(query_parameters)}`;
+    }
+
     return (
       <View style={styles.container}>
         <WebView
@@ -74,9 +82,8 @@ class PayPalCompleteWebView extends Component {
           javaScriptEnabled
           scalesPageToFit
           startInLoadingState
-          userAgent="Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36"
           source={{
-            uri: this.props.payment_url,
+            uri: url,
           }}
           onNavigationStateChange={e => this.onNavigationStateChange(e)}
         />
@@ -93,4 +100,4 @@ export default connect(
     authActions: bindActionCreators(authActions, dispatch),
     cartActions: bindActionCreators(cartActions, dispatch),
   })
-)(PayPalCompleteWebView);
+)(SettlementsCompleteWebView);
