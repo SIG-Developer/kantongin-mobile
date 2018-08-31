@@ -83,6 +83,14 @@ const PAYMENT_CHECK = 'views/orders/components/payments/check.tpl';
 const PAYMENT_PAYPAL_EXPRESS = 'addons/paypal/views/orders/components/payments/paypal_express.tpl';
 const PAYMENT_PHONE = 'views/orders/components/payments/phone.tpl';
 const PAYMENT_YANDEX_KASSA = 'addons/rus_payments/views/orders/components/payments/yandex_money.tpl';
+const PAYMENTS = [
+  PAYMENT_CREDIT_CARD,
+  PAYMENT_CREDIT_CARD_OUTSIDE,
+  PAYMENT_YANDEX_KASSA,
+  PAYMENT_CHECK,
+  PAYMENT_PAYPAL_EXPRESS,
+  PAYMENT_PHONE
+];
 
 class CheckoutStepThree extends Component {
   static navigatorStyle = {
@@ -125,7 +133,9 @@ class CheckoutStepThree extends Component {
 
   componentDidMount() {
     const { cart } = this.props;
-    const items = Object.keys(cart.payments).map(k => cart.payments[k]);
+    const items = Object.keys(cart.payments)
+      .map(k => cart.payments[k])
+      .filter(p => PAYMENTS.includes(p.template));
     // FIXME: Default selected payment method.
     const selectedItem = items[0];
 
