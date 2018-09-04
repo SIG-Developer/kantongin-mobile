@@ -23,6 +23,7 @@ import Spinner from '../components/Spinner';
 import EmptyList from '../components/EmptyList';
 
 import i18n from '../utils/i18n';
+import { formatPrice } from '../utils';
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 
 import {
@@ -235,7 +236,7 @@ class Orders extends Component {
               {status.text}
             </Text>
             <Text style={styles.orderItemTotal}>
-              {item.total_formatted.price}
+              {formatPrice(item.total_formatted.price)}
             </Text>
           </View>
         </View>

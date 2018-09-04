@@ -20,7 +20,7 @@ import FormBlockField from '../components/FormBlockField';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
-import { getCountryByCode } from '../utils';
+import { getCountryByCode, formatPrice } from '../utils';
 import Api from '../services/api';
 
 const styles = EStyleSheet.create({
@@ -167,7 +167,7 @@ class OrderDetail extends Component {
             {item.product}
           </Text>
           <Text style={styles.productItemPrice}>
-            {`${item.amount} x ${item.price_formatted.price}`}
+            {`${item.amount} x ${formatPrice(item.price_formatted.price)}`}
           </Text>
         </View>
       </View>
@@ -357,13 +357,13 @@ class OrderDetail extends Component {
                 {shippingMethodsList}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Subtotal:')}>
-                {orderDetail.subtotal_formatted.price}
+                {formatPrice(orderDetail.subtotal_formatted.price)}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Shipping cost:')}>
-                {orderDetail.shipping_cost_formatted.price}
+                {formatPrice(orderDetail.shipping_cost_formatted.price)}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Total:')}>
-                {orderDetail.total_formatted.price}
+                {formatPrice(orderDetail.total_formatted.price)}
               </FormBlockField>
             </View>
           </FormBlock>

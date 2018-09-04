@@ -34,6 +34,13 @@ export const stripTags = (str) => {
   return str.replace(/<br[^>]*>/gi, '\n').replace(/(<([^>]+)>)/ig, '').trimLeft();
 };
 
+export const formatPrice = (str) => {
+  if (str) {
+    return str.replace(/&nbsp;/, '');
+  }
+  return str;
+};
+
 export const toArray = obj => Object.keys(obj).map(k => obj[k]);
 
 export function getCountries() {

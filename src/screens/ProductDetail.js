@@ -16,7 +16,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
 import { has } from 'lodash';
-import { stripTags } from '../utils';
+import { stripTags, formatPrice } from '../utils';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -174,6 +174,14 @@ const styles = EStyleSheet.create({
 });
 
 class ProductDetail extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
@@ -214,14 +222,6 @@ class ProductDetail extends Component {
     }),
     vendors: PropTypes.shape({}),
   }
-
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
-  };
 
   constructor(props) {
     super(props);
@@ -284,7 +284,13 @@ class ProductDetail extends Component {
     // If we haven't images put main image.
     if (has(product, 'main_pair.detailed.image_path')) {
       images.push(product.main_pair.detailed.image_path);
-      Object.values(product.image_pairs).map(img => images.push(img.detailed.image_path));
+      Object.values(product.image_pairs).map((img) => {
+        if (has(img, 'detailed.image_path')) {
+          images.push(img.detailed.image_path);
+        } else if (has(img, 'icon.image_path')) {
+          images.push(img.icon.image_path);
+        }
+      });
     }
 
     if (config.version === VERSION_MVE &&
@@ -507,7 +513,7 @@ class ProductDetail extends Component {
     }
     return (
       <Text style={styles.priceText}>
-        {product.price_formatted.price}
+        {formatPrice(product.price_formatted.price)}
       </Text>
     );
   }

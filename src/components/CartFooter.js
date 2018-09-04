@@ -8,6 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import Button from './Button';
 import i18n from '../utils/i18n';
+import { formatPrice } from '../utils';
 
 const styles = EStyleSheet.create({
   container: {
@@ -44,7 +45,7 @@ export default class extends PureComponent {
             {i18n.gettext('Total').toUpperCase()}
           </Text>
           <Text style={styles.cartInfoTotal}>
-            {this.props.totalPrice}
+            {formatPrice(this.props.totalPrice)}
           </Text>
         </View>
         <Button

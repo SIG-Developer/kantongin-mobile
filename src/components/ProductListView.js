@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { get } from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { PRODUCT_IMAGE_WIDTH } from '../utils';
+import { PRODUCT_IMAGE_WIDTH, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
@@ -75,19 +75,21 @@ class ProductListView extends PureComponent {
         style={styles.container}
         onPress={() => onPress(item)}
       >
-        {imageUri && <Image
-          style={styles.productImage}
-          source={{ uri: imageUri }}
-          resizeMode="contain"
-          resizeMethod="resize"
-        />}
-        {item.list_discount_prc &&
+        {imageUri && (
+          <Image
+            style={styles.productImage}
+            source={{ uri: imageUri }}
+            resizeMode="contain"
+            resizeMethod="resize"
+          />
+        )}
+        {item.list_discount_prc && (
           <View style={styles.listDiscountWrapper}>
             <Text style={styles.listDiscountText}>
-              {i18n.gettext('Save')} {item.list_discount_prc}%
+              {i18n.gettext('Save')} {`${item.list_discount_prc}%`}
             </Text>
           </View>
-        }
+        )}
         <View style={styles.description}>
           <Text
             numberOfLines={1}
@@ -99,7 +101,7 @@ class ProductListView extends PureComponent {
             numberOfLines={1}
             style={styles.productPrice}
           >
-            {price}
+            {formatPrice(price)}
           </Text>
         </View>
       </TouchableOpacity>

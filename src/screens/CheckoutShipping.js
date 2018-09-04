@@ -25,7 +25,7 @@ import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
 
 import i18n from '../utils/i18n';
-import { stripTags } from '../utils';
+import { stripTags, formatPrice } from '../utils';
 
 // theme
 import theme from '../config/theme';
@@ -262,7 +262,7 @@ class CheckoutShipping extends Component {
           ))}
         </ScrollView>
         <CartFooter
-          totalPrice={`${cart.total_formatted.price}`}
+          totalPrice={`${formatPrice(cart.total_formatted.price)}`}
           btnText={i18n.gettext('Next').toUpperCase()}
           isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}

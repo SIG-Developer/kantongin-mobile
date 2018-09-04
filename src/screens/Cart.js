@@ -28,6 +28,7 @@ import theme from '../config/theme';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
+import { formatPrice } from '../utils';
 
 import {
   iconsMap,
@@ -334,7 +335,7 @@ class Cart extends Component {
     }
     return (
       <CartFooter
-        totalPrice={cart.subtotal_formatted.price}
+        totalPrice={formatPrice(cart.subtotal_formatted.price)}
         btnText={i18n.gettext('Checkout').toUpperCase()}
         onBtnPress={() => this.handlePlaceOrder()}
       />

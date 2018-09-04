@@ -16,6 +16,7 @@ import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
 import Api from '../services/api';
+import { formatPrice } from '../utils';
 
 import {
   iconsMap,
@@ -169,7 +170,7 @@ class CheckoutComplete extends Component {
             {item.product}
           </Text>
           <Text style={styles.productItemPrice}>
-            {`${item.amount} x ${item.price_formatted.price}`}
+            {`${item.amount} x ${formatPrice(item.price_formatted.price)}`}
           </Text>
         </View>
       </View>

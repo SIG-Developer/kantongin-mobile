@@ -25,6 +25,7 @@ import theme from '../config/theme';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
+import { formatPrice } from '../utils';
 
 import {
   iconsMap,
@@ -257,7 +258,7 @@ export class WishList extends Component {
                 {item.product}
               </Text>
               <Text style={styles.productItemPrice}>
-                {item.amount} x {item.price_formatted.price}
+                {item.amount} x {formatPrice(item.price_formatted.price)}
               </Text>
             </View>
           </TouchableOpacity>

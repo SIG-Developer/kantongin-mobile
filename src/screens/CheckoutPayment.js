@@ -28,7 +28,7 @@ import PaymentPaypalForm from '../components/PaymentPaypalForm';
 import PaymentYandexKassaForm from '../components/PaymentYandexKassaForm';
 import Spinner from '../components/Spinner';
 import Icon from '../components/Icon';
-import { stripTags } from '../utils';
+import { stripTags, formatPrice } from '../utils';
 import i18n from '../utils/i18n';
 
 // theme
@@ -402,7 +402,7 @@ class CheckoutStepThree extends Component {
           />
         </KeyboardAwareScrollView>
         <CartFooter
-          totalPrice={cart.total_formatted.price}
+          totalPrice={formatPrice(cart.total_formatted.price)}
           btnText={i18n.gettext('Place order').toUpperCase()}
           isBtnDisabled={false}
           onBtnPress={() => this.handlePlaceOrder()}

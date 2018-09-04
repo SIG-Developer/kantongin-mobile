@@ -18,7 +18,7 @@ import * as authActions from '../actions/authActions';
 import * as cartActions from '../actions/cartActions';
 
 import i18n from '../utils/i18n';
-import { getCountries, getStates } from '../utils';
+import { getCountries, getStates, formatPrice } from '../utils';
 
 // theme
 import theme from '../config/theme';
@@ -407,7 +407,7 @@ class Checkout extends Component {
           </FormBlock>
         </KeyboardAwareScrollView>
         <CartFooter
-          totalPrice={cart.subtotal_formatted.price}
+          totalPrice={formatPrice(cart.subtotal_formatted.price)}
           btnText={i18n.gettext('Next').toUpperCase()}
           onBtnPress={() => this.handleNextPress()}
         />
