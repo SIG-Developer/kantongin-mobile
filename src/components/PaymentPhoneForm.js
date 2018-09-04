@@ -18,7 +18,7 @@ const styles = EStyleSheet.create({
 const Form = t.form.Form;
 const formFields = t.struct({
   phone: t.String,
-  comment: t.maybe(t.String),
+  notes: t.maybe(t.String),
 });
 const formOptions = {
   disableOrder: true,
@@ -29,7 +29,7 @@ const formOptions = {
       returnKeyType: 'done',
       keyboardType: 'phone-pad',
     },
-    comment: {
+    notes: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       returnKeyType: 'done',

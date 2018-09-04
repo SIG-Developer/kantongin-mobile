@@ -190,6 +190,16 @@ class CheckoutStepThree extends Component {
       };
       return orderInfo;
     });
+
+    if (values.phone) {
+      orderInfo.payment_info = {
+        ...orderInfo.payment_info,
+        customer_phone: values.phone,
+      };
+    }
+
+    console.log(values, orderInfo);
+
     ordersActions.create(orderInfo, (orderId) => {
       this.setState({
         fetching: false,

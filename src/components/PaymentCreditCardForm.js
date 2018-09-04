@@ -22,7 +22,7 @@ const formFields = t.struct({
   expiryYear: t.Number,
   cardholderName: t.String,
   ccv: t.Number,
-  comment: t.maybe(t.String),
+  notes: t.maybe(t.String),
 });
 const formOptions = {
   disableOrder: true,
@@ -56,7 +56,7 @@ const formOptions = {
       keyboardType: 'numeric',
       returnKeyType: 'done',
     },
-    comment: {
+    notes: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       multiline: true,

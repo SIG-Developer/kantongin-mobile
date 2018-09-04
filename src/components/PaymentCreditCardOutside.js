@@ -20,12 +20,12 @@ const styles = EStyleSheet.create({
 
 const Form = t.form.Form;
 const formFields = t.struct({
-  comment: t.maybe(t.String),
+  notes: t.maybe(t.String),
 });
 const formOptions = {
   disableOrder: true,
   fields: {
-    comment: {
+    notes: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       multiline: true,

@@ -20,7 +20,7 @@ const formFields = t.struct({
   customerSignature: t.String,
   checkingAccountNumber: t.String,
   bankRoutingNumber: t.String,
-  comment: t.maybe(t.String),
+  notes: t.maybe(t.String),
 });
 const formOptions = {
   disableOrder: true,
@@ -40,7 +40,7 @@ const formOptions = {
       clearButtonMode: 'while-editing',
       returnKeyType: 'done',
     },
-    comment: {
+    notes: {
       label: i18n.gettext('Comment'),
       clearButtonMode: 'while-editing',
       multiline: true,
