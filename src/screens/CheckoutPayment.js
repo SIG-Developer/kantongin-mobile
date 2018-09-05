@@ -296,6 +296,7 @@ class CheckoutStepThree extends Component {
   );
 
   renderFooter() {
+    const { cart } = this.props;
     const { selectedItem } = this.state;
     if (!selectedItem) {
       return null;
@@ -354,6 +355,7 @@ class CheckoutStepThree extends Component {
             onInit={(ref) => {
               this.paymentFormRef = ref;
             }}
+            value={{ phone: cart.user_data.phone }}
           />
         );
         break;

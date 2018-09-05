@@ -52,6 +52,7 @@ const formOptions = {
 export default class PaymentPhoneForm extends Component {
   static propTypes = {
     onInit: PropTypes.func,
+    value: PropTypes.shape({}),
   };
 
   componentDidMount() {
@@ -65,6 +66,7 @@ export default class PaymentPhoneForm extends Component {
           ref="form"
           type={formFields}
           options={formOptions}
+          value={this.props.value}
         />
       </View>
     );
