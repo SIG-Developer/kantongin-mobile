@@ -40,6 +40,7 @@ import Icon from '../components/Icon';
 import i18n from '../utils/i18n';
 import theme from '../config/theme';
 import config from '../config';
+
 import {
   iconsMap,
   iconsLoaded,
@@ -293,6 +294,7 @@ class ProductDetail extends Component {
       });
     }
 
+    // Fixme
     if (config.version === VERSION_MVE &&
       !vendors.items[product.company_id] &&
       !vendors.fetching && product.company_id
@@ -557,7 +559,7 @@ class ProductDetail extends Component {
           items={discussion.posts.slice(0, 4)}
           type={discussion.type}
         />
-        {masMore &&
+        {masMore && (
           <TouchableOpacity
             style={styles.sectionBtn}
             onPress={() => {
@@ -570,7 +572,7 @@ class ProductDetail extends Component {
               {i18n.gettext('View All')}
             </Text>
           </TouchableOpacity>
-        }
+        )}
       </Section>
     );
   }

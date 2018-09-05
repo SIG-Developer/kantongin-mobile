@@ -16,7 +16,7 @@ import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
 import Api from '../services/api';
-import { formatPrice } from '../utils';
+import { formatPrice, getImagePath } from '../utils';
 
 import {
   iconsMap,
@@ -86,6 +86,11 @@ const styles = EStyleSheet.create({
 });
 
 class CheckoutComplete extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: '#FAFAFA',
+    navBarButtonColor: '#989898',
+  };
+
   static propTypes = {
     orderId: PropTypes.number,
     navigator: PropTypes.shape({
@@ -94,11 +99,6 @@ class CheckoutComplete extends Component {
       setButtons: PropTypes.func,
       setOnNavigatorEvent: PropTypes.func,
     }),
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: '#FAFAFA',
-    navBarButtonColor: '#989898',
   };
 
   constructor(props) {
@@ -153,11 +153,13 @@ class CheckoutComplete extends Component {
 
   renderProduct = (item, index) => {
     let productImage = null;
-    if ('http_image_path' in item.main_pair.detailed) {
-      productImage = (<Image
-        source={{ uri: item.main_pair.detailed.http_image_path }}
-        style={styles.productItemImage}
-      />);
+    const imageUri = getImagePath(item);
+    if (imageUri) {
+      productImage = (
+        <Image
+          source={{ uri: imageUri }}
+          style={styles.productItemImage}
+        />);
     }
     return (
       <View style={styles.productItem} key={index}>

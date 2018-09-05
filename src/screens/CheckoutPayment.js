@@ -198,8 +198,6 @@ class CheckoutStepThree extends Component {
       };
     }
 
-    console.log(values, orderInfo);
-
     ordersActions.create(orderInfo, (orderId) => {
       this.setState({
         fetching: false,

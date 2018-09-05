@@ -6,9 +6,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import { get } from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { PRODUCT_IMAGE_WIDTH, formatPrice } from '../utils';
+import { PRODUCT_IMAGE_WIDTH, formatPrice, getImagePath } from '../utils';
 import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
@@ -69,7 +68,8 @@ class ProductListView extends PureComponent {
     const { product, onPress } = this.props;
     const { item } = product;
     const price = item.price_formatted ? item.price_formatted.price : item.price;
-    const imageUri = get(item, 'main_pair.detailed.http_image_path');
+    const imageUri = getImagePath(item);
+
     return (
       <TouchableOpacity
         style={styles.container}

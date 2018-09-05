@@ -8,8 +8,10 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import { getImagePath } from '../utils';
+
 // Components
-import Icon from '../components/Icon';
+import Icon from './Icon';
 
 const styles = EStyleSheet.create({
   container: {
@@ -60,25 +62,24 @@ const styles = EStyleSheet.create({
 });
 
 const CategoryListView = ({ category, onPress }) => {
-  let imageUri = null;
-  if ('main_pair' in category) {
-    imageUri = category.main_pair.detailed.http_image_path;
-  }
+  const imageUri = getImagePath(category);
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => onPress(category)}
     >
       <View style={styles.wrapper}>
-        {imageUri ?
-          <Image source={{ uri: imageUri }} style={styles.categoryImage} />
-          :
-          <View style={styles.noImage}>
-            <Icon name="shopping-basket" style={styles.emptyImage} />
-          </View>
+        {imageUri ? (<Image source={{ uri: imageUri }} style={styles.categoryImage} />)
+          : (
+            <View style={styles.noImage}>
+              <Icon name="shopping-basket" style={styles.emptyImage} />
+            </View>
+          )
         }
         <View style={styles.categoryTitleWrapper}>
-          <Text numberOfLines={2} style={styles.categoryTitle}>{category.category}</Text>
+          <Text numberOfLines={2} style={styles.categoryTitle}>
+            {category.category}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

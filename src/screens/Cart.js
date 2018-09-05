@@ -28,7 +28,7 @@ import theme from '../config/theme';
 // links
 import { registerDrawerDeepLinks } from '../utils/deepLinks';
 import i18n from '../utils/i18n';
-import { formatPrice } from '../utils';
+import { formatPrice, getImagePath } from '../utils';
 
 import {
   iconsMap,
@@ -118,6 +118,14 @@ const styles = EStyleSheet.create({
 });
 
 class Cart extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+  };
+
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,
@@ -135,14 +143,6 @@ class Cart extends Component {
       token: PropTypes.string,
     }),
     cart: PropTypes.shape({}),
-  };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
   };
 
   constructor(props) {
@@ -274,11 +274,13 @@ class Cart extends Component {
 
   renderProductItem = (item) => {
     let productImage = null;
-    if ('http_image_path' in item.main_pair.detailed) {
-      productImage = (<Image
-        source={{ uri: item.main_pair.detailed.http_image_path }}
-        style={styles.productItemImage}
-      />);
+    const imageUri = getImagePath(item);
+    if (imageUri) {
+      productImage = (
+        <Image
+          source={{ uri: imageUri }}
+          style={styles.productItemImage}
+        />);
     }
 
     const swipeoutBtns = [

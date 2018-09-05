@@ -20,7 +20,7 @@ import FormBlockField from '../components/FormBlockField';
 import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
-import { getCountryByCode, formatPrice } from '../utils';
+import { getCountryByCode, formatPrice, getImagePath } from '../utils';
 import Api from '../services/api';
 
 const styles = EStyleSheet.create({
@@ -99,9 +99,6 @@ class OrderDetail extends Component {
       show: PropTypes.func,
     }),
     orderId: PropTypes.string,
-    orderDetail: PropTypes.shape({
-      fetching: PropTypes.bool,
-    }),
     navigator: PropTypes.shape({
       push: PropTypes.func,
       setTitle: PropTypes.func,
@@ -119,7 +116,7 @@ class OrderDetail extends Component {
   }
 
   componentWillMount() {
-    const { orderId, navigator } = this.props;
+    const { orderId, navigator, notificationsActions } = this.props;
     Api.get(`/sra_orders/${orderId}`)
       .then((response) => {
         this.setState({
@@ -128,7 +125,7 @@ class OrderDetail extends Component {
         });
       })
       .catch(() => {
-        this.props.notificationsActions.show({
+        notificationsActions.show({
           type: 'info',
           title: i18n.gettext('Information'),
           text: i18n.gettext('Order not found.'),
@@ -149,10 +146,11 @@ class OrderDetail extends Component {
 
   renderProduct = (item, index) => {
     let productImage = null;
-    if ('http_image_path' in item.main_pair.detailed) {
+    const imageUri = getImagePath(item);
+    if (imageUri) {
       productImage = (
         <Image
-          source={{ uri: item.main_pair.detailed.http_image_path }}
+          source={{ uri: imageUri }}
           style={styles.productItemImage}
         />);
     }
