@@ -16,7 +16,7 @@ import Spinner from '../components/Spinner';
 
 import i18n from '../utils/i18n';
 import Api from '../services/api';
-import { formatPrice, getImagePath } from '../utils';
+import { formatPrice, getImagePath, getCountryByCode } from '../utils';
 
 import {
   iconsMap,
@@ -195,6 +195,40 @@ class CheckoutComplete extends Component {
     });
 
     const date = new Date(orderDetail.timestamp * 1000);
+
+    let state;
+    const foundCountry = {
+      name: orderDetail.b_country,
+      states: [],
+      ...getCountryByCode(orderDetail.b_country),
+    };
+    state = foundCountry.states.filter(s => s.code === orderDetail.b_state);
+    let foundState = {
+      name: orderDetail.b_state,
+    };
+    if (state.length) {
+      foundState = {
+        ...foundState,
+        ...state[0],
+      };
+    }
+
+    const foundCountryShipping = {
+      name: orderDetail.s_country,
+      states: [],
+      ...getCountryByCode(orderDetail.s_country),
+    };
+    state = foundCountryShipping.states.filter(s => s.code === orderDetail.s_state);
+    let foundStateShipping = {
+      name: orderDetail.s_state,
+    };
+    if (state.length) {
+      foundStateShipping = {
+        ...foundState,
+        ...state[0],
+      };
+    }
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -227,7 +261,7 @@ class CheckoutComplete extends Component {
           <FormBlock
             title={i18n.gettext('Billing address')}
             buttonText={i18n.gettext('Show all').toUpperCase()}
-            simpleView={
+            simpleView={(
               <View>
                 <FormBlockField title={i18n.gettext('First name:')}>
                   {orderDetail.s_firstname}
@@ -236,7 +270,7 @@ class CheckoutComplete extends Component {
                   {orderDetail.s_lastname}
                 </FormBlockField>
               </View>
-            }
+            )}
           >
             <View>
               <FormBlockField title={i18n.gettext('First name:')}>
@@ -258,10 +292,10 @@ class CheckoutComplete extends Component {
                 {orderDetail.b_city}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Country:')}>
-                {orderDetail.b_country}
+                {foundCountry.name}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('State:')}>
-                {orderDetail.b_state}
+                {foundState.name}
               </FormBlockField>
             </View>
           </FormBlock>
@@ -269,7 +303,7 @@ class CheckoutComplete extends Component {
           <FormBlock
             title={i18n.gettext('Shipping address')}
             buttonText={i18n.gettext('Show all').toUpperCase()}
-            simpleView={
+            simpleView={(
               <View>
                 <FormBlockField title={i18n.gettext('First name:')}>
                   {orderDetail.s_firstname}
@@ -277,7 +311,7 @@ class CheckoutComplete extends Component {
                 <FormBlockField title={i18n.gettext('Last name:')}>
                   {orderDetail.s_lastname}
                 </FormBlockField>
-              </View>
+              </View>)
             }
           >
             <View>
@@ -300,10 +334,10 @@ class CheckoutComplete extends Component {
                 {orderDetail.s_city}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Country:')}>
-                {orderDetail.s_country}
+                {foundCountryShipping.name}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('State:')}>
-                {orderDetail.s_state}
+                {foundStateShipping.name}
               </FormBlockField>
             </View>
           </FormBlock>
