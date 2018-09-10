@@ -355,7 +355,7 @@ class CheckoutStepThree extends Component {
             onInit={(ref) => {
               this.paymentFormRef = ref;
             }}
-            value={{ phone: cart.user_data.phone }}
+            value={{ phone: cart.user_data.b_phone }}
           />
         );
         break;
