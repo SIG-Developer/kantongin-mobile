@@ -227,6 +227,8 @@ class ProductDetail extends Component {
   constructor(props) {
     super(props);
 
+    this.isVendorFetchRequestSent = false;
+
     this.state = {
       amount: 1,
       images: [],
@@ -295,10 +297,13 @@ class ProductDetail extends Component {
     }
 
     // Fixme
-    if (config.version === VERSION_MVE &&
+    if (
+      config.version === VERSION_MVE &&
       !vendors.items[product.company_id] &&
-      !vendors.fetching && product.company_id
+      !vendors.fetching && product.company_id &&
+      !this.isVendorFetchRequestSent
     ) {
+      this.isVendorFetchRequestSent = true;
       this.props.vendorActions.fetch(product.company_id);
     }
 
@@ -328,8 +333,8 @@ class ProductDetail extends Component {
       selectedOptions: defaultOptions,
       fetching: productDetail.fetching,
       vendor: vendors.items[product.company_id] || null,
-      canWriteComments: (!activeDiscussion.disable_adding &&
-        productDetail.discussion_type !== DISCUSSION_DISABLED) && auth.logged,
+      canWriteComments: (!activeDiscussion.disable_adding
+        && productDetail.discussion_type !== DISCUSSION_DISABLED) && auth.logged,
     }, () => this.calculatePrice());
 
     navigator.setTitle({
@@ -482,8 +487,8 @@ class ProductDetail extends Component {
   renderRating() {
     const { discussion } = this.state;
 
-    if (discussion.type !== DISCUSSION_RATING &&
-        discussion.type !== DISCUSSION_COMMUNICATION_AND_RATING) {
+    if (discussion.type !== DISCUSSION_RATING
+        && discussion.type !== DISCUSSION_COMMUNICATION_AND_RATING) {
       return null;
     }
 
@@ -524,10 +529,10 @@ class ProductDetail extends Component {
     const { navigator, productDetail } = this.props;
     const { discussion, canWriteComments } = this.state;
     if (
-      discussion.average_rating === '' ||
-      discussion.type === DISCUSSION_DISABLED ||
-      productDetail.discussion_type === DISCUSSION_DISABLED ||
-      !productDetail.discussion_type
+      discussion.average_rating === ''
+      || discussion.type === DISCUSSION_DISABLED
+      || productDetail.discussion_type === DISCUSSION_DISABLED
+      || !productDetail.discussion_type
     ) {
       return null;
     }
@@ -644,8 +649,8 @@ class ProductDetail extends Component {
     const features = Object.keys(product.product_features).map(k => product.product_features[k]);
     return (
       <Section title={i18n.gettext('Feautures')}>
-        {features.length ?
-          features.map((item, index) => (
+        {features.length
+          ? features.map((item, index) => (
             <SectionRow
               name={item.description}
               value={item.variant}
@@ -653,8 +658,13 @@ class ProductDetail extends Component {
               key={index}
             />
           ))
-          :
-          <Text> {i18n.gettext('There are no feautures.')} </Text>
+          : (
+<Text> 
+{' '}
+{i18n.gettext('There are no feautures.')}
+{' '}
+ </Text>
+)
         }
       </Section>
     );
@@ -748,13 +758,15 @@ class ProductDetail extends Component {
           </Text>
         </TouchableOpacity>
 
-        {!this.props.hideWishList &&
-          <TouchableOpacity
+        {!this.props.hideWishList
+          && (
+<TouchableOpacity
             style={styles.addToWishList}
             onPress={() => this.handleAddToWishList()}
           >
             <Icon name="favorite" size={24} style={styles.addToWishListIcon} />
           </TouchableOpacity>
+)
         }
       </View>
     );
