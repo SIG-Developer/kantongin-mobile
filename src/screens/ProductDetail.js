@@ -736,9 +736,9 @@ class ProductDetail extends Component {
         text={i18n.gettext('Share product')}
         onPress={() => {
           Share.share({
-            message: product.full_description,
+            message: `${config.siteUrl}index.php?dispatch=products.view&product_id=${product.product_id} ${product.full_description}`,
             title: product.product,
-            url: config.baseUrl,
+            url: config.siteUrl,
           }, {
             dialogTitle: product.product,
             tintColor: 'black'
