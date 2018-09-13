@@ -6,6 +6,7 @@ import {
   View,
   Text,
   FlatList,
+  ActivityIndicator,
   InteractionManager,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -276,6 +277,18 @@ class Categories extends Component {
     </Text>
   );
 
+  renderFooter() {
+    const { products } = this.props;
+
+    if (products.fetching && products.hasMore) {
+      return (
+        <ActivityIndicator size="large" animating />
+      );
+    }
+
+    return null;
+  }
+
   renderList() {
     const { navigator } = this.props;
     return (
@@ -283,6 +296,7 @@ class Categories extends Component {
         data={this.state.products}
         keyExtractor={item => +item.product_id}
         ListHeaderComponent={() => this.renderHeader()}
+        ListFooterComponent={() => this.renderFooter()}
         numColumns={PRODUCT_NUM_COLUMNS}
         renderItem={item => (<ProductListView
           product={item}
@@ -296,7 +310,7 @@ class Categories extends Component {
         />)}
         onRefresh={() => this.handleRefresh()}
         refreshing={this.state.refreshing}
-        onEndReachedThreshold={-1}
+        onEndReachedThreshold={0}
         onEndReached={() => this.handleLoadMore()}
         ListEmptyComponent={() => this.renderEmptyList()}
       />

@@ -359,14 +359,14 @@ class ProductDetail extends Component {
   }
 
   calculatePrice = () => {
-    const { selectedOptions, product } = this.state;
+    const { selectedOptions, product, amount } = this.state;
     const { productDetail } = this.props;
     let newPrice = 0;
     newPrice += +productDetail.price;
     Object.keys(selectedOptions).forEach((key) => {
       newPrice += +selectedOptions[key].modifier;
     });
-    newPrice *= this.state.amount;
+    newPrice *= amount;
     this.setState({
       product: {
         ...product,
@@ -377,10 +377,11 @@ class ProductDetail extends Component {
 
   handleAddToCart() {
     const productOptions = {};
-    const { product, selectedOptions } = this.state;
+    const { product, selectedOptions, amount } = this.state;
+    const { auth, navigator, cartActions } = this.props;
 
-    if (!this.props.auth.logged) {
-      return this.props.navigator.showModal({
+    if (!auth.logged) {
+      return navigator.showModal({
         screen: 'Login',
       });
     }
@@ -394,21 +395,22 @@ class ProductDetail extends Component {
     });
 
     const products = {
-      [this.state.product.product_id]: {
+      [product.product_id]: {
         product_id: product.product_id,
-        amount: this.state.amount,
+        amount,
         product_options: productOptions,
       },
     };
-    return this.props.cartActions.add({ products });
+    return cartActions.add({ products });
   }
 
   handleAddToWishList() {
     const productOptions = {};
-    const { product, selectedOptions } = this.state;
+    const { product, selectedOptions, amount } = this.state;
+    const { auth, navigator, wishListActions } = this.props;
 
-    if (!this.props.auth.logged) {
-      return this.props.navigator.showModal({
+    if (!auth.logged) {
+      return navigator.showModal({
         screen: 'Login',
       });
     }
@@ -422,13 +424,13 @@ class ProductDetail extends Component {
     });
 
     const products = {
-      [this.state.product.product_id]: {
+      [product.product_id]: {
         product_id: product.product_id,
-        amount: this.state.amount,
+        amount,
         product_options: productOptions,
       },
     };
-    return this.props.wishListActions.add({ products });
+    return wishListActions.add({ products });
   }
 
   handleOptionChange(name, val) {
