@@ -264,10 +264,10 @@ class CheckoutComplete extends Component {
             simpleView={(
               <View>
                 <FormBlockField title={i18n.gettext('First name:')}>
-                  {orderDetail.s_firstname}
+                  {orderDetail.b_firstname}
                 </FormBlockField>
                 <FormBlockField title={i18n.gettext('Last name:')}>
-                  {orderDetail.s_lastname}
+                  {orderDetail.b_lastname}
                 </FormBlockField>
               </View>
             )}
@@ -283,7 +283,7 @@ class CheckoutComplete extends Component {
                 {orderDetail.email}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Phone:')}>
-                {orderDetail.phone}
+                {orderDetail.b_phone}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Address:')}>
                 {orderDetail.b_address} {orderDetail.b_address2}
@@ -325,7 +325,7 @@ class CheckoutComplete extends Component {
                 {orderDetail.email}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Phone:')}>
-                {orderDetail.phone}
+                {orderDetail.s_phone}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('Address:')}>
                 {orderDetail.s_address} {orderDetail.s_address2}
