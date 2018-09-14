@@ -75,14 +75,16 @@ class ProductListView extends PureComponent {
         style={styles.container}
         onPress={() => onPress(item)}
       >
-        {imageUri && (
-          <Image
-            style={styles.productImage}
-            source={{ uri: imageUri }}
-            resizeMode="contain"
-            resizeMethod="resize"
-          />
-        )}
+        <View>
+          {imageUri !== null && (
+            <Image
+              style={styles.productImage}
+              source={{ uri: imageUri }}
+              resizeMode="contain"
+              resizeMethod="resize"
+            />
+          )}
+        </View>
         {item.list_discount_prc && (
           <View style={styles.listDiscountWrapper}>
             <Text style={styles.listDiscountText}>

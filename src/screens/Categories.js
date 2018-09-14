@@ -298,19 +298,21 @@ class Categories extends Component {
         ListHeaderComponent={() => this.renderHeader()}
         ListFooterComponent={() => this.renderFooter()}
         numColumns={PRODUCT_NUM_COLUMNS}
-        renderItem={item => (<ProductListView
-          product={item}
-          onPress={product => navigator.push({
-            screen: 'ProductDetail',
-            backButtonTitle: '',
-            passProps: {
-              pid: product.product_id,
-            }
-          })}
-        />)}
+        renderItem={item => (
+          <ProductListView
+            product={item}
+            onPress={product => navigator.push({
+              screen: 'ProductDetail',
+              backButtonTitle: '',
+              passProps: {
+                pid: product.product_id,
+              }
+            })}
+          />
+        )}
         onRefresh={() => this.handleRefresh()}
         refreshing={this.state.refreshing}
-        onEndReachedThreshold={0}
+        onEndReachedThreshold={10}
         onEndReached={() => this.handleLoadMore()}
         ListEmptyComponent={() => this.renderEmptyList()}
       />
@@ -322,9 +324,9 @@ class Categories extends Component {
     return (
       <View style={styles.container}>
         {
-          (products.fetching && this.isFirstLoad) ?
-            this.renderSpinner() :
-            this.renderList()
+          (products.fetching && this.isFirstLoad)
+            ? this.renderSpinner()
+            : this.renderList()
         }
       </View>
     );
