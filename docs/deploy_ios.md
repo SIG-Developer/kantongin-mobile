@@ -16,7 +16,7 @@
 #### 3) Сборка приложения и заливка его в App store.
 
 1. Устанавливаем исходники приложения локально [Установка и настройка](./installation.md)
-2. Открываем в xcode ./ios/csnative.xcodeproj
+2. Открываем в xcode ./ios/csnative.xcworkspace
 3. Открываем настройки в меню Xcode -> Preferences
 4. Во вкладке Account добавляем developer аккаунт что создавали. Закрвываем настройки.
 ![alt text](./images/developer.png " ")
