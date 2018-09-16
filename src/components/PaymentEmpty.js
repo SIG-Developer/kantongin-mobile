@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  Text,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import * as t from 'tcomb-form-native';
@@ -45,7 +44,7 @@ const formOptions = {
   },
 };
 
-export default class PaymentCrediCardOutside extends Component {
+export default class PaymentEmpty extends Component {
   static propTypes = {
     onInit: PropTypes.func,
   };

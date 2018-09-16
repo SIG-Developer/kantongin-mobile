@@ -22,7 +22,7 @@ import CartFooter from '../components/CartFooter';
 import FormBlock from '../components/FormBlock';
 import PaymentPhoneForm from '../components/PaymentPhoneForm';
 import PaymentCreditCardForm from '../components/PaymentCreditCardForm';
-import PaymentCreditCardOutside from '../components/PaymentCreditCardOutside';
+import PaymentEmpty from '../components/PaymentEmpty';
 import PaymentCheckForm from '../components/PaymentCheckForm';
 import PaymentPaypalForm from '../components/PaymentPaypalForm';
 import PaymentYandexKassaForm from '../components/PaymentYandexKassaForm';
@@ -78,14 +78,14 @@ const styles = EStyleSheet.create({
 });
 
 const PAYMENT_CREDIT_CARD = 'views/orders/components/payments/cc.tpl';
-const PAYMENT_CREDIT_CARD_OUTSIDE = 'views/orders/components/payments/cc_outside.tpl';
+const PAYMENT_EMPTY = 'views/orders/components/payments/empty.tpl';
 const PAYMENT_CHECK = 'views/orders/components/payments/check.tpl';
 const PAYMENT_PAYPAL_EXPRESS = 'addons/paypal/views/orders/components/payments/paypal_express.tpl';
 const PAYMENT_PHONE = 'views/orders/components/payments/phone.tpl';
 const PAYMENT_YANDEX_KASSA = 'addons/rus_payments/views/orders/components/payments/yandex_money.tpl';
 const PAYMENTS = [
   PAYMENT_CREDIT_CARD,
-  PAYMENT_CREDIT_CARD_OUTSIDE,
+  PAYMENT_EMPTY,
   PAYMENT_YANDEX_KASSA,
   PAYMENT_CHECK,
   PAYMENT_PAYPAL_EXPRESS,
@@ -304,9 +304,9 @@ class CheckoutStepThree extends Component {
     let form = null;
     // FIXME: HARDCODE
     switch (selectedItem.template) {
-      case PAYMENT_CREDIT_CARD_OUTSIDE:
+      case PAYMENT_EMPTY:
         form = (
-          <PaymentCreditCardOutside
+          <PaymentEmpty
             onInit={(ref) => {
               this.paymentFormRef = ref;
             }}
