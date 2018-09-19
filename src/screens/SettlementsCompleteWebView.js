@@ -54,7 +54,7 @@ class SettlementsCompleteWebView extends Component {
       orderId
     } = this.props;
 
-    if (url.startsWith(return_url)) {
+    if (url.toLowerCase().startsWith(return_url.toLowerCase())) {
       cartActions.clear();
       navigator.push({
         screen: 'CheckoutComplete',

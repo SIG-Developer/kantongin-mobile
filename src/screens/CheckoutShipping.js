@@ -139,20 +139,23 @@ class CheckoutShipping extends Component {
   }
 
   normalizeData = (blobData) => {
+    const { shipping_id } = this.state;
+
     return blobData.map((currentItem) => {
       const item = { ...currentItem };
       item.shippings = values(item.shippings);
       item.shippings = item.shippings.map((i, index) => {
-        if (index === 0) {
-          this.setState({ shipping_id: i.shipping_id });
+        if (index === 0 && !values(shipping_id).length) {
+          this.setState({ shipping_id: { 0: i.shipping_id } });
           return {
             ...i,
             isSelected: true,
           };
         }
+
         return {
           ...i,
-          isSelected: false,
+          isSelected: values(shipping_id).includes(i.shipping_id),
         };
       });
       return item;
@@ -172,6 +175,7 @@ class CheckoutShipping extends Component {
   }
 
   handleSelect(shipping, shippingIndex, itemIndex) {
+    const { cartActions } = this.props;
     if (shipping.isSelected) {
       return;
     }
@@ -183,6 +187,9 @@ class CheckoutShipping extends Component {
     // Get selected ids
     const selectedIds = {};
     selectedIds[`${itemIndex}`] = `${shipping.shipping_id}`;
+
+    cartActions.recalculateTotal(selectedIds);
+
     this.setState({
       items: newItems,
       shipping_id: selectedIds,
@@ -262,7 +269,7 @@ class CheckoutShipping extends Component {
           ))}
         </ScrollView>
         <CartFooter
-          totalPrice={`${formatPrice(cart.total_formatted.price)}`}
+          totalPrice={`${formatPrice(cart.subtotal_formatted.price)}`}
           btnText={i18n.gettext('Next').toUpperCase()}
           isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}
