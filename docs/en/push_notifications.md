@@ -1,15 +1,15 @@
-# Настройки Push notification
+# Push notification settings
 
-Push notifications для ios и android работают через [https://firebase.google.com](https://firebase.google.com) 
+Push notifications for ios and android work via [https://firebase.google.com](https://firebase.google.com)
 
-PS/ гугл проксирует отправку нотификаций в apple (apns)
+PS / Google proxies sending notifications to Apple (apns)
 
-# Настройка Android
-1. Нужно зарегестрироваться на firebase.google.com и создать проект.
-2. В проекте создайте новое приложение для андройд. В качестве названия указываем bundleId (com.simtech.multivendor)
-3. Жмем далее и скачиваем файл google-services.json и сохраняем его в android/app
-4. Переходим в настройки приложения во вкладку Cloud messaging и копируем "Устаревший ключ сервера"
-5. Тестируем отправку
+# Configuring Android
+1. You need to register on firebase.google.com and create a project.
+2. In the project, create a new application for android. Specify bundleId (com.simtech.multivendor) as the name
+3. Click next, download the google-services.json file and save it to android/app
+4. Go to the settings of the application in the Cloud messaging tab and copy the "Outdated Server Key"
+5. Test the sending
 ```js
 fetch('https://fcm.googleapis.com/fcm/send', {
     method: 'POST',
@@ -33,14 +33,14 @@ fetch('https://fcm.googleapis.com/fcm/send', {
 }).then((result) => console.log(result, 'res'));
 ```
 
-# Настройка IOS
-1. В проекте (firebase) создайте новое приложение для ios. В качестве названия указываем bundleId (com.simtech.native)
-2. Скачиваем GoogleService-Info.plist и сохраняем в ios/csnative
-3. На сайте https://developer.apple.com/account/ios/authkey/ создаем новый ключ и скачиваем его локально. Так же во время генерации ключа запомните Key ID
-4. Идем на страницу https://developer.apple.com/account/ios/identifier/bundle находим свое приложение и запоминаем Prefix
-5. В firebase созданном ранее приложении для ios идем в настройки затем на вкладку cloud messaging
-6. Загружаем ключ APNS где указываем файл из шага (3), key id и Prefix.
-7. Тестируем 
+# Configuring for IOS
+1. In the project (firebase) create a new application for ios. Specify bundleId (com.simtech.native) as the name
+2. Download GoogleService-Info.plist and save to ios/csnative
+3. On the site https://developer.apple.com/account/ios/authkey/ create a new key and download it locally. Also during key generation, remember Key ID
+4. Go to the page https://developer.apple.com/account/ios/identifier/bundle, find the application and remember the Prefix
+5. In the firebase application created earlier for ios, go to the settings, then to the Cloud messaging tab
+6. Download the APNS key where we specify the file from step (3), key id and Prefix.
+7. Test the sending:
 
 ```js
 fetch("https://fcm.googleapis.com/fcm/send", {

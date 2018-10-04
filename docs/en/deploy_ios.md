@@ -1,60 +1,60 @@
-## Публикация приложения ios (testflight)
+## Publishing ios application (testflight)
 
-#### 1) Создание учетной записи и приложения.
+#### 1) Create an account and application.
 
-1. Нужно завести и оплатить учетную запись в [developers.apple.com](http://developers.apple.com)
-2. На странице [itunesconnect.apple.com](https://itunesconnect.apple.com) в разделе My Apps создать новое приложение. В поле name вписываем имя вашего приложения Platform ставим галочку у ios. придумать уникальный Bundle Id и sku для приложения.
-3. Переходим в вновь созданное приложение.
-4. На вкладке Prepare for submission вводим информацию о приложении и загружаем скриншоты.
-![alt text](./images/prepare.png " ")
+1. You need to have and pay for an account in [developers.apple.com](http://developers.apple.com)
+2. On the [itunesconnect.apple.com](https://itunesconnect.apple.com) page in the My Apps section, create a new application. In the name field, enter the name of your Platform application and tick the ios box. come up with a unique Bundle Id and sku for the app.
+3. Go to the newly created application.
+4. On the Prepare for submission tab, enter information about the application and download screenshots.
+![alt text](./ images / prepare.png " ")
 
-#### 2) Добавление разработчика.
+#### 2) Adding a developer.
 
-1. На странице [developer.apple.com/account](https://developer.apple.com/account/) нужно создать нового пользователя и дать ему права (admin).
-2. После этого разработчику на почту придет письмо с ссылкой в которой он должен подтвердлить что принимает invite.
+1. On the [developer.apple.com/account](http: //developer.apple.com/account/) зфпу you need to create a new user and give him the rightы (admin).
+2. After that, the developer will receive an email with a link in which he must confirm that he accepts the invite.
 
-#### 3) Сборка приложения и заливка его в App store.
+#### 3) Build the application and fill it in the App store.
 
-1. Устанавливаем исходники приложения локально [Установка и настройка](./installation.md)
-2. Открываем в xcode ./ios/csnative.xcworkspace
-3. Открываем настройки в меню Xcode -> Preferences
-4. Во вкладке Account добавляем developer аккаунт что создавали. Закрвываем настройки.
-![alt text](./images/developer.png " ")
-5. Переходим в (1)Project Navigator и меняем (2)bundle identifier и выбираем (3)team
-![alt text](./images/bundle.png " ")
-6. Меняем настройки схемы для этого в меню переходим в Product -> Scheme -> Edit Scheme
-7. Меняем в поле Build configuration на Release
-8. Выбираем target как Generic ios device
-![alt text](./images/generic.png " ")
-9. Собираем архив (Сборка займет время!) переходим в меню Product -> Archive
-10. В боковом меню окна Archive нажимаем на Upload to App store ...
-![alt text](./images/archive.png " ")
-11. Откоется мастер загрузки везде нажимаем Next next и в конце upload.
+1. Install the application sources locally [Install and configure](./installation.md)
+2. Open in xcode ./ios/csnative.xcworkspace
+3. Open the settings in the Xcode menu -> Preferences
+4. In the Account tab, add the developer account that you created. Close the settings.
+![alt text](./ images / developer.png " ")
+5. Go to (1) Project Navigator and change (2) the bundle identifier and select (3) team
+![alt text](./ images / bundle.png " ")
+6. Change the schema settings; for this in the menu go to Product -> Scheme -> Edit Scheme
+7. Change the Build configuration field to Release
+8. Choose target as Generic ios device
+![alt text](./ images / generic.png " ")
+9. Build the archive (Building will take time!) Go to the menu Product -> Archive
+10. In the side menu of the Archive window, click on Upload to App store ...
+![alt text](./ images / archive.png " ")
+11. The download wizard will open everywhere, click Next Next and at then Upload in the end.
 
-#### 4) Тестирование приложения в testflight
+#### 4) Test the application in testflight
 
-1. После успешной загрузки приложения в App store нужно скачать на телефон [testflight](https://itunes.apple.com/us/app/testflight/id899247664?mt=8)
-2. Открываем приложение в [itunesconnect.apple.com](https://itunesconnect.apple.com) в разделе My Apps и переходим на вкладку Testflight.
-3. В поле build должен появится 1 build.
-4. Далее переходим во вкладку iTunes connect users и добавляем тестера.
-Email тестера обязательно! должен быть добавлен в [itunesconnect.apple.com](https://itunesconnect.apple.com)
-5. Тестуру на почту придет код подтверждения нужно перейти по ссылки и в приложении testflight ввести полученный код.
-6. В testflight появится приложение нужно будет только нажать на install и оно установится на телефон.
+1. After successfully downloading the application in the App Store, you need to download it to the phone [testflight](https://itunes.apple.com/us/app/testflight/id899247664?mt=8)
+2. Open the application in [itunesconnect.apple.com](https://itunesconnect.apple.com) in the My Apps section and go to the Testflight tab.
+3. In the build field, 1 build should appear.
+4. Next, go to the iTunes connect users tab and add a tester.
+Tester email is required! It must be added to [itunesconnect.apple.com](https://itunesconnect.apple.com)
+5. The tester will receive a confirmation code; he should click on the links and enter the received code in the testflight application.
+6. The application will appear in testflight; you will only need to click on install and it will be installed on the phone.
 
 
-#### 5) Публикация приложения в App store
+#### 5) Publish the application in the App store
 
-1. Если все протестировано и ок и вы хотите отправить приложение на модерацию в App store. Откройте ваше приложение в [itunesconnect.apple.com](https://itunesconnect.apple.com)
-2. Перейдите во вкладку Prepare for submission.
-3. Обновите скриншоты и описание (если требуется)
-4. В поле Build добавьте актуальный build и нажмите Submit for Review
-5. Приложение должно пройти модерацию в App store (не более 2 дней) если прошло то оно появится в App store если нет то придет письмо с причиной бана.
+1. If everything is tested and ok, and you want to send the application for moderation in the App store. Open your app in [itunesconnect.apple.com](https://itunesconnect.apple.com)
+2. Click the Prepare for submission tab.
+3. Update screenshots and description (if required)
+4. In the Build field, add the current build and click Submit for Review.
+5. The application must pass moderation in the App store (no more than 2 days) if it has passed, it will appear in the App store; if not, then an email will come with the reason for the ban.
 
-#### Ограничения
+### Restrictions
 
-Приложения в testflight будет доступно 80 суток.
+Applications in testflight will be available for 80 days.
 
-Apple имеет запутанную систему пользователей, сертификатов и приложений.
-но если помнить что все пользователи и сертификаты живут на [developers.apple.com](http://developers.apple.com) а приложения и статистика на [itunesconnect.apple.com](https://itunesconnect.apple.com) то проблем быть не должно.
+Apple has a confusing system of users, certificates and applications.
+but if you remember that all users and certificates live on [developers.apple.com](http://developers.apple.com) and applications and statistics on [itunesconnect.apple.com](https://itunesconnect.apple.com) then there should be no problems.
 
 

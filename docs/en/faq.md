@@ -1,6 +1,7 @@
 # Payments
-1) В данный момент в приложеннии поддерживаются пейменты и тимплейты с шаблонами:
+1) At the moment, the application, supports payments with these templates:
 cc.tpl, cc_outside.tpl, check.tpl, paypal_express.tpl, phone.tpl
 
-2) Пейменты имеющий другой шаблон не отображаются.
-3) Активный пейментом (по умолчанию) выбирается 1 из списка.
+2) Payments with other templates are not displayed.
+
+3) The first payment on the list is selected by default.

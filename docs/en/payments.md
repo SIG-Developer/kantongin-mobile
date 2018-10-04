@@ -1,23 +1,23 @@
-# Работа c Apple pay & Google Pay
+# Work with Apple Pay & Google Pay
 
 ## Google Pay
 
-###  Требования к серверу и телефону.
-1. На сервере должен быть https
-2. Версия андройда не ниже 8.0
+### Server and telephone requirements.
+1. The server must use https
+2. Android version is not lower than 8.0
 
-### Схема работы
-1. Вы регистрируетесь на https://services.google.com/fb/forms/googlepayAPIenable/ и выбираете 1 из payment processor.
-2. Добавляете кнопку “Оплатить через Google”
-3. Пользователь нажимает на кнопку
-4. Показывается окошко с выбором карты и кнопкой подверждения.
-5. После подтверждения оплаты Google pay сам идет на зарегестрированный payment processor (например stripe)  и возвращает token оплаты в приложение
-6. Приложение отправляет токен на наш сервер в подтверждении того что оплата прошла успешно.
-7. После ответа нашего сервера мы показывает клиенту окно с успешной оплатой.
+### Scheme of work
+1. You sign up at https://services.google.com/fb/forms/googlepayAPIenable/ and select 1 from the payment processor.
+2. Add “Pay via Google” button
+3. The user presses the button
+4. A window is displayed with a choice of map and a confirmation button.
+5. After confirming the payment, Google Pay itself goes to the registered payment processor (for example, Stripe) and returns the payment token to the application
+6. The application sends a token to our server confirming that the payment was successful.
+7. After the response of our server, we show the client a window with a successful payment.
 
-Детальней см. файлы мо схемой.
+See files with the scheme for more details.
 
-### Доступные payment processors
+### Available payment processors
 ACI
 Adyen
 Braintree
@@ -37,34 +37,34 @@ Stripe
 Vantiv
 Worldpay
 
-### Кому уходят деньги
-Все деньги уходят в payment processor и выводится тоже через него.
+### Where the money goes
+The money goes to the payment processor and is withdawn via the processor.
 
-### Интеграция
-Интеграция достаточно запутанная и требует ручной проверки приложения.
-Нужно все заинтегрировать собрать apk и отправить его на валидацию.
-
+### Integration
+Integration is quite complicated and requires manual verification of the application.
+It is necessary to integrate everything, build apk and send it for validation.
 
 
 ## Apple Pay
 
-###  Требования к серверу и телефону.
-1. На сервере должен быть https
-2. iOS начиная от 10
-3. Девелоперский аккаунт Apple
+### Server and telephone requirements.
+1. The server must be https
+2. iOS 10 or newer
+3. Apple Developer Account
 
-### Схема работы
-1. В developer account  yужно зарегистрировать Merchant ID, создать сертификаты Merchant Identity Certificate и Payment Processing Certificate и верифицировать домены, на которых будет использоваться Apple Pay
+### Scheme of work
+1. In the developer account, you need to register a Merchant ID, create a Merchant Identity Certificate and Payment Processing Certificate and verify the domains on which Apple Pay will be used.
 https://developer.apple.com/account/ios/certificate/create
-2. Добавляете кнопку “Pay” кнопка должна выглядеть согластно style guide https://developer.apple.com/design/human-interface-guidelines/apple-pay/buttons-and-marks/buttons/
-3. Пользователь нажимает на кнопку
-4. Показывается окошко с выбором карты и кнопкой подверждения.
-5. После подтверждения оплаты вы получаете токен и отправляете токен в ваш payment processor сами.
-6. После ответа payment processor мы показывает клиенту окно с успешной оплатой.
+2. Add the “Pay” button; the button should look according to the style guide https://developer.apple.com/design/human-interface-guidelines/apple-pay/buttons-and-marks/buttons/
+3. The user presses the button
+4. A window is displayed with a choice of map and a confirmation button.
+5. After confirming the payment, you receive the token and send the token to your payment processor by yourself.
+6. After answering the payment processor, we show the client a window with a successful payment.
 
-### Кому уходят деньги
-Все деньги уходят в payment processor и выводится тоже через него.
+### Where the money goes
+The money goes to the payment processor and is withdawn via the processor.
 
-### Интеграция
-Интеграция сложная так как нужно все подписывать сертификатами.
-Свое приложение а так же payment processor требует загрузку этих сертификатов.
+
+### Integration
+Integration is complicated because you need to sign everything with certificates.
+The application as well as the payment processor requires uploading these certificates.

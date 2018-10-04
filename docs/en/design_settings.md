@@ -1,53 +1,54 @@
-# Настройки дизайна доступные пользователю.
-PS/ Все настройки пользователя хранятся в папке config/ кроме изображений.
+# Design settings available to the user.
+PS / All user settings are stored in the config folder, except images.
 
-### API и настройки сайта
+### API and Site Settings
 
-Настройки API сайта и т.д хранятся в файле /config/index.js
+API settings of the site, etc. are stored in the file /config/index.js
 
-* `username` - Имя пользователя администратора с вкл. опцией "Yes, allow this user to use the API".
-* `apiKey` - Ключ доступа к API (генерируется при вкл. опции "Yes, allow this user to use the API" на странице  ред. пользователя).
-* `baseUrl` - Базовый url до api. Например `http://82.202.226.53/api/4.0/`
-* `siteUrl` - Url до сайта.  Например `http://82.202.226.53/` PS/ Может отличаться так как API и web версия магазина могут быть на разных серверах.
-* `shopName` - Название интернет магазина например 'Shop Store'
+* `username` - Admin username with the turned on option "Yes, allow this user to use the API".
+* `apiKey` - API access key (generated when the option" Yes, allow the user to use the API" on the editor's page of the user is enabled).
+* `baseUrl` - Base url to api. For example, `http://82.202.226.53/api/4.0/`
+* `siteUrl` - URL to the site. For example, `http://82.202.226.53/` PS / May differ as the API and web version of the store may be on different servers.
+* `shopName` - Online store name for example 'Shop Store'
 
 
-### Внешний вид и цвета
+### Appearance and colors
 
-Настройки дизайна хранятся в файле /config/theme.js PS/ в названиях используется знак `$` Это нужно для того что бы можно было отличить настройки конфига от локальных переменных.
+The design settings are stored in the /config/theme.js file PS / in the names, the `$` sign is used in order to distinguish the config settings from local variables.
 
-* `$logoUrl` - Полный путь до лого сайта.
-* `$navBarBackgroundColor` - Меняет цвет навигационного бара
-* `$navBarButtonColor` - Меняет цвет кнопок навигационного бара
-* `$navBarButtonFontSize` - Меняет размер кнопок навигационного бара
-* `$navBarTextColor` - Меняет цвет текста навигационного бара
-* `$navBarRightButtonColor` - Меняет цвет правой кнопки навигационного бара
-* `$screenBackgroundColor` - Меняет цвет фона экрана
-* `$contentOverlayColor` - Меняет цвет затеняющего фона при открытом меню
-* `$drawerBgColor` - Меняет цвет фона меню
-* `$borderRadius` - Меняет степень закругления у кнопок
-* `$primaryColor` - Меняет цвет фона кнопок призывающих к действию. Пример такие как add to cart.
-* `$primaryColorText` - Меняет цвет текста кнопок призывающих к действию. Пример такие как add to cart.
-* `$secondaryColor` - Меняет цвет фона кнопок призывающих к действию 2 степени. Пример кнопки категорий.
-* `$secondaryColorText` - Меняет цвет текста кнопок призывающих к действию 2 степени. Пример кнопки категорий.
-* `$darkColor` - Меняет цвет текста.
-* `$successColor` - Меняет цвет фона нотификаций с типом success.
-* `$infoColor` - Меняет цвет фона нотификаций с типом info.
-* `$dangerColor` - Меняет цвет фона нотификаций с типом danger.
-* `$statusBarColor` - Меняет цвет статус бара (android)
-
----
-### Языки и локаль
-
-Язык определяется автоматически на устройстве. Переводы хранятся в json формате в папке config/locales/[lang].json
-Язык по умолчанию английский.
+* `$logoUrl` - Full path to the site logo.
+* `$navBarBackgroundColor` - Changes the color of the navigation bar
+* `$navBarButtonColor` - Changes the color of the navigation bar buttons
+* `$navBarButtonFontSize` - Changes the size of the navigation bar buttons
+* `$navBarTextColor` - Changes the text color of the navigation bar
+* `$navBarRightButtonColor` - Changes the color of the right button of the navigation bar
+* `$screenBackgroundColor` - Changes the screen background color
+* `$contentOverlayColor` - Changes the color of the shading background when the menu is open
+* `$drawerBgColor` - Changes the background color of the menu
+* `$borderRadius` - Changes the degree of rounding at the buttons
+* `$primaryColor` - Changes the background color of the call-to-action buttons. Examples such as add to cart.
+* `$primaryColorText` - Changes the text color of the call-to-action buttons. Example: add to cart.
+* `$secondaryColor` - Changes the background color of buttons calling for action 2 degrees. An example of a category button.
+* `$secondaryColorText` - Changes the color of the text of the 2nd-degree CTA buttons. Example: category buttons.
+* `$darkColor` - Changes the text color.
+* `$successColor` - Changes the background color of notifications with the success type.
+* `$infoColor` - Changes the background color of notifications with the info type.
+* `$dangerColor` - Changes the background color of notifications with the danger type.
+* `$statusBarColor` - Changes color of the status bar (android)
 
 ---
-### Страны и штаты
+### Languages ​​and Locale
 
-В файле /config/countries.js хранятся названия и коды стран и штатов.
+The language is automatically detected on the device. Translations are stored in json format in the folder config/locales/[lang].json
 
-Пример:
+The default language is English.
+
+---
+### Countries and states
+
+The /config/countries.js file stores the names and codes of countries and states.
+
+Example:
 ```javascript
 {
         "code": "NL",
@@ -64,12 +65,12 @@ PS/ Все настройки пользователя хранятся в па�
 ```
 
 ---
-# Добавление страниц в боковое меню.
+# Adding pages to the side menu.
 
-Для того что бы добавить страницы в боковое меню нужно:
+To add pages to the side menu:
 ![alt text](./images/side_menu.png " ")
 
-* В админ панели в разделе pages создать родительскую страницу с именем `MobileAppSideMenu`
-* Все страницы у которых родитель `MobileAppSideMenu` будут отображаться в боковом меню.
+* In the admin panel in the pages section, create a parent page with the name `MobileAppSideMenu`
+* All pages with the parent `MobileAppSideMenu` will be displayed in the side menu.
 
-PS/ Знаю... костыль но другого варианта в данный момент нет.
+PS / I know it's a crutch, but there is no other option at the moment.

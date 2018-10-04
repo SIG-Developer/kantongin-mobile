@@ -1,34 +1,33 @@
-## Публикация приложения android
+## Publishing the android application
 
-#### 1) Создание учетной записи и приложения.
-1. Нужно завести и оплатить учетную запись в [play.google.com](https://play.google.com/)
-2. На странице [play.google.com](https://play.google.com/apps/publish) Создаем новое приложение и обязательно запомнить bundle id.
-3. После создания нужно будет заполнить все разделы с пункта 1. Это "Описание приложения", "Возрастные ограничения" и "Цены и распространения.". Все поля в этих разделах достаточно очевидные и не касаются тех. вопросов.
-![alt text](./images/android_console.png " ")
-4. У правильно заполненых разделов появится зеленая галочка.
-
-
-#### 2) Загрузка APK и бета тестирование.
-
-1. Клонируем репозиторий и в файлах ./android/app/src/main/java/com/csnative/MainActivity.java и ./android/app/src/main/java/com/csnative/MainApplication.java в строке package com.csnative заменяем com.csnative на ваш bundle id.
-2. Cобираем наше приложение как описано в [Установка и настройка](./installation.md)
-3. На странице [play.google.com](https://play.google.com/apps/publish) открываем ваше приложение и переходим в раздел Версии приложения.
-4. Нажимаем на "Бета-версия" → УПРАВЛЕНИЕ БЕТА-ВЕРСИЕЙ → далее на "Создать выпуск".
-5. Загружаем собранный apk файл, который расположен в ./android/app/build/outputs/apk/app-release.apk
-6. Нажимаем на "Посмотреть".
-7. Далее нажимаем "Опубликовать бета-версию".
+#### 1) Create an account and application.
+1. You need to have and pay for an account at [play.google.com](https://play.google.com/)
+2. On the [play.google.com](https://play.google.com/apps/publish) page, create a new application and be sure to remember the bundle id.
+3. After creation, you will need to complete all sections from paragraph 1. This is the "Description of the application", "Age restrictions" and "Prices and distribution.". All fields in these sections are fairly obvious and aren't tech questions.
+![alt text](./ images / android_console.png " ")
+4. For correctly filled sections, a green check mark will appear.
 
 
-#### 3) Добавление тестировщиков.
+#### 2) APK download and beta testing.
 
-1. На странице [play.google.com](https://play.google.com/apps/publish) открываем ваше приложение и переходим в раздел Версии приложения.
-2. Нажимаем на "Бета-версия" далее на "УПРАВЛЕНИЕ БЕТА-ВЕРСИЕЙ"
-3. В разделе "Тестировщики" выбрать "Метод тестирования" и добавить пользователей (создать список, указав email-адреса или загрузив CSV-файл с тестировщиками).
+1. Clone repository and in files ./android/app/src/main/java/com/csnative/MainActivity.java and ./android/app/src/main/java/com/csnative/MainApplication.java in the line package com .csnative replace com.csnative with your bundle id.
+2. Build our application as described in [Installation and Setup](./ installation.md)
+3. On the [play.google.com](https://play.google.com/apps/publish) page open your application and go to the Application Versions section.
+4. Click on the "Beta version" → BETA-VERSION MANAGEMENT → then on "Create a release".
+5. Download the built apk file, which is located in ./android/app/build/outputs/apk/app-release.apk
+6. Click on "View".
+7. Next, click "Publish Beta".
 
 
-#### 4) Публикация протестированного приложения.
+#### 3) Add testers.
 
-1. На странице [play.google.com](https://play.google.com/apps/publish) открываем ваше приложение и переходим в раздел Версии приложения.
-2. Нажимаем на "Бета-версия" далее на "УПРАВЛЕНИЕ БЕТА-ВЕРСИЕЙ"
-3. В разделе должна появиться кнопка "Cделать рабочей версией"
+1. On the [play.google.com](https://play.google.com/apps/publish) page, open your application and go to the Application Versions section.
+2. Click on "Beta-version", then on "BETA-VERSION MANAGEMENT"
+3. In the "Testers" section, select "Test Method" and add users (create a list by specifying email addresses or downloading a CSV file with testers).
+
+#### 4) Publish the tested application.
+
+1. On the [play.google.com](https://play.google.com/apps/publish) page, open your application and go to the Application Versions section.
+2. Click on "Beta-version", then on "BETA-VERSION MANAGEMENT"
+3. In the section, the "Make a working version" button should appear
 
