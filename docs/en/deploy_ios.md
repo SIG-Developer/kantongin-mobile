@@ -6,7 +6,7 @@
 2. On the [itunesconnect.apple.com](https://itunesconnect.apple.com) page in the My Apps section, create a new application. In the name field, enter the name of your Platform application and tick the ios box. come up with a unique Bundle Id and sku for the app.
 3. Go to the newly created application.
 4. On the Prepare for submission tab, enter information about the application and download screenshots.
-![alt text](./ images / prepare.png " ")
+![alt text](./images/prepare.png " ")
 
 #### 2) Adding a developer.
 
@@ -19,16 +19,16 @@
 2. Open in xcode ./ios/csnative.xcworkspace
 3. Open the settings in the Xcode menu -> Preferences
 4. In the Account tab, add the developer account that you created. Close the settings.
-![alt text](./ images / developer.png " ")
+![alt text](./images/developer.png " ")
 5. Go to (1) Project Navigator and change (2) the bundle identifier and select (3) team
-![alt text](./ images / bundle.png " ")
+![alt text](./images/bundle.png " ")
 6. Change the schema settings; for this in the menu go to Product -> Scheme -> Edit Scheme
 7. Change the Build configuration field to Release
 8. Choose target as Generic ios device
-![alt text](./ images / generic.png " ")
+![alt text](./images/generic.png " ")
 9. Build the archive (Building will take time!) Go to the menu Product -> Archive
 10. In the side menu of the Archive window, click on Upload to App store ...
-![alt text](./ images / archive.png " ")
+![alt text](./images/archive.png " ")
 11. The download wizard will open everywhere, click Next Next and at then Upload in the end.
 
 #### 4) Test the application in testflight

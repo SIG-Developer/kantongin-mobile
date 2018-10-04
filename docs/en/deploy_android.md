@@ -4,7 +4,7 @@
 1. You need to have and pay for an account at [play.google.com](https://play.google.com/)
 2. On the [play.google.com](https://play.google.com/apps/publish) page, create a new application and be sure to remember the bundle id.
 3. After creation, you will need to complete all sections from paragraph 1. This is the "Description of the application", "Age restrictions" and "Prices and distribution.". All fields in these sections are fairly obvious and aren't tech questions.
-![alt text](./ images / android_console.png " ")
+![alt text](./images/android_console.png " ")
 4. For correctly filled sections, a green check mark will appear.
 
 
