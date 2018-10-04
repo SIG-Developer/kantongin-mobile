@@ -15,10 +15,10 @@ fetch('https://fcm.googleapis.com/fcm/send', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'key=Устаревший ключ сервера'
+        'Authorization': 'key=OUTDATED SERVER KEY'
     },
     body: JSON.stringify({
-        "to":"ТОКЕН ИЗ ПРИЛОЖЕНИЯ",
+        "to":"TOKEN FROM THE APP",
         "data": {
             "custom_notification": {
             "body": "test body",
@@ -47,10 +47,10 @@ fetch("https://fcm.googleapis.com/fcm/send", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "key=Устаревший ключ сервера"
+    Authorization: "key=OUTDATED SERVER KEY"
   },
   body: JSON.stringify({
-    to: "ТОКЕН ИЗ ПРИЛОЖЕНИЯ",
+    to: "TOKEN FROM THE APP",
     "notification":{
       "title": "Simple FCM Client",
       "body": "Click me to go to detail",
