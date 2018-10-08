@@ -17,13 +17,30 @@ exports[`renders <CategoryListView /> component correctly 1`] = `
   }
 >
   <View>
-    <Image
-      source={
-        Object {
-          "uri": "http://test.com",
+    <View>
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 30,
+            },
+            undefined,
+            Object {
+              "fontFamily": "Material Icons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
         }
-      }
-    />
+      >
+        
+      </Text>
+    </View>
     <View>
       <Text
         accessible={true}

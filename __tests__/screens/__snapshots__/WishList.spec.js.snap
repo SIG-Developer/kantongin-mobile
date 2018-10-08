@@ -110,13 +110,6 @@ exports[`renders <WishList /> component correctly 1`] = `
                     }
                   }
                 >
-                  <Image
-                    source={
-                      Object {
-                        "uri": "http://image.path",
-                      }
-                    }
-                  />
                   <View>
                     <Text
                       accessible={true}
