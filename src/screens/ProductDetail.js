@@ -655,19 +655,15 @@ class ProductDetail extends Component {
           ? features.map((item, index) => (
             <SectionRow
               name={item.description}
-              value={item.variant}
+              value={item.variant || item.value}
               last={(index + 1) === features.length}
               key={index}
             />
           ))
           : (
-<Text> 
-{' '}
-{i18n.gettext('There are no feautures.')}
-{' '}
- </Text>
-)
-        }
+            <Text>{` ${i18n.gettext('There are no feautures.')} `}
+            </Text>
+          )}
       </Section>
     );
   }
@@ -749,6 +745,7 @@ class ProductDetail extends Component {
   }
 
   renderAddToCart() {
+    const { hideWishList } = this.props;
     return (
       <View style={styles.addToCartContainer}>
         <TouchableOpacity
@@ -760,16 +757,15 @@ class ProductDetail extends Component {
           </Text>
         </TouchableOpacity>
 
-        {!this.props.hideWishList
+        {!hideWishList
           && (
-<TouchableOpacity
-            style={styles.addToWishList}
-            onPress={() => this.handleAddToWishList()}
-          >
-            <Icon name="favorite" size={24} style={styles.addToWishListIcon} />
-          </TouchableOpacity>
-)
-        }
+            <TouchableOpacity
+              style={styles.addToWishList}
+              onPress={() => this.handleAddToWishList()}
+            >
+              <Icon name="favorite" size={24} style={styles.addToWishListIcon} />
+            </TouchableOpacity>
+          )}
       </View>
     );
   }
