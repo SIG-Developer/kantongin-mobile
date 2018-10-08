@@ -9,8 +9,12 @@ const initialState = {
     page: 1,
   },
   items: [],
-  fetching: true,
+  fetching: false,
+  hasMore: false,
 };
+
+let params = {};
+let items = {};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -21,16 +25,32 @@ export default function (state = initialState, action) {
       };
 
     case SEARCH_PRODUCTS_SUCCESS:
+      items = [];
+      params = { ...action.payload.params };
+
+      if (params.page != 1) {
+        items = [
+          ...state.items,
+          ...action.payload.products,
+        ];
+      } else {
+        items = [
+          ...action.payload.products,
+        ];
+      }
+
       return {
-        params: action.payload.params,
-        items: action.payload.products,
+        params,
+        items,
         fetching: false,
+        hasMore: (params.items_per_page * params.page) < +params.total_items
       };
 
     case SEARCH_PRODUCTS_FAIL:
       return {
         ...state,
         fetching: false,
+        hasMore: false,
       };
 
     default:

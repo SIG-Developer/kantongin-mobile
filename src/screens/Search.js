@@ -8,10 +8,12 @@ import {
   FlatList,
   Platform,
   TextInput,
+  ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import debounce from 'lodash/debounce';
+import uniqueId from 'lodash/uniqueId';
 
 // Import actions.
 import * as productsActions from '../actions/productsActions';
@@ -77,6 +79,11 @@ const styles = EStyleSheet.create({
 });
 
 class Search extends Component {
+  static navigatorStyle = {
+    navBarHidden: true,
+    navBarBackgroundColor: '#FAFAFA',
+  };
+
   static propTypes = {
     navigator: PropTypes.shape({
       dismissModal: PropTypes.func,
@@ -87,47 +94,82 @@ class Search extends Component {
     search: PropTypes.shape({}),
   };
 
-  static navigatorStyle = {
-    navBarHidden: true,
-    navBarBackgroundColor: '#FAFAFA',
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
-      products: [],
+      q: '',
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { search } = nextProps;
-    this.setState({
-      products: search.items,
-    });
-  }
+  handleLoadMore = () => {
+    const { productsActions, search } = this.props;
+    const { q } = this.state;
 
-  handleInputChange(t) {
-    if (t.length < 2) {
+    if (search.fetching || !search.hasMore) {
       return;
     }
-    this.props.productsActions.search({
-      q: t,
+
+    productsActions.search({
+      q,
+      page: search.params.page + 1,
     });
   }
 
-  renderEmptyList = () => (
-    <View style={styles.emptyContainer}>
-      <Text style={styles.emptyText}>{i18n.gettext('List is empty')}</Text>
-    </View>
-  );
+  handleInputChange(q) {
+    const { productsActions } = this.props;
+
+    if (q.length < 2) {
+      return;
+    }
+
+    this.setState({
+      q,
+    }, () => {
+      productsActions.search({
+        q,
+      });
+    });
+  }
+
+  renderEmptyList = () => {
+    const { search } = this.props;
+
+    if (search.fetching) {
+      return (
+        <View style={styles.emptyContainer}>
+          <ActivityIndicator size="large" animating />
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>
+          {i18n.gettext('List is empty')}
+        </Text>
+      </View>
+    );
+  };
 
   renderSpinner = () => (
     <Spinner visible mode="content" />
   );
 
+  renderFooter() {
+    const { search } = this.props;
+
+    if (search.fetching && search.hasMore) {
+      return (
+        <ActivityIndicator size="large" animating />
+      );
+    }
+
+    return null;
+  }
+
   render() {
-    const { navigator } = this.props;
+    const { navigator, search } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.topSearch}>
@@ -149,21 +191,25 @@ class Search extends Component {
         </View>
         <View style={styles.content}>
           <FlatList
-            data={this.state.products}
-            keyExtractor={item => +item.product_id}
+            data={search.items}
+            keyExtractor={item => uniqueId(+item.product_id)}
             numColumns={2}
             ListEmptyComponent={() => this.renderEmptyList()}
-            renderItem={item => (<ProductListView
-              product={item}
-              onPress={product => navigator.push({
-                screen: 'ProductDetail',
-                backButtonTitle: '',
-                passProps: {
-                  pid: product.product_id,
-                  hideSearch: true,
-                }
-              })}
-            />)}
+            ListFooterComponent={() => this.renderFooter()}
+            onEndReached={this.handleLoadMore}
+            renderItem={item => (
+              <ProductListView
+                product={item}
+                onPress={product => navigator.push({
+                  screen: 'ProductDetail',
+                  backButtonTitle: '',
+                  passProps: {
+                    pid: product.product_id,
+                    hideSearch: true,
+                  }
+                })}
+              />
+            )}
           />
         </View>
       </View>

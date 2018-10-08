@@ -140,6 +140,7 @@ export function search(params = {}) {
 
     return Api.get('/sra_products', {
       params: {
+        items_per_page: 50,
         ...params,
       }
     })
