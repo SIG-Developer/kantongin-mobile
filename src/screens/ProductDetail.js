@@ -727,14 +727,15 @@ class ProductDetail extends Component {
 
   renderShare() {
     const { product } = this.state;
+    const url = `${config.siteUrl}index.php?dispatch=products.view&product_id=${product.product_id}`;
     return (
       <SectionButton
         text={i18n.gettext('Share product')}
         onPress={() => {
           Share.share({
-            message: `${config.siteUrl}index.php?dispatch=products.view&product_id=${product.product_id} ${product.full_description}`,
+            message: `${url} ${product.full_description}`,
             title: product.product,
-            url: config.siteUrl,
+            url,
           }, {
             dialogTitle: product.product,
             tintColor: 'black'
