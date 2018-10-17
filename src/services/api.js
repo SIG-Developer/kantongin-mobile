@@ -24,6 +24,8 @@ AxiosInstance.interceptors.request.use((conf) => {
   const newConf = { ...conf };
 
   newConf.headers.common['Storefront-Api-Access-Key'] = config.apiKey;
+  newConf.headers.common['Cache-Control'] = 'no-cache';
+
   if (state.auth.token) {
     newConf.headers.common.Authorization = `Basic ${base64.encode(state.auth.token)}:`;
   }
