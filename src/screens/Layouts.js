@@ -53,6 +53,15 @@ const styles = EStyleSheet.create({
 });
 
 class Layouts extends Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: theme.$navBarBackgroundColor,
+    navBarButtonColor: theme.$navBarButtonColor,
+    navBarButtonFontSize: theme.$navBarButtonFontSize,
+    navBarTextColor: theme.$navBarTextColor,
+    screenBackgroundColor: theme.$screenBackgroundColor,
+    navBarTextFontBold: false,
+  }
+
   static propTypes = {
     layoutsActions: PropTypes.shape({
       fetch: PropTypes.func,
@@ -69,15 +78,6 @@ class Layouts extends Component {
     }),
     layouts: PropTypes.shape({}),
   };
-
-  static navigatorStyle = {
-    navBarBackgroundColor: theme.$navBarBackgroundColor,
-    navBarButtonColor: theme.$navBarButtonColor,
-    navBarButtonFontSize: theme.$navBarButtonFontSize,
-    navBarTextColor: theme.$navBarTextColor,
-    screenBackgroundColor: theme.$screenBackgroundColor,
-    navBarTextFontBold: false,
-  }
 
   constructor(props) {
     super(props);

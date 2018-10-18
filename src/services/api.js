@@ -5,7 +5,7 @@ import base64 from 'base-64';
 import config from '../config';
 import store from '../store';
 
-import * as authActions from '../actions/authActions';
+import { AUTH_LOGOUT } from '../constants';
 
 const sl = DeviceInfo.getDeviceLocale().split('-')[0];
 // Config axios defaults.
@@ -34,7 +34,9 @@ AxiosInstance.interceptors.request.use((conf) => {
 
 AxiosInstance.interceptors.response.use(config => config, (error) => {
   if (error.response.status === 401) {
-    store.dispatch(authActions.logout());
+    store.dispatch({
+      type: AUTH_LOGOUT,
+    });
   } else if (error.response.status === 408 || error.code === 'ECONNABORTED') {
     console.log(`A time happend on url ${error.config.url}`);
   }

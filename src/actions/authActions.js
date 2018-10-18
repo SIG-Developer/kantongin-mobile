@@ -17,9 +17,11 @@ import {
 } from '../constants';
 import Api from '../services/api';
 import i18n from '../utils/i18n';
+import config from '../config';
 import store from '../store';
 
 import * as cartActions from './cartActions';
+import * as layoutsActions from './layoutsActions';
 import * as wishListActions from './wishListActions';
 
 export function deviceInfo(data) {
@@ -68,6 +70,7 @@ export function login(data) {
           })(dispatch);
         }, 1000);
       })
+      .then(() => layoutsActions.fetch(config.layoutId, 'index.index')(dispatch))
       .catch((error) => {
         dispatch({
           type: AUTH_LOGIN_FAIL,
@@ -110,4 +113,3 @@ export function logout() {
 export function resetState() {
   return dispatch => dispatch({ type: AUTH_RESET_STATE });
 }
-
