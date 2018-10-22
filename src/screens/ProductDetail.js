@@ -89,6 +89,10 @@ const styles = EStyleSheet.create({
     fontWeight: 'bold',
     color: '$darkColor',
   },
+  listPriceText: {
+    textDecorationLine: 'line-through',
+    color: '$darkColor',
+  },
   promoText: {
     marginBottom: 10,
   },
@@ -171,6 +175,20 @@ const styles = EStyleSheet.create({
   },
   keyboardAvoidingContainer: {
     marginBottom: Platform.OS === 'ios' ? 122 : 132,
+  },
+  listDiscountWrapper: {
+    backgroundColor: '$productDiscountColor',
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 4,
+    paddingRight: 4,
+    borderRadius: 2,
+  },
+  listDiscountText: {
+    color: '#fff',
   },
 });
 
@@ -443,7 +461,7 @@ class ProductDetail extends Component {
   }
 
   renderImage() {
-    const { images } = this.state;
+    const { images, product } = this.state;
     const productImages = images.map((img, index) => (
       <TouchableOpacity
         style={styles.slide}
@@ -462,15 +480,25 @@ class ProductDetail extends Component {
         <Image source={{ uri: img }} style={styles.productImage} />
       </TouchableOpacity>
     ));
+
     return (
-      <Swiper
-        horizontal
-        height={300}
-        style={styles.wrapper}
-        removeClippedSubviews={false}
-      >
-        {productImages}
-      </Swiper>
+      <View>
+        <Swiper
+          horizontal
+          height={300}
+          style={styles.wrapper}
+          removeClippedSubviews={false}
+        >
+          {productImages}
+        </Swiper>
+        {product.list_discount_prc && (
+          <View style={styles.listDiscountWrapper}>
+            <Text style={styles.listDiscountText}>
+              {`${i18n.gettext('Save')} ${product.list_discount_prc}%`}
+            </Text>
+          </View>
+        )}
+      </View>
     );
   }
 
@@ -521,9 +549,17 @@ class ProductDetail extends Component {
       return null;
     }
     return (
-      <Text style={styles.priceText}>
-        {formatPrice(product.price_formatted.price)}
-      </Text>
+      <View>
+        <Text>
+          {`${i18n.gettext('List price')}: `}
+          <Text style={styles.listPriceText}>
+            {formatPrice(product.list_price_formatted.price)}
+          </Text>
+        </Text>
+        <Text style={styles.priceText}>
+          {formatPrice(product.price_formatted.price)}
+        </Text>
+      </View>
     );
   }
 
