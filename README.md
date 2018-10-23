@@ -1,16 +1,16 @@
-## CS-Cart mobile app (csnative)
-Мобильное приложение react-native
+## CS-Cart Mobile App (csnative)
+A mobile application based on React Native
 
-* [Установка и настройка](../master/docs/installation.md)
-* [Публикация приложения ios](../master/docs/deploy_ios.md)
-* [Публикация приложения android](../master/docs/deploy_android.md)
-* [Архитектура приложение и назначение папок](../master/docs/architecture.md)
-* [Настройки дизайна](../master/docs/design_settings.md)
-* [Настройки Push нотификаций](../master/docs/push_notifications.md)
-* [FAQ](../master/docs/faq.md)
+* [Installation & Configuration](../master/docs/en/installation.md)
+* [Publishing an app for iOS](../master/docs/en/deploy_ios.md)
+* [Publishing an app for Android](../master/docs/en/deploy_android.md)
+* [App architecture and folders](../master/docs/en/architecture.md)
+* [Design settings](../master/docs/en/design_settings.md)
+* [Push notification settings](../master/docs/en/push_notifications.md)
+* [FAQ](../master/docs/en/faq.md)
 
-### Полезные ссылки
-* [React native](https://facebook.github.io/react-native/)
-* [Android studio](https://developer.android.com/studio/index.html)
+### Useful Links
+* [React Native](https://facebook.github.io/react-native/)
+* [Android Studio](https://developer.android.com/studio/index.html)
 * [Testflight](https://developer.apple.com/testflight/)
 * [ItunesConnect](http://itunesconnect.apple.com)
