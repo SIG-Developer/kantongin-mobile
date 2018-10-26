@@ -836,5 +836,12 @@
     "Yemen": "Yemen",
     "Zaire": "Zaire",
     "Zambia": "Zambia",
-    "Zimbabwe": "Zimbabwe"
+    "Zimbabwe": "Zimbabwe",
+    "Processed": "Processed",
+    "Complete": "Complete",
+    "Open": "Open",
+    "Failed": "Failed",
+    "Declined": "Declined",
+    "Backordered": "Backordered",
+    "Canceled": "Canceled"
 }

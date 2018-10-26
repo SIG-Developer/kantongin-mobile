@@ -165,43 +165,43 @@ class Orders extends Component {
     switch (status) {
       case 'P':
         return {
-          text: 'Processed',
+          text: i18n.gettext('Processed'),
           style: { color: '#97cf4d' }
         };
 
       case 'C':
         return {
-          text: 'Complete',
+          text: i18n.gettext('Complete'),
           style: { color: '#97cf4d' }
         };
 
       case 'O':
         return {
-          text: 'Open',
+          text: i18n.gettext('Open'),
           style: { color: '#ff9522' }
         };
 
       case 'F':
         return {
-          text: 'Failed',
+          text: i18n.gettext('Failed'),
           style: { color: '#ff5215' }
         };
 
       case 'D':
         return {
-          text: 'Declined',
+          text: i18n.gettext('Declined'),
           style: { color: '#ff5215' }
         };
 
       case 'B':
         return {
-          text: 'Backordered',
+          text: i18n.gettext('Backordered'),
           style: { color: '#28abf6' }
         };
 
       case 'I':
         return {
-          text: 'Canceled',
+          text: i18n.gettext('Canceled'),
           style: { color: '#c2c2c2' }
         };
 

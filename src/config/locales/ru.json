@@ -946,5 +946,12 @@
     "Yemen": "Йемен",
     "Zaire": "Заир",
     "Zambia": "Замбия",
-    "Zimbabwe": "Зимбабве"
+    "Zimbabwe": "Зимбабве",
+    "Processed": "Обработан",
+    "Complete": "Выполнен",
+    "Open": "Открыт",
+    "Failed": "Неудача",
+    "Declined": "Отклонен",
+    "Backordered": "Отложен",
+    "Canceled": "Анулирован"
 }
