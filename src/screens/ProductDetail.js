@@ -345,6 +345,7 @@ class ProductDetail extends Component {
     }
 
     this.setState({
+      amount: parseInt(product.qty_step, 10),
       images,
       product,
       discussion: activeDiscussion,
@@ -663,15 +664,14 @@ class ProductDetail extends Component {
   }
 
   renderOptions() {
-    const { product } = this.state;
-    if (!product.options.length) {
-      return null;
-    }
+    const { product, amount } = this.state;
+
     return (
       <Section>
-        {product.options.map(o => this.renderOptionItem(o))}
+        {product.options.length && product.options.map(o => this.renderOptionItem(o))}
         <QtyOption
-          value={this.state.amount}
+          value={amount}
+          step={parseInt(product.qty_step, 10) || 1}
           onChange={(val) => {
             this.setState({
               amount: val,

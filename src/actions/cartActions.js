@@ -175,8 +175,8 @@ export function change(id, data) {
           payload: response.data,
         });
         // Calculate cart
-        setTimeout(() => fetch(false)(dispatch), 50);
       })
+      .then(() => fetch(false)(dispatch))
       .catch((error) => {
         dispatch({
           type: CART_CHANGE_FAIL,

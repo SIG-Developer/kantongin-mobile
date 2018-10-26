@@ -315,11 +315,12 @@ class Cart extends Component {
               <QtyOption
                 noTitle
                 value={item.amount}
+                step={1}
                 onChange={(val) => {
                   const debounceFunc = debounce(() => {
                     this.props.cartActions.changeAmount(item.cartId, val);
                     this.props.cartActions.change(item.cartId, item);
-                  }, 1000, { leading: true, trailing: false });
+                  }, 2000);
                   debounceFunc();
                 }}
               />

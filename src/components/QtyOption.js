@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import i18n from '../utils/i18n';
+
 const styles = EStyleSheet.create({
   container: {
     width: '100%',
@@ -48,12 +50,14 @@ const styles = EStyleSheet.create({
 export default class extends Component {
   static propTypes = {
     value: PropTypes.number,
+    step: PropTypes.number,
     onChange: PropTypes.func,
     noTitle: PropTypes.bool,
   };
 
   static defaultProps = {
     value: 1,
+    step: 1,
     noTitle: false,
     onChange() {},
   };
@@ -67,13 +71,17 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    const { value } = this.props;
-    this.setState({ value });
+    const { value, step } = this.props;
+    this.setState({
+      value: value || step,
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
-    this.setState({ value });
+    const { value, step } = nextProps;
+    this.setState({
+      value: value || step,
+    });
   }
 
   handleChange(value) {
@@ -82,24 +90,31 @@ export default class extends Component {
 
   render() {
     const { value, noTitle } = this.state;
+    const { step } = this.props;
     return (
       <View style={styles.container}>
-        {noTitle && <Text style={styles.title}>Quantity</Text>}
+        {noTitle && (
+          <Text style={styles.title}>
+            {i18n.gettext('Quantity')}
+          </Text>)
+        }
         <View style={styles.btnGroup}>
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
-              if ((value - 1) !== 0) {
-                this.handleChange(value - 1);
+              if ((value - step) >= 0) {
+                this.handleChange(value - step);
               }
             }}
           >
             <Text style={styles.btnText}>-</Text>
           </TouchableOpacity>
-          <Text style={styles.valueText}>{value}</Text>
+          <Text style={styles.valueText}>
+            {value}
+          </Text>
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => this.handleChange(value + 1)}
+            onPress={() => this.handleChange(value + step)}
           >
             <Text style={styles.btnText}>+</Text>
           </TouchableOpacity>
