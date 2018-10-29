@@ -843,5 +843,12 @@
     "Failed": "Failed",
     "Declined": "Declined",
     "Backordered": "Backordered",
-    "Canceled": "Canceled"
+    "Canceled": "Canceled",
+    "First name": "First name",
+    "Last name": "Last name",
+    "E-mail": "E-mail",
+    "Phone": "Phone",
+    "City": "City",
+    "Country": "Country",
+    "State": "State"
 }
