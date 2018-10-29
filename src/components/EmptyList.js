@@ -22,7 +22,7 @@ const styles = EStyleSheet.create({
 const EmptyList = () => (
   <View style={styles.container}>
     <Text style={styles.header}>
-      {i18n.gettext('List is empty.')}
+      {i18n.gettext('List is empty')}.
     </Text>
   </View>
 );
