@@ -381,11 +381,15 @@ class ProductDetail extends Component {
     const { selectedOptions, product, amount } = this.state;
     const { productDetail } = this.props;
     let newPrice = 0;
-    newPrice += +productDetail.price;
+    newPrice += parseInt(productDetail.price, 10);
     Object.keys(selectedOptions).forEach((key) => {
       newPrice += +selectedOptions[key].modifier;
     });
-    newPrice *= amount;
+
+    if (amount) {
+      newPrice *= amount;
+    }
+
     this.setState({
       product: {
         ...product,
@@ -546,17 +550,21 @@ class ProductDetail extends Component {
 
   renderPrice() {
     const { product } = this.state;
+
     if (!product.price) {
       return null;
     }
+
     return (
       <View>
-        <Text>
-          {`${i18n.gettext('List price')}: `}
-          <Text style={styles.listPriceText}>
-            {formatPrice(product.list_price_formatted.price)}
+        {product.list_price && (
+          <Text>
+            {`${i18n.gettext('List price')}: `}
+            <Text style={styles.listPriceText}>
+              {formatPrice(product.list_price_formatted.price)}
+            </Text>
           </Text>
-        </Text>
+        )}
         <Text style={styles.priceText}>
           {formatPrice(product.price_formatted.price)}
         </Text>

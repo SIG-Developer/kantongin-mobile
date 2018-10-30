@@ -16,6 +16,7 @@ export default function (state = initialState, action) {
         ...state,
         fetching: true,
         options: [],
+        list_discount_prc: 0,
       };
 
     case FETCH_ONE_PRODUCT_SUCCESS:

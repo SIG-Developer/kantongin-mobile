@@ -47,7 +47,7 @@
     "Information": "Информация",
     "%1 item(s)": "%1 шт.",
     "Last name": "Фамилия",
-    "List is empty": "Список пуст.",
+    "List is empty": "Список пуст",
     "Login": "Вход",
     "Looking for ideas?": "Ищете идеи?",
     "My Profile": "Мой профиль",
@@ -952,7 +952,7 @@
     "Failed": "Неудача",
     "Declined": "Отклонен",
     "Backordered": "Отложен",
-    "Canceled": "Анулирован",
+    "Canceled": "Аннулирован",
     "E-mail": "E-mail",
     "Payment metho": "Способ оплаты"
 }
