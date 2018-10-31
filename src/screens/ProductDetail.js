@@ -345,7 +345,7 @@ class ProductDetail extends Component {
     }
 
     this.setState({
-      amount: parseInt(product.qty_step, 10),
+      amount: parseInt(product.qty_step, 10) || 1,
       images,
       product,
       discussion: activeDiscussion,
@@ -424,6 +424,7 @@ class ProductDetail extends Component {
         product_options: productOptions,
       },
     };
+
     return cartActions.add({ products });
   }
 
@@ -496,13 +497,13 @@ class ProductDetail extends Component {
         >
           {productImages}
         </Swiper>
-        {product.list_discount_prc && (
+        {product.list_discount_prc ? (
           <View style={styles.listDiscountWrapper}>
             <Text style={styles.listDiscountText}>
               {`${i18n.gettext('Save')} ${product.list_discount_prc}%`}
             </Text>
           </View>
-        )}
+        ) : null}
       </View>
     );
   }
@@ -557,14 +558,14 @@ class ProductDetail extends Component {
 
     return (
       <View>
-        {product.list_price && (
+        {parseInt(product.list_price, 10) ? (
           <Text>
             {`${i18n.gettext('List price')}: `}
             <Text style={styles.listPriceText}>
               {formatPrice(product.list_price_formatted.price)}
             </Text>
           </Text>
-        )}
+        ) : null}
         <Text style={styles.priceText}>
           {formatPrice(product.price_formatted.price)}
         </Text>
@@ -676,7 +677,7 @@ class ProductDetail extends Component {
 
     return (
       <Section>
-        {product.options.length && product.options.map(o => this.renderOptionItem(o))}
+        {product.options.map(o => this.renderOptionItem(o))}
         <QtyOption
           value={amount}
           step={parseInt(product.qty_step, 10) || 1}
