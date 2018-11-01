@@ -263,38 +263,38 @@ class CheckoutComplete extends Component {
             buttonText={i18n.gettext('Show all').toUpperCase()}
             simpleView={(
               <View>
-                <FormBlockField title={i18n.gettext('First name:')}>
+                <FormBlockField title={`${i18n.gettext('First name')}:`}>
                   {orderDetail.b_firstname}
                 </FormBlockField>
-                <FormBlockField title={i18n.gettext('Last name:')}>
+                <FormBlockField title={`${i18n.gettext('Last name')}:`}>
                   {orderDetail.b_lastname}
                 </FormBlockField>
               </View>
             )}
           >
             <View>
-              <FormBlockField title={i18n.gettext('First name:')}>
+              <FormBlockField title={`${i18n.gettext('First name')}:`}>
                 {orderDetail.b_firstname}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Last name:')}>
+              <FormBlockField title={`${i18n.gettext('Last name')}:`}>
                 {orderDetail.b_lastname}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('E-mail:')}>
+              <FormBlockField title={`${i18n.gettext('E-mail')}:`}>
                 {orderDetail.email}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Phone:')}>
+              <FormBlockField title={`${i18n.gettext('Phone')}:`}>
                 {orderDetail.b_phone}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Address:')}>
+              <FormBlockField title={`${i18n.gettext('Address')}:`}>
                 {orderDetail.b_address} {orderDetail.b_address2}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('City:')}>
+              <FormBlockField title={`${i18n.gettext('City')}:`}>
                 {orderDetail.b_city}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Country:')}>
+              <FormBlockField title={`${i18n.gettext('Country')}:`}>
                 {foundCountry.name}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('State:')}>
+              <FormBlockField title={`${i18n.gettext('State')}:`}>
                 {foundState.name}
               </FormBlockField>
             </View>
@@ -305,38 +305,38 @@ class CheckoutComplete extends Component {
             buttonText={i18n.gettext('Show all').toUpperCase()}
             simpleView={(
               <View>
-                <FormBlockField title={i18n.gettext('First name:')}>
+                <FormBlockField title={`${i18n.gettext('First name')}:`}>
                   {orderDetail.s_firstname}
                 </FormBlockField>
-                <FormBlockField title={i18n.gettext('Last name:')}>
+                <FormBlockField title={`${i18n.gettext('Last name')}:`}>
                   {orderDetail.s_lastname}
                 </FormBlockField>
               </View>)
             }
           >
             <View>
-              <FormBlockField title={i18n.gettext('First name:')}>
+              <FormBlockField title={`${i18n.gettext('First name')}:`}>
                 {orderDetail.s_firstname}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Last name:')}>
+              <FormBlockField title={`${i18n.gettext('Last name')}:`}>
                 {orderDetail.s_lastname}
               </FormBlockField>
               <FormBlockField title={i18n.gettext('E-mail:')}>
                 {orderDetail.email}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Phone:')}>
+              <FormBlockField title={`${i18n.gettext('E-mail')}:`}>
                 {orderDetail.s_phone}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Address:')}>
+              <FormBlockField title={`${i18n.gettext('Address')}:`}>
                 {orderDetail.s_address} {orderDetail.s_address2}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('City:')}>
+              <FormBlockField title={`${i18n.gettext('City')}:`}>
                 {orderDetail.s_city}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('Country:')}>
+              <FormBlockField title={`${i18n.gettext('Country')}:`}>
                 {foundCountryShipping.name}
               </FormBlockField>
-              <FormBlockField title={i18n.gettext('State:')}>
+              <FormBlockField title={`${i18n.gettext('State')}:`}>
                 {foundStateShipping.name}
               </FormBlockField>
             </View>
