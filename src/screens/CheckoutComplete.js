@@ -324,7 +324,7 @@ class CheckoutComplete extends Component {
               <FormBlockField title={i18n.gettext('E-mail:')}>
                 {orderDetail.email}
               </FormBlockField>
-              <FormBlockField title={`${i18n.gettext('E-mail')}:`}>
+              <FormBlockField title={`${i18n.gettext('Phone')}:`}>
                 {orderDetail.s_phone}
               </FormBlockField>
               <FormBlockField title={`${i18n.gettext('Address')}:`}>
