@@ -6,15 +6,12 @@ import * as wishListActions from '../../src/actions/wishListActions';
 import {
   WISH_LIST_FETCH_REQUEST,
   WISH_LIST_FETCH_SUCCESS,
-  WISH_LIST_FETCH_FAIL,
 
   WISH_LIST_ADD_REQUEST,
   WISH_LIST_ADD_SUCCESS,
-  WISH_LIST_ADD_FAIL,
 
   WISH_LIST_REMOVE_REQUEST,
   WISH_LIST_REMOVE_SUCCESS,
-  WISH_LIST_REMOVE_FAIL,
 
   WISH_LIST_CLEAR,
 
@@ -36,7 +33,7 @@ describe('async actions', () => {
       .get('/sra_wish_list')
       .query({
         sl: 'en',
-        items_per_page: 50,
+        items_per_page: 20,
         s_layouts: config.layoutId,
       })
       .reply(200, {
@@ -74,7 +71,7 @@ describe('async actions', () => {
       .post('/sra_wish_list')
       .query({
         sl: 'en',
-        items_per_page: 50,
+        items_per_page: 20,
         s_layouts: config.layoutId,
       })
       .reply(200, {
@@ -126,7 +123,7 @@ describe('async actions', () => {
       .delete(`/sra_wish_list/${cartID}`)
       .query({
         sl: 'en',
-        items_per_page: 50,
+        items_per_page: 20,
         s_layouts: config.layoutId,
       })
       .reply(200, {
@@ -160,7 +157,7 @@ describe('async actions', () => {
       .delete('/sra_wish_list/')
       .query({
         sl: 'en',
-        items_per_page: 50,
+        items_per_page: 20,
         s_layouts: config.layoutId,
       })
       .reply(200, {

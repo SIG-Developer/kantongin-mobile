@@ -13,7 +13,8 @@ describe('Search reducer', () => {
         page: 1,
       },
       items: [],
-      fetching: true,
+      fetching: false,
+      hasMore: false,
     };
 
     expect(reducer(undefined, {})).toEqual(initialState);

@@ -2,12 +2,9 @@ import reducer from '../../src/reducers/cart';
 import {
   CART_REQUEST,
   CART_SUCCESS,
-
   CART_CONTENT_SUCCESS,
-  CART_CONTENT_SAVE,
-
+  CART_CONTENT_SAVE_SUCCESS,
   CART_CLEAR_SUCCESS,
-
   CHANGE_AMOUNT,
 } from '../../src/constants';
 
@@ -79,13 +76,13 @@ describe('Cart reducer', () => {
   });
 
 
-  it('should handle CART_CONTENT_SAVE', () => {
+  it('should handle CART_CONTENT_SAVE_SUCCESS', () => {
     expect(reducer({
       user_data: {
         username: 'name',
       }
     }, {
-      type: CART_CONTENT_SAVE,
+      type: CART_CONTENT_SAVE_SUCCESS,
       payload: {
         username: 'new_name',
       },

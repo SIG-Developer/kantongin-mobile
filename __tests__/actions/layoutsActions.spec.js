@@ -15,19 +15,18 @@ const mockStore = configureStore(middlewares);
 
 describe('async actions', () => {
   afterEach(() => {
-    nock.cleanAll();
+    nock.restore();
   });
 
   const layoutId = 3;
-  const location = 'index.index';
 
   it('creates FETCH_LAYOUTS_BLOCKS_REQUEST, FETCH_LAYOUTS_BLOCKS_SUCCESS', () => {
     nock(config.baseUrl)
       .get('/sra_bm_layouts/3/sra_bm_locations/index.index/sra_bm_blocks')
       .query({
         sl: 'en',
-        items_per_page: 50,
-        s_layouts: config.layoutId,
+        items_per_page: 20,
+        s_layouts: layoutId,
       })
       .reply(200, {});
     const expectedActions = [
@@ -38,10 +37,9 @@ describe('async actions', () => {
       },
     ];
     const store = mockStore({ layouts: {} });
-    return store.dispatch(layoutsActions.fetch(layoutId, location))
+    return store.dispatch(layoutsActions.fetch(layoutId))
       .then(() => {
         expect(store.getActions()).toMatchObject(expectedActions);
       });
   });
 });
-

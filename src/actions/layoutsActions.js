@@ -28,4 +28,3 @@ export function fetch(layoutId, location = 'index.index') {
 }
 
 export function dummy() {}
-
