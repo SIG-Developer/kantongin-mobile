@@ -90,7 +90,11 @@ exports[`renders <WishList /> component correctly 1`] = `
                   Array [
                     Object {},
                     Object {
-                      "left": 0,
+                      "transform": Array [
+                        Object {
+                          "translateX": 0,
+                        },
+                      ],
                     },
                   ]
                 }
