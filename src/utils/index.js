@@ -2,6 +2,7 @@ import DeviceInfo from 'react-native-device-info';
 import { Dimensions } from 'react-native';
 import has from 'lodash/has';
 import get from 'lodash/get';
+import values from 'lodash/values';
 import countries from '../config/countries';
 
 // Calculate product image width and items count.
@@ -59,7 +60,7 @@ export const getImagePath = (data, size = '500x500') => {
   return null;
 };
 
-export const getProductImagesPaths = (data, size = '1000x1000') => {
+export const getProductImagesPaths = (data = {}, size = '1000x1000') => {
   const images = [];
   if (has(data, `main_pair.icons.${size}.image_path`)) {
     images.push(get(data, `main_pair.icons.${size}.image_path`));
@@ -67,7 +68,7 @@ export const getProductImagesPaths = (data, size = '1000x1000') => {
     images.push(get(data, 'main_pair.detailed.image_path'));
   }
 
-  Object.values(data.image_pairs).forEach((img) => {
+  values(data.image_pairs).forEach((img) => {
     if (has(img, `icons.${size}.image_path`)) {
       images.push(get(img, `icons.${size}.image_path`));
     } else if (has(img, 'detailed.image_path')) {
