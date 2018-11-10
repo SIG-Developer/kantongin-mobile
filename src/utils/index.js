@@ -43,14 +43,41 @@ export const formatPrice = (str) => {
   return str;
 };
 
-export const getImagePath = (data) => {
+export const getImagePath = (data, size = '500x500') => {
+  if (has(data, `main_pair.icons.${size}.image_path`)) {
+    return get(data, `main_pair.icons.${size}.image_path`);
+  }
+
   if (has(data, 'main_pair.detailed.image_path')) {
     return get(data, 'main_pair.detailed.image_path');
-  } else if (has(data, 'main_pair.icon.image_path')) {
+  }
+
+  if (has(data, 'main_pair.icon.image_path')) {
     return get(data, 'main_pair.icon.image_path');
   }
 
   return null;
+};
+
+export const getProductImagesPaths = (data, size = '1000x1000') => {
+  const images = [];
+  if (has(data, `main_pair.icons.${size}.image_path`)) {
+    images.push(get(data, `main_pair.icons.${size}.image_path`));
+  } else if (has(data, 'main_pair.detailed.image_path')) {
+    images.push(get(data, 'main_pair.detailed.image_path'));
+  }
+
+  Object.values(data.image_pairs).forEach((img) => {
+    if (has(img, `icons.${size}.image_path`)) {
+      images.push(get(img, `icons.${size}.image_path`));
+    } else if (has(img, 'detailed.image_path')) {
+      images.push(get(img, 'detailed.image_path'));
+    } else if (has(img, 'icon.image_path')) {
+      images.push(get(img, 'icon.image_path'));
+    }
+  });
+
+  return images;
 };
 
 export const toArray = obj => Object.keys(obj).map(k => obj[k]);

@@ -92,6 +92,7 @@ class Categories extends Component {
       products: [{}],
       subCategories: [],
       refreshing: false,
+      isLoadMoreRequest: false,
     };
 
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -197,12 +198,21 @@ class Categories extends Component {
 
   handleLoadMore() {
     const { products, productsActions } = this.props;
-    if (products.hasMore && !products.fetching && !this.isFirstLoad) {
+    const { isLoadMoreRequest } = this.state;
+
+    if (products.hasMore && !isLoadMoreRequest) {
+      this.setState({
+        isLoadMoreRequest: true,
+      });
       productsActions.fetchByCategory(
         this.activeCategoryId,
         products.params.page + 1,
         this.props.companyId
-      );
+      ).then(() => {
+        this.setState({
+          isLoadMoreRequest: false,
+        });
+      });
     }
   }
 
@@ -291,9 +301,10 @@ class Categories extends Component {
 
   renderList() {
     const { navigator } = this.props;
+    const { products, refreshing } = this.state;
     return (
       <FlatList
-        data={this.state.products}
+        data={products}
         keyExtractor={item => +item.product_id}
         ListHeaderComponent={() => this.renderHeader()}
         ListFooterComponent={() => this.renderFooter()}
@@ -311,8 +322,8 @@ class Categories extends Component {
           />
         )}
         onRefresh={() => this.handleRefresh()}
-        refreshing={this.state.refreshing}
-        onEndReachedThreshold={10}
+        refreshing={refreshing}
+        onEndReachedThreshold={1}
         onEndReached={() => this.handleLoadMore()}
         ListEmptyComponent={() => this.renderEmptyList()}
       />

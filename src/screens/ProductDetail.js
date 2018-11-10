@@ -15,8 +15,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Swiper from 'react-native-swiper';
-import { has } from 'lodash';
-import { stripTags, formatPrice } from '../utils';
+import { stripTags, formatPrice, getProductImagesPaths } from '../utils';
 
 // Import actions.
 import * as cartActions from '../actions/cartActions';
@@ -296,23 +295,13 @@ class ProductDetail extends Component {
       productDetail, navigator, vendors, discussion, auth,
     } = nextProps;
     const product = productDetail;
-    const images = [];
 
     if (!product) {
       return;
     }
 
     // If we haven't images put main image.
-    if (has(product, 'main_pair.detailed.image_path')) {
-      images.push(product.main_pair.detailed.image_path);
-      Object.values(product.image_pairs).map((img) => {
-        if (has(img, 'detailed.image_path')) {
-          images.push(img.detailed.image_path);
-        } else if (has(img, 'icon.image_path')) {
-          images.push(img.icon.image_path);
-        }
-      });
-    }
+    const images = getProductImagesPaths(product);
 
     // Fixme
     if (
