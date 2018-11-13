@@ -108,6 +108,7 @@ class CheckoutShipping extends Component {
     super(props);
 
     this.state = {
+      total: 0,
       items: [],
       shipping_id: {},
       isNextDisabled: true,
@@ -117,6 +118,8 @@ class CheckoutShipping extends Component {
   componentDidMount() {
     const { cart } = this.props;
     this.setDefaults(cart);
+
+    setTimeout(() => this.handleLoadInitial(), 500);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -126,15 +129,20 @@ class CheckoutShipping extends Component {
 
   setDefaults(cart) {
     const items = this.normalizeData(cart.product_groups);
-    const shippingsCount = [];
-    items.forEach((i) => {
-      if (i) {
-        i.shippings.forEach(s => shippingsCount.push(s));
+    const shippings = [];
+
+    items.forEach((item) => {
+      if (item) {
+        item.shippings.forEach((shipping) => {
+          shippings.push(shipping);
+        });
       }
     });
+
     this.setState({
       items,
-      isNextDisabled: shippingsCount.length === 0,
+      total: cart.subtotal_formatted.price,
+      isNextDisabled: shippings.length === 0,
     });
   }
 
@@ -160,6 +168,35 @@ class CheckoutShipping extends Component {
       });
       return item;
     });
+  }
+
+  handleLoadInitial() {
+    const { cartActions } = this.props;
+    const { items } = this.state;
+    const shippingsIds = {};
+    const shippings = [];
+
+    items.forEach((item) => {
+      if (item) {
+        item.shippings.forEach((shipping) => {
+          shippings.push(shipping);
+        });
+      }
+    });
+
+    shippings.forEach((shipping, index) => {
+      if (shipping.isSelected) {
+        shippingsIds[index] = shipping.shipping_id;
+      }
+    });
+
+    cartActions
+      .recalculateTotal(shippingsIds)
+      .then((data) => {
+        this.setState({
+          total: data.total_formatted.price,
+        });
+      });
   }
 
   handleNextPress() {
@@ -188,7 +225,13 @@ class CheckoutShipping extends Component {
     const selectedIds = {};
     selectedIds[`${itemIndex}`] = `${shipping.shipping_id}`;
 
-    cartActions.recalculateTotal(selectedIds);
+    cartActions
+      .recalculateTotal(selectedIds)
+      .then((data) => {
+        this.setState({
+          total: data.total_formatted.price,
+        });
+      });
 
     this.setState({
       items: newItems,
@@ -243,7 +286,7 @@ class CheckoutShipping extends Component {
   };
 
   render() {
-    const { items, isNextDisabled } = this.state;
+    const { items, isNextDisabled, total } = this.state;
     const { cart } = this.props;
 
     if (cart.fetching) {
@@ -269,7 +312,7 @@ class CheckoutShipping extends Component {
           ))}
         </ScrollView>
         <CartFooter
-          totalPrice={`${formatPrice(cart.subtotal_formatted.price)}`}
+          totalPrice={`${formatPrice(total)}`}
           btnText={i18n.gettext('Next').toUpperCase()}
           isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}
