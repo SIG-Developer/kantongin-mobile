@@ -205,8 +205,17 @@ class Orders extends Component {
           style: { color: '#c2c2c2' }
         };
 
+      case 'Y':
+        return {
+          text: i18n.gettext('Awaiting call'),
+          style: { color: '#b63a21' }
+        };
+
       default:
-        return null;
+        return {
+          text: i18n.gettext(''),
+          style: { color: '#000000' }
+        };
     }
   }
 

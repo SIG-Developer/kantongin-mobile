@@ -850,5 +850,6 @@
     "Phone": "Phone",
     "City": "City",
     "Country": "Country",
-    "State": "State"
+    "State": "State",
+    "Awaiting call": "Awaiting call"
 }
