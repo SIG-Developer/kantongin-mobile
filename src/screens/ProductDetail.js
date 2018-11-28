@@ -316,7 +316,11 @@ class ProductDetail extends Component {
 
     const defaultOptions = { ...this.state.selectedOptions };
     product.options.forEach((option) => {
-      defaultOptions[option.option_id] = option.variants[option.value];
+      if (option.variants[option.value]) {
+        defaultOptions[option.option_id] = option.variants[option.value];
+      } else if (Object.values(option.variants).length) {
+        defaultOptions[option.option_id] = Object.values(option.variants)[0];
+      }
     });
 
     // Get active discussion.
@@ -625,6 +629,7 @@ class ProductDetail extends Component {
     // FIXME: Brainfuck code to convert object to array.
     option.variants = Object.keys(option.variants).map(k => option.variants[k]);
     const defaultValue = selectedOptions[option.option_id];
+
     switch (item.option_type) {
       case 'I':
       case 'T':
@@ -638,6 +643,7 @@ class ProductDetail extends Component {
         );
 
       case 'S':
+      case 'R':
         return (
           <SelectOption
             option={option}
