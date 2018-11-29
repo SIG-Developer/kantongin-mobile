@@ -18,7 +18,7 @@ Google APIs Intel x86 Atom_64 System Image,
   export PATH = $ PATH: $ ANDROID_HOME / tools
   export PATH = $ PATH: $ ANDROID_HOME / platform-tools
 5. Create a signing key and run in the shell
-keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000 и положить ключь в корень ~/
+keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000 and put the key into root ~/
 6. Clone the repo and configure paths and keys to the server in the src / config / index.js file
 7. Install the dependencies: cd ./project && npm install
 8. Install npm install react-native-cli -g
